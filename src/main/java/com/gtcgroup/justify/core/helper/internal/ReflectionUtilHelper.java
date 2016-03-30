@@ -654,7 +654,6 @@ public class ReflectionUtilHelper {
 	 */
 	public static Scanner retrieveFileAsScanner(final String fileName) {
 
-		@SuppressWarnings("resource")
 		InputStream inputStream = null;
 		Scanner scanner;
 

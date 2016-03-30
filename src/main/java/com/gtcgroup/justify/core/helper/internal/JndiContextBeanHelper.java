@@ -79,7 +79,11 @@ public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
 	@Override
 	public void bind(final String name, final Object object) throws NamingException {
 
-		this.bindings.put(name, object);
+		try {
+			this.bindings.put(name, object);
+		} catch (final Exception e) {
+			System.out.println("\nUnable to bind (" + name + ") to portable JNDI container." + e.getMessage() + "\n");
+		}
 	}
 
 	/**
@@ -231,6 +235,13 @@ public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
 	 */
 	@Override
 	public Object lookup(final String name) throws NamingException {
+
+		try {
+			this.bindings.get(name);
+		} catch (final Exception e) {
+			System.out
+					.println("\nUnable to return (" + name + ") from portable JNDI container." + e.getMessage() + "\n");
+		}
 
 		return this.bindings.get(name);
 	}
