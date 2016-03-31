@@ -38,6 +38,7 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
 import com.gtcgroup.justify.core.exception.internal.MethodNotSupportedException;
+import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
 import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
 
 /**
@@ -82,7 +83,7 @@ public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
 		try {
 			this.bindings.put(name, object);
 		} catch (final Exception e) {
-			System.out.println("\nUnable to bind (" + name + ") to portable JNDI container." + e.getMessage() + "\n");
+			throw new TestingRuntimeException(e);
 		}
 	}
 
@@ -239,10 +240,8 @@ public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
 		try {
 			this.bindings.get(name);
 		} catch (final Exception e) {
-			System.out
-					.println("\nUnable to return (" + name + ") from portable JNDI container." + e.getMessage() + "\n");
+			throw new TestingRuntimeException(e);
 		}
-
 		return this.bindings.get(name);
 	}
 

@@ -28,10 +28,9 @@ package com.gtcgroup.justify.core.helper;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
-import com.gtcgroup.justify.core.helper.internal.PortableInitialContextCachingFactory;
+import com.gtcgroup.justify.core.helper.internal.java.javaURLContextFactory;
 import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
 
 /**
@@ -51,24 +50,18 @@ public class JstJndiUtilHelper extends BaseBeanHelper {
 	private static Context portableInitialContextFactory;
 
 	static {
-		System.setProperty("java.naming.factory.initial", PortableInitialContextCachingFactory.class.getName());
+		System.setProperty("java.naming.factory.initial", javaURLContextFactory.class.getName());
+		// The following enables the use of IBM's WAS 8 implementation.
+		System.setProperty("java.naming.factory.url.pkgs", "com.gtcgroup.justify.core.helper.internal");
 
 		try {
 			JstJndiUtilHelper.portableInitialContextFactory = new InitialContext();
 
-		} catch (@SuppressWarnings("unused") final NamingException e) {
+		} catch (final Exception e) {
 
 			// Should never happen.
+			throw new TestingRuntimeException(e);
 		}
-	}
-
-	/**
-	 * Constructor
-	 */
-	private JstJndiUtilHelper() {
-
-		super();
-		return;
 	}
 
 	/**
@@ -107,5 +100,14 @@ public class JstJndiUtilHelper extends BaseBeanHelper {
 			throw new TestingRuntimeException(e);
 		}
 		return object;
+	}
+
+	/**
+	 * Constructor
+	 */
+	private JstJndiUtilHelper() {
+
+		super();
+		return;
 	}
 }

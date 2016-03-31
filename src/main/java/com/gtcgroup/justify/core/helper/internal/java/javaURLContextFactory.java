@@ -23,16 +23,21 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.helper.internal;
+package com.gtcgroup.justify.core.helper.internal.java;
 
 import java.util.Hashtable;
 
 import javax.naming.Context;
+import javax.naming.Name;
 import javax.naming.NamingException;
 import javax.naming.spi.InitialContextFactory;
+import javax.naming.spi.ObjectFactory;
+
+import com.gtcgroup.justify.core.helper.internal.JndiContextBeanHelper;
 
 /**
- * See {@link InitialContextFactory}.
+ * See {@link InitialContextFactory}. This class has a crazy name in order to
+ * support IBM's WAS 8 implementation.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -42,19 +47,31 @@ import javax.naming.spi.InitialContextFactory;
  * @author Marvin Toll
  * @since v3.0
  */
-public class PortableInitialContextCachingFactory implements InitialContextFactory {
+public class javaURLContextFactory implements InitialContextFactory, ObjectFactory {
 
 	private static JndiContextBeanHelper jndiContextBeanHelper;
 
 	/**
-	 * @see PortableInitialContextCachingFactory#getInitialContext(java.util.Hashtable)
+	 * @see javaURLContextFactory#getInitialContext(java.util.Hashtable)
 	 */
 	@Override
-	public synchronized Context getInitialContext(final Hashtable<?, ?> portableInitialContextFactory) throws NamingException {
+	public synchronized Context getInitialContext(final Hashtable<?, ?> portableInitialContextFactory)
+			throws NamingException {
 
-		if (PortableInitialContextCachingFactory.jndiContextBeanHelper == null) {
-			PortableInitialContextCachingFactory.jndiContextBeanHelper = new JndiContextBeanHelper();
+		if (javaURLContextFactory.jndiContextBeanHelper == null) {
+			javaURLContextFactory.jndiContextBeanHelper = new JndiContextBeanHelper();
 		}
-		return PortableInitialContextCachingFactory.jndiContextBeanHelper;
+		return javaURLContextFactory.jndiContextBeanHelper;
+	}
+
+	/**
+	 * @see javax.naming.spi.ObjectFactory#getObjectInstance(java.lang.Object,
+	 *      javax.naming.Name, javax.naming.Context, java.util.Hashtable)
+	 */
+	@Override
+	public Object getObjectInstance(final Object obj, final Name name, final Context nameCtx,
+			final Hashtable<?, ?> environment) throws Exception {
+
+		return getInitialContext(environment);
 	}
 }
