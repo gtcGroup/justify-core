@@ -29,7 +29,7 @@ package com.gtcgroup.justify.core.pattern.palette.internal;
 import java.io.Serializable;
 
 /**
- * This Domain Entity base class provides support for entity identity.
+ * This Business Facade base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -43,73 +43,6 @@ public abstract class BaseDE extends BaseClass implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private final Object entityIdentity = assignEntityIdentityInstanceTM();
-
-	/**
-	 * @see Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		final BaseDE other = (BaseDE) obj;
-		if (getEntityIdentity() == null) {
-			if (other.getEntityIdentity() != null) {
-				return false;
-			}
-		} else if (!getEntityIdentity().equals(other.getEntityIdentity())) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * @return {@link Object}
-	 */
-	public Object getEntityIdentity() {
-
-		return this.entityIdentity;
-	}
-
-	/**
-	 * @see Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (getEntityIdentity() == null ? 0 : getEntityIdentity().hashCode());
-		return result;
-	}
-
-	/**
-	 * @return {@link String}
-	 */
-	public abstract String retrieveEntityIdentityAsString();
-
-	/**
-	 * @see Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "[Entity Identity = " + retrieveEntityIdentityAsString() + "]";
-	}
-
-	/**
-	 * @return {@link Object}
-	 */
-	protected abstract Object assignEntityIdentityInstanceTM();
-
-	/**
-	 * @see BaseClass#assignPatternSuffixTM()
-	 */
 	@Override
 	protected String assignPatternSuffixTM() {
 

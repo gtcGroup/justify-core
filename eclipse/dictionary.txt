@@ -63,3 +63,6 @@ util
 serializable
 organisation
 interceptors
+org
+junit
+rev

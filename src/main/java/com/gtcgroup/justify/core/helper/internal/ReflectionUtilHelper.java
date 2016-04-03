@@ -442,59 +442,6 @@ public class ReflectionUtilHelper {
 	}
 
 	/**
-	 * This method iterates through an array of constructors in pursuit of a no
-	 * argument version.
-	 *
-	 * @param constructors
-	 * @return {@link Constructor}
-	 */
-	private static Constructor<?> iterateForNonPublicConstructorNoArgument(final Constructor<?>[] constructors) {
-
-		Constructor<?> constructorTemp = null;
-
-		for (final Constructor<?> constructor : constructors) {
-
-			// Determine if there is a no argument constructor.
-			if (0 == constructor.getParameterTypes().length) {
-
-				// Determine if it is accessible.
-				verifyConstructorAccessible(constructor);
-
-				// Determine if it is *not* public.
-				if (!Modifier.isPublic(constructor.getModifiers())) {
-
-					constructorTemp = constructor;
-					break;
-				}
-			}
-		}
-		return constructorTemp;
-	}
-
-	/**
-	 * @param constructors
-	 * @return {@link Constructor}
-	 */
-	private static Constructor<?> iterateForPublicConstructorNoArgument(final Constructor<?>[] constructors) {
-
-		Constructor<?> constructorTemp = null;
-
-		for (final Constructor<?> constructor : constructors) {
-
-			// Determine if there is a no argument constructor.
-			if (0 == constructor.getParameterTypes().length) {
-
-				// Determine if it is accessible.
-				ReflectionUtilHelper.verifyConstructorAccessible(constructor);
-
-				constructorTemp = constructor;
-				break;
-			}
-		}
-		return constructorTemp;
-	}
-
-	/**
 	 * @param className
 	 * @return Class
 	 * @throws ClassNotFoundException
@@ -730,19 +677,6 @@ public class ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param className
-	 * @param exception
-	 * @param suppressException
-	 */
-	private static void throwTestingRuntimeException(final String message, final boolean suppressException) {
-
-		if (!suppressException) {
-
-			throw new TestingRuntimeException(message);
-		}
-	}
-
-	/**
 	 * @param constructor
 	 */
 	public static void verifyConstructorAccessible(final Constructor<?> constructor) {
@@ -771,6 +705,72 @@ public class ReflectionUtilHelper {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * This method iterates through an array of constructors in pursuit of a no
+	 * argument version.
+	 *
+	 * @param constructors
+	 * @return {@link Constructor}
+	 */
+	private static Constructor<?> iterateForNonPublicConstructorNoArgument(final Constructor<?>[] constructors) {
+
+		Constructor<?> constructorTemp = null;
+
+		for (final Constructor<?> constructor : constructors) {
+
+			// Determine if there is a no argument constructor.
+			if (0 == constructor.getParameterTypes().length) {
+
+				// Determine if it is accessible.
+				verifyConstructorAccessible(constructor);
+
+				// Determine if it is *not* public.
+				if (!Modifier.isPublic(constructor.getModifiers())) {
+
+					constructorTemp = constructor;
+					break;
+				}
+			}
+		}
+		return constructorTemp;
+	}
+
+	/**
+	 * @param constructors
+	 * @return {@link Constructor}
+	 */
+	private static Constructor<?> iterateForPublicConstructorNoArgument(final Constructor<?>[] constructors) {
+
+		Constructor<?> constructorTemp = null;
+
+		for (final Constructor<?> constructor : constructors) {
+
+			// Determine if there is a no argument constructor.
+			if (0 == constructor.getParameterTypes().length) {
+
+				// Determine if it is accessible.
+				ReflectionUtilHelper.verifyConstructorAccessible(constructor);
+
+				constructorTemp = constructor;
+				break;
+			}
+		}
+		return constructorTemp;
+	}
+
+	/**
+	 * @param className
+	 * @param exception
+	 * @param suppressException
+	 */
+	private static void throwTestingRuntimeException(final String message, final boolean suppressException) {
+
+		if (!suppressException) {
+
+			throw new TestingRuntimeException(message);
+		}
 	}
 
 	private ReflectionUtilHelper() {
