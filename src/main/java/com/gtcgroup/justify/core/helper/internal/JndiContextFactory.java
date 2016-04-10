@@ -23,7 +23,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.helper.internal.java;
+package com.gtcgroup.justify.core.helper.internal;
 
 import java.util.Hashtable;
 
@@ -33,11 +33,8 @@ import javax.naming.NamingException;
 import javax.naming.spi.InitialContextFactory;
 import javax.naming.spi.ObjectFactory;
 
-import com.gtcgroup.justify.core.helper.internal.JndiContextBeanHelper;
-
 /**
- * See {@link InitialContextFactory}. This class has a crazy name in order to
- * support IBM's WAS 8 implementation.
+ * See {@link InitialContextFactory}.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -47,21 +44,21 @@ import com.gtcgroup.justify.core.helper.internal.JndiContextBeanHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class javaURLContextFactory implements InitialContextFactory, ObjectFactory {
+public class JndiContextFactory implements InitialContextFactory, ObjectFactory {
 
 	private static JndiContextBeanHelper jndiContextBeanHelper;
 
 	/**
-	 * @see javaURLContextFactory#getInitialContext(java.util.Hashtable)
+	 * @see JndiContextFactory#getInitialContext(java.util.Hashtable)
 	 */
 	@Override
 	public synchronized Context getInitialContext(final Hashtable<?, ?> portableInitialContextFactory)
 			throws NamingException {
 
-		if (javaURLContextFactory.jndiContextBeanHelper == null) {
-			javaURLContextFactory.jndiContextBeanHelper = new JndiContextBeanHelper();
+		if (JndiContextFactory.jndiContextBeanHelper == null) {
+			JndiContextFactory.jndiContextBeanHelper = new JndiContextBeanHelper();
 		}
-		return javaURLContextFactory.jndiContextBeanHelper;
+		return JndiContextFactory.jndiContextBeanHelper;
 	}
 
 	/**

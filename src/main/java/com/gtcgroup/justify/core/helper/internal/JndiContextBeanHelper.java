@@ -237,12 +237,14 @@ public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
 	@Override
 	public Object lookup(final String name) throws NamingException {
 
+		Object object;
+
 		try {
-			this.bindings.get(name);
+			object = this.bindings.get(name);
 		} catch (final Exception e) {
 			throw new TestingRuntimeException(e);
 		}
-		return this.bindings.get(name);
+		return object;
 	}
 
 	/**

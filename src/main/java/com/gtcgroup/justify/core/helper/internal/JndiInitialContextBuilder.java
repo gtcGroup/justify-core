@@ -23,65 +23,34 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.helper.internal;
 
-package com.gtcgroup.justify.core.exception.internal;
+import java.util.Hashtable;
 
-import com.gtcgroup.justify.core.pattern.palette.internal.BaseException;
+import javax.naming.NamingException;
+import javax.naming.spi.InitialContextFactory;
+import javax.naming.spi.InitialContextFactoryBuilder;
 
 /**
- * This Exception class may be used to ensure that notifications occur once and
- * only once.
+ * See {@link InitialContextFactoryBuilder}.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author Marvin Toll
- * @since v3.0
+ * @author
+ * @since v.6.0
  */
-public class TestingRuntimeException extends BaseException {
-
-	private static final long serialVersionUID = 1L;
-
-	private static String formulateExceptionMessage(final Throwable exception, final StringBuilder message) {
-
-		if (null == exception.getCause()) {
-
-			message.append("\n\n\tCausal exception: " + exception.getClass().getName() + "\n\tA causal message: "
-					+ exception.getMessage() + "\n");
-
-			exception.printStackTrace();
-
-			return message.toString();
-		}
-
-		message.append("\n\n\tCausal exception: " + exception.getClass().getName() + "\n\tA causal message: "
-				+ exception.getMessage() + "\n");
-
-		exception.printStackTrace();
-
-		return formulateExceptionMessage(exception.getCause(), message);
-
-	}
+public class JndiInitialContextBuilder implements InitialContextFactoryBuilder {
 
 	/**
-	 * Constructor
-	 *
-	 * @param message
+	 * @see javax.naming.spi.InitialContextFactoryBuilder#createInitialContextFactory(java.util.Hashtable)
 	 */
-	public TestingRuntimeException(final String message) {
+	@Override
+	public InitialContextFactory createInitialContextFactory(final Hashtable<?, ?> environment) throws NamingException {
 
-		super(message);
+		return new JndiContextFactory();
 	}
 
-	/**
-	 * Constructor
-	 *
-	 * @param exception
-	 */
-	public TestingRuntimeException(final Throwable exception) {
-
-		super(formulateExceptionMessage(exception, new StringBuilder()));
-	}
 }

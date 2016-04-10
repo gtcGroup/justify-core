@@ -27,10 +27,11 @@
 package com.gtcgroup.justify.core.helper;
 
 import javax.naming.Context;
-import javax.naming.InitialContext;
+import javax.naming.spi.NamingManager;
 
 import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
-import com.gtcgroup.justify.core.helper.internal.java.javaURLContextFactory;
+import com.gtcgroup.justify.core.helper.internal.JndiContextBeanHelper;
+import com.gtcgroup.justify.core.helper.internal.JndiInitialContextBuilder;
 import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
 
 /**
@@ -50,12 +51,11 @@ public class JstJndiUtilHelper extends BaseBeanHelper {
 	private static Context portableInitialContextFactory;
 
 	static {
-		System.setProperty("java.naming.factory.initial", javaURLContextFactory.class.getName());
-		// The following enables the use of IBM's WAS 8 implementation.
-		System.setProperty("java.naming.factory.url.pkgs", "com.gtcgroup.justify.core.helper.internal");
 
 		try {
-			JstJndiUtilHelper.portableInitialContextFactory = new InitialContext();
+			NamingManager.setInitialContextFactoryBuilder(new JndiInitialContextBuilder());
+
+			JstJndiUtilHelper.portableInitialContextFactory = new JndiContextBeanHelper();
 
 		} catch (final Exception e) {
 
@@ -98,6 +98,11 @@ public class JstJndiUtilHelper extends BaseBeanHelper {
 		} catch (final Exception e) {
 
 			throw new TestingRuntimeException(e);
+		}
+
+		if (null == object) {
+			throw new TestingRuntimeException(
+					"The name [" + name + "] is not available in the portable JNDI container.");
 		}
 		return object;
 	}
