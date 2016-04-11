@@ -108,6 +108,24 @@ public class JstJndiUtilHelper extends BaseBeanHelper {
 	}
 
 	/**
+	 * @see Context#bind(String, Object)
+	 *
+	 * @param name
+	 * @param object
+	 */
+	public static void rebind(final String name, final Object object) {
+
+		try {
+
+			JstJndiUtilHelper.portableInitialContextFactory.rebind(name, object);
+
+		} catch (final Exception e) {
+
+			throw new TestingRuntimeException(e);
+		}
+	}
+
+	/**
 	 * Constructor
 	 */
 	private JstJndiUtilHelper() {

@@ -75,13 +75,13 @@ public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
 	}
 
 	/**
-	 * @see Context#bind(java.lang.String, java.lang.Object)
+	 * @see Context#bind(String, Object)
 	 */
 	@Override
-	public void bind(final String name, final Object object) throws NamingException {
+	public void bind(final String nameString, final Object object) throws NamingException {
 
 		try {
-			this.bindings.put(name, object);
+			this.bindings.put(nameString, object);
 		} catch (final Exception e) {
 			throw new TestingRuntimeException(e);
 		}
@@ -275,12 +275,12 @@ public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
 	}
 
 	/**
-	 * @see Context#rebind(java.lang.String, java.lang.Object)
+	 * @see Context#rebind(String, Object)
 	 */
 	@Override
-	public void rebind(final String s, final Object o) throws NamingException {
+	public void rebind(final String nameString, final Object object) throws NamingException {
 
-		throw new MethodNotSupportedException();
+		bind(nameString, object);
 	}
 
 	/**
