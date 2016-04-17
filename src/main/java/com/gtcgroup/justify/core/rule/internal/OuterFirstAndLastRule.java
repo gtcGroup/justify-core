@@ -50,7 +50,7 @@ public class OuterFirstAndLastRule extends BasePerformanceRule {
 		System.err.println("\t\tFailure Message--> "
 				+ RuleChainCacheHelper.getRuleChainHelper().getAssertionFailure().getMessage());
 
-		displayMethodFooter("Assertion Failure", 0);
+		DisplayRuleMessagesUtilHelper.displayMethodFooter("Assertion Failure", 0);
 
 		return;
 	}
@@ -60,7 +60,7 @@ public class OuterFirstAndLastRule extends BasePerformanceRule {
 		DisplayRuleMessagesUtilHelper.displayException(
 				RuleChainCacheHelper.getRuleChainHelper().getExceptionErrorDuringAfter(), "RULE EXCEPTION");
 
-		displayMethodFooter("Rule Error - Occurred AFTER the Test Method", 0);
+		DisplayRuleMessagesUtilHelper.displayMethodFooter("Rule Error - Occurred AFTER the Test Method", 0);
 
 		return;
 	}
@@ -70,7 +70,7 @@ public class OuterFirstAndLastRule extends BasePerformanceRule {
 		DisplayRuleMessagesUtilHelper.displayException(
 				RuleChainCacheHelper.getRuleChainHelper().getExceptionErrorDuringBefore(), "RULE EXCEPTION");
 
-		displayMethodFooter("Rule Error - Occurred BEFORE the Test Method", 0);
+		DisplayRuleMessagesUtilHelper.displayMethodFooter("Rule Error - Occurred BEFORE the Test Method", 0);
 
 		return;
 	}
@@ -80,36 +80,7 @@ public class OuterFirstAndLastRule extends BasePerformanceRule {
 		DisplayRuleMessagesUtilHelper.displayException(
 				RuleChainCacheHelper.getRuleChainHelper().getExceptionErrorDuringTestMethod(), "TEST METHOD EXCEPTION");
 
-		displayMethodFooter("Error", 0);
-
-		return;
-	}
-
-	/**
-	 * @param description
-	 * @param status
-	 * @param methodTimer
-	 */
-	private static void displayMethodFooter(final String status, final long elapsedNanoSeconds) {
-
-		// Interrupt logging (briefly) to help ensure readability.
-		try {
-			Thread.sleep(2);
-		} catch (@SuppressWarnings("unused") final InterruptedException e) {
-			// Ignore
-		}
-
-		DisplayRuleMessagesUtilHelper.displayMethodFooter(status,
-				RuleChainCacheHelper.getRuleChainHelper().getDescription(), elapsedNanoSeconds,
-				RuleChainCacheHelper.getRuleChainHelper().getRulesDisplayedInMethodFooter().toString());
-	}
-
-	private static void displaySucceedFooter() {
-
-		DisplayRuleMessagesUtilHelper.displayMethodFooter("Succeeded",
-				RuleChainCacheHelper.getRuleChainHelper().getDescription(),
-				BasePerformanceRule.methodTimer.calculateElapsedNanoSeconds(),
-				RuleChainCacheHelper.getRuleChainHelper().getRulesDisplayedInMethodFooter().toString());
+		DisplayRuleMessagesUtilHelper.displayMethodFooter("Error", 0);
 
 		return;
 	}
@@ -152,7 +123,7 @@ public class OuterFirstAndLastRule extends BasePerformanceRule {
 			throw RuleChainCacheHelper.getRuleChainHelper().getExceptionErrorDuringAfter();
 		}
 
-		displaySucceedFooter();
+		DisplayRuleMessagesUtilHelper.displaySucceedFooter(BasePerformanceRule.methodTimer);
 
 		return;
 	}

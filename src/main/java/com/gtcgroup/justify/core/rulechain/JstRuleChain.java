@@ -50,15 +50,6 @@ import com.gtcgroup.justify.core.si.RuleChainSI;
 public class JstRuleChain implements RuleChainSI {
 
 	/**
-	 * Constructor
-	 */
-	protected JstRuleChain() {
-
-		super();
-		return;
-	}
-
-	/**
 	 * @param <RC>
 	 * @return a {@code JstRuleChain}
 	 */
@@ -86,6 +77,15 @@ public class JstRuleChain implements RuleChainSI {
 		final JstRuleChain ruleChain = (JstRuleChain) outerRule();
 
 		return ruleChain.aroundList(testRuleList);
+	}
+
+	/**
+	 * Constructor
+	 */
+	protected JstRuleChain() {
+
+		super();
+		return;
 	}
 
 	/**

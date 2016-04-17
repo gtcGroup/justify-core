@@ -46,15 +46,6 @@ public class DisplayRuleMessagesUtilHelper {
 	private static boolean isSuiteHeaderDisplayed = false;
 
 	/**
-	 * Constructor
-	 */
-	private DisplayRuleMessagesUtilHelper() {
-
-		super();
-		return;
-	}
-
-	/**
 	 * @param exception
 	 */
 	public static void displayConstructorException(final Throwable exception) {
@@ -114,11 +105,41 @@ public class DisplayRuleMessagesUtilHelper {
 	}
 
 	/**
+	 * @param elapsedNanoSeconds
+	 * @param status
+	 */
+	public static void displayMethodFooter(final String status, final long elapsedNanoSeconds) {
+
+		// Interrupt logging (briefly) to help ensure readability.
+		try {
+			Thread.sleep(2);
+		} catch (@SuppressWarnings("unused") final InterruptedException e) {
+			// Ignore
+		}
+
+		DisplayRuleMessagesUtilHelper.displayMethodFooter(status,
+				RuleChainCacheHelper.getRuleChainHelper().getDescription(), elapsedNanoSeconds,
+				RuleChainCacheHelper.getRuleChainHelper().getRulesDisplayedInMethodFooter().toString());
+	}
+
+	/**
 	 * @param descriptionFromJUnit
 	 */
 	public static void displayMethodHeader(final Description descriptionFromJUnit) {
 
 		System.out.println("\n\t*** Test Method Begin: " + descriptionFromJUnit.getDisplayName() + " ***");
+	}
+
+	/**
+	 * @param methodTimer
+	 */
+	public static void displaySucceedFooter(final TimerBeanHelper methodTimer) {
+
+		DisplayRuleMessagesUtilHelper.displayMethodFooter("Succeeded",
+				RuleChainCacheHelper.getRuleChainHelper().getDescription(), methodTimer.calculateElapsedNanoSeconds(),
+				RuleChainCacheHelper.getRuleChainHelper().getRulesDisplayedInMethodFooter().toString());
+
+		return;
 	}
 
 	/**
@@ -138,6 +159,15 @@ public class DisplayRuleMessagesUtilHelper {
 		System.out.print(border.toString() + message + border.toString());
 
 		DisplayRuleMessagesUtilHelper.isSuiteHeaderDisplayed = true;
+	}
+
+	/**
+	 * Constructor
+	 */
+	private DisplayRuleMessagesUtilHelper() {
+
+		super();
+		return;
 	}
 
 }

@@ -26,7 +26,7 @@
 
 package com.gtcgroup.justify.core.exception.internal;
 
-import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
+import com.gtcgroup.justify.core.helper.internal.DisplayRuleMessagesUtilHelper;
 import com.gtcgroup.justify.core.pattern.palette.internal.BaseException;
 
 /**
@@ -41,7 +41,7 @@ import com.gtcgroup.justify.core.pattern.palette.internal.BaseException;
  * @author Marvin Toll
  * @since v3.0
  */
-public class BeforeTestMethodRuleException extends BaseException {
+public class TestingConstructorRuleException extends BaseException {
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,37 +50,11 @@ public class BeforeTestMethodRuleException extends BaseException {
 	 *
 	 * @param message
 	 */
-	public BeforeTestMethodRuleException(final String message) {
+	public TestingConstructorRuleException(final String message) {
 
 		super(message);
-		RuleChainCacheHelper.getRuleChainHelper().setExceptionErrorDuringBefore(this);
-		return;
-	}
-
-	/**
-	 * Constructor
-	 *
-	 * @param ruleClass
-	 * @param message
-	 */
-	public BeforeTestMethodRuleException(final String ruleClass, final String message) {
-
-		super(ruleClass, message);
-		RuleChainCacheHelper.getRuleChainHelper().setExceptionErrorDuringBefore(this);
-		return;
-	}
-
-	/**
-	 * Constructor
-	 *
-	 * @param ruleClass
-	 * @param message
-	 * @param exception
-	 */
-	public BeforeTestMethodRuleException(final String ruleClass, final String message, final Throwable exception) {
-
-		super(ruleClass, exception);
-		RuleChainCacheHelper.getRuleChainHelper().setExceptionErrorDuringBefore(this);
+		DisplayRuleMessagesUtilHelper.displaySuiteHeader();
+		DisplayRuleMessagesUtilHelper.displayConstructorException(this);
 		return;
 	}
 }

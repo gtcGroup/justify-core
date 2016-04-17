@@ -55,6 +55,21 @@ public class RuleChainBeanHelper extends BaseBeanHelper {
 	/** Enables determination of prior invocation. */
 	private static final List<String> SUITE_RULE_INSTANCE_LIST = new ArrayList<String>();
 
+	/**
+	 * @param testRule
+	 * @return {@link String}
+	 */
+	protected static String formatRuleKey(final UniqueForSuiteRuleSI testRule) {
+
+		final StringBuilder ruleKey = new StringBuilder();
+
+		ruleKey.append(testRule.getClass().getName());
+		ruleKey.append(": ");
+		ruleKey.append(testRule.uniqueSuiteIdentityTM());
+
+		return ruleKey.toString();
+	}
+
 	/** Used by {@link OuterFirstAndLastRule}. */
 	private AssertionError assertionFailure;
 
@@ -70,30 +85,12 @@ public class RuleChainBeanHelper extends BaseBeanHelper {
 	private Throwable exceptionErrorDuringBefore;
 
 	/** Used by {@link OuterFirstAndLastRule}. */
-	private Throwable exceptionErrorDuringConstructor;
-
-	/** Used by {@link OuterFirstAndLastRule}. */
 	private Throwable exceptionErrorDuringTestMethod;
 
 	private final List<TestRule> ruleList = new ArrayList<TestRule>();
 
 	/** Used by {@link OuterFirstAndLastRule}. */
 	private final StringBuilder rulesDisplayedInMethodFooter = new StringBuilder();
-
-	/**
-	 * @param testRule
-	 * @return {@link String}
-	 */
-	protected static String formatRuleKey(final UniqueForSuiteRuleSI testRule) {
-
-		final StringBuilder ruleKey = new StringBuilder();
-
-		ruleKey.append(testRule.getClass().getName());
-		ruleKey.append(": ");
-		ruleKey.append(testRule.uniqueSuiteIdentityTM());
-
-		return ruleKey.toString();
-	}
 
 	/**
 	 * @param testRule
@@ -149,13 +146,6 @@ public class RuleChainBeanHelper extends BaseBeanHelper {
 	 */
 	public Throwable getExceptionErrorDuringBefore() {
 		return this.exceptionErrorDuringBefore;
-	}
-
-	/**
-	 * @return Throwable
-	 */
-	public Throwable getExceptionErrorDuringConstructor() {
-		return this.exceptionErrorDuringConstructor;
 	}
 
 	/**
@@ -226,15 +216,6 @@ public class RuleChainBeanHelper extends BaseBeanHelper {
 	 */
 	public RuleChainBeanHelper setDescription(final Description description) {
 		this.description = description;
-		return this;
-	}
-
-	/**
-	 * @param exceptionErrorDuringConstructor
-	 * @return {@link RuleChainBeanHelper}
-	 */
-	public RuleChainBeanHelper setExceptionDuringConstructor(final Throwable exceptionErrorDuringConstructor) {
-		this.exceptionErrorDuringConstructor = exceptionErrorDuringConstructor;
 		return this;
 	}
 
