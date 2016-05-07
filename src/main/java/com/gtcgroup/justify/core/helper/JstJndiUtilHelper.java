@@ -30,7 +30,7 @@ import javax.naming.Context;
 import javax.naming.spi.NamingManager;
 
 import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
-import com.gtcgroup.justify.core.helper.internal.JndiContextBeanHelper;
+import com.gtcgroup.justify.core.helper.internal.JndiContextCacheHelper;
 import com.gtcgroup.justify.core.helper.internal.JndiInitialContextBuilder;
 import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
 
@@ -48,14 +48,10 @@ import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
 
 public class JstJndiUtilHelper extends BaseBeanHelper {
 
-	private static Context portableInitialContextFactory;
-
 	static {
 
 		try {
 			NamingManager.setInitialContextFactoryBuilder(new JndiInitialContextBuilder());
-
-			JstJndiUtilHelper.portableInitialContextFactory = new JndiContextBeanHelper();
 
 		} catch (final Exception e) {
 
@@ -72,14 +68,7 @@ public class JstJndiUtilHelper extends BaseBeanHelper {
 	 */
 	public static void bind(final String name, final Object object) {
 
-		try {
-
-			JstJndiUtilHelper.portableInitialContextFactory.bind(name, object);
-
-		} catch (final Exception e) {
-
-			throw new TestingRuntimeException(e);
-		}
+		JndiContextCacheHelper.INSTANCE.bind(name, object);
 	}
 
 	/**
@@ -90,15 +79,7 @@ public class JstJndiUtilHelper extends BaseBeanHelper {
 	 */
 	public static Object lookup(final String name) {
 
-		Object object;
-		try {
-
-			object = JstJndiUtilHelper.portableInitialContextFactory.lookup(name);
-
-		} catch (final Exception e) {
-
-			throw new TestingRuntimeException(e);
-		}
+		final Object object = JndiContextCacheHelper.INSTANCE.lookup(name);
 
 		if (null == object) {
 			throw new TestingRuntimeException(
@@ -115,14 +96,7 @@ public class JstJndiUtilHelper extends BaseBeanHelper {
 	 */
 	public static void rebind(final String name, final Object object) {
 
-		try {
-
-			JstJndiUtilHelper.portableInitialContextFactory.rebind(name, object);
-
-		} catch (final Exception e) {
-
-			throw new TestingRuntimeException(e);
-		}
+		JndiContextCacheHelper.INSTANCE.rebind(name, object);
 	}
 
 	/**

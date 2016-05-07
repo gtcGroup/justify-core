@@ -46,8 +46,6 @@ import javax.naming.spi.ObjectFactory;
  */
 public class JndiContextFactory implements InitialContextFactory, ObjectFactory {
 
-	private static JndiContextBeanHelper jndiContextBeanHelper;
-
 	/**
 	 * @see JndiContextFactory#getInitialContext(java.util.Hashtable)
 	 */
@@ -55,10 +53,7 @@ public class JndiContextFactory implements InitialContextFactory, ObjectFactory 
 	public synchronized Context getInitialContext(final Hashtable<?, ?> portableInitialContextFactory)
 			throws NamingException {
 
-		if (JndiContextFactory.jndiContextBeanHelper == null) {
-			JndiContextFactory.jndiContextBeanHelper = new JndiContextBeanHelper();
-		}
-		return JndiContextFactory.jndiContextBeanHelper;
+		return JndiContextCacheHelper.INSTANCE;
 	}
 
 	/**

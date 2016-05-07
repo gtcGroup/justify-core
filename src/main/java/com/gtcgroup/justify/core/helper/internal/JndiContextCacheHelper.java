@@ -39,7 +39,6 @@ import javax.naming.NamingException;
 
 import com.gtcgroup.justify.core.exception.internal.MethodNotSupportedException;
 import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
-import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
 
 /**
  * See {@link Context}.
@@ -52,7 +51,9 @@ import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
+public enum JndiContextCacheHelper implements Context {
+
+	@SuppressWarnings("javadoc") INSTANCE;
 
 	private final Map<String, Object> bindings = new HashMap<String, Object>();
 
@@ -78,7 +79,7 @@ public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
 	 * @see Context#bind(String, Object)
 	 */
 	@Override
-	public void bind(final String nameString, final Object object) throws NamingException {
+	public void bind(final String nameString, final Object object) {
 
 		try {
 			this.bindings.put(nameString, object);
@@ -235,7 +236,7 @@ public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
 	 * @see Context#lookup(java.lang.String)
 	 */
 	@Override
-	public Object lookup(final String name) throws NamingException {
+	public Object lookup(final String name) {
 
 		Object object;
 
@@ -278,7 +279,7 @@ public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
 	 * @see Context#rebind(String, Object)
 	 */
 	@Override
-	public void rebind(final String nameString, final Object object) throws NamingException {
+	public void rebind(final String nameString, final Object object) {
 
 		bind(nameString, object);
 	}
@@ -327,4 +328,5 @@ public class JndiContextBeanHelper extends BaseBeanHelper implements Context {
 
 		throw new MethodNotSupportedException();
 	}
+
 }
