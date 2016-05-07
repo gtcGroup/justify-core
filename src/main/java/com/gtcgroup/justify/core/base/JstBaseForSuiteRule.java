@@ -28,7 +28,7 @@ package com.gtcgroup.justify.core.base;
 import org.junit.Rule;
 
 import com.gtcgroup.justify.core.pattern.palette.internal.BaseRule;
-import com.gtcgroup.justify.core.si.UniqueForSuiteRuleSI;
+import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
 
 /**
  * This {@link Rule} base class finalizes the "afterTM" method.
@@ -41,7 +41,7 @@ import com.gtcgroup.justify.core.si.UniqueForSuiteRuleSI;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseForSuiteRule extends BaseRule implements UniqueForSuiteRuleSI {
+public abstract class JstBaseForSuiteRule extends BaseRule implements JstUniqueForSuiteRuleSI {
 
 	/**
 	 * @see BaseRule#afterTM()

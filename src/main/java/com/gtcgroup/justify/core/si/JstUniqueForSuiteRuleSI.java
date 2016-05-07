@@ -40,7 +40,7 @@ import com.gtcgroup.justify.core.pattern.palette.internal.BaseSI;
  * @author Marvin Toll
  * @since v.3.0
  */
-public interface UniqueForSuiteRuleSI extends BaseSI {
+public interface JstUniqueForSuiteRuleSI extends BaseSI {
 
 	/**
 	 * This Template Method provides enough uniqueness for only one execution

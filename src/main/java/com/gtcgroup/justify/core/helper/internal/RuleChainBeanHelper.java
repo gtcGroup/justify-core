@@ -37,7 +37,7 @@ import org.junit.runner.Description;
 import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
 import com.gtcgroup.justify.core.rule.internal.InnerLastAndFirstRule;
 import com.gtcgroup.justify.core.rule.internal.OuterFirstAndLastRule;
-import com.gtcgroup.justify.core.si.UniqueForSuiteRuleSI;
+import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
 
 /**
  * This Bean Helper class supports {@link Rule} processing.
@@ -59,7 +59,7 @@ public class RuleChainBeanHelper extends BaseBeanHelper {
 	 * @param testRule
 	 * @return {@link String}
 	 */
-	protected static String formatRuleKey(final UniqueForSuiteRuleSI testRule) {
+	protected static String formatRuleKey(final JstUniqueForSuiteRuleSI testRule) {
 
 		final StringBuilder ruleKey = new StringBuilder();
 
@@ -185,7 +185,7 @@ public class RuleChainBeanHelper extends BaseBeanHelper {
 	 * @param testRule
 	 * @return boolean
 	 */
-	public boolean isRuleAlreadyInvoked(final UniqueForSuiteRuleSI testRule) {
+	public boolean isRuleAlreadyInvoked(final JstUniqueForSuiteRuleSI testRule) {
 
 		boolean result = false;
 

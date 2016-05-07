@@ -27,7 +27,7 @@ package com.gtcgroup.justify.core.rule;
 
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
 import com.gtcgroup.justify.core.base.JstBaseForSuiteRule;
-import com.gtcgroup.justify.core.si.UniqueForSuiteRuleSI;
+import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
 
 /**
  * This Rule class initializes a system property.
@@ -71,7 +71,7 @@ public class JstConfigureSystemPropertyForSuiteRule extends JstBaseForSuiteRule 
 	}
 
 	/**
-	 * @see UniqueForSuiteRuleSI#uniqueSuiteIdentityTM()
+	 * @see JstUniqueForSuiteRuleSI#uniqueSuiteIdentityTM()
 	 */
 	@Override
 	public String uniqueSuiteIdentityTM() {

@@ -42,20 +42,20 @@ import com.gtcgroup.justify.core.rulechain.JstRuleChain;
  * @author Marvin Toll
  * @since v.3.0
  */
-public interface RuleChainSI extends TestRule {
+public interface JstRuleChainSI extends TestRule {
 
 	/**
 	 * @param <RC>
 	 * @param testRule
 	 * @return {@link TestRule}
 	 */
-	public <RC extends RuleChainSI> RC around(final TestRule testRule);
+	public <RC extends JstRuleChainSI> RC around(final TestRule testRule);
 
 	/**
 	 * @param <RC>
 	 * @param testRuleList
 	 * @return {@link JstRuleChain}
 	 */
-	public <RC extends RuleChainSI> RC aroundList(final List<TestRule> testRuleList);
+	public <RC extends JstRuleChainSI> RC aroundList(final List<TestRule> testRuleList);
 
 }

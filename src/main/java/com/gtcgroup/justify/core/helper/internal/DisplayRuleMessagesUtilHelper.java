@@ -29,6 +29,8 @@ package com.gtcgroup.justify.core.helper.internal;
 import org.junit.Rule;
 import org.junit.runner.Description;
 
+import com.gtcgroup.justify.core.rulechain.JstRuleChain;
+
 /**
  * This Util Helper class provides support for {@link Rule} processing.
  *
@@ -150,6 +152,35 @@ public class DisplayRuleMessagesUtilHelper {
 		if (DisplayRuleMessagesUtilHelper.isSuiteHeaderDisplayed) {
 
 			return;
+		}
+
+		if (!JstRuleChain.suppressExampleExecutionSequence) {
+
+			final String exampleMessage = "\t* Example Execution Sequence  - {suppress example with outerRule(true)} *";
+
+			final StringBuilder border = ConversionUtilHelper.convertMessageLengthToBorder(exampleMessage);
+
+			System.out.print(border.toString() + exampleMessage + border.toString());
+
+			final StringBuilder doco = new StringBuilder();
+
+			doco.append("\t  Rules: [FirstForMethodRule] [SecondForMethodRule] [ThirdForSuiteRule]\n\n");
+
+			doco.append("\t\t0 - @BeforeClass\n");
+			doco.append("\t\t1 - FirstForMethodRule.beforeTM()\n");
+			doco.append("\t\t2 - SecondForMethodRule.beforeTM()\n");
+			doco.append("\t\t3 - ThirdForSuiteRule.beforeTM()\n");
+			doco.append("\t*** Test Method Begin ***\n");
+			doco.append("\t\t4 - @Before\n");
+			doco.append("\t\t5 - Test Method Invocation\n");
+			doco.append("\t\t6 - @After\n");
+			doco.append("\t\t7 - SecondForMethodRule.afterTM()\n");
+			doco.append("\t\t8 - FirstForMethodRule.afterTM()\n");
+			doco.append("\t*** Test Method End ***\n");
+
+			doco.append("\t\t9 - @AfterClass");
+
+			System.out.println(doco.toString());
 		}
 
 		final String message = "\t* Welcome to the JUnit Strategy for Testing [JUST] *";

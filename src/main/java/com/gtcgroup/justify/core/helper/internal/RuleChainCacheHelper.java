@@ -34,8 +34,8 @@ import com.gtcgroup.justify.core.exception.internal.TestingConstructorRuleExcept
 import com.gtcgroup.justify.core.rule.internal.InnerLastAndFirstRule;
 import com.gtcgroup.justify.core.rule.internal.OuterFirstAndLastRule;
 import com.gtcgroup.justify.core.rulechain.JstRuleChain;
-import com.gtcgroup.justify.core.si.RuleChainSI;
-import com.gtcgroup.justify.core.si.UniqueForSuiteRuleSI;
+import com.gtcgroup.justify.core.si.JstRuleChainSI;
+import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
 
 /**
  * This Cache Helper supports the {@link JstRuleChain}.
@@ -62,16 +62,16 @@ public enum RuleChainCacheHelper {
 	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
-	public static <RC extends RuleChainSI> RC aroundProcessing(final TestRule testRule, final RuleChainSI ruleChain) {
+	public static <RC extends JstRuleChainSI> RC aroundProcessing(final TestRule testRule, final JstRuleChainSI ruleChain) {
 
 		if (testRule instanceof RuleChain) {
 
 			throw new TestingConstructorRuleException("More than one RuleChain class type is being used concurrently.");
 		}
 
-		if (testRule instanceof UniqueForSuiteRuleSI) {
+		if (testRule instanceof JstUniqueForSuiteRuleSI) {
 
-			if (RuleChainCacheHelper.getRuleChainHelper().isRuleAlreadyInvoked((UniqueForSuiteRuleSI) testRule)) {
+			if (RuleChainCacheHelper.getRuleChainHelper().isRuleAlreadyInvoked((JstUniqueForSuiteRuleSI) testRule)) {
 
 				return (RC) ruleChain;
 			}
@@ -126,15 +126,18 @@ public enum RuleChainCacheHelper {
 	}
 
 	/**
+	 * @param <RC>
 	 * @param testRule
+	 * @param ruleChainClass
 	 * @return {@link TestRule}
 	 */
-	public static RuleChainSI processOuterRule(final TestRule testRule) {
+	public static <RC extends JstRuleChain> RC processOuterRule(final TestRule testRule,
+			final Class<RC> ruleChainClass) {
 
 		RuleChainCacheHelper.initializeRuleChainHelper();
 
-		final RuleChainSI ruleChain = (RuleChainSI) ReflectionUtilHelper
-				.instantiateNonPublicConstructorNoArgument(JstRuleChain.class);
+		@SuppressWarnings("unchecked")
+		final RC ruleChain = (RC) ReflectionUtilHelper.instantiateNonPublicConstructorNoArgument(ruleChainClass);
 
 		if (null == testRule) {
 			return ruleChain;
