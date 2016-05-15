@@ -28,7 +28,7 @@ package com.gtcgroup.justify.core.rule;
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
 
 /**
- * This Rule class initializes a system property.
+ * This Rule class initializes a user id.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -48,13 +48,37 @@ public class JstBaseConfigureUserIdForMethodRule extends JstBaseForMethodRule {
 	/**
 	 * Constructor
 	 *
-	 * @param userId
+	 * @param <RULE>
+	 * @return {@link JstBaseConfigureUserIdForMethodRule}
 	 */
-	public JstBaseConfigureUserIdForMethodRule(final String userId) {
+	public static <RULE extends JstBaseConfigureUserIdForMethodRule> RULE withUserId() {
 
-		super();
+		return withUserId(JstBaseConfigureUserIdForMethodRule.TEST_ID);
+	}
+
+	/**
+	 * Constructor
+	 *
+	 * @param <RULE>
+	 * @param userId
+	 * @return {@link JstBaseConfigureUserIdForMethodRule}
+	 */
+	@SuppressWarnings("unchecked")
+	public static <RULE extends JstBaseConfigureUserIdForMethodRule> RULE withUserId(final String userId) {
+
 
 		JstBaseConfigureUserIdForMethodRule.userId = userId;
+		return (RULE) new JstBaseConfigureUserIdForMethodRule();
+	}
+
+	/**
+	 * Constructor - private
+	 *
+	 * @param userId
+	 */
+	private JstBaseConfigureUserIdForMethodRule() {
+
+		super();
 	}
 
 	/**
@@ -75,5 +99,4 @@ public class JstBaseConfigureUserIdForMethodRule extends JstBaseForMethodRule {
 
 		return;
 	}
-
 }

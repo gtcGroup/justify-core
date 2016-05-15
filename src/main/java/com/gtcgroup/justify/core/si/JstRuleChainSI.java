@@ -58,4 +58,11 @@ public interface JstRuleChainSI extends TestRule {
 	 */
 	public <RC extends JstRuleChainSI> RC aroundList(final List<TestRule> testRuleList);
 
+	/**
+	 * @param bind
+	 * @param <RC>
+	 * @return {@link JstRuleChain}
+	 */
+	public <RC extends JstRuleChainSI> RC bindJulToLog4j(final boolean bind);
+
 }

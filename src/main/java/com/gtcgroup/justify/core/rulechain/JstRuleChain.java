@@ -34,6 +34,7 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
+import com.gtcgroup.justify.core.rule.internal.BindJavaUtilLoggingToLog4j2Rule;
 import com.gtcgroup.justify.core.si.JstRuleChainSI;
 
 /**
@@ -135,6 +136,21 @@ public class JstRuleChain implements JstRuleChainSI {
 		for (final TestRule testRule : testRuleList) {
 			around(testRule);
 		}
+		return (RC) this;
+	}
+
+	/**
+	 * @see JstRuleChainSI#bindJulToLog4j(boolean)
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public <RC extends JstRuleChainSI> RC bindJulToLog4j(final boolean bind) {
+
+		if (bind) {
+
+			return RuleChainCacheHelper.aroundProcessing(new BindJavaUtilLoggingToLog4j2Rule(), this);
+		}
+
 		return (RC) this;
 	}
 }
