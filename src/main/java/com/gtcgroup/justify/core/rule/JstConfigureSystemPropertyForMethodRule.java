@@ -28,7 +28,8 @@ package com.gtcgroup.justify.core.rule;
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
 
 /**
- * This Rule class initializes a system property.
+ * This Rule class initializes a system property for the duration of the method
+ * and then reinstates the original property value.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -40,19 +41,35 @@ import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
  */
 public class JstConfigureSystemPropertyForMethodRule extends JstBaseForMethodRule {
 
+	/**
+	 * @param <RULE>
+	 * @param key
+	 * @param value
+	 * @return {@link JstConfigureSystemPropertyForMethodRule}
+	 */
+	@SuppressWarnings("unchecked")
+	public static <RULE extends JstConfigureSystemPropertyForMethodRule> RULE withProperty(final String key,
+			final String value) {
+
+		return (RULE) new JstConfigureSystemPropertyForMethodRule(key, value);
+	}
+
 	private final String key;
 
 	private final String value;
 
+	private final String durableValue;
+
+
 	/**
-	 * Constructor
+	 * Constructor - private
 	 *
 	 * @param key
 	 * @param value
 	 */
-	public JstConfigureSystemPropertyForMethodRule(final String key, final String value) {
+	protected JstConfigureSystemPropertyForMethodRule(final String key, final String value) {
 
-		super();
+		this.durableValue = System.getProperty(key);
 		this.key = key;
 		this.value = value;
 
@@ -64,7 +81,7 @@ public class JstConfigureSystemPropertyForMethodRule extends JstBaseForMethodRul
 	@Override
 	public void afterTM() {
 
-		System.clearProperty(this.key);
+		System.setProperty(this.key, this.durableValue);
 
 		return;
 	}

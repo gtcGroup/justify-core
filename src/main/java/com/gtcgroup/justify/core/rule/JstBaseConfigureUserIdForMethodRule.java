@@ -72,11 +72,11 @@ public class JstBaseConfigureUserIdForMethodRule extends JstBaseForMethodRule {
 	}
 
 	/**
-	 * Constructor - private
+	 * Constructor - protected
 	 *
 	 * @param userId
 	 */
-	private JstBaseConfigureUserIdForMethodRule() {
+	protected JstBaseConfigureUserIdForMethodRule() {
 
 		super();
 	}

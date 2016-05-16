@@ -42,17 +42,30 @@ import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
  */
 public class JstConfigureSystemPropertyForSuiteRule extends JstBaseForSuiteRule {
 
+	/**
+	 * @param <RULE>
+	 * @param key
+	 * @param value
+	 * @return {@link JstConfigureSystemPropertyForMethodRule}
+	 */
+	@SuppressWarnings("unchecked")
+	public static <RULE extends JstConfigureSystemPropertyForSuiteRule> RULE withProperty(final String key,
+			final String value) {
+
+		return (RULE) new JstConfigureSystemPropertyForSuiteRule(key, value);
+	}
+
 	private final String key;
 
 	private final String value;
 
 	/**
-	 * Constructor
+	 * Constructor - private
 	 *
 	 * @param key
 	 * @param value
 	 */
-	public JstConfigureSystemPropertyForSuiteRule(final String key, final String value) {
+	protected JstConfigureSystemPropertyForSuiteRule(final String key, final String value) {
 
 		super();
 		this.key = key;
