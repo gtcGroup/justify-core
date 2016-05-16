@@ -62,7 +62,7 @@ public class JstConfigureSystemPropertyForMethodRule extends JstBaseForMethodRul
 
 
 	/**
-	 * Constructor - private
+	 * Constructor - protected
 	 *
 	 * @param key
 	 * @param value
