@@ -46,17 +46,18 @@ public interface JstRuleChainSI extends TestRule {
 
 	/**
 	 * @param <RC>
-	 * @param testRule
+	 * @param ruleInstance
 	 * @return {@link TestRule}
 	 */
-	public <RC extends JstRuleChainSI> RC around(final TestRule testRule);
+	public <RC extends JstRuleChainSI> RC around(TestRule ruleInstance);
 
 	/**
 	 * @param <RC>
-	 * @param testRuleList
+	 * @param <RULE>
+	 * @param ruleList
 	 * @return {@link JstRuleChain}
 	 */
-	public <RC extends JstRuleChainSI> RC aroundList(final List<TestRule> testRuleList);
+	public <RC extends JstRuleChainSI, RULE extends TestRule> RC aroundList(final List<RULE> ruleList);
 
 	/**
 	 * @param bind

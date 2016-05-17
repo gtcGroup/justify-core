@@ -25,10 +25,14 @@
  */
 package com.gtcgroup.justify.core.rule;
 
+import org.junit.rules.TestRule;
+
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
+import com.gtcgroup.justify.core.base.JstBaseForSuiteRule;
+import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
 
 /**
- * This Rule class initializes a user id.
+ * This Rule class initializes a user id for testing.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -38,37 +42,26 @@ import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstBaseConfigureUserIdForMethodRule extends JstBaseForMethodRule {
-
-	/** Current userId. */
-	public static String userId = JstBaseConfigureUserIdForMethodRule.TEST_ID;
-
-	private static final String TEST_ID = "testId";
+public class JstConfigureUserIdForSuiteRule extends JstBaseForSuiteRule {
 
 	/**
-	 * Constructor
-	 *
 	 * @param <RULE>
-	 * @return {@link JstBaseConfigureUserIdForMethodRule}
+	 * @return {@link TestRule}
 	 */
-	public static <RULE extends JstBaseConfigureUserIdForMethodRule> RULE withUserId() {
+	public static <RULE extends TestRule> RULE withUserId() {
 
-		return withUserId(JstBaseConfigureUserIdForMethodRule.TEST_ID);
+		return withUserId(JstConfigureUserIdForMethodRule.DEFAULT_USER_ID);
 	}
 
 	/**
-	 * Constructor
-	 *
 	 * @param <RULE>
 	 * @param userId
-	 * @return {@link JstBaseConfigureUserIdForMethodRule}
+	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
-	public static <RULE extends JstBaseConfigureUserIdForMethodRule> RULE withUserId(final String userId) {
+	public static <RULE extends TestRule> RULE withUserId(final String userId) {
 
-
-		JstBaseConfigureUserIdForMethodRule.userId = userId;
-		return (RULE) new JstBaseConfigureUserIdForMethodRule();
+		return (RULE) new JstConfigureUserIdForSuiteRule(userId);
 	}
 
 	/**
@@ -76,19 +69,10 @@ public class JstBaseConfigureUserIdForMethodRule extends JstBaseForMethodRule {
 	 *
 	 * @param userId
 	 */
-	protected JstBaseConfigureUserIdForMethodRule() {
+	protected JstConfigureUserIdForSuiteRule(final String userId) {
 
 		super();
-	}
-
-	/**
-	 * @see JstBaseForMethodRule#afterTM()
-	 */
-	@Override
-	public void afterTM() {
-
-		JstBaseConfigureUserIdForMethodRule.userId = JstBaseConfigureUserIdForMethodRule.TEST_ID;
-		return;
+		JstConfigureUserIdForMethodRule.userID = userId;
 	}
 
 	/**
@@ -98,5 +82,14 @@ public class JstBaseConfigureUserIdForMethodRule extends JstBaseForMethodRule {
 	public void beforeTM() {
 
 		return;
+	}
+
+	/**
+	 * @see JstUniqueForSuiteRuleSI#uniqueSuiteIdentityTM()
+	 */
+	@Override
+	public String uniqueSuiteIdentityTM() {
+
+		return JstConfigureUserIdForMethodRule.DEFAULT_USER_ID;
 	}
 }

@@ -57,30 +57,32 @@ public enum RuleChainCacheHelper {
 
 	/**
 	 * @param <RC>
-	 * @param testRule
+	 * @param ruleInstance
 	 * @param ruleChain
 	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
-	public static <RC extends JstRuleChainSI> RC aroundProcessing(final TestRule testRule, final JstRuleChainSI ruleChain) {
+	public static <RC extends JstRuleChainSI> RC aroundProcessing(final TestRule ruleInstance,
+			final JstRuleChainSI ruleChain) {
 
-		if (testRule instanceof RuleChain) {
+		if (ruleInstance instanceof RuleChain) {
 
 			throw new TestingConstructorRuleException("More than one RuleChain class type is being used concurrently.");
 		}
 
-		if (testRule instanceof JstUniqueForSuiteRuleSI) {
+		if (ruleInstance instanceof JstUniqueForSuiteRuleSI) {
 
-			if (RuleChainCacheHelper.getRuleChainHelper().isRuleAlreadyInvoked((JstUniqueForSuiteRuleSI) testRule)) {
+			if (RuleChainCacheHelper.getRuleChainHelper()
+					.isRuleAlreadyInvoked((JstUniqueForSuiteRuleSI) ruleInstance)) {
 
 				return (RC) ruleChain;
 			}
 		}
 
-		RuleChainCacheHelper.getRuleChainHelper().addRuleToList(testRule);
+		RuleChainCacheHelper.getRuleChainHelper().addRuleToList(ruleInstance);
 
 		RuleChainCacheHelper.getRuleChainHelper()
-				.appendRuleDisplayedInMethodFooter(" [" + testRule.getClass().getSimpleName() + "]");
+		.appendRuleDisplayedInMethodFooter(" [" + ruleInstance.getClass().getSimpleName() + "]");
 
 		return (RC) ruleChain;
 	}
@@ -127,23 +129,18 @@ public enum RuleChainCacheHelper {
 
 	/**
 	 * @param <RC>
-	 * @param testRule
 	 * @param ruleChainClass
 	 * @return {@link TestRule}
 	 */
-	public static <RC extends JstRuleChain> RC processOuterRule(final TestRule testRule,
-			final Class<RC> ruleChainClass) {
+	public static <RC extends JstRuleChainSI> RC processOuterRule(final Class<RC> ruleChainClass) {
 
 		RuleChainCacheHelper.initializeRuleChainHelper();
 
 		@SuppressWarnings("unchecked")
 		final RC ruleChain = (RC) ReflectionUtilHelper.instantiateNonPublicConstructorNoArgument(ruleChainClass);
 
-		if (null == testRule) {
-			return ruleChain;
-		}
+		return ruleChain;
 
-		return ruleChain.around(testRule);
 	}
 
 }

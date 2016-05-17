@@ -55,48 +55,29 @@ public class JstRuleChain implements JstRuleChainSI {
 
 	/**
 	 * @param <RC>
+	 * @param suppressExampleExecutionSequence
 	 * @return a {@code JstRuleChain}
 	 */
 	@SuppressWarnings("unchecked")
-	public static <RC extends JstRuleChainSI> RC outerRule() {
+	public static <RC extends JstRuleChainSI> RC outerRule(final boolean suppressExampleExecutionSequence) {
 
-		return (RC) outerRule(null);
+		JstRuleChain.suppressExampleExecutionSequence = suppressExampleExecutionSequence;
+
+		return (RC) outerRule(suppressExampleExecutionSequence, JstRuleChain.class);
 	}
 
 	/**
 	 * @param <RC>
 	 * @param suppressExampleExecutionSequence
+	 * @param ruleChainClass
 	 * @return a {@code JstRuleChain}
 	 */
-	@SuppressWarnings("unchecked")
-	public static <RC extends JstRuleChain> RC outerRule(final boolean suppressExampleExecutionSequence) {
+	public static <RC extends JstRuleChainSI> RC outerRule(final boolean suppressExampleExecutionSequence,
+			final Class<RC> ruleChainClass) {
 
 		JstRuleChain.suppressExampleExecutionSequence = suppressExampleExecutionSequence;
 
-		return (RC) outerRule(null);
-	}
-
-	/**
-	 * @param <RC>
-	 * @param testRule
-	 * @return {@code JstRuleChain}
-	 */
-	@SuppressWarnings("unchecked")
-	public static <RC extends JstRuleChainSI> RC outerRule(final TestRule testRule) {
-
-		return (RC) RuleChainCacheHelper.processOuterRule(testRule, JstRuleChain.class);
-	}
-
-	/**
-	 * @param <RC>
-	 * @param testRuleList
-	 * @return {@code JstRuleChain}
-	 */
-	public static <RC extends JstRuleChainSI> RC outerRuleList(final List<TestRule> testRuleList) {
-
-		final JstRuleChain ruleChain = (JstRuleChain) outerRule();
-
-		return ruleChain.aroundList(testRuleList);
+		return RuleChainCacheHelper.processOuterRule(ruleChainClass);
 	}
 
 	/**
@@ -121,9 +102,9 @@ public class JstRuleChain implements JstRuleChainSI {
 	 * @see JstRuleChainSI#around(org.junit.rules.TestRule)
 	 */
 	@Override
-	public <RC extends JstRuleChainSI> RC around(final TestRule testRule) {
+	public <RC extends JstRuleChainSI> RC around(final TestRule ruleInstance) {
 
-		return RuleChainCacheHelper.aroundProcessing(testRule, this);
+		return RuleChainCacheHelper.aroundProcessing(ruleInstance, this);
 	}
 
 	/**
@@ -131,7 +112,7 @@ public class JstRuleChain implements JstRuleChainSI {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public <RC extends JstRuleChainSI> RC aroundList(final List<TestRule> testRuleList) {
+	public <RC extends JstRuleChainSI, RULE extends TestRule> RC aroundList(final List<RULE> testRuleList) {
 
 		for (final TestRule testRule : testRuleList) {
 			around(testRule);

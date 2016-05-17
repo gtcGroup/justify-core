@@ -30,8 +30,8 @@ import org.junit.rules.TestRule;
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
 
 /**
- * This Rule class initializes a system property for the duration of the method
- * and then reinstates the original property value.
+ * This Rule class initializes a user id for the duration of the method and then
+ * reinstates the original user id value.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -41,49 +41,47 @@ import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureSystemPropertyForMethodRule extends JstBaseForMethodRule {
+public class JstConfigureUserIdForMethodRule extends JstBaseForMethodRule {
 
 	/** Default user id. */
 	public static final String DEFAULT_USER_ID = "$userId";
 
 	/** Current userId. */
-	public static String userId = JstConfigureSystemPropertyForMethodRule.DEFAULT_USER_ID;
+	public static String userID;
 
 	/** Current userId. */
-	public static String previousUserId;
+	public static String previousUserID;
 
 	/**
 	 * @param <RULE>
-	 * @param key
-	 * @param value
+	 * @return {@link TestRule}
+	 */
+	public static <RULE extends TestRule> RULE withUserId() {
+
+		return withUserId(JstConfigureUserIdForMethodRule.DEFAULT_USER_ID);
+	}
+
+	/**
+	 * @param <RULE>
+	 * @param userId
 	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
-	public static <RULE extends TestRule> RULE withProperty(final String key,
-			final String value) {
+	public static <RULE extends TestRule> RULE withUserId(final String userId) {
 
-		return (RULE) new JstConfigureSystemPropertyForMethodRule(key, value);
+		JstConfigureUserIdForMethodRule.previousUserID = JstConfigureUserIdForMethodRule.userID;
+
+		return (RULE) new JstConfigureUserIdForMethodRule(userId);
 	}
-
-	private final String key;
-
-	private final String value;
-
-	private final String durableValue;
-
 
 	/**
 	 * Constructor - protected
 	 *
-	 * @param key
-	 * @param value
+	 * @param userId
 	 */
-	protected JstConfigureSystemPropertyForMethodRule(final String key, final String value) {
+	protected JstConfigureUserIdForMethodRule(final String userId) {
 
-		this.durableValue = System.getProperty(key);
-		this.key = key;
-		this.value = value;
-
+		JstConfigureUserIdForMethodRule.userID = userId;
 	}
 
 	/**
@@ -92,13 +90,7 @@ public class JstConfigureSystemPropertyForMethodRule extends JstBaseForMethodRul
 	@Override
 	public void afterTM() {
 
-		if (null == this.durableValue) {
-			System.clearProperty(this.key);
-
-		} else {
-
-			System.setProperty(this.key, this.durableValue);
-		}
+		JstConfigureUserIdForMethodRule.userID = JstConfigureUserIdForMethodRule.previousUserID;
 		return;
 	}
 
@@ -107,8 +99,6 @@ public class JstConfigureSystemPropertyForMethodRule extends JstBaseForMethodRul
 	 */
 	@Override
 	public void beforeTM() {
-
-		System.setProperty(this.key, this.value);
 
 		return;
 	}

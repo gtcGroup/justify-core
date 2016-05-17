@@ -25,6 +25,8 @@
  */
 package com.gtcgroup.justify.core.rule;
 
+import org.junit.rules.TestRule;
+
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
 import com.gtcgroup.justify.core.base.JstBaseForSuiteRule;
 import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
@@ -46,10 +48,10 @@ public class JstConfigureSystemPropertyForSuiteRule extends JstBaseForSuiteRule 
 	 * @param <RULE>
 	 * @param key
 	 * @param value
-	 * @return {@link JstConfigureSystemPropertyForMethodRule}
+	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
-	public static <RULE extends JstConfigureSystemPropertyForSuiteRule> RULE withProperty(final String key,
+	public static <RULE extends TestRule> RULE withProperty(final String key,
 			final String value) {
 
 		return (RULE) new JstConfigureSystemPropertyForSuiteRule(key, value);
@@ -60,7 +62,7 @@ public class JstConfigureSystemPropertyForSuiteRule extends JstBaseForSuiteRule 
 	private final String value;
 
 	/**
-	 * Constructor - private
+	 * Constructor - protected
 	 *
 	 * @param key
 	 * @param value
