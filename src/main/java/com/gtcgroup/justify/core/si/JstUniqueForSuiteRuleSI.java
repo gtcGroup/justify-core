@@ -25,12 +25,14 @@
  */
 package com.gtcgroup.justify.core.si;
 
+import org.junit.Rule;
+
 import com.gtcgroup.justify.core.pattern.palette.internal.BaseSI;
 
 /**
- * This Separated Interface detects if a Rule invocation is unique. That is, if
- * a rule is "ForClass" or "ForSuite" we require need to know enough not to
- * repeat the rule for each test method.
+ * This Separated Interface detects if a {@link Rule} invocation is unique. That
+ * is, if a rule is "ForClass" or "ForSuite" we require need to know enough not
+ * to repeat the rule for each test method.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at

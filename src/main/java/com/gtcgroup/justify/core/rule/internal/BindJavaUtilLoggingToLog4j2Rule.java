@@ -25,12 +25,13 @@
  */
 package com.gtcgroup.justify.core.rule.internal;
 
+import org.junit.Rule;
+
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
 import com.gtcgroup.justify.core.pattern.palette.internal.BaseRule;
 
 /**
- * This Rule class initializes the use of Log4j2 for Java Util Logging. In addition,
- * a system property.
+ * This {@link Rule} class initializes the use of Log4j2 for Java Util Logging.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at

@@ -25,11 +25,13 @@
  */
 package com.gtcgroup.justify.core.rule.internal;
 
+import org.junit.Rule;
+
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
 import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
 
 /**
- * This class provides access to static state.
+ * This {@link Rule} class provides access to static state.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at

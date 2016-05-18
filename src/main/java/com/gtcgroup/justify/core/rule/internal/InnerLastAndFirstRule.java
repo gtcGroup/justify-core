@@ -33,8 +33,8 @@ import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
 import com.gtcgroup.justify.core.pattern.palette.internal.BaseRule;
 
 /**
- * This internal {@link Rule} class executes just prior to invocation of each
- * test method. The intent is for all configuration to complete before log
+ * This {@link Rule} class executes just prior to invocation of each test
+ * method. The intent is for all configuration to complete before log
  * demarcation for a new test method occurs... and that the performance timer
  * excludes setup elapsed time.
  *

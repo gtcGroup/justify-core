@@ -25,6 +25,7 @@
  */
 package com.gtcgroup.justify.core.rule;
 
+import org.junit.Rule;
 import org.junit.rules.TestRule;
 
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
@@ -32,7 +33,7 @@ import com.gtcgroup.justify.core.base.JstBaseForSuiteRule;
 import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
 
 /**
- * This Rule class initializes a user id for testing.
+ * This {@link Rule} class initializes a user id for testing.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at

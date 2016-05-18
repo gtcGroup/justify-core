@@ -25,6 +25,7 @@
  */
 package com.gtcgroup.justify.core.rule;
 
+import org.junit.Rule;
 import org.junit.rules.TestRule;
 
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
@@ -32,7 +33,7 @@ import com.gtcgroup.justify.core.base.JstBaseForSuiteRule;
 import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
 
 /**
- * This Rule class initializes a system property.
+ * This {@link Rule} class initializes a system property.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -51,8 +52,7 @@ public class JstConfigureSystemPropertyForSuiteRule extends JstBaseForSuiteRule 
 	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
-	public static <RULE extends TestRule> RULE withProperty(final String key,
-			final String value) {
+	public static <RULE extends TestRule> RULE withProperty(final String key, final String value) {
 
 		return (RULE) new JstConfigureSystemPropertyForSuiteRule(key, value);
 	}

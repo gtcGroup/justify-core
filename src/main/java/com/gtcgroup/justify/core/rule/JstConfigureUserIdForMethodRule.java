@@ -25,13 +25,14 @@
  */
 package com.gtcgroup.justify.core.rule;
 
+import org.junit.Rule;
 import org.junit.rules.TestRule;
 
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
 
 /**
- * This Rule class initializes a user id for the duration of the method and then
- * reinstates the original user id value.
+ * This {@link Rule} class initializes a user id for the duration of the method
+ * and then reinstates the original user id value.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
