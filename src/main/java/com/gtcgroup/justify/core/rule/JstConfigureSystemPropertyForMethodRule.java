@@ -44,15 +44,6 @@ import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
  */
 public class JstConfigureSystemPropertyForMethodRule extends JstBaseForMethodRule {
 
-	/** Default user id. */
-	public static final String DEFAULT_USER_ID = "$userId";
-
-	/** Current userId. */
-	public static String userId = JstConfigureSystemPropertyForMethodRule.DEFAULT_USER_ID;
-
-	/** Current userId. */
-	public static String previousUserId;
-
 	/**
 	 * @param <RULE>
 	 * @param key
@@ -82,7 +73,6 @@ public class JstConfigureSystemPropertyForMethodRule extends JstBaseForMethodRul
 		this.durableValue = System.getProperty(key);
 		this.key = key;
 		this.value = value;
-
 	}
 
 	/**

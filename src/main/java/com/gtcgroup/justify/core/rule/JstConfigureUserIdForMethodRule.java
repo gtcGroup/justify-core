@@ -50,7 +50,7 @@ public class JstConfigureUserIdForMethodRule extends JstBaseForMethodRule {
 	/** Current userId. */
 	public static String userID;
 
-	/** Current userId. */
+	/** Previous userId. */
 	public static String previousUserID;
 
 	/**

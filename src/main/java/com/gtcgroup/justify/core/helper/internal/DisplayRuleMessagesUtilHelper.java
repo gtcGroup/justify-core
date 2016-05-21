@@ -45,7 +45,7 @@ import com.gtcgroup.justify.core.rulechain.JstRuleChain;
 
 public class DisplayRuleMessagesUtilHelper {
 
-	private static boolean isSuiteHeaderDisplayed = false;
+	protected static boolean isSuiteHeaderDisplayed = false;
 
 	/**
 	 * @param exception
