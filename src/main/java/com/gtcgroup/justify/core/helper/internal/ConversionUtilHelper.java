@@ -54,7 +54,9 @@ import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
  * @author Marvin Toll
  * @since v3.0
  */
-public class ConversionUtilHelper {
+public enum ConversionUtilHelper {
+
+	@SuppressWarnings("javadoc") INSTANCE;
 
 	private static DatatypeFactory DATATYPE_FACTORY;
 
@@ -70,14 +72,6 @@ public class ConversionUtilHelper {
 		} catch (@SuppressWarnings("unused") final Exception e) {
 			// Ignore, not likely.
 		}
-	}
-
-	/**
-	 * Constructor
-	 */
-	private ConversionUtilHelper() {
-		super();
-		return;
 	}
 
 	/**
@@ -384,6 +378,19 @@ public class ConversionUtilHelper {
 	}
 
 	/**
+	 * This method returns byte array equivalent of a {@link UUID}.
+	 *
+	 * @param uuid
+	 * @return byte array
+	 */
+	private static byte[] convertFromUuidInstanceToByteArray(final UUID uuid) {
+
+		final ByteBuffer byteBuffer = ByteBuffer.allocate(16);
+		byteBuffer.putLong(uuid.getMostSignificantBits()).putLong(uuid.getLeastSignificantBits());
+		return byteBuffer.array();
+	}
+
+	/**
 	 * This method creates a set of asterisks depending on the length of the
 	 * message.
 	 *
@@ -597,19 +604,6 @@ public class ConversionUtilHelper {
 		}
 
 		return xmlDate;
-	}
-
-	/**
-	 * This method returns byte array equivalent of a {@link UUID}.
-	 *
-	 * @param uuid
-	 * @return byte array
-	 */
-	private static byte[] convertFromUuidInstanceToByteArray(final UUID uuid) {
-
-		final ByteBuffer byteBuffer = ByteBuffer.allocate(16);
-		byteBuffer.putLong(uuid.getMostSignificantBits()).putLong(uuid.getLeastSignificantBits());
-		return byteBuffer.array();
 	}
 
 }

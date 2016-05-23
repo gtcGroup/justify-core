@@ -57,7 +57,10 @@ import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
  * @author Marvin Toll
  * @since v3.0
  */
-public class ReflectionUtilHelper {
+public enum ReflectionUtilHelper {
+
+	@SuppressWarnings("javadoc")
+	INSTANCE;
 
 	/**
 	 * @param clazz
@@ -771,10 +774,5 @@ public class ReflectionUtilHelper {
 			}
 		}
 		return false;
-	}
-
-	private ReflectionUtilHelper() {
-		super();
-		return;
 	}
 }

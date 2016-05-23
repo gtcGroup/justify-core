@@ -43,7 +43,9 @@ import com.gtcgroup.justify.core.rulechain.JstRuleChain;
  * @since v3.0
  */
 
-public class DisplayRuleMessagesUtilHelper {
+public enum DisplayRuleMessagesUtilHelper {
+
+	@SuppressWarnings("javadoc") INSTANCE;
 
 	protected static boolean isSuiteHeaderDisplayed = false;
 
@@ -99,11 +101,7 @@ public class DisplayRuleMessagesUtilHelper {
 					+ ConversionUtilHelper.convertNanosecondToMillisecondString(elapsedNanoSeconds) + " ms]: "
 					+ description.getDisplayName() + " ***");
 		}
-		if (!rulesForMethodFooter.equals("")) {
-			System.out.println("\t\tActive Rule(s):" + rulesForMethodFooter + "\n");
-		} else {
-			System.out.println("\t\t[No Rules Invoked]\n");
-		}
+		System.out.println("\t\tActive Rule(s): [OuterRule]" + rulesForMethodFooter + "\n");
 	}
 
 	/**
@@ -114,7 +112,7 @@ public class DisplayRuleMessagesUtilHelper {
 
 		// Interrupt logging (briefly) to help ensure readability.
 		try {
-			Thread.sleep(2);
+			Thread.sleep(1);
 		} catch (@SuppressWarnings("unused") final InterruptedException e) {
 			// Ignore
 		}
@@ -191,14 +189,4 @@ public class DisplayRuleMessagesUtilHelper {
 
 		DisplayRuleMessagesUtilHelper.isSuiteHeaderDisplayed = true;
 	}
-
-	/**
-	 * Constructor
-	 */
-	private DisplayRuleMessagesUtilHelper() {
-
-		super();
-		return;
-	}
-
 }

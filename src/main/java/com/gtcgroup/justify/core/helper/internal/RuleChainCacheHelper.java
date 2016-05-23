@@ -50,8 +50,7 @@ import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
  */
 public enum RuleChainCacheHelper {
 
-	/** Field */
-	INSTANCE;
+	@SuppressWarnings("javadoc") INSTANCE;
 
 	private static RuleChainBeanHelper ruleChainBeanHelper;
 

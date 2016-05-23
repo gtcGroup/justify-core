@@ -48,31 +48,6 @@ public class BeforeTestMethodRuleException extends BaseException {
 	/**
 	 * Constructor
 	 *
-	 * @param message
-	 */
-	public BeforeTestMethodRuleException(final String message) {
-
-		super(message);
-		RuleChainCacheHelper.getRuleChainHelper().setExceptionErrorDuringBefore(this);
-		return;
-	}
-
-	/**
-	 * Constructor
-	 *
-	 * @param ruleClass
-	 * @param message
-	 */
-	public BeforeTestMethodRuleException(final String ruleClass, final String message) {
-
-		super(ruleClass, message);
-		RuleChainCacheHelper.getRuleChainHelper().setExceptionErrorDuringBefore(this);
-		return;
-	}
-
-	/**
-	 * Constructor
-	 *
 	 * @param ruleClass
 	 * @param message
 	 * @param exception

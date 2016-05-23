@@ -60,18 +60,6 @@ public abstract class BaseException extends RuntimeException {
 	 * Constructor
 	 *
 	 * @param ruleClass
-	 * @param message
-	 */
-	public BaseException(final String ruleClass, final String message) {
-
-		super(message);
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), BaseException.SUFFIX);
-	}
-
-	/**
-	 * Constructor
-	 *
-	 * @param ruleClass
 	 * @param exception
 	 */
 	public BaseException(final String ruleClass, final Throwable exception) {
