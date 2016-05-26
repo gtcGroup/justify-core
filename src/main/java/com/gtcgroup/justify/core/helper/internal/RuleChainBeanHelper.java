@@ -35,9 +35,8 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 
 import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
-import com.gtcgroup.justify.core.rule.internal.InnerLastAndFirstRule;
-import com.gtcgroup.justify.core.rule.internal.OuterFirstAndLastRule;
-import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
+import com.gtcgroup.justify.core.rule.internal.RequiredInnerRule;
+import com.gtcgroup.justify.core.rule.internal.RequiredOuterRule;
 
 /**
  * This Bean Helper class supports {@link Rule} processing.
@@ -52,44 +51,26 @@ import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
  */
 public class RuleChainBeanHelper extends BaseBeanHelper {
 
-	/** Enables determination of prior invocation. */
-	private static final List<String> SUITE_RULE_INSTANCE_LIST = new ArrayList<String>();
-
-	/**
-	 * @param testRule
-	 * @return {@link String}
-	 */
-	protected static String formatRuleKey(final JstUniqueForSuiteRuleSI testRule) {
-
-		final StringBuilder ruleKey = new StringBuilder();
-
-		ruleKey.append(testRule.getClass().getName());
-		ruleKey.append(": ");
-		ruleKey.append(testRule.uniqueSuiteIdentityTM());
-
-		return ruleKey.toString();
-	}
-
-	/** Used by {@link OuterFirstAndLastRule}. */
+	/** Used by {@link RequiredOuterRule}. */
 	private AssertionError assertionFailure;
 
 	/**
-	 * Used by {@link OuterFirstAndLastRule} and {@link InnerLastAndFirstRule}.
+	 * Used by {@link RequiredOuterRule} and {@link RequiredInnerRule}.
 	 */
 	private Description description;
 
-	/** Used by {@link OuterFirstAndLastRule}. */
+	/** Used by {@link RequiredOuterRule}. */
 	private Throwable exceptionErrorDuringAfter;
 
-	/** Used by {@link OuterFirstAndLastRule}. */
+	/** Used by {@link RequiredOuterRule}. */
 	private Throwable exceptionErrorDuringBefore;
 
-	/** Used by {@link OuterFirstAndLastRule}. */
+	/** Used by {@link RequiredOuterRule}. */
 	private Throwable exceptionErrorDuringTestMethod;
 
 	private final List<TestRule> ruleList = new ArrayList<TestRule>();
 
-	/** Used by {@link OuterFirstAndLastRule}. */
+	/** Used by {@link RequiredOuterRule}. */
 	private final StringBuilder rulesDisplayedInMethodFooter = new StringBuilder();
 
 	/**
@@ -98,16 +79,6 @@ public class RuleChainBeanHelper extends BaseBeanHelper {
 	 */
 	public RuleChainBeanHelper addRuleToList(final TestRule testRule) {
 		this.ruleList.add(testRule);
-		return this;
-	}
-
-	/**
-	 * @param testRuleString
-	 * @return {@link RuleChainBeanHelper}
-	 */
-	public RuleChainBeanHelper addSuiteRuleInstanceList(final String testRuleString) {
-
-		RuleChainBeanHelper.SUITE_RULE_INSTANCE_LIST.add(testRuleString);
 		return this;
 	}
 
@@ -170,35 +141,6 @@ public class RuleChainBeanHelper extends BaseBeanHelper {
 	 */
 	public StringBuilder getRulesDisplayedInMethodFooter() {
 		return this.rulesDisplayedInMethodFooter;
-	}
-
-	/**
-	 * @return List<String>
-	 */
-	@SuppressWarnings("static-method")
-	public List<String> getSuiteRuleInstanceList() {
-
-		return RuleChainBeanHelper.SUITE_RULE_INSTANCE_LIST;
-	}
-
-	/**
-	 * @param testRule
-	 * @return boolean
-	 */
-	public boolean isRuleAlreadyInvoked(final JstUniqueForSuiteRuleSI testRule) {
-
-		boolean result = false;
-
-		final String ruleKey = formatRuleKey(testRule);
-
-		if (getSuiteRuleInstanceList().contains(ruleKey)) {
-
-			result = true;
-		}
-
-		addSuiteRuleInstanceList(ruleKey);
-
-		return result;
 	}
 
 	/**

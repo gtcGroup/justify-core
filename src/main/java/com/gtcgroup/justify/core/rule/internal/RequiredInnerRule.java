@@ -23,16 +23,20 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.si;
+package com.gtcgroup.justify.core.rule.internal;
 
 import org.junit.Rule;
 
-import com.gtcgroup.justify.core.pattern.palette.internal.BaseSI;
+import com.gtcgroup.justify.core.helper.internal.DisplayRuleMessagesUtilHelper;
+import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
+import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
+import com.gtcgroup.justify.core.pattern.palette.internal.JstBaseRule;
 
 /**
- * This Separated Interface detects if a {@link Rule} invocation is unique. That
- * is, if a rule is "ForClass" or "ForSuite" we require need to know enough not
- * to repeat the rule for each test method.
+ * This {@link Rule} class executes just prior to invocation of each test
+ * method. The intent is for all configuration to complete before log
+ * demarcation for a new test method occurs... and that the performance timer
+ * excludes setup elapsed time.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -40,16 +44,31 @@ import com.gtcgroup.justify.core.pattern.palette.internal.BaseSI;
  * </p>
  *
  * @author Marvin Toll
- * @since v.3.0
+ * @since v3.0
  */
-public interface JstUniqueForSuiteRuleSI extends BaseSI {
+public class RequiredInnerRule extends BasePerformanceRule {
 
 	/**
-	 * This Template Method provides enough uniqueness for only one execution
-	 * per Suite.
-	 *
-	 * @return {@link String}
+	 * @see JstBaseRule#afterTM()
 	 */
-	public abstract String uniqueSuiteIdentityTM();
+	@Override
+	public void afterTM() {
+
+		return;
+	}
+
+	/**
+	 * @see JstBaseRule#beforeTM()
+	 */
+	@Override
+	public void beforeTM() {
+
+		DisplayRuleMessagesUtilHelper.displaySuiteHeader();
+
+		DisplayRuleMessagesUtilHelper.displayMethodHeader(RuleChainCacheHelper.getRuleChainHelper().getDescription());
+		BasePerformanceRule.methodTimer = new TimerBeanHelper();
+
+		return;
+	}
 
 }

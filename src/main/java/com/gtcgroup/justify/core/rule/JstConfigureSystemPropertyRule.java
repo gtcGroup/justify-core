@@ -42,7 +42,7 @@ import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureSystemPropertyForMethodRule extends JstBaseForMethodRule {
+public class JstConfigureSystemPropertyRule extends JstBaseForMethodRule {
 
 	/**
 	 * @param <RULE>
@@ -53,7 +53,7 @@ public class JstConfigureSystemPropertyForMethodRule extends JstBaseForMethodRul
 	@SuppressWarnings("unchecked")
 	public static <RULE extends TestRule> RULE withProperty(final String key, final String value) {
 
-		return (RULE) new JstConfigureSystemPropertyForMethodRule(key, value);
+		return (RULE) new JstConfigureSystemPropertyRule(key, value);
 	}
 
 	private final String key;
@@ -68,7 +68,7 @@ public class JstConfigureSystemPropertyForMethodRule extends JstBaseForMethodRul
 	 * @param key
 	 * @param value
 	 */
-	protected JstConfigureSystemPropertyForMethodRule(final String key, final String value) {
+	protected JstConfigureSystemPropertyRule(final String key, final String value) {
 
 		this.durableValue = System.getProperty(key);
 		this.key = key;

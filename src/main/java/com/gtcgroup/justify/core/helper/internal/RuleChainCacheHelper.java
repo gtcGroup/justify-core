@@ -31,11 +31,10 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 import com.gtcgroup.justify.core.exception.internal.TestingConstructorRuleException;
-import com.gtcgroup.justify.core.rule.internal.InnerLastAndFirstRule;
-import com.gtcgroup.justify.core.rule.internal.OuterFirstAndLastRule;
+import com.gtcgroup.justify.core.rule.internal.RequiredInnerRule;
+import com.gtcgroup.justify.core.rule.internal.RequiredOuterRule;
 import com.gtcgroup.justify.core.rulechain.JstRuleChain;
 import com.gtcgroup.justify.core.si.JstRuleChainSI;
-import com.gtcgroup.justify.core.si.JstUniqueForSuiteRuleSI;
 
 /**
  * This Cache Helper supports the {@link JstRuleChain}.
@@ -69,15 +68,6 @@ public enum RuleChainCacheHelper {
 			throw new TestingConstructorRuleException("More than one RuleChain class type is being used concurrently.");
 		}
 
-		if (ruleInstance instanceof JstUniqueForSuiteRuleSI) {
-
-			if (RuleChainCacheHelper.getRuleChainHelper()
-					.isRuleAlreadyInvoked((JstUniqueForSuiteRuleSI) ruleInstance)) {
-
-				return (RC) ruleChain;
-			}
-		}
-
 		RuleChainCacheHelper.getRuleChainHelper().addRuleToList(ruleInstance);
 
 		RuleChainCacheHelper.getRuleChainHelper()
@@ -101,7 +91,7 @@ public enum RuleChainCacheHelper {
 
 		RuleChainCacheHelper.ruleChainBeanHelper = new RuleChainBeanHelper();
 
-		RuleChainCacheHelper.getRuleChainHelper().addRuleToList(new OuterFirstAndLastRule());
+		RuleChainCacheHelper.getRuleChainHelper().addRuleToList(new RequiredOuterRule());
 	}
 
 	/**
@@ -116,7 +106,7 @@ public enum RuleChainCacheHelper {
 		Statement statement = base;
 
 		// The last rule added.
-		RuleChainCacheHelper.getRuleChainHelper().addRuleToList(new InnerLastAndFirstRule());
+		RuleChainCacheHelper.getRuleChainHelper().addRuleToList(new RequiredInnerRule());
 
 		for (final TestRule testRule : RuleChainCacheHelper.getRuleChainHelper().getRuleList()) {
 

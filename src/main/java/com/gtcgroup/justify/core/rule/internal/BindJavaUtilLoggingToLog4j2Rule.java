@@ -28,7 +28,7 @@ package com.gtcgroup.justify.core.rule.internal;
 import org.junit.Rule;
 
 import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
-import com.gtcgroup.justify.core.pattern.palette.internal.BaseRule;
+import com.gtcgroup.justify.core.pattern.palette.internal.JstBaseRule;
 
 /**
  * This {@link Rule} class initializes the use of Log4j2 for Java Util Logging.
@@ -63,7 +63,7 @@ public class BindJavaUtilLoggingToLog4j2Rule extends JstBaseForMethodRule {
 	}
 
 	/**
-	 * @see BaseRule#afterTM()
+	 * @see JstBaseRule#afterTM()
 	 */
 	@Override
 	public void afterTM() throws Throwable {

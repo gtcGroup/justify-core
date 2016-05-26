@@ -30,7 +30,7 @@ import org.junit.Rule;
 import com.gtcgroup.justify.core.exception.internal.AfterTestMethodRuleException;
 import com.gtcgroup.justify.core.helper.internal.DisplayRuleMessagesUtilHelper;
 import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
-import com.gtcgroup.justify.core.pattern.palette.internal.BaseRule;
+import com.gtcgroup.justify.core.pattern.palette.internal.JstBaseRule;
 
 /**
  * This {@link Rule} class demarks the completion of a test method.
@@ -43,7 +43,7 @@ import com.gtcgroup.justify.core.pattern.palette.internal.BaseRule;
  * @author Marvin Toll
  * @since v3.0
  */
-public class OuterFirstAndLastRule extends BasePerformanceRule {
+public class RequiredOuterRule extends BasePerformanceRule {
 
 	private static void displayAssertionFailureFoooter() {
 
@@ -87,7 +87,7 @@ public class OuterFirstAndLastRule extends BasePerformanceRule {
 
 	/**
 	 * @throws Throwable
-	 * @see BaseRule#afterTM()
+	 * @see JstBaseRule#afterTM()
 	 */
 	@Override
 	public void afterTM() throws Throwable {
@@ -129,7 +129,7 @@ public class OuterFirstAndLastRule extends BasePerformanceRule {
 	}
 
 	/**
-	 * @see BaseRule#beforeTM()
+	 * @see JstBaseRule#beforeTM()
 	 */
 	@Override
 	public void beforeTM() {

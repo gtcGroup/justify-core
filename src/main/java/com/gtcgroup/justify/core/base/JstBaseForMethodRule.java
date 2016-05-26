@@ -27,7 +27,7 @@ package com.gtcgroup.justify.core.base;
 
 import org.junit.Rule;
 
-import com.gtcgroup.justify.core.pattern.palette.internal.BaseRule;
+import com.gtcgroup.justify.core.pattern.palette.internal.JstBaseRule;
 
 /**
  * This {@link Rule} base class explicitly executes the apply() method for every
@@ -41,7 +41,7 @@ import com.gtcgroup.justify.core.pattern.palette.internal.BaseRule;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseForMethodRule extends BaseRule {
+public abstract class JstBaseForMethodRule extends JstBaseRule {
 
 	// Empty Block
 }
