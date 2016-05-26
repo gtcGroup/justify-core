@@ -162,18 +162,17 @@ public enum DisplayRuleMessagesUtilHelper {
 
 			final StringBuilder doco = new StringBuilder();
 
-			doco.append("\t  Rules: [FirstForMethodRule] [SecondForMethodRule] [ThirdForSuiteRule]\n\n");
+			doco.append("\t  Rules: [FirstRule] [SecondRule]\n\n");
 
 			doco.append("\t\t0 - @BeforeClass\n");
-			doco.append("\t\t1 - FirstForMethodRule.beforeTM()\n");
-			doco.append("\t\t2 - SecondForMethodRule.beforeTM()\n");
-			doco.append("\t\t3 - ThirdForSuiteRule.beforeTM()\n");
+			doco.append("\t\t1 - FirstRule.beforeTM()\n");
+			doco.append("\t\t2 - SecondRule.beforeTM()\n");
 			doco.append("\t*** Test Method Begin ***\n");
 			doco.append("\t\t4 - @Before\n");
 			doco.append("\t\t5 - Test Method Invocation\n");
 			doco.append("\t\t6 - @After\n");
-			doco.append("\t\t7 - SecondForMethodRule.afterTM()\n");
-			doco.append("\t\t8 - FirstForMethodRule.afterTM()\n");
+			doco.append("\t\t7 - SecondRule.afterTM()\n");
+			doco.append("\t\t8 - FirstRule.afterTM()\n");
 			doco.append("\t*** Test Method End ***\n");
 
 			doco.append("\t\t9 - @AfterClass");
