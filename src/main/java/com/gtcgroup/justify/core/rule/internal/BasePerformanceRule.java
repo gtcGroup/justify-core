@@ -27,8 +27,8 @@ package com.gtcgroup.justify.core.rule.internal;
 
 import org.junit.Rule;
 
-import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
 import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
+import com.gtcgroup.justify.core.pattern.palette.internal.JstBaseRule;
 
 /**
  * This {@link Rule} class provides access to static state.
@@ -41,7 +41,7 @@ import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
  * @author Marvin Toll
  * @since v.3.0
  */
-public abstract class BasePerformanceRule extends JstBaseForMethodRule {
+public abstract class BasePerformanceRule extends JstBaseRule {
 
 	protected static TimerBeanHelper methodTimer;
 

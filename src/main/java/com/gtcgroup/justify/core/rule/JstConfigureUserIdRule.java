@@ -28,8 +28,8 @@ package com.gtcgroup.justify.core.rule;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
 
-import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
 import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
+import com.gtcgroup.justify.core.pattern.palette.internal.JstBaseRule;
 
 /**
  * This {@link Rule} class initializes a user id for the duration of the method
@@ -43,7 +43,7 @@ import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureUserIdRule extends JstBaseForMethodRule {
+public class JstConfigureUserIdRule extends JstBaseRule {
 
 	/** Default user id. */
 	public static final String DEFAULT_USER_ID = "$userId";
@@ -104,7 +104,7 @@ public class JstConfigureUserIdRule extends JstBaseForMethodRule {
 	}
 
 	/**
-	 * @see JstBaseForMethodRule#afterTM()
+	 * @see JstBaseRule#afterTM()
 	 */
 	@Override
 	public void afterTM() {
@@ -124,7 +124,7 @@ public class JstConfigureUserIdRule extends JstBaseForMethodRule {
 	}
 
 	/**
-	 * @see JstBaseForMethodRule#beforeTM()
+	 * @see JstBaseRule#beforeTM()
 	 */
 	@Override
 	public void beforeTM() {
@@ -135,7 +135,7 @@ public class JstConfigureUserIdRule extends JstBaseForMethodRule {
 				this.configureUserIdRule.beforeTM();
 			} catch (@SuppressWarnings("unused") final Exception e) {
 
-				throw new TestingRuntimeException("This rule must support an [afterTM()] method.");
+				throw new TestingRuntimeException("This rule must support a [beforeTM()] method.");
 			}
 		}
 		return;

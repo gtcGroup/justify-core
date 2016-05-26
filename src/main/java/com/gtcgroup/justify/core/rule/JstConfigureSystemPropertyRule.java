@@ -28,7 +28,7 @@ package com.gtcgroup.justify.core.rule;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
 
-import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
+import com.gtcgroup.justify.core.pattern.palette.internal.JstBaseRule;
 
 /**
  * This {@link Rule} class initializes a system property for the duration of the
@@ -42,7 +42,7 @@ import com.gtcgroup.justify.core.base.JstBaseForMethodRule;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureSystemPropertyRule extends JstBaseForMethodRule {
+public class JstConfigureSystemPropertyRule extends JstBaseRule {
 
 	/**
 	 * @param <RULE>
@@ -76,23 +76,22 @@ public class JstConfigureSystemPropertyRule extends JstBaseForMethodRule {
 	}
 
 	/**
-	 * @see JstBaseForMethodRule#afterTM()
+	 * @see JstBaseRule#afterTM()
 	 */
 	@Override
 	public void afterTM() {
 
 		if (null == this.durableValue) {
 			System.clearProperty(this.key);
-
 		} else {
-
 			System.setProperty(this.key, this.durableValue);
 		}
+
 		return;
 	}
 
 	/**
-	 * @see JstBaseForMethodRule#beforeTM()
+	 * @see JstBaseRule#beforeTM()
 	 */
 	@Override
 	public void beforeTM() {

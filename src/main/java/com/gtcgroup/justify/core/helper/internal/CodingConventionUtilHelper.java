@@ -40,15 +40,9 @@ import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
  * @author Marvin Toll
  * @since v3.0
  */
-public class CodingConventionUtilHelper {
+public enum CodingConventionUtilHelper {
 
-	/**
-	 * Constructor
-	 */
-	private CodingConventionUtilHelper() {
-		super();
-		return;
-	}
+	@SuppressWarnings("javadoc") INSTANCE;
 
 	/**
 	 * This method throws an exception if a suffix violation occurs.

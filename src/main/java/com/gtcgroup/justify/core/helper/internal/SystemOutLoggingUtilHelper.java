@@ -42,7 +42,9 @@ import java.util.Date;
  * @since v3.0
  */
 @SuppressWarnings("javadoc")
-public class SystemOutLoggingUtilHelper {
+public enum SystemOutLoggingUtilHelper {
+
+	INSTANCE;
 
 	public static String CONFIG = "CONFIG";
 	public static String FINE = "FINE";
@@ -52,15 +54,6 @@ public class SystemOutLoggingUtilHelper {
 	public static String SEVERE = "SEVERE";
 	public static String USER_ID = "testId";
 	public static String WARNING = "WARNING";
-
-	/**
-	 * Constructor
-	 */
-	private SystemOutLoggingUtilHelper() {
-
-		super();
-		return;
-	}
 
 	/**
 	 * @see JpcLoggingSI#config(String, String, String)
@@ -92,6 +85,11 @@ public class SystemOutLoggingUtilHelper {
 	public static void finest(final String className, final String methodName, final String message) {
 
 		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINEST);
+	}
+
+	private static String getUserId() {
+
+		return SystemOutLoggingUtilHelper.USER_ID;
 	}
 
 	/**
@@ -151,10 +149,5 @@ public class SystemOutLoggingUtilHelper {
 	public static void warning(final String className, final String methodName, final String message) {
 
 		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.WARNING);
-	}
-
-	private static String getUserId() {
-
-		return SystemOutLoggingUtilHelper.USER_ID;
 	}
 }
