@@ -26,6 +26,8 @@
 
 package com.gtcgroup.justify.core.helper.internal;
 
+import java.util.Arrays;
+
 import org.junit.Rule;
 import org.junit.runner.Description;
 
@@ -45,7 +47,8 @@ import com.gtcgroup.justify.core.rulechain.JstRuleChain;
 
 public enum DisplayRuleMessagesUtilHelper {
 
-	@SuppressWarnings("javadoc") INSTANCE;
+	@SuppressWarnings("javadoc")
+	INSTANCE;
 
 	protected static boolean isSuiteHeaderDisplayed = false;
 
@@ -154,29 +157,54 @@ public enum DisplayRuleMessagesUtilHelper {
 
 		if (!JstRuleChain.suppressExampleExecutionSequence) {
 
-			final String exampleMessage = "\t* Example Execution Sequence  - {suppress example with outerRule(true)} *";
+			String exampleMessage = "\t* Example Execution Sequence  - {suppress example with outerRule(true)} *";
 
-			final StringBuilder border = ConversionUtilHelper.convertMessageLengthToBorder(exampleMessage);
+			StringBuilder border = ConversionUtilHelper.convertMessageLengthToBorder(exampleMessage);
 
 			System.out.print(border.toString() + exampleMessage + border.toString());
 
-			final StringBuilder doco = new StringBuilder();
+			StringBuilder doco = new StringBuilder();
 
 			doco.append("\t  Rules: [FirstRule] [SecondRule]\n\n");
 
 			doco.append("\t\t0 - @BeforeClass\n");
 			doco.append("\t\t1 - FirstRule.beforeTM()\n");
 			doco.append("\t\t2 - SecondRule.beforeTM()\n");
-			doco.append("\t*** Test Method Begin ***\n");
+			doco.append("\t* Test Method Begin ***\n");
 			doco.append("\t\t4 - @Before\n");
 			doco.append("\t\t5 - Test Method Invocation\n");
 			doco.append("\t\t6 - @After\n");
 			doco.append("\t\t7 - SecondRule.afterTM()\n");
 			doco.append("\t\t8 - FirstRule.afterTM()\n");
-			doco.append("\t*** Test Method End ***\n");
+			doco.append("\t* Test Method End ***\n");
 
 			doco.append("\t\t9 - @AfterClass");
 
+			System.out.println(doco.toString());
+
+			exampleMessage = "\t* Environmental Context - {suppress listing with outerRule(true)} *";
+
+			border = ConversionUtilHelper.convertMessageLengthToBorder(exampleMessage);
+
+			System.out.print(border.toString() + exampleMessage + border.toString());
+
+			doco = new StringBuilder();
+
+			doco.append("\t  Root Directory - ");
+			doco.append(System.getProperty("user.dir") + "\n");
+			doco.append("\t  Java Home      - ");
+			doco.append(System.getProperty("java.home") + "\n");
+			doco.append("\t  Java Version   - ");
+			doco.append(System.getProperty("java.version") + "\n");
+
+			doco.append("\t  Java Classpath - ");
+			final String delims = "[C:]+";
+			final String[] tokens = System.getProperty("java.class.path").split(delims);
+
+			Arrays.sort(tokens);
+			for (final String token : tokens) {
+				doco.append("\t\t" + token + "\n");
+			}
 			System.out.println(doco.toString());
 		}
 
