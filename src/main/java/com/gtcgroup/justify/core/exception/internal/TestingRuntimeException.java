@@ -51,15 +51,11 @@ public class TestingRuntimeException extends BaseException {
 			message.append("\n\n\tCausal exception: " + exception.getClass().getName() + "\n\tA causal message: "
 					+ exception.getMessage() + "\n");
 
-			exception.printStackTrace();
-
 			return message.toString();
 		}
 
 		message.append("\n\n\tCausal exception: " + exception.getClass().getName() + "\n\tA causal message: "
 				+ exception.getMessage() + "\n");
-
-		exception.printStackTrace();
 
 		return formulateExceptionMessage(exception.getCause(), message);
 
