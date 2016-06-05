@@ -51,31 +51,39 @@ import com.gtcgroup.justify.core.si.JstRuleChainSI;
 public class JstRuleChain implements JstRuleChainSI {
 
 	@SuppressWarnings("javadoc")
-	public static boolean suppressExampleExecutionSequence = false;
+	public static boolean displayVerboseStartupLogging;
 
 	/**
 	 * @param <RC>
-	 * @param suppressExampleExecutionSequence
 	 * @return a {@code JstRuleChain}
 	 */
 	@SuppressWarnings("unchecked")
-	public static <RC extends JstRuleChainSI> RC outerRule(final boolean suppressExampleExecutionSequence) {
+	public static <RC extends JstRuleChainSI> RC outerRule() {
 
-		JstRuleChain.suppressExampleExecutionSequence = suppressExampleExecutionSequence;
-
-		return (RC) outerRule(suppressExampleExecutionSequence, JstRuleChain.class);
+		return (RC) outerRule(true, JstRuleChain.class);
 	}
 
 	/**
 	 * @param <RC>
-	 * @param suppressExampleExecutionSequence
+	 * @param displayVerboseStartupLogging
+	 * @return a {@code JstRuleChain}
+	 */
+	@SuppressWarnings("unchecked")
+	public static <RC extends JstRuleChainSI> RC outerRule(final boolean displayVerboseStartupLogging) {
+
+		return (RC) outerRule(displayVerboseStartupLogging, JstRuleChain.class);
+	}
+
+	/**
+	 * @param <RC>
+	 * @param displayVerboseStartupLogging
 	 * @param ruleChainClass
 	 * @return a {@code JstRuleChain}
 	 */
-	public static <RC extends JstRuleChainSI> RC outerRule(final boolean suppressExampleExecutionSequence,
+	public static <RC extends JstRuleChainSI> RC outerRule(final boolean displayVerboseStartupLogging,
 			final Class<RC> ruleChainClass) {
 
-		JstRuleChain.suppressExampleExecutionSequence = suppressExampleExecutionSequence;
+		JstRuleChain.displayVerboseStartupLogging = displayVerboseStartupLogging;
 
 		return RuleChainCacheHelper.processOuterRule(ruleChainClass);
 	}

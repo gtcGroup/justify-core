@@ -155,7 +155,7 @@ public enum DisplayRuleMessagesUtilHelper {
 			return;
 		}
 
-		if (!JstRuleChain.suppressExampleExecutionSequence) {
+		if (JstRuleChain.displayVerboseStartupLogging) {
 
 			String exampleMessage = "\t* Example Execution Sequence  - {suppress example with outerRule(true)} *";
 
