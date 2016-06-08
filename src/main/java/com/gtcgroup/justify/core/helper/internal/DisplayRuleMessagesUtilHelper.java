@@ -157,7 +157,7 @@ public enum DisplayRuleMessagesUtilHelper {
 
 		if (JstRuleChain.displayVerboseStartupLogging) {
 
-			String exampleMessage = "\t* Example Execution Sequence  - {suppress example with outerRule(true)} *";
+			String exampleMessage = "\t* Example Execution Sequence  - {enable with outerRule(true)} *";
 
 			StringBuilder border = ConversionUtilHelper.convertMessageLengthToBorder(exampleMessage);
 
@@ -182,7 +182,7 @@ public enum DisplayRuleMessagesUtilHelper {
 
 			System.out.println(doco.toString());
 
-			exampleMessage = "\t* Environmental Context - {suppress listing with outerRule(true)} *";
+			exampleMessage = "\t* Environmental Context - {enable listing with outerRule(true)} *";
 
 			border = ConversionUtilHelper.convertMessageLengthToBorder(exampleMessage);
 
