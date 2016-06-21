@@ -58,7 +58,7 @@ public enum JndiContextCacheHelper implements Context {
 	private final Map<String, Object> bindings = new HashMap<String, Object>();
 
 	/**
-	 * @see Context#addToEnvironment(java.lang.String, java.lang.Object)
+	 * @see Context#addToEnvironment(String, Object)
 	 */
 	@Override
 	public Object addToEnvironment(final String s, final Object o) throws NamingException {
@@ -67,7 +67,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#bind(javax.naming.Name, java.lang.Object)
+	 * @see Context#bind(Name, Object)
 	 */
 	@Override
 	public void bind(final Name name, final Object object) throws NamingException {
@@ -98,7 +98,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#composeName(javax.naming.Name, javax.naming.Name)
+	 * @see Context#composeName(Name, Name)
 	 */
 	@Override
 	public Name composeName(final Name n, final Name pfx) throws NamingException {
@@ -107,7 +107,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#composeName(java.lang.String, java.lang.String)
+	 * @see Context#composeName(String, String)
 	 */
 	@Override
 	public String composeName(final String s, final String pfx) throws NamingException {
@@ -116,7 +116,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#createSubcontext(javax.naming.Name)
+	 * @see Context#createSubcontext(Name)
 	 */
 	@Override
 	public Context createSubcontext(final Name n) throws NamingException {
@@ -125,7 +125,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#createSubcontext(java.lang.String)
+	 * @see Context#createSubcontext(String)
 	 */
 	@Override
 	public Context createSubcontext(final String name) throws NamingException {
@@ -134,7 +134,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#destroySubcontext(javax.naming.Name)
+	 * @see Context#destroySubcontext(Name)
 	 */
 	@Override
 	public void destroySubcontext(final Name n) throws NamingException {
@@ -143,7 +143,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#destroySubcontext(java.lang.String)
+	 * @see Context#destroySubcontext(String)
 	 */
 	@Override
 	public void destroySubcontext(final String s) throws NamingException {
@@ -170,7 +170,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#getNameParser(javax.naming.Name)
+	 * @see Context#getNameParser(Name)
 	 */
 	@Override
 	public NameParser getNameParser(final Name n) throws NamingException {
@@ -179,16 +179,16 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#getNameParser(java.lang.String)
+	 * @see Context#getNameParser(String)
 	 */
 	@Override
 	public NameParser getNameParser(final String s) throws NamingException {
 
-		throw new MethodNotSupportedException();
+		return new JndiNameParser();
 	}
 
 	/**
-	 * @see Context#list(javax.naming.Name)
+	 * @see Context#list(Name)
 	 */
 	@Override
 	public NamingEnumeration<NameClassPair> list(final Name n) throws NamingException {
@@ -197,7 +197,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#list(java.lang.String)
+	 * @see Context#list(String)
 	 */
 	@Override
 	public NamingEnumeration<NameClassPair> list(final String s) throws NamingException {
@@ -206,7 +206,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#listBindings(javax.naming.Name)
+	 * @see Context#listBindings(Name)
 	 */
 	@Override
 	public NamingEnumeration<Binding> listBindings(final Name n) throws NamingException {
@@ -215,7 +215,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#listBindings(java.lang.String)
+	 * @see Context#listBindings(String)
 	 */
 	@Override
 	public NamingEnumeration<Binding> listBindings(final String s) throws NamingException {
@@ -233,7 +233,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#lookup(java.lang.String)
+	 * @see Context#lookup(String)
 	 */
 	@Override
 	public Object lookup(final String name) {
@@ -249,7 +249,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#lookupLink(javax.naming.Name)
+	 * @see Context#lookupLink(Name)
 	 */
 	@Override
 	public Object lookupLink(final Name n) throws NamingException {
@@ -258,7 +258,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#lookupLink(java.lang.String)
+	 * @see Context#lookupLink(String)
 	 */
 	@Override
 	public Object lookupLink(final String s) throws NamingException {
@@ -267,7 +267,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#rebind(javax.naming.Name, java.lang.Object)
+	 * @see Context#rebind(Name, Object)
 	 */
 	@Override
 	public void rebind(final Name n, final Object o) throws NamingException {
@@ -285,7 +285,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#removeFromEnvironment(java.lang.String)
+	 * @see Context#removeFromEnvironment(String)
 	 */
 	@Override
 	public Object removeFromEnvironment(final String s) throws NamingException {
@@ -294,7 +294,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#rename(javax.naming.Name, javax.naming.Name)
+	 * @see Context#rename(Name, Name)
 	 */
 	@Override
 	public void rename(final Name nOld, final Name nNew) throws NamingException {
@@ -303,7 +303,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#rename(java.lang.String, java.lang.String)
+	 * @see Context#rename(String, String)
 	 */
 	@Override
 	public void rename(final String sOld, final String sNew) throws NamingException {
@@ -312,7 +312,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#unbind(javax.naming.Name)
+	 * @see Context#unbind(Name)
 	 */
 	@Override
 	public void unbind(final Name n) throws NamingException {
@@ -321,7 +321,7 @@ public enum JndiContextCacheHelper implements Context {
 	}
 
 	/**
-	 * @see Context#unbind(java.lang.String)
+	 * @see Context#unbind(String)
 	 */
 	@Override
 	public void unbind(final String s) throws NamingException {

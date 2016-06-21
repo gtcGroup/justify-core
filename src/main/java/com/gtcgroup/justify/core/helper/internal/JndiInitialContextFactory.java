@@ -44,10 +44,10 @@ import javax.naming.spi.ObjectFactory;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JndiContextFactory implements InitialContextFactory, ObjectFactory {
+public class JndiInitialContextFactory implements InitialContextFactory, ObjectFactory {
 
 	/**
-	 * @see JndiContextFactory#getInitialContext(java.util.Hashtable)
+	 * @see JndiInitialContextFactory#getInitialContext(Hashtable)
 	 */
 	@Override
 	public synchronized Context getInitialContext(final Hashtable<?, ?> portableInitialContextFactory)
@@ -57,8 +57,7 @@ public class JndiContextFactory implements InitialContextFactory, ObjectFactory 
 	}
 
 	/**
-	 * @see javax.naming.spi.ObjectFactory#getObjectInstance(java.lang.Object,
-	 *      javax.naming.Name, javax.naming.Context, java.util.Hashtable)
+	 * @see ObjectFactory#getObjectInstance(Object, Name, Context, Hashtable)
 	 */
 	@Override
 	public Object getObjectInstance(final Object obj, final Name name, final Context nameCtx,

@@ -25,32 +25,29 @@
  */
 package com.gtcgroup.justify.core.helper.internal;
 
-import java.util.Hashtable;
-
+import javax.naming.Name;
+import javax.naming.NameParser;
 import javax.naming.NamingException;
-import javax.naming.spi.InitialContextFactory;
-import javax.naming.spi.InitialContextFactoryBuilder;
 
 /**
- * See {@link InitialContextFactoryBuilder}.
+ * This {@link NameParser} supports required methods.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author
- * @since v.6.0
+ * @author Marvin Toll
+ * @since v3.0
  */
-public class JndiInitialContextBuilder implements InitialContextFactoryBuilder {
+public class JndiNameParser implements NameParser {
 
 	/**
-	 * @see InitialContextFactoryBuilder#createInitialContextFactory(Hashtable)
+	 * @see NameParser#parse(java.lang.String)
 	 */
 	@Override
-	public InitialContextFactory createInitialContextFactory(final Hashtable<?, ?> environment) throws NamingException {
+	public Name parse(final String name) throws NamingException {
 
-		return new JndiInitialContextFactory();
+		return new JndiName();
 	}
-
 }
