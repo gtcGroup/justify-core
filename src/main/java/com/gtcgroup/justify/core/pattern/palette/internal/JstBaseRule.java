@@ -95,14 +95,14 @@ public abstract class JstBaseRule implements TestRule {
 			public void evaluate() throws Throwable {
 				try {
 					beforeTM();
-				} catch (final Throwable exceptionErrorDuringBefore) {
+				} catch (final Exception exceptionErrorDuringBefore) {
 
 					final BeforeTestMethodRuleException beforeTestMethodRuleException = new BeforeTestMethodRuleException(
 							description.getClassName(), exceptionErrorDuringBefore.getMessage(),
 							exceptionErrorDuringBefore);
 
 					RuleChainCacheHelper.getRuleChainHelper()
-							.setExceptionErrorDuringBefore(beforeTestMethodRuleException);
+					.setExceptionErrorDuringBefore(beforeTestMethodRuleException);
 					throw beforeTestMethodRuleException;
 				}
 				try {
@@ -114,10 +114,10 @@ public abstract class JstBaseRule implements TestRule {
 					RuleChainCacheHelper.getRuleChainHelper().setAssertionFailure(assertionFailure);
 					throw assertionFailure;
 
-				} catch (final Throwable exceptionErrorDuringTestMethod) {
+				} catch (final Exception exceptionErrorDuringTestMethod) {
 
 					RuleChainCacheHelper.getRuleChainHelper()
-							.setExceptionErrorDuringTestMethod(exceptionErrorDuringTestMethod);
+					.setExceptionErrorDuringTestMethod(exceptionErrorDuringTestMethod);
 					throw exceptionErrorDuringTestMethod;
 
 				} finally {
@@ -130,7 +130,7 @@ public abstract class JstBaseRule implements TestRule {
 						final AfterTestMethodRuleException afterTestMethodRuleException = new AfterTestMethodRuleException(
 								description.getClassName(), exceptionErrorDuringAfter);
 						RuleChainCacheHelper.getRuleChainHelper()
-								.setExceptionErrorDuringAfter(afterTestMethodRuleException);
+						.setExceptionErrorDuringAfter(afterTestMethodRuleException);
 					}
 
 					if (null != RuleChainCacheHelper.getRuleChainHelper().getExceptionErrorDuringAfter()) {

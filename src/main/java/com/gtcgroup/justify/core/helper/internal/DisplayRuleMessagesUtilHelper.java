@@ -104,7 +104,13 @@ public enum DisplayRuleMessagesUtilHelper {
 					+ ConversionUtilHelper.convertNanosecondToMillisecondString(elapsedNanoSeconds) + " ms]: "
 					+ description.getDisplayName() + " ***");
 		}
-		System.out.println("\t\tActive Rule(s): [OuterRule]" + rulesForMethodFooter + "\n");
+
+		if (rulesForMethodFooter.isEmpty()) {
+			System.out.println();
+		} else {
+			System.out.println("\t\tActive Rule(s): " + rulesForMethodFooter + "\n");
+		}
+
 	}
 
 	/**
