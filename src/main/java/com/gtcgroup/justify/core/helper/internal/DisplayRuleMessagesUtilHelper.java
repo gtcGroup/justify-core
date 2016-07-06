@@ -173,18 +173,26 @@ public enum DisplayRuleMessagesUtilHelper {
 
 			doco.append("\t  Rules: [FirstRule] [SecondRule]\n\n");
 
-			doco.append("\t\t0 - @BeforeClass\n");
-			doco.append("\t\t1 - FirstRule.beforeTM()\n");
-			doco.append("\t\t2 - SecondRule.beforeTM()\n");
+			doco.append("\t\t01 TestClass: Ordered static field(s) and block(s)\n");
+			doco.append("\t\t02 TestClass: @BeforeClass\n");
+			doco.append("\t\t03 FirstRule: Ordered static field(s) and block(s)\n");
+			doco.append("\t\t04 FirstRule: Constructor\n");
+			doco.append("\t\t05 SecondRule:Ordered static field(s) and block(s)\n");
+			doco.append("\t\t06 SecondRule:Constructor\n");
+			doco.append("\t\t07 FirstRule: beforeTM()\n");
+			doco.append("\t\t08 SecondRule:beforeTM()\n");
+
 			doco.append("\t* Test Method Begin ***\n");
-			doco.append("\t\t4 - @Before\n");
-			doco.append("\t\t5 - Test Method Invocation\n");
-			doco.append("\t\t6 - @After\n");
-			doco.append("\t\t7 - SecondRule.afterTM()\n");
-			doco.append("\t\t8 - FirstRule.afterTM()\n");
+
+			doco.append("\t\t09 TestClass: @Before\n");
+			doco.append("\t\t10 TestClass: testMethod()\n");
+			doco.append("\t\t11 TestClass: @After\n");
+			doco.append("\t\t12 SecondRule:afterTM()\n");
+			doco.append("\t\t13 FirstRule: afterTM()\n");
+
 			doco.append("\t* Test Method End ***\n");
 
-			doco.append("\t\t9 - @AfterClass");
+			doco.append("\t\t14 TestClass: @AfterClass");
 
 			System.out.println(doco.toString());
 
