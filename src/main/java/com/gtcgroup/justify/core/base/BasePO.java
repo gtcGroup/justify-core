@@ -23,11 +23,11 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.pattern.palette.internal;
+
+package com.gtcgroup.justify.core.base;
 
 /**
- * This Separated Interface is listed as a member of the project Pattern
- * Palette.
+ * This Parameter Object base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -35,10 +35,16 @@ package com.gtcgroup.justify.core.pattern.palette.internal;
  * </p>
  *
  * @author Marvin Toll
- * @since v.3.0
+ * @since v3.0
  */
-public interface BaseSI {
+public abstract class BasePO extends BaseClass {
 
-	// Empty Block
+	/**
+	 * @see BaseClass#assignPatternSuffixTM()
+	 */
+	@Override
+	protected String assignPatternSuffixTM() {
 
+		return "PO";
+	}
 }

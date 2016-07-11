@@ -24,10 +24,12 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.pattern.palette.internal;
+package com.gtcgroup.justify.core.base;
+
+import java.io.Serializable;
 
 /**
- * This Parameter Object base class supports readability.
+ * This Business Facade base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -37,14 +39,13 @@ package com.gtcgroup.justify.core.pattern.palette.internal;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class BasePO extends BaseClass {
+public abstract class BaseDE extends BaseClass implements Serializable {
 
-	/**
-	 * @see BaseClass#assignPatternSuffixTM()
-	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected String assignPatternSuffixTM() {
 
-		return "PO";
+		return "DE";
 	}
 }

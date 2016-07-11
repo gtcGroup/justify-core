@@ -26,7 +26,7 @@
 
 package com.gtcgroup.justify.core.helper.internal;
 
-import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
+import com.gtcgroup.justify.core.base.BaseBeanHelper;
 
 /**
  * This Bean Helper class supports performance timing and logging.

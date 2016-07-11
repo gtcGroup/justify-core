@@ -23,7 +23,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.pattern.palette.internal;
+package com.gtcgroup.justify.core.base;
 
 import org.junit.After;
 import org.junit.Before;

@@ -27,10 +27,10 @@ package com.gtcgroup.justify.core.rule.internal;
 
 import org.junit.Rule;
 
+import com.gtcgroup.justify.core.base.JstBaseRule;
 import com.gtcgroup.justify.core.exception.internal.AfterTestMethodRuleException;
 import com.gtcgroup.justify.core.helper.internal.DisplayRuleMessagesUtilHelper;
 import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
-import com.gtcgroup.justify.core.pattern.palette.internal.JstBaseRule;
 
 /**
  * This {@link Rule} class demarks the completion of a test method.

@@ -28,7 +28,7 @@ package com.gtcgroup.justify.core.helper.internal;
 
 import java.io.InputStream;
 
-import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
+import com.gtcgroup.justify.core.base.BaseBeanHelper;
 
 /**
  * This Bean Helper class supports stream operations.

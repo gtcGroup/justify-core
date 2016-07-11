@@ -27,8 +27,8 @@ package com.gtcgroup.justify.core.rule.internal;
 
 import org.junit.Rule;
 
+import com.gtcgroup.justify.core.base.JstBaseRule;
 import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
-import com.gtcgroup.justify.core.pattern.palette.internal.JstBaseRule;
 
 /**
  * This {@link Rule} class provides access to static state.

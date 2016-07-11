@@ -26,7 +26,7 @@
 
 package com.gtcgroup.justify.core.exception.internal;
 
-import com.gtcgroup.justify.core.pattern.palette.internal.BaseException;
+import com.gtcgroup.justify.core.base.BaseException;
 
 /**
  * This Exception class may be used to ensure that notifications occur once and

@@ -28,7 +28,7 @@ package com.gtcgroup.justify.core.rule;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
 
-import com.gtcgroup.justify.core.pattern.palette.internal.JstBaseRule;
+import com.gtcgroup.justify.core.base.JstBaseRule;
 
 /**
  * This {@link Rule} class initializes a system property for the duration of the

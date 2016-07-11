@@ -23,29 +23,48 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.base;
 
-package com.gtcgroup.justify.core.pattern.palette.internal;
-
-import java.io.Serializable;
+import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
 
 /**
- * This Business Facade base class supports readability.
+ * This Exception class supports {@link RuntimeException} instances used only in
+ * a testing error context.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author Marvin Toll
- * @since v3.0
+ * @author
+ * @since v.6.0
  */
-public abstract class BaseDE extends BaseClass implements Serializable {
+public abstract class BaseException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	@Override
-	protected String assignPatternSuffixTM() {
+	private static final String SUFFIX = "Exception";
 
-		return "DE";
+	/**
+	 * Constructor
+	 *
+	 * @param message
+	 */
+	public BaseException(final String message) {
+
+		super(message);
+		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), BaseException.SUFFIX);
+	}
+
+	/**
+	 * Constructor
+	 *
+	 * @param ruleClass
+	 * @param exception
+	 */
+	public BaseException(final String ruleClass, final Throwable exception) {
+
+		super("\n\n\tRule Class: " + ruleClass + "\n\tMessage: " + exception.getMessage() + "\n", exception);
+		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), BaseException.SUFFIX);
 	}
 }

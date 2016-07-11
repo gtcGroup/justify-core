@@ -24,39 +24,27 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.pattern.palette.internal;
-
-import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
+package com.gtcgroup.justify.core.base;
 
 /**
- * This base class supports readability.
+ * This Transfer Object base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author MarvinToll
+ * @author Marvin Toll
  * @since v3.0
  */
-public abstract class BaseClass {
+public abstract class BaseTO extends BaseClass {
 
 	/**
-	 * Constructor
+	 * @see BaseClass#assignPatternSuffixTM()
 	 */
-	public BaseClass() {
+	@Override
+	protected String assignPatternSuffixTM() {
 
-		super();
-
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), assignPatternSuffixTM());
-
-		return;
+		return "TO";
 	}
-
-	/**
-	 * This method establishes the class name suffix.
-	 *
-	 * @return {@link String}
-	 */
-	protected abstract String assignPatternSuffixTM();
 }

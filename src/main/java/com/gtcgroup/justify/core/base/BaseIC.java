@@ -24,7 +24,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.pattern.palette.internal;
+package com.gtcgroup.justify.core.base;
 
 /**
  * This Inbound/Outbound Controller base class supports readability.

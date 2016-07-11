@@ -24,20 +24,20 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.pattern.palette.internal;
+package com.gtcgroup.justify.core.base;
 
 /**
- * This Transfer Object base class supports readability.
+ * This Helper base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author Marvin Toll
+ * @author MarvinToll
  * @since v3.0
  */
-public abstract class BaseTO extends BaseClass {
+public abstract class BaseBeanHelper extends BaseClass {
 
 	/**
 	 * @see BaseClass#assignPatternSuffixTM()
@@ -45,6 +45,6 @@ public abstract class BaseTO extends BaseClass {
 	@Override
 	protected String assignPatternSuffixTM() {
 
-		return "TO";
+		return "BeanHelper";
 	}
 }

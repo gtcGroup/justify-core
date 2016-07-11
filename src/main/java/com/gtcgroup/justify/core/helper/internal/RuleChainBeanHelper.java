@@ -34,7 +34,7 @@ import org.junit.Rule;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 
-import com.gtcgroup.justify.core.pattern.palette.internal.BaseBeanHelper;
+import com.gtcgroup.justify.core.base.BaseBeanHelper;
 import com.gtcgroup.justify.core.rule.internal.RequiredInnerRule;
 import com.gtcgroup.justify.core.rule.internal.RequiredOuterRule;
 

@@ -24,10 +24,10 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.pattern.palette.internal;
+package com.gtcgroup.justify.core.base;
 
 /**
- * This Business Facade base class supports readability.
+ * This Parameter Object base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -37,7 +37,7 @@ package com.gtcgroup.justify.core.pattern.palette.internal;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class BaseBF extends BaseClass {
+public abstract class BaseRM extends BaseClass {
 
 	/**
 	 * @see BaseClass#assignPatternSuffixTM()
@@ -45,6 +45,6 @@ public abstract class BaseBF extends BaseClass {
 	@Override
 	protected String assignPatternSuffixTM() {
 
-		return "BF";
+		return "RM";
 	}
 }
