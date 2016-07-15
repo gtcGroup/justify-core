@@ -26,12 +26,11 @@
 
 package com.gtcgroup.justify.core.exception.internal;
 
-import com.gtcgroup.justify.core.base.BaseException;
+import com.gtcgroup.justify.core.base.JstBaseTestingException;
 import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
 
 /**
- * This Exception class may be used to ensure that notifications occur once and
- * only once.
+ * This Exception class is used for testing only.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -41,7 +40,7 @@ import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class BeforeTestMethodRuleException extends BaseException {
+public class BeforeTestMethodRuleException extends JstBaseTestingException {
 
 	private static final long serialVersionUID = 1L;
 

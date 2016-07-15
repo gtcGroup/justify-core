@@ -26,10 +26,8 @@
 
 package com.gtcgroup.justify.core.base;
 
-import java.io.Serializable;
-
 /**
- * This Business Facade base class supports readability.
+ * This Parameter Object base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -39,13 +37,14 @@ import java.io.Serializable;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class BaseDE extends BaseClass implements Serializable {
+public abstract class JstBaseTestingPO extends JstBaseTestingClass {
 
-	private static final long serialVersionUID = 1L;
-
+	/**
+	 * @see JstBaseTestingClass#assignPatternSuffixTM()
+	 */
 	@Override
 	protected String assignPatternSuffixTM() {
 
-		return "DE";
+		return "PO";
 	}
 }

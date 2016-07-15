@@ -29,10 +29,9 @@ import java.util.List;
 
 import org.junit.rules.TestRule;
 
-import com.gtcgroup.justify.core.rulechain.JstRuleChain;
-
 /**
- * This Separated Interface augments the {@link TestRule} interface.
+ * This Separated Interface augments the {@link TestRule} interface for
+ * implementation by a Rule Chain.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -47,7 +46,7 @@ public interface JstRuleChainSI extends TestRule {
 	/**
 	 * @param <RC>
 	 * @param ruleInstance
-	 * @return {@link TestRule}
+	 * @return {@link JstRuleChainSI}
 	 */
 	public <RC extends JstRuleChainSI> RC around(TestRule ruleInstance);
 
@@ -55,14 +54,14 @@ public interface JstRuleChainSI extends TestRule {
 	 * @param <RC>
 	 * @param <RULE>
 	 * @param ruleList
-	 * @return {@link JstRuleChain}
+	 * @return {@link JstRuleChainSI}
 	 */
 	public <RC extends JstRuleChainSI, RULE extends TestRule> RC aroundList(final List<RULE> ruleList);
 
 	/**
 	 * @param bind
 	 * @param <RC>
-	 * @return {@link JstRuleChain}
+	 * @return {@link JstRuleChainSI}
 	 */
 	public <RC extends JstRuleChainSI> RC bindJulToLog4j(final boolean bind);
 

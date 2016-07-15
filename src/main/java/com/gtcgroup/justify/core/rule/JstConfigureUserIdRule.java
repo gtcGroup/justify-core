@@ -28,12 +28,12 @@ package com.gtcgroup.justify.core.rule;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
 
-import com.gtcgroup.justify.core.base.JstBaseRule;
+import com.gtcgroup.justify.core.base.JstBaseTestingRule;
 import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
 
 /**
- * This {@link Rule} class initializes a user id for the duration of the method
- * and then reinstates the original user id value.
+ * This {@link Rule} class initializes a public user id for the duration of the
+ * method and then reinstates the original user id value.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -43,7 +43,7 @@ import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureUserIdRule extends JstBaseRule {
+public class JstConfigureUserIdRule extends JstBaseTestingRule {
 
 	/** Default user id. */
 	public static final String DEFAULT_USER_ID = "$userId";
@@ -104,7 +104,7 @@ public class JstConfigureUserIdRule extends JstBaseRule {
 	}
 
 	/**
-	 * @see JstBaseRule#afterTM()
+	 * @see JstBaseTestingRule#afterTM()
 	 */
 	@Override
 	public void afterTM() {
@@ -124,7 +124,7 @@ public class JstConfigureUserIdRule extends JstBaseRule {
 	}
 
 	/**
-	 * @see JstBaseRule#beforeTM()
+	 * @see JstBaseTestingRule#beforeTM()
 	 */
 	@Override
 	public void beforeTM() {

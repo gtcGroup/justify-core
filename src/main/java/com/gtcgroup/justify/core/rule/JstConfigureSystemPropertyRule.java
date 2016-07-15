@@ -28,11 +28,12 @@ package com.gtcgroup.justify.core.rule;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
 
-import com.gtcgroup.justify.core.base.JstBaseRule;
+import com.gtcgroup.justify.core.base.JstBaseTestingRule;
 
 /**
  * This {@link Rule} class initializes a system property for the duration of the
- * method and then reinstates the original property value.
+ * method and then reinstates the original property value, or if none, then it
+ * clears the property.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -42,7 +43,7 @@ import com.gtcgroup.justify.core.base.JstBaseRule;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureSystemPropertyRule extends JstBaseRule {
+public class JstConfigureSystemPropertyRule extends JstBaseTestingRule {
 
 	/**
 	 * @param <RULE>
@@ -76,7 +77,7 @@ public class JstConfigureSystemPropertyRule extends JstBaseRule {
 	}
 
 	/**
-	 * @see JstBaseRule#afterTM()
+	 * @see JstBaseTestingRule#afterTM()
 	 */
 	@Override
 	public void afterTM() {
@@ -91,7 +92,7 @@ public class JstConfigureSystemPropertyRule extends JstBaseRule {
 	}
 
 	/**
-	 * @see JstBaseRule#beforeTM()
+	 * @see JstBaseTestingRule#beforeTM()
 	 */
 	@Override
 	public void beforeTM() {

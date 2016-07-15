@@ -28,8 +28,7 @@ package com.gtcgroup.justify.core.base;
 import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
 
 /**
- * This Exception class supports {@link RuntimeException} instances used only in
- * a testing error context.
+ * This Exception base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -39,7 +38,7 @@ import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
  * @author
  * @since v.6.0
  */
-public abstract class BaseException extends RuntimeException {
+public abstract class JstBaseTestingException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,10 +49,10 @@ public abstract class BaseException extends RuntimeException {
 	 *
 	 * @param message
 	 */
-	public BaseException(final String message) {
+	public JstBaseTestingException(final String message) {
 
 		super(message);
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), BaseException.SUFFIX);
+		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseTestingException.SUFFIX);
 	}
 
 	/**
@@ -62,9 +61,9 @@ public abstract class BaseException extends RuntimeException {
 	 * @param ruleClass
 	 * @param exception
 	 */
-	public BaseException(final String ruleClass, final Throwable exception) {
+	public JstBaseTestingException(final String ruleClass, final Throwable exception) {
 
 		super("\n\n\tRule Class: " + ruleClass + "\n\tMessage: " + exception.getMessage() + "\n", exception);
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), BaseException.SUFFIX);
+		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseTestingException.SUFFIX);
 	}
 }

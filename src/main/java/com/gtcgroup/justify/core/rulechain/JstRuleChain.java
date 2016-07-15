@@ -55,7 +55,7 @@ public class JstRuleChain implements JstRuleChainSI {
 
 	/**
 	 * @param <RC>
-	 * @return a {@code JstRuleChain}
+	 * @return {@link JstRuleChainSI}
 	 */
 	@SuppressWarnings("unchecked")
 	public static <RC extends JstRuleChainSI> RC outerRule() {
@@ -66,7 +66,7 @@ public class JstRuleChain implements JstRuleChainSI {
 	/**
 	 * @param <RC>
 	 * @param displayVerboseStartupLogging
-	 * @return a {@code JstRuleChain}
+	 * @return {@link JstRuleChainSI}
 	 */
 	@SuppressWarnings("unchecked")
 	public static <RC extends JstRuleChainSI> RC outerRule(final boolean displayVerboseStartupLogging) {
@@ -78,7 +78,7 @@ public class JstRuleChain implements JstRuleChainSI {
 	 * @param <RC>
 	 * @param displayVerboseStartupLogging
 	 * @param ruleChainClass
-	 * @return a {@code JstRuleChain}
+	 * @return {@link JstRuleChainSI}
 	 */
 	public static <RC extends JstRuleChainSI> RC outerRule(final boolean displayVerboseStartupLogging,
 			final Class<RC> ruleChainClass) {
@@ -139,7 +139,6 @@ public class JstRuleChain implements JstRuleChainSI {
 
 			return RuleChainCacheHelper.aroundProcessing(new BindJavaUtilLoggingToLog4j2Rule(), this);
 		}
-
 		return (RC) this;
 	}
 }

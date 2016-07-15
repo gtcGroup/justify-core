@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
+import com.gtcgroup.justify.core.po.internal.StreamPO;
 
 /**
  * This Util Helper class provides convenience methods for reflection
@@ -122,10 +123,10 @@ public enum ReflectionUtilHelper {
 	/**
 	 * @param resourceName
 	 * @param suppressException
-	 * @return {@link StreamBeanHelper} or null
+	 * @return {@link StreamPO} or null
 	 */
 	@SuppressWarnings("resource")
-	public static StreamBeanHelper getResourceAsStream(final String resourceName, final boolean suppressException) {
+	public static StreamPO getResourceAsStream(final String resourceName, final boolean suppressException) {
 
 		ClassLoader classLoader = ReflectionUtilHelper.class.getClassLoader();
 
@@ -147,10 +148,10 @@ public enum ReflectionUtilHelper {
 			}
 		}
 
-		final StreamBeanHelper streamBeanHelper = new StreamBeanHelper().setInputStream(inputStream)
+		final StreamPO streamPO = new StreamPO().setInputStream(inputStream)
 				.setClassLoader(classLoader);
 
-		return streamBeanHelper;
+		return streamPO;
 	}
 
 	/**

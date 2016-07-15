@@ -39,6 +39,7 @@ import javax.naming.NamingException;
 
 import com.gtcgroup.justify.core.exception.internal.MethodNotSupportedException;
 import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
+import com.gtcgroup.justify.core.jndi.internal.JndiNameParser;
 
 /**
  * See {@link Context}.

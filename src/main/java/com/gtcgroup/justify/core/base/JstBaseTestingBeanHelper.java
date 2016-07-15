@@ -23,26 +23,28 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.rule.internal;
 
-import org.junit.Rule;
-
-import com.gtcgroup.justify.core.base.JstBaseRule;
-import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
+package com.gtcgroup.justify.core.base;
 
 /**
- * This {@link Rule} class provides access to static state.
+ * This Bean Helper base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author Marvin Toll
- * @since v.3.0
+ * @author MarvinToll
+ * @since v3.0
  */
-public abstract class BasePerformanceRule extends JstBaseRule {
+public abstract class JstBaseTestingBeanHelper extends JstBaseTestingClass {
 
-	protected static TimerBeanHelper methodTimer;
+	/**
+	 * @see JstBaseTestingClass#assignPatternSuffixTM()
+	 */
+	@Override
+	protected String assignPatternSuffixTM() {
 
+		return "BeanHelper";
+	}
 }

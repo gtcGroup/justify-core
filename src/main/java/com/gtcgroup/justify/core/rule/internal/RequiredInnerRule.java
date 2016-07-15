@@ -27,16 +27,15 @@ package com.gtcgroup.justify.core.rule.internal;
 
 import org.junit.Rule;
 
-import com.gtcgroup.justify.core.base.JstBaseRule;
+import com.gtcgroup.justify.core.base.JstBaseTestingRule;
 import com.gtcgroup.justify.core.helper.internal.DisplayRuleMessagesUtilHelper;
 import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
 import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
 
 /**
  * This {@link Rule} class executes just prior to invocation of each test
- * method. The intent is for all configuration to complete before log
- * demarcation for a new test method occurs... and that the performance timer
- * excludes setup elapsed time.
+ * method. At this point in the life cycle all configuration is complete and the
+ * test method performance timer can exclude setup elapsed time.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -46,10 +45,10 @@ import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class RequiredInnerRule extends BasePerformanceRule {
+public class RequiredInnerRule extends BaseTimerRule {
 
 	/**
-	 * @see JstBaseRule#afterTM()
+	 * @see JstBaseTestingRule#afterTM()
 	 */
 	@Override
 	public void afterTM() {
@@ -58,7 +57,7 @@ public class RequiredInnerRule extends BasePerformanceRule {
 	}
 
 	/**
-	 * @see JstBaseRule#beforeTM()
+	 * @see JstBaseTestingRule#beforeTM()
 	 */
 	@Override
 	public void beforeTM() {
@@ -66,9 +65,8 @@ public class RequiredInnerRule extends BasePerformanceRule {
 		DisplayRuleMessagesUtilHelper.displaySuiteHeader();
 
 		DisplayRuleMessagesUtilHelper.displayMethodHeader(RuleChainCacheHelper.getRuleChainHelper().getDescription());
-		BasePerformanceRule.methodTimer = new TimerBeanHelper();
+		BaseTimerRule.testMethodTimer = new TimerBeanHelper();
 
 		return;
 	}
-
 }

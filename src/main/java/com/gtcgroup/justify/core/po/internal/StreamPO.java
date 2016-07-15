@@ -24,11 +24,11 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.helper.internal;
+package com.gtcgroup.justify.core.po.internal;
 
 import java.io.InputStream;
 
-import com.gtcgroup.justify.core.base.BaseBeanHelper;
+import com.gtcgroup.justify.core.base.JstBaseTestingPO;
 
 /**
  * This Bean Helper class supports stream operations.
@@ -42,7 +42,7 @@ import com.gtcgroup.justify.core.base.BaseBeanHelper;
  * @since v3.0
  */
 
-public class StreamBeanHelper extends BaseBeanHelper {
+public class StreamPO extends JstBaseTestingPO {
 
 	private ClassLoader classLoader;
 
@@ -66,18 +66,18 @@ public class StreamBeanHelper extends BaseBeanHelper {
 
 	/**
 	 * @param classLoader
-	 * @return {@link StreamBeanHelper}
+	 * @return {@link StreamPO}
 	 */
-	public StreamBeanHelper setClassLoader(final ClassLoader classLoader) {
+	public StreamPO setClassLoader(final ClassLoader classLoader) {
 		this.classLoader = classLoader;
 		return this;
 	}
 
 	/**
 	 * @param inputStream
-	 * @return {@link StreamBeanHelper}
+	 * @return {@link StreamPO}
 	 */
-	public StreamBeanHelper setInputStream(final InputStream inputStream) {
+	public StreamPO setInputStream(final InputStream inputStream) {
 		this.inputStream = inputStream;
 		return this;
 	}

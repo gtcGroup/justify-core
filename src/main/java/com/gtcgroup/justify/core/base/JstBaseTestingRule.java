@@ -36,9 +36,10 @@ import com.gtcgroup.justify.core.exception.internal.AfterTestMethodRuleException
 import com.gtcgroup.justify.core.exception.internal.BeforeTestMethodRuleException;
 import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
 import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
+import com.gtcgroup.justify.core.rulechain.JstRuleChain;
 
 /**
- * This {@link Rule} base class implements the {@link TestRule}.
+ * This {@link Rule} base class works in harmony with the {@link JstRuleChain}.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -48,7 +49,7 @@ import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseRule implements TestRule {
+public abstract class JstBaseTestingRule implements TestRule {
 
 	/** Suffix For All Rules */
 	public static final String RULE_SUFFIX = "Rule";
@@ -56,10 +57,10 @@ public abstract class JstBaseRule implements TestRule {
 	/**
 	 * Constructor
 	 */
-	public JstBaseRule() {
+	public JstBaseTestingRule() {
 		super();
 
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseRule.RULE_SUFFIX);
+		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseTestingRule.RULE_SUFFIX);
 	}
 
 	/**

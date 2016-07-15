@@ -23,11 +23,15 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.rule.internal;
 
-package com.gtcgroup.justify.core.base;
+import org.junit.Rule;
+
+import com.gtcgroup.justify.core.base.JstBaseTestingRule;
+import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
 
 /**
- * This Parameter Object base class supports readability.
+ * This {@link Rule} class provides access to a static timer.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -35,16 +39,10 @@ package com.gtcgroup.justify.core.base;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since v.3.0
  */
-public abstract class BasePO extends BaseClass {
+public abstract class BaseTimerRule extends JstBaseTestingRule {
 
-	/**
-	 * @see BaseClass#assignPatternSuffixTM()
-	 */
-	@Override
-	protected String assignPatternSuffixTM() {
+	protected static TimerBeanHelper testMethodTimer;
 
-		return "PO";
-	}
 }

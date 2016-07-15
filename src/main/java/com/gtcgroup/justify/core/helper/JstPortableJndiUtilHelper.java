@@ -31,10 +31,11 @@ import javax.naming.spi.NamingManager;
 
 import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
 import com.gtcgroup.justify.core.helper.internal.JndiContextCacheHelper;
-import com.gtcgroup.justify.core.helper.internal.JndiInitialContextBuilder;
+import com.gtcgroup.justify.core.jndi.internal.JndiInitialContextBuilder;
 
 /**
- * This Util Helper class establishes a portable JNDI tree for binding.
+ * This Util Helper class establishes a portable JNDI tree for binding and
+ * subsequent lookup.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -45,7 +46,7 @@ import com.gtcgroup.justify.core.helper.internal.JndiInitialContextBuilder;
  * @since v3.0
  */
 
-public enum JstJndiUtilHelper {
+public enum JstPortableJndiUtilHelper {
 
 	@SuppressWarnings("javadoc")
 	INSTANCE;

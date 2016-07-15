@@ -1,7 +1,7 @@
 /*
  * [Licensed per the Open Source "MIT License".]
  *
- * Copyright (c) 2006 - 2016 by
+ * Copyright (c) 2006 - 2015 by
  * Global Technology Consulting Group, Inc. at
  * http://gtcGroup.com
  *
@@ -23,11 +23,20 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.jndi.internal;
 
-package com.gtcgroup.justify.core.base;
+import java.util.Hashtable;
+
+import javax.naming.Context;
+import javax.naming.Name;
+import javax.naming.NamingException;
+import javax.naming.spi.InitialContextFactory;
+import javax.naming.spi.ObjectFactory;
+
+import com.gtcgroup.justify.core.helper.internal.JndiContextCacheHelper;
 
 /**
- * This Parameter Object base class supports readability.
+ * See {@link InitialContextFactory} and {@link ObjectFactory}.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -37,14 +46,25 @@ package com.gtcgroup.justify.core.base;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class BaseRM extends BaseClass {
+public class JndiInitialContextFactory implements InitialContextFactory, ObjectFactory {
 
 	/**
-	 * @see BaseClass#assignPatternSuffixTM()
+	 * @see JndiInitialContextFactory#getInitialContext(Hashtable)
 	 */
 	@Override
-	protected String assignPatternSuffixTM() {
+	public synchronized Context getInitialContext(final Hashtable<?, ?> portableInitialContextFactory)
+			throws NamingException {
 
-		return "RM";
+		return JndiContextCacheHelper.INSTANCE;
+	}
+
+	/**
+	 * @see ObjectFactory#getObjectInstance(Object, Name, Context, Hashtable)
+	 */
+	@Override
+	public Object getObjectInstance(final Object obj, final Name name, final Context nameCtx,
+			final Hashtable<?, ?> environment) throws Exception {
+
+		return getInitialContext(environment);
 	}
 }

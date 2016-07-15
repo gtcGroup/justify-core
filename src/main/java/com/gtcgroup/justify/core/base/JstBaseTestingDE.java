@@ -23,14 +23,13 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.helper.internal;
 
-import javax.naming.Name;
-import javax.naming.NameParser;
-import javax.naming.NamingException;
+package com.gtcgroup.justify.core.base;
+
+import java.io.Serializable;
 
 /**
- * This {@link NameParser} supports required methods.
+ * This Domain Entity base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -40,14 +39,13 @@ import javax.naming.NamingException;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JndiNameParser implements NameParser {
+public abstract class JstBaseTestingDE extends JstBaseTestingClass implements Serializable {
 
-	/**
-	 * @see NameParser#parse(java.lang.String)
-	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
-	public Name parse(final String name) throws NamingException {
+	protected String assignPatternSuffixTM() {
 
-		return new JndiName();
+		return "DE";
 	}
 }

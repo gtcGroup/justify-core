@@ -23,34 +23,40 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.helper.internal;
 
-import java.util.Hashtable;
+package com.gtcgroup.justify.core.base;
 
-import javax.naming.NamingException;
-import javax.naming.spi.InitialContextFactory;
-import javax.naming.spi.InitialContextFactoryBuilder;
+import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
 
 /**
- * See {@link InitialContextFactoryBuilder}.
+ * This Testing base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author
- * @since v.6.0
+ * @author MarvinToll
+ * @since v3.0
  */
-public class JndiInitialContextBuilder implements InitialContextFactoryBuilder {
+public abstract class JstBaseTestingClass {
 
 	/**
-	 * @see InitialContextFactoryBuilder#createInitialContextFactory(Hashtable)
+	 * Constructor
 	 */
-	@Override
-	public InitialContextFactory createInitialContextFactory(final Hashtable<?, ?> environment) throws NamingException {
+	public JstBaseTestingClass() {
 
-		return new JndiInitialContextFactory();
+		super();
+
+		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), assignPatternSuffixTM());
+
+		return;
 	}
 
+	/**
+	 * This method establishes the class name suffix.
+	 *
+	 * @return {@link String}
+	 */
+	protected abstract String assignPatternSuffixTM();
 }

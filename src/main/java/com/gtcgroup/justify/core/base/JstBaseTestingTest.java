@@ -26,25 +26,30 @@
 
 package com.gtcgroup.justify.core.base;
 
+import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
+
 /**
- * This Helper base class supports readability.
+ * This Test base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author MarvinToll
+ * @author Marvin Toll
  * @since v3.0
  */
-public abstract class BaseBeanHelper extends BaseClass {
+public abstract class JstBaseTestingTest {
 
 	/**
-	 * @see BaseClass#assignPatternSuffixTM()
+	 * Constructor
 	 */
-	@Override
-	protected String assignPatternSuffixTM() {
+	public JstBaseTestingTest() {
 
-		return "BeanHelper";
+		super();
+
+		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), "Test");
+
+		return;
 	}
 }

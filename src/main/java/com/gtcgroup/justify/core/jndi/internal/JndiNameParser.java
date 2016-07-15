@@ -23,13 +23,14 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.jndi.internal;
 
-package com.gtcgroup.justify.core.base;
-
-import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
+import javax.naming.Name;
+import javax.naming.NameParser;
+import javax.naming.NamingException;
 
 /**
- * This Test base class supports readability.
+ * This {@link NameParser} supports required methods.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -39,17 +40,14 @@ import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class BaseTest {
+public class JndiNameParser implements NameParser {
 
 	/**
-	 * Constructor
+	 * @see NameParser#parse(java.lang.String)
 	 */
-	public BaseTest() {
+	@Override
+	public Name parse(final String name) throws NamingException {
 
-		super();
-
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), "Test");
-
-		return;
+		return new JndiName();
 	}
 }

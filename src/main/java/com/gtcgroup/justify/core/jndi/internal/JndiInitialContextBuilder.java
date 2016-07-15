@@ -23,28 +23,34 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.jndi.internal;
 
-package com.gtcgroup.justify.core.base;
+import java.util.Hashtable;
+
+import javax.naming.NamingException;
+import javax.naming.spi.InitialContextFactory;
+import javax.naming.spi.InitialContextFactoryBuilder;
 
 /**
- * This Transfer Object base class supports readability.
+ * See {@link InitialContextFactoryBuilder}.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author Marvin Toll
- * @since v3.0
+ * @author
+ * @since v.6.0
  */
-public abstract class BaseTO extends BaseClass {
+public class JndiInitialContextBuilder implements InitialContextFactoryBuilder {
 
 	/**
-	 * @see BaseClass#assignPatternSuffixTM()
+	 * @see InitialContextFactoryBuilder#createInitialContextFactory(Hashtable)
 	 */
 	@Override
-	protected String assignPatternSuffixTM() {
+	public InitialContextFactory createInitialContextFactory(final Hashtable<?, ?> environment) throws NamingException {
 
-		return "TO";
+		return new JndiInitialContextFactory();
 	}
+
 }
