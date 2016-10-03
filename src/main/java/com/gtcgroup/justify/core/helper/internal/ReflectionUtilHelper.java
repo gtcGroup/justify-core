@@ -544,6 +544,30 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
+	 * @param classInstance
+	 * @param fieldName
+	 * @param suppressException
+	 * @return {@link Field}
+	 */
+	public static Object retrieveFieldInstanceWithDirectAccess(final Object classInstance, final String fieldName,
+			final boolean suppressException) {
+
+		final Field field = retrieveFieldWithDirectAccess(classInstance, fieldName);
+
+		Object fieldInstance = null;
+
+		try {
+			fieldInstance = field.get(classInstance);
+
+		} catch (final Exception e) {
+
+			throwTestingRuntimeException(e.getMessage(), suppressException);
+		}
+
+		return fieldInstance;
+	}
+
+	/**
 	 * @param instance
 	 * @param methodName
 	 * @param suppressException
