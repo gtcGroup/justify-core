@@ -126,6 +126,11 @@ public enum DisplayRuleMessagesUtilHelper {
 			// Ignore
 		}
 
+		if (null == status || null == RuleChainCacheHelper.getRuleChainHelper().getDescription()
+				|| null == RuleChainCacheHelper.getRuleChainHelper().getRulesDisplayedInMethodFooter().toString()) {
+
+			return;
+		}
 		DisplayRuleMessagesUtilHelper.displayMethodFooter(status,
 				RuleChainCacheHelper.getRuleChainHelper().getDescription(), elapsedNanoSeconds,
 				RuleChainCacheHelper.getRuleChainHelper().getRulesDisplayedInMethodFooter().toString());
