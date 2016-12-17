@@ -16,8 +16,8 @@
 *.ear
 
 #Gradle
-**/gradle.properties
-.gradle
+#**/gradle.properties
+#.gradle
 gradle*
 **/*.gradle
 
