@@ -74,7 +74,7 @@ public class RuleChainBeanHelper extends JstBaseTestingBeanHelper {
 	private final StringBuilder rulesDisplayedInMethodFooter = new StringBuilder();
 
 	/**
-	 * @return List<TestRule>
+	 * @return {@link List}
 	 */
 	public RuleChainBeanHelper addRuleToList(final TestRule testRule) {
 		this.ruleList.add(testRule);

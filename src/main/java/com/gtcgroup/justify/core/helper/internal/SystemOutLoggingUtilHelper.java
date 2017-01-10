@@ -55,33 +55,21 @@ public enum SystemOutLoggingUtilHelper {
 	public static String USER_ID = "testId";
 	public static String WARNING = "WARNING";
 
-	/**
-	 * @see JpcLoggingSI#config(String, String, String)
-	 */
 	public static void config(final String className, final String methodName, final String message) {
 
 		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.CONFIG);
 	}
 
-	/**
-	 * @see JpcLoggingSI#fine(String, String, String)
-	 */
 	public static void fine(final String className, final String methodName, final String message) {
 
 		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINE);
 	}
 
-	/**
-	 * @see JpcLoggingSI#finer(String, String, String)
-	 */
 	public static void finer(final String className, final String methodName, final String message) {
 
 		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINER);
 	}
 
-	/**
-	 * @see JpcLoggingSI#finest(String, String, String)
-	 */
 	public static void finest(final String className, final String methodName, final String message) {
 
 		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINEST);
@@ -92,9 +80,6 @@ public enum SystemOutLoggingUtilHelper {
 		return SystemOutLoggingUtilHelper.USER_ID;
 	}
 
-	/**
-	 * @see JpcLoggingSI#info(String, String, String)
-	 */
 	public static void info(final String className, final String methodName, final String message) {
 
 		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.INFO);
@@ -129,17 +114,11 @@ public enum SystemOutLoggingUtilHelper {
 		System.out.println(logStatement.toString());
 	}
 
-	/**
-	 * @see JpcLoggingSI#severe(String, String, String)
-	 */
 	public static void severe(final String className, final String methodName, final String message) {
 
 		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.SEVERE);
 	}
 
-	/**
-	 * @see JpcLoggingSI#warning(String, String, String)
-	 */
 	public static void warning(final String className, final String methodName, final String message) {
 
 		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.WARNING);

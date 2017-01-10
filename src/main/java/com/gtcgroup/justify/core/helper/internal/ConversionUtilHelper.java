@@ -129,7 +129,7 @@ public enum ConversionUtilHelper {
 
 	/**
 	 * This method converts a date {@link String} in MMM-dd-yyyy (e.g.
-	 * Jul-27-2015) format into a {@link Calendar} with the hours, minutes &
+	 * Jul-27-2015) format into a {@link Calendar} with the hours, minutes and
 	 * seconds set to 0.
 	 *
 	 * @return {@link Calendar}
@@ -144,7 +144,7 @@ public enum ConversionUtilHelper {
 
 	/**
 	 * This method converts a date {@link String} in the format MMM-dd-yyyy
-	 * (e.g. Jul-27-2015) into a {@link Timestamp} with the hours, minutes &
+	 * (e.g. Jul-27-2015) into a {@link Timestamp} with the hours, minutes and
 	 * seconds set to 0.
 	 *
 	 * @return {@link Timestamp}
@@ -163,7 +163,7 @@ public enum ConversionUtilHelper {
 	/**
 	 * This method converts a date {@link String} in the format MMM-dd-yyyy
 	 * (e.g. Jul-27-2015) into a {@link XMLGregorianCalendar} with the hours,
-	 * minutes & seconds set to 0.
+	 * minutes and seconds set to 0.
 	 *
 	 * @return {@link XMLGregorianCalendar}
 	 */
@@ -198,7 +198,7 @@ public enum ConversionUtilHelper {
 
 	/**
 	 * This method converts a date {@link String} in the format specified into a
-	 * {@link Calendar} with the hours, minutes & seconds set to 0.
+	 * {@link Calendar} with the hours, minutes and seconds set to 0.
 	 *
 	 * @return {@link Calendar}
 	 */
@@ -222,7 +222,7 @@ public enum ConversionUtilHelper {
 
 	/**
 	 * This method converts a date {@link String} in the format specified into a
-	 * {@link Timestamp} with the hours, minutes & seconds set to 0.
+	 * {@link Timestamp} with the hours, minutes and seconds set to 0.
 	 *
 	 * @return {@link Timestamp}
 	 */
@@ -246,7 +246,8 @@ public enum ConversionUtilHelper {
 
 	/**
 	 * This method converts a date String in the format specified into a
-	 * {@link XMLGregorianCalendar} with the hours, minutes & seconds set to 0.
+	 * {@link XMLGregorianCalendar} with the hours, minutes and seconds set to
+	 * 0.
 	 *
 	 * @return {@link XMLGregorianCalendar}
 	 */
