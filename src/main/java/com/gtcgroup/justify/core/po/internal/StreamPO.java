@@ -65,7 +65,6 @@ public class StreamPO extends JstBaseTestingPO {
 	}
 
 	/**
-	 * @param classLoader
 	 * @return {@link StreamPO}
 	 */
 	public StreamPO setClassLoader(final ClassLoader classLoader) {
@@ -74,7 +73,6 @@ public class StreamPO extends JstBaseTestingPO {
 	}
 
 	/**
-	 * @param inputStream
 	 * @return {@link StreamPO}
 	 */
 	public StreamPO setInputStream(final InputStream inputStream) {

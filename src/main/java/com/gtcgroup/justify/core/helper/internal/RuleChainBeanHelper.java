@@ -74,7 +74,6 @@ public class RuleChainBeanHelper extends JstBaseTestingBeanHelper {
 	private final StringBuilder rulesDisplayedInMethodFooter = new StringBuilder();
 
 	/**
-	 * @param testRule
 	 * @return List<TestRule>
 	 */
 	public RuleChainBeanHelper addRuleToList(final TestRule testRule) {
@@ -83,7 +82,6 @@ public class RuleChainBeanHelper extends JstBaseTestingBeanHelper {
 	}
 
 	/**
-	 * @param ruleDisplayedInMethodFooter
 	 * @return {@link RuleChainBeanHelper}
 	 */
 	public RuleChainBeanHelper appendRuleDisplayedInMethodFooter(final String ruleDisplayedInMethodFooter) {
@@ -92,42 +90,42 @@ public class RuleChainBeanHelper extends JstBaseTestingBeanHelper {
 	}
 
 	/**
-	 * @return AssertionError
+	 * @return {@link AssertionError}
 	 */
 	public AssertionError getAssertionFailure() {
 		return this.assertionFailure;
 	}
 
 	/**
-	 * @return Description
+	 * @return {@link Description}
 	 */
 	public Description getDescription() {
 		return this.description;
 	}
 
 	/**
-	 * @return Throwable
+	 * @return {@link Throwable}
 	 */
 	public Throwable getExceptionErrorDuringAfter() {
 		return this.exceptionErrorDuringAfter;
 	}
 
 	/**
-	 * @return Throwable
+	 * @return {@link Throwable}
 	 */
 	public Throwable getExceptionErrorDuringBefore() {
 		return this.exceptionErrorDuringBefore;
 	}
 
 	/**
-	 * @return Throwable
+	 * @return {@link Throwable}
 	 */
 	public Throwable getExceptionErrorDuringTestMethod() {
 		return this.exceptionErrorDuringTestMethod;
 	}
 
 	/**
-	 * @return List<TestRule>
+	 * @return {@link List}
 	 */
 	public List<TestRule> getRuleList() {
 
@@ -137,14 +135,13 @@ public class RuleChainBeanHelper extends JstBaseTestingBeanHelper {
 	}
 
 	/**
-	 * @return StringBuilder
+	 * @return {@link StringBuilder}
 	 */
 	public StringBuilder getRulesDisplayedInMethodFooter() {
 		return this.rulesDisplayedInMethodFooter;
 	}
 
 	/**
-	 * @param assertionFailure
 	 * @return {@link RuleChainBeanHelper}
 	 */
 	public RuleChainBeanHelper setAssertionFailure(final AssertionError assertionFailure) {
@@ -153,7 +150,6 @@ public class RuleChainBeanHelper extends JstBaseTestingBeanHelper {
 	}
 
 	/**
-	 * @param description
 	 * @return {@link RuleChainBeanHelper}
 	 */
 	public RuleChainBeanHelper setDescription(final Description description) {
@@ -162,7 +158,6 @@ public class RuleChainBeanHelper extends JstBaseTestingBeanHelper {
 	}
 
 	/**
-	 * @param exceptionErrorDuringAfter
 	 * @return {@link RuleChainBeanHelper}
 	 */
 	public RuleChainBeanHelper setExceptionErrorDuringAfter(final Throwable exceptionErrorDuringAfter) {
@@ -171,7 +166,6 @@ public class RuleChainBeanHelper extends JstBaseTestingBeanHelper {
 	}
 
 	/**
-	 * @param exceptionErrorDuringBefore
 	 * @return {@link RuleChainBeanHelper}
 	 */
 	public RuleChainBeanHelper setExceptionErrorDuringBefore(final Throwable exceptionErrorDuringBefore) {
@@ -180,7 +174,6 @@ public class RuleChainBeanHelper extends JstBaseTestingBeanHelper {
 	}
 
 	/**
-	 * @param exceptionErrorDuringTestMethod
 	 * @return {@link RuleChainBeanHelper}
 	 */
 	public RuleChainBeanHelper setExceptionErrorDuringTestMethod(final Throwable exceptionErrorDuringTestMethod) {

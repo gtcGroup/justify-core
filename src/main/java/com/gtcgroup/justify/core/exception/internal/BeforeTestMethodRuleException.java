@@ -46,12 +46,8 @@ public class BeforeTestMethodRuleException extends JstBaseTestingException {
 
 	/**
 	 * Constructor
-	 *
-	 * @param ruleClass
-	 * @param message
-	 * @param exception
 	 */
-	public BeforeTestMethodRuleException(final String ruleClass, final String message, final Throwable exception) {
+	public BeforeTestMethodRuleException(final String ruleClass, final Throwable exception) {
 
 		super(ruleClass, exception);
 		RuleChainCacheHelper.getRuleChainHelper().setExceptionErrorDuringBefore(this);

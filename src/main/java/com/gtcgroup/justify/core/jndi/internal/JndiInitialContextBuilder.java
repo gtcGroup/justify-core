@@ -52,5 +52,4 @@ public class JndiInitialContextBuilder implements InitialContextFactoryBuilder {
 
 		return new JndiInitialContextFactory();
 	}
-
 }

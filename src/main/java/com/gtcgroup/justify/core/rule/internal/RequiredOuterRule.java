@@ -94,9 +94,9 @@ public class RequiredOuterRule extends BaseTimerRule {
 
 		if (null != RuleChainCacheHelper.getRuleChainHelper().getExceptionErrorDuringBefore()) {
 
-			DisplayRuleMessagesUtilHelper.displaySuiteHeader();
+			DisplayRuleMessagesUtilHelper.displayTestingHeader();
 			DisplayRuleMessagesUtilHelper
-			.displayMethodHeader(RuleChainCacheHelper.getRuleChainHelper().getDescription());
+					.displayMethodHeader(RuleChainCacheHelper.getRuleChainHelper().getDescription());
 
 			displayErrorFooterBefore();
 			return;

@@ -65,9 +65,6 @@ public enum JstPortableJndiUtilHelper {
 
 	/**
 	 * @see Context#bind(String, Object)
-	 *
-	 * @param name
-	 * @param object
 	 */
 	public static void bind(final String name, final Object object) {
 
@@ -76,9 +73,6 @@ public enum JstPortableJndiUtilHelper {
 
 	/**
 	 * @see Context#lookup(String)
-	 *
-	 * @param name
-	 * @return Object
 	 */
 	public static Object lookup(final String name) {
 
@@ -93,9 +87,6 @@ public enum JstPortableJndiUtilHelper {
 
 	/**
 	 * @see Context#bind(String, Object)
-	 *
-	 * @param name
-	 * @param object
 	 */
 	public static void rebind(final String name, final Object object) {
 

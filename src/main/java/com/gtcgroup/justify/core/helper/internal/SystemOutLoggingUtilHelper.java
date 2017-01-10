@@ -102,12 +102,6 @@ public enum SystemOutLoggingUtilHelper {
 
 	/**
 	 * This method supports all logging.
-	 *
-	 * @param className
-	 * @param methodName
-	 * @param message
-	 * @param level
-	 * @param userId
 	 */
 	public static void log(final String className, final String methodName, final String message, final String level) {
 

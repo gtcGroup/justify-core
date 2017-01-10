@@ -54,7 +54,8 @@ import com.gtcgroup.justify.core.jndi.internal.JndiNameParser;
  */
 public enum JndiContextCacheHelper implements Context {
 
-	@SuppressWarnings("javadoc") INSTANCE;
+	@SuppressWarnings("javadoc")
+	INSTANCE;
 
 	private final Map<String, Object> bindings = new HashMap<String, Object>();
 
@@ -329,5 +330,4 @@ public enum JndiContextCacheHelper implements Context {
 
 		throw new MethodNotSupportedException();
 	}
-
 }

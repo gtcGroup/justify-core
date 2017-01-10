@@ -49,14 +49,12 @@ import com.gtcgroup.justify.core.si.JstRuleChainSI;
  */
 public enum RuleChainCacheHelper {
 
-	@SuppressWarnings("javadoc") INSTANCE;
+	@SuppressWarnings("javadoc")
+	INSTANCE;
 
 	private static RuleChainBeanHelper ruleChainBeanHelper;
 
 	/**
-	 * @param <RC>
-	 * @param ruleInstance
-	 * @param ruleChain
 	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
@@ -71,7 +69,7 @@ public enum RuleChainCacheHelper {
 		RuleChainCacheHelper.getRuleChainHelper().addRuleToList(ruleInstance);
 
 		RuleChainCacheHelper.getRuleChainHelper()
-		.appendRuleDisplayedInMethodFooter(" [" + ruleInstance.getClass().getSimpleName() + "]");
+				.appendRuleDisplayedInMethodFooter(" [" + ruleInstance.getClass().getSimpleName() + "]");
 
 		return (RC) ruleChain;
 	}
@@ -95,8 +93,6 @@ public enum RuleChainCacheHelper {
 	}
 
 	/**
-	 * @param base
-	 * @param description
 	 * @return {@link Statement}
 	 */
 	public static Statement processApply(final Statement base, final Description description) {
@@ -112,13 +108,10 @@ public enum RuleChainCacheHelper {
 
 			statement = testRule.apply(statement, description);
 		}
-
 		return statement;
 	}
 
 	/**
-	 * @param <RC>
-	 * @param ruleChainClass
 	 * @return {@link TestRule}
 	 */
 	public static <RC extends JstRuleChainSI> RC processOuterRule(final Class<RC> ruleChainClass) {
@@ -129,7 +122,5 @@ public enum RuleChainCacheHelper {
 		final RC ruleChain = (RC) ReflectionUtilHelper.instantiateNonPublicConstructorNoArgument(ruleChainClass);
 
 		return ruleChain;
-
 	}
-
 }

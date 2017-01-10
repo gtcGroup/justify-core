@@ -50,10 +50,10 @@ public enum DisplayRuleMessagesUtilHelper {
 	@SuppressWarnings("javadoc")
 	INSTANCE;
 
-	protected static boolean isSuiteHeaderDisplayed = false;
+	protected static boolean isTestingHeaderDisplayed = false;
 
 	/**
-	 * @param exception
+	 * This method is for console display.
 	 */
 	public static void displayConstructorException(final Throwable exception) {
 
@@ -62,9 +62,6 @@ public enum DisplayRuleMessagesUtilHelper {
 
 	/**
 	 * This method is recursive.
-	 *
-	 * @param throwable
-	 * @param header
 	 */
 	public static void displayException(final Throwable throwable, final String header) {
 
@@ -88,10 +85,7 @@ public enum DisplayRuleMessagesUtilHelper {
 	}
 
 	/**
-	 * @param status
-	 * @param description
-	 * @param elapsedNanoSeconds
-	 * @param rulesForMethodFooter
+	 * This method is for console display.
 	 */
 	public static void displayMethodFooter(final String status, final Description description,
 			final long elapsedNanoSeconds, final String rulesForMethodFooter) {
@@ -114,8 +108,7 @@ public enum DisplayRuleMessagesUtilHelper {
 	}
 
 	/**
-	 * @param elapsedNanoSeconds
-	 * @param status
+	 * This method is for console display.
 	 */
 	public static void displayMethodFooter(final String status, final long elapsedNanoSeconds) {
 
@@ -137,7 +130,7 @@ public enum DisplayRuleMessagesUtilHelper {
 	}
 
 	/**
-	 * @param descriptionFromJUnit
+	 * This method is for console display.
 	 */
 	public static void displayMethodHeader(final Description descriptionFromJUnit) {
 
@@ -157,11 +150,11 @@ public enum DisplayRuleMessagesUtilHelper {
 	}
 
 	/**
-	 * This method display a header for initial rule configuration.
+	 * This method is for console display.
 	 */
-	public static void displaySuiteHeader() {
+	public static void displayTestingHeader() {
 
-		if (DisplayRuleMessagesUtilHelper.isSuiteHeaderDisplayed) {
+		if (DisplayRuleMessagesUtilHelper.isTestingHeaderDisplayed) {
 
 			return;
 		}
@@ -233,6 +226,6 @@ public enum DisplayRuleMessagesUtilHelper {
 
 		System.out.print(border.toString() + message + border.toString());
 
-		DisplayRuleMessagesUtilHelper.isSuiteHeaderDisplayed = true;
+		DisplayRuleMessagesUtilHelper.isTestingHeaderDisplayed = true;
 	}
 }

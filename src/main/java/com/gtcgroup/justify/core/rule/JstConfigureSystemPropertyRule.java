@@ -46,9 +46,6 @@ import com.gtcgroup.justify.core.base.JstBaseTestingRule;
 public class JstConfigureSystemPropertyRule extends JstBaseTestingRule {
 
 	/**
-	 * @param <RULE>
-	 * @param key
-	 * @param value
 	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
@@ -65,9 +62,6 @@ public class JstConfigureSystemPropertyRule extends JstBaseTestingRule {
 
 	/**
 	 * Constructor - protected
-	 *
-	 * @param key
-	 * @param value
 	 */
 	protected JstConfigureSystemPropertyRule(final String key, final String value) {
 

@@ -55,7 +55,6 @@ public class JstConfigureUserIdRule extends JstBaseTestingRule {
 	public static String previousUserID;
 
 	/**
-	 * @param <RULE>
 	 * @return {@link TestRule}
 	 */
 	public static <RULE extends TestRule> RULE withUserId() {
@@ -64,8 +63,6 @@ public class JstConfigureUserIdRule extends JstBaseTestingRule {
 	}
 
 	/**
-	 * @param <RULE>
-	 * @param userId
 	 * @return {@link TestRule}
 	 */
 	public static <RULE extends TestRule> RULE withUserId(final String userId) {
@@ -76,7 +73,6 @@ public class JstConfigureUserIdRule extends JstBaseTestingRule {
 	}
 
 	/**
-	 * @param <RULE>
 	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
@@ -90,8 +86,6 @@ public class JstConfigureUserIdRule extends JstBaseTestingRule {
 
 	/**
 	 * Constructor - protected
-	 *
-	 * @param userId
 	 */
 	protected <SUBCLASS extends JstConfigureUserIdRule> JstConfigureUserIdRule(final String userId,
 			final SUBCLASS... subClassInstance) {

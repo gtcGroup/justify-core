@@ -62,8 +62,6 @@ public class TestingRuntimeException extends JstBaseTestingException {
 
 	/**
 	 * Constructor
-	 *
-	 * @param message
 	 */
 	public TestingRuntimeException(final String message) {
 
@@ -72,8 +70,6 @@ public class TestingRuntimeException extends JstBaseTestingException {
 
 	/**
 	 * Constructor
-	 *
-	 * @param exception
 	 */
 	public TestingRuntimeException(final Throwable exception) {
 

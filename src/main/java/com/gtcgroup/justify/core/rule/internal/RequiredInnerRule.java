@@ -62,7 +62,7 @@ public class RequiredInnerRule extends BaseTimerRule {
 	@Override
 	public void beforeTM() {
 
-		DisplayRuleMessagesUtilHelper.displaySuiteHeader();
+		DisplayRuleMessagesUtilHelper.displayTestingHeader();
 
 		DisplayRuleMessagesUtilHelper.displayMethodHeader(RuleChainCacheHelper.getRuleChainHelper().getDescription());
 		BaseTimerRule.testMethodTimer = new TimerBeanHelper();

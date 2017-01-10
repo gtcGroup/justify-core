@@ -46,13 +46,11 @@ public class TestingConstructorRuleException extends JstBaseTestingException {
 
 	/**
 	 * Constructor
-	 *
-	 * @param message
 	 */
 	public TestingConstructorRuleException(final String message) {
 
 		super(message);
-		DisplayRuleMessagesUtilHelper.displaySuiteHeader();
+		DisplayRuleMessagesUtilHelper.displayTestingHeader();
 		DisplayRuleMessagesUtilHelper.displayConstructorException(this);
 		return;
 	}

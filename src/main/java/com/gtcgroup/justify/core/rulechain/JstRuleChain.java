@@ -54,7 +54,6 @@ public class JstRuleChain implements JstRuleChainSI {
 	public static boolean displayVerboseStartupLogging;
 
 	/**
-	 * @param <RC>
 	 * @return {@link JstRuleChainSI}
 	 */
 	@SuppressWarnings("unchecked")
@@ -64,8 +63,6 @@ public class JstRuleChain implements JstRuleChainSI {
 	}
 
 	/**
-	 * @param <RC>
-	 * @param displayVerboseStartupLogging
 	 * @return {@link JstRuleChainSI}
 	 */
 	@SuppressWarnings("unchecked")
@@ -75,9 +72,6 @@ public class JstRuleChain implements JstRuleChainSI {
 	}
 
 	/**
-	 * @param <RC>
-	 * @param displayVerboseStartupLogging
-	 * @param ruleChainClass
 	 * @return {@link JstRuleChainSI}
 	 */
 	public static <RC extends JstRuleChainSI> RC outerRule(final boolean displayVerboseStartupLogging,

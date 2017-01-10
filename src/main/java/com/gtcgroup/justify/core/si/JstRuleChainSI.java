@@ -44,25 +44,17 @@ import org.junit.rules.TestRule;
 public interface JstRuleChainSI extends TestRule {
 
 	/**
-	 * @param <RC>
-	 * @param ruleInstance
 	 * @return {@link JstRuleChainSI}
 	 */
 	public <RC extends JstRuleChainSI> RC around(TestRule ruleInstance);
 
 	/**
-	 * @param <RC>
-	 * @param <RULE>
-	 * @param ruleList
 	 * @return {@link JstRuleChainSI}
 	 */
 	public <RC extends JstRuleChainSI, RULE extends TestRule> RC aroundList(final List<RULE> ruleList);
 
 	/**
-	 * @param bind
-	 * @param <RC>
 	 * @return {@link JstRuleChainSI}
 	 */
 	public <RC extends JstRuleChainSI> RC bindJulToLog4j(final boolean bind);
-
 }

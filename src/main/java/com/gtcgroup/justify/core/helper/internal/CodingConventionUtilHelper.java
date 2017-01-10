@@ -42,33 +42,25 @@ import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
  */
 public enum CodingConventionUtilHelper {
 
-	@SuppressWarnings("javadoc") INSTANCE;
+	@SuppressWarnings("javadoc")
+	INSTANCE;
 
 	/**
 	 * This method throws an exception if a suffix violation occurs.
-	 *
-	 * @param clazz
-	 * @param containsCharacters
 	 */
 	public static void checkSuffixInClassName(final Class<?> clazz, final String containsCharacters) {
-
-		final String methodName = "checkSuffixInClassName";
 
 		// Verify naming convention.
 		if (!clazz.getSimpleName().contains(containsCharacters)) {
 
-			throw CodingConventionUtilHelper.throwException(methodName, clazz, containsCharacters);
+			throw CodingConventionUtilHelper.throwException(clazz, containsCharacters);
 		}
 	}
 
 	/**
-	 * @param methodName
-	 * @param clazz
-	 * @param endsWith1
-	 * @param endsWith2
+	 * @return {@link TestingRuntimeException}
 	 */
-	private static TestingRuntimeException throwException(final String methodName, final Class<?> clazz,
-			final String... endsWith) {
+	private static TestingRuntimeException throwException(final Class<?> clazz, final String... endsWith) {
 
 		final StringBuilder message = new StringBuilder();
 		message.append("The class named [");

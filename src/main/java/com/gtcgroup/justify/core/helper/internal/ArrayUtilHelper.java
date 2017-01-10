@@ -29,8 +29,7 @@ package com.gtcgroup.justify.core.helper.internal;
 import java.lang.reflect.Array;
 
 /**
- * This Util Helper class provides convenience methods for reflection
- * processing.
+ * This Util Helper class provides convenience methods for array processing.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -48,9 +47,7 @@ public enum ArrayUtilHelper {
 	/**
 	 * This method joins multiple arrays.
 	 *
-	 * @param <ARRAY>
-	 * @param arrays
-	 * @return Array
+	 * @return ARRAY[]
 	 */
 	public static <ARRAY> ARRAY[] joinArrays(final ARRAY[]... arrays) {
 		int length = 0;

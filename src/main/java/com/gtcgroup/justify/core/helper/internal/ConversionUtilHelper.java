@@ -56,7 +56,8 @@ import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
  */
 public enum ConversionUtilHelper {
 
-	@SuppressWarnings("javadoc") INSTANCE;
+	@SuppressWarnings("javadoc")
+	INSTANCE;
 
 	private static DatatypeFactory DATATYPE_FACTORY;
 
@@ -78,8 +79,6 @@ public enum ConversionUtilHelper {
 	 * This method converts a {@link Calendar} into a different {@link Locale}
 	 * and return the date value in MMM-dd-yyyy format.
 	 *
-	 * @param calendar
-	 * @param inLocale
 	 * @return {@link String}
 	 */
 	public static String convertCalendarToMMMddyyyyWithLocale(final Calendar calendar, final Locale inLocale) {
@@ -103,7 +102,6 @@ public enum ConversionUtilHelper {
 	 * {@link XMLGregorianCalendar} that can be used for XML DateTime
 	 * processing.
 	 *
-	 * @param calendar
 	 * @return {@link XMLGregorianCalendar}
 	 * @throws DatatypeConfigurationException
 	 */
@@ -134,7 +132,6 @@ public enum ConversionUtilHelper {
 	 * Jul-27-2015) format into a {@link Calendar} with the hours, minutes &
 	 * seconds set to 0.
 	 *
-	 * @param MMMddyyyyString
 	 * @return {@link Calendar}
 	 */
 	public static Calendar convertDateMMMddyyyyToCalendar(final String MMMddyyyyString) {
@@ -150,7 +147,6 @@ public enum ConversionUtilHelper {
 	 * (e.g. Jul-27-2015) into a {@link Timestamp} with the hours, minutes &
 	 * seconds set to 0.
 	 *
-	 * @param MMMddyyyyString
 	 * @return {@link Timestamp}
 	 */
 	public static Timestamp convertDateMMMddyyyyToTimestamp(final String MMMddyyyyString) {
@@ -169,7 +165,6 @@ public enum ConversionUtilHelper {
 	 * (e.g. Jul-27-2015) into a {@link XMLGregorianCalendar} with the hours,
 	 * minutes & seconds set to 0.
 	 *
-	 * @param MMMddyyyyString
 	 * @return {@link XMLGregorianCalendar}
 	 */
 	public static XMLGregorianCalendar convertDateMMMddyyyyToXmlDate(final String MMMddyyyyString) {
@@ -188,7 +183,6 @@ public enum ConversionUtilHelper {
 	 * (e.g. Jul-27-2015) into a date {@link String} in the format yyyy-mm-dd
 	 * (e.g. 2015-07-27)
 	 *
-	 * @param MMMddyyyyString
 	 * @return {@link String}
 	 */
 	public static String convertDateMMMddyyyyToyyyymmdd(final String MMMddyyyyString) {
@@ -206,8 +200,6 @@ public enum ConversionUtilHelper {
 	 * This method converts a date {@link String} in the format specified into a
 	 * {@link Calendar} with the hours, minutes & seconds set to 0.
 	 *
-	 * @param dateString
-	 * @param dateStringFormat
 	 * @return {@link Calendar}
 	 */
 	public static Calendar convertDateStringToCalendar(final String dateString,
@@ -232,8 +224,6 @@ public enum ConversionUtilHelper {
 	 * This method converts a date {@link String} in the format specified into a
 	 * {@link Timestamp} with the hours, minutes & seconds set to 0.
 	 *
-	 * @param dateString
-	 * @param dateStringFormat
 	 * @return {@link Timestamp}
 	 */
 	public static Timestamp convertDateStringToTimestamp(final String dateString,
@@ -258,8 +248,6 @@ public enum ConversionUtilHelper {
 	 * This method converts a date String in the format specified into a
 	 * {@link XMLGregorianCalendar} with the hours, minutes & seconds set to 0.
 	 *
-	 * @param dateString
-	 * @param dateStringFormat
 	 * @return {@link XMLGregorianCalendar}
 	 */
 	public static XMLGregorianCalendar convertDateStringToXmlDate(final String dateString,
@@ -276,7 +264,6 @@ public enum ConversionUtilHelper {
 	 * This method converts an {@link XMLGregorianCalendar} into a
 	 * {@link Calendar} with the format specified.
 	 *
-	 * @param xmlDatetime
 	 * @return {@link Calendar}
 	 */
 	public static Calendar convertDatetimeXmlToCalendar(final XMLGregorianCalendar xmlDatetime) {
@@ -309,8 +296,6 @@ public enum ConversionUtilHelper {
 	 * This method converts an {@link XMLGregorianCalendar} into a
 	 * {@link String} with the format specified.
 	 *
-	 * @param xmlDate
-	 * @param dateStringFormat
 	 * @return {@link String}
 	 */
 	public static String convertDateXmlToDateString(final XMLGregorianCalendar xmlDate,
@@ -336,7 +321,6 @@ public enum ConversionUtilHelper {
 	 * This method converts an {@link XMLGregorianCalendar} into a String with
 	 * the format MMM-dd-yyyy (e.g. Jul-27-2015).
 	 *
-	 * @param xmlDate
 	 * @return {@link String}
 	 */
 	public static String convertDateXmlToMMMddyyyy(final XMLGregorianCalendar xmlDate) {
@@ -350,7 +334,6 @@ public enum ConversionUtilHelper {
 	/**
 	 * Converts a {@link UUID} byte array to a hex string.
 	 *
-	 * @param uuidByteArray
 	 * @return String is a hex string with hyphens.
 	 */
 	public static String convertFromUuidByteArrayToHexString(final byte[] uuidByteArray) {
@@ -365,7 +348,6 @@ public enum ConversionUtilHelper {
 	/**
 	 * Converts a hex string back to a {@link UUID} byte array.
 	 *
-	 * @param hexStringWithHyphens
 	 * @return byte array
 	 */
 	public static byte[] convertFromUuidHexStringToByteArray(final String hexStringWithHyphens) {
@@ -380,7 +362,6 @@ public enum ConversionUtilHelper {
 	/**
 	 * This method returns byte array equivalent of a {@link UUID}.
 	 *
-	 * @param uuid
 	 * @return byte array
 	 */
 	private static byte[] convertFromUuidInstanceToByteArray(final UUID uuid) {
@@ -394,7 +375,6 @@ public enum ConversionUtilHelper {
 	 * This method creates a set of asterisks depending on the length of the
 	 * message.
 	 *
-	 * @param message
 	 * @return {@link StringBuilder}
 	 */
 	public static StringBuilder convertMessageLengthToBorder(final String message) {
@@ -412,7 +392,6 @@ public enum ConversionUtilHelper {
 	 * This method creates a microsecond string or, if zero microseconds, a two
 	 * digit decimal representation.
 	 *
-	 * @param nanos
 	 * @return {@link String}
 	 */
 	public static String convertNanosecondToMillisecondString(final long nanos) {
@@ -456,9 +435,6 @@ public enum ConversionUtilHelper {
 	 * This method returns a string with characters replaced. A null is returned
 	 * as an empty string.
 	 *
-	 * @param originalString
-	 * @param pattern
-	 * @param replace
 	 * @return {@link String}
 	 */
 	public static String convertStringWithReplacementPattern(final String originalString, final String pattern,
@@ -489,7 +465,6 @@ public enum ConversionUtilHelper {
 	 * PB) into an XMLGregorianCalendar with a lexical time format (e.g.
 	 * 19:30:00).
 	 *
-	 * @param tweleveHourTime
 	 * @return {@link XMLGregorianCalendar}
 	 * @throws DatatypeConfigurationException
 	 */
@@ -524,8 +499,6 @@ public enum ConversionUtilHelper {
 	 * This method converts a {@link Timestamp} into a String with the format
 	 * specified.
 	 *
-	 * @param timestamp
-	 * @param simpleDateFormat
 	 * @return {@link String}
 	 */
 	public static String convertTimestampToDateString(final Timestamp timestamp,
@@ -550,7 +523,6 @@ public enum ConversionUtilHelper {
 	 * This method returns a {@link String} instance in the "MMM-dd-yyyy" format
 	 * from a timestamp.
 	 *
-	 * @param timestamp
 	 * @return {@link String}
 	 */
 	public static String convertTimestampToMMMddyyyy(final Timestamp timestamp) {
@@ -562,8 +534,6 @@ public enum ConversionUtilHelper {
 	}
 
 	/**
-	 * @param dateString
-	 * @param dateStringFormat
 	 * @return {@link XMLGregorianCalendar}
 	 */
 	public static Calendar instantiateCalendar(final String dateString, final SimpleDateFormat dateStringFormat) {
@@ -582,8 +552,6 @@ public enum ConversionUtilHelper {
 	}
 
 	/**
-	 * @param dateString
-	 * @param dateStringFormat
 	 * @return {@link XMLGregorianCalendar}
 	 */
 	public static XMLGregorianCalendar instantiateXmlGregorianCalendar(final String dateString,

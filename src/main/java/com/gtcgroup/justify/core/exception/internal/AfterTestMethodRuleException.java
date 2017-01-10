@@ -45,9 +45,6 @@ public class AfterTestMethodRuleException extends JstBaseTestingException {
 
 	/**
 	 * Constructor
-	 *
-	 * @param ruleClass
-	 * @param exception
 	 */
 	public AfterTestMethodRuleException(final String ruleClass, final Throwable exception) {
 

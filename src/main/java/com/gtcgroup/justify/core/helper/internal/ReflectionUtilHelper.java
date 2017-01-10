@@ -64,7 +64,6 @@ public enum ReflectionUtilHelper {
 	INSTANCE;
 
 	/**
-	 * @param clazz
 	 * @return boolean
 	 */
 	public static boolean containsPublicConstructorNoArgument(final Class<?> clazz) {
@@ -73,7 +72,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param instance
 	 * @return Object
 	 */
 	public static Object copy(final Object instance) {
@@ -112,7 +110,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param className
 	 * @return boolean
 	 */
 	public static boolean existsOnClasspath(final String className) {
@@ -121,8 +118,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param resourceName
-	 * @param suppressException
 	 * @return {@link StreamPO} or null
 	 */
 	@SuppressWarnings("resource")
@@ -148,47 +143,35 @@ public enum ReflectionUtilHelper {
 			}
 		}
 
-		final StreamPO streamPO = new StreamPO().setInputStream(inputStream)
-				.setClassLoader(classLoader);
+		final StreamPO streamPO = new StreamPO().setInputStream(inputStream).setClassLoader(classLoader);
 
 		return streamPO;
 	}
 
 	/**
-	 * @param constructorParameterValues
-	 * @param suppressException
-	 * @param clazz
-	 * @param constructors
 	 * @return instance or null
 	 */
 	public static Object instantiate(final Object[] constructorParameterValues, final boolean suppressException,
-			final Class<?> clazz, final Constructor<?>[] constructors) {
+			final Constructor<?>[] constructors) {
 
 		final List<Constructor<?>> constructorList = new ArrayList<Constructor<?>>(Arrays.asList(constructors));
 
-		return ReflectionUtilHelper.instantiate(constructorParameterValues, clazz, constructorList, suppressException);
+		return ReflectionUtilHelper.instantiate(constructorParameterValues, constructorList, suppressException);
 	}
 
 	/**
-	 * @param constructorParameterValues
-	 * @param clazz
-	 * @param constructorList
 	 * @return instance or null
 	 */
-	public static Object instantiate(final Object[] constructorParameterValues, final Class<?> clazz,
+	public static Object instantiate(final Object[] constructorParameterValues,
 			final List<Constructor<?>> constructorList) {
 
-		return ReflectionUtilHelper.instantiate(constructorParameterValues, clazz, constructorList, false);
+		return ReflectionUtilHelper.instantiate(constructorParameterValues, constructorList, false);
 	}
 
 	/**
-	 * @param constructorParameterValues
-	 * @param clazz
-	 * @param constructorList
-	 * @param suppressException
 	 * @return instance or null
 	 */
-	public static Object instantiate(final Object[] constructorParameterValues, final Class<?> clazz,
+	public static Object instantiate(final Object[] constructorParameterValues,
 			final List<Constructor<?>> constructorList, final boolean suppressException) {
 
 		Object object = null;
@@ -221,7 +204,6 @@ public enum ReflectionUtilHelper {
 	 * This method returns an instance of type <code>Object</code> by invoking a
 	 * non-public no-argument constructor. A class may have many constructors.
 	 *
-	 * @param clazz
 	 * @return instance or null
 	 */
 	public static Object instantiateNonPublicConstructorNoArgument(final Class<?> clazz) {
@@ -234,19 +216,15 @@ public enum ReflectionUtilHelper {
 	 * non-public no-argument constructor. A class may have many constructors.
 	 * Support is provided for suppressing an exception.
 	 *
-	 * @param clazz
-	 * @param suppressException
 	 * @return instance or null
 	 */
 	public static Object instantiateNonPublicConstructorNoArgument(final Class<?> clazz,
 			final boolean suppressException) {
 
-		return instantiatePublicConstructorNoArgument(clazz, retrieveNonPublicConstructorNoArgument(clazz),
-				suppressException);
+		return instantiatePublicConstructorNoArgument(retrieveNonPublicConstructorNoArgument(clazz), suppressException);
 	}
 
 	/**
-	 * @param clazz
 	 * @return instance or null
 	 */
 	public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz) {
@@ -255,8 +233,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param clazz
-	 * @param suppressException
 	 * @return instance or null
 	 */
 	public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz, final boolean suppressException) {
@@ -276,23 +252,17 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param clazz
-	 * @param constructor
 	 * @return instance or null
 	 */
-	public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz,
-			final Constructor<?> constructor) {
+	public static Object instantiatePublicConstructorNoArgument(final Constructor<?> constructor) {
 
-		return ReflectionUtilHelper.instantiatePublicConstructorNoArgument(clazz, constructor, false);
+		return ReflectionUtilHelper.instantiatePublicConstructorNoArgument(constructor, false);
 	}
 
 	/**
-	 * @param clazz
-	 * @param constructor
-	 * @param suppressException
 	 * @return instance or null
 	 */
-	public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz, final Constructor<?> constructor,
+	public static Object instantiatePublicConstructorNoArgument(final Constructor<?> constructor,
 			final boolean suppressException) {
 
 		// Declare.
@@ -314,10 +284,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param clazz
-	 * @param constructorParameterValues
-	 * @param suppressException
-	 * @param parameterTypes
 	 * @return instance or null
 	 */
 	public static Object instantiatePublicConstructorWithArgument(final Class<?> clazz, final boolean suppressException,
@@ -328,8 +294,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param constructorParameterValues
-	 * @param clazz
 	 * @return instance or null
 	 */
 	public static Object instantiatePublicConstructorWithArgument(final Object[] constructorParameterValues,
@@ -342,9 +306,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param constructorParameterValues
-	 * @param suppressException
-	 * @param clazz
 	 * @return instance or null
 	 */
 	public static Object instantiatePublicConstructorWithArgument(final Object[] constructorParameterValues,
@@ -352,14 +313,10 @@ public enum ReflectionUtilHelper {
 
 		final Constructor<?>[] constructors = clazz.getConstructors();
 
-		return ReflectionUtilHelper.instantiate(constructorParameterValues, suppressException, clazz, constructors);
+		return ReflectionUtilHelper.instantiate(constructorParameterValues, suppressException, constructors);
 	}
 
 	/**
-	 * @param className
-	 * @param constructorParameterValues
-	 * @param suppressException
-	 * @param parameterTypes
 	 * @return instance or null
 	 */
 	public static Object instantiatePublicConstructorWithArgument(final String className,
@@ -387,8 +344,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param className
-	 * @param constructorParameterValues
 	 * @return instance or null
 	 */
 	public static Object instantiatePublicConstructorWithArgument(final String className,
@@ -401,9 +356,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param className
-	 * @param constructorParameterValues
-	 * @param suppressException
 	 * @return instance or null
 	 */
 	public static Object instantiatePublicConstructorWithArgument(final String className,
@@ -425,9 +377,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param methodName
-	 * @param instance
-	 * @param args
 	 * @return {@link Object}
 	 */
 	public static Object invokePublicMethod(final String methodName, final Object instance, final Object... args) {
@@ -449,7 +398,6 @@ public enum ReflectionUtilHelper {
 	 * This method iterates through an array of constructors in pursuit of a no
 	 * argument version.
 	 *
-	 * @param constructors
 	 * @return {@link Constructor}
 	 */
 	private static Constructor<?> iterateForNonPublicConstructorNoArgument(final Constructor<?>[] constructors) {
@@ -476,7 +424,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param constructors
 	 * @return {@link Constructor}
 	 */
 	private static Constructor<?> iterateForPublicConstructorNoArgument(final Constructor<?>[] constructors) {
@@ -499,8 +446,7 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param className
-	 * @return Class
+	 * @return {@link Class}
 	 * @throws ClassNotFoundException
 	 */
 	public static Class<Object> retrieveClass(final String className) throws ClassNotFoundException {
@@ -509,8 +455,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param className
-	 * @param suppressException
 	 * @return {@link Class} of null
 	 */
 	@SuppressWarnings("unchecked")
@@ -530,23 +474,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param <T>
-	 * @param className
-	 * @param classType
-	 * @return Class
-	 * @throws ClassNotFoundException
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> Class<T> retrieveClass(final String className, final Class<T> classType)
-			throws ClassNotFoundException {
-
-		return (Class<T>) ReflectionUtilHelper.retrieveClass(className);
-	}
-
-	/**
-	 * @param classInstance
-	 * @param fieldName
-	 * @param suppressException
 	 * @return {@link Field}
 	 */
 	public static Object retrieveFieldInstanceWithDirectAccess(final Object classInstance, final String fieldName,
@@ -568,9 +495,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param instance
-	 * @param methodName
-	 * @param suppressException
 	 * @return {@link Field}
 	 */
 	public static Object retrieveFieldValueFromMethodName(final Object instance, final String methodName,
@@ -601,8 +525,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param instance
-	 * @param fieldName
 	 * @return {@link Field}
 	 */
 	public static Field retrieveFieldWithDirectAccess(final Object instance, final String fieldName) {
@@ -622,7 +544,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param fileName
 	 * @return {@link DataInputStream}
 	 */
 	public static DataInputStream retrieveFileAsDataInputStreamAndBeSureToClose(final String fileName) {
@@ -635,7 +556,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param resourceName
 	 * @return {@link InputStream}
 	 */
 	@SuppressWarnings("resource")
@@ -663,7 +583,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param resourceName
 	 * @return {@link BufferedReader}
 	 */
 	public static BufferedReader retrieveFileAsReader(final String resourceName) {
@@ -677,7 +596,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param fileName
 	 * @return {@link Scanner}
 	 */
 	public static Scanner retrieveFileAsScanner(final String fileName) {
@@ -707,7 +625,6 @@ public enum ReflectionUtilHelper {
 	 * This method returns an accessible no-argument <code>Constructor</code> or
 	 * <code>null</code>.
 	 *
-	 * @param clazz
 	 * @return {@link Constructor} or null.
 	 */
 	public static Constructor<?> retrieveNonPublicConstructorNoArgument(final Class<?> clazz) {
@@ -729,9 +646,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param clazz
-	 * @param methodName
-	 * @param suppressException
 	 * @return {@link Method}
 	 */
 	public static Method retrievePublicMethod(final Class<?> clazz, final String methodName,
@@ -758,9 +672,7 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param className
-	 * @param exception
-	 * @param suppressException
+	 * @throws TestingRuntimeException
 	 */
 	private static void throwTestingRuntimeException(final String message, final boolean suppressException) {
 
@@ -771,7 +683,7 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param constructor
+	 * This method provides a security verification.
 	 */
 	public static void verifyConstructorAccessible(final Constructor<?> constructor) {
 
@@ -785,7 +697,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param clazz
 	 * @return {@link Constructor} or null
 	 */
 	public static boolean verifyPublicNoArgumentConstructorOnly(final Class<?> clazz) {

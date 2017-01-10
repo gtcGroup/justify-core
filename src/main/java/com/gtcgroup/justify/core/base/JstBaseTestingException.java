@@ -57,9 +57,6 @@ public abstract class JstBaseTestingException extends RuntimeException {
 
 	/**
 	 * Constructor
-	 *
-	 * @param ruleClass
-	 * @param exception
 	 */
 	public JstBaseTestingException(final String ruleClass, final Throwable exception) {
 
