@@ -56,10 +56,9 @@ public enum JstPortableJndiUtilHelper {
 		try {
 			NamingManager.setInitialContextFactoryBuilder(new JndiInitialContextBuilder());
 
-		} catch (final Exception e) {
+		} catch (@SuppressWarnings("unused") final Exception e) {
 
-			// Should never happen.
-			throw new TestingRuntimeException(e);
+			// Ignore, should never happen.
 		}
 	}
 

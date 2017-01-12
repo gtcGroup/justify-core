@@ -95,6 +95,7 @@ public enum ReflectionUtilHelper {
 
 		} catch (final Exception e) {
 
+			// Probably never invoked.
 			throw new TestingRuntimeException(e);
 		} finally {
 
@@ -242,9 +243,9 @@ public enum ReflectionUtilHelper {
 			final Object instance = clazz.newInstance();
 			return instance;
 
-			// Catch is required although probably never invoked.
 		} catch (final Throwable e) {
 
+			// Probably never invoked.
 			throwTestingRuntimeException(e.getMessage(), suppressException);
 		}
 		// Probably never invoked.
