@@ -142,6 +142,10 @@ public enum DisplayRuleMessagesUtilHelper {
 	 */
 	public static void displaySucceedFooter(final TimerBeanHelper methodTimer) {
 
+		if (null == methodTimer) {
+			return;
+		}
+
 		DisplayRuleMessagesUtilHelper.displayMethodFooter("Succeeded",
 				RuleChainCacheHelper.getRuleChainHelper().getDescription(), methodTimer.calculateElapsedNanoSeconds(),
 				RuleChainCacheHelper.getRuleChainHelper().getRulesDisplayedInMethodFooter().toString());
@@ -210,8 +214,9 @@ public enum DisplayRuleMessagesUtilHelper {
 			doco.append(System.getProperty("java.version") + "\n");
 
 			doco.append("\t  Java Classpath - ");
-			final String delims = "[C:]+";
-			final String[] tokens = System.getProperty("java.class.path").split(delims);
+
+			final String[] tokens = System.getProperty("java.class.path").replace(":\\", "~#~").replace(":", ";")
+					.replace("~#~", ":\\").split(";");
 
 			Arrays.sort(tokens);
 			for (final String token : tokens) {
