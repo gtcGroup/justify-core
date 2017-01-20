@@ -213,10 +213,12 @@ public enum DisplayRuleMessagesUtilHelper {
 			doco.append("\t  Java Version   - ");
 			doco.append(System.getProperty("java.version") + "\n");
 
-			doco.append("\t  Java Classpath - ");
+			doco.append("\t  Java Classpath -\n");
 
-			final String[] tokens = System.getProperty("java.class.path").replace(":\\", "~#~").replace(":", ";")
-					.replace("~#~", ":\\").split(";");
+			System.out.print(System.getProperty("java.class.path"));
+
+			final String[] tokens = System.getProperty("java.class.path").replace(":/", "~&~").replace(":\\", "~#~")
+					.replace(":", ";").replace("~#~", ":\\").replace("~&~", ":/").split(";");
 
 			Arrays.sort(tokens);
 			for (final String token : tokens) {
