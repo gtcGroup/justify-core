@@ -46,13 +46,10 @@ import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
 public class JstConfigureUserIdRule extends JstBaseTestingRule {
 
 	/** Default user id. */
-	public static final String DEFAULT_USER_ID = "$userId";
+	protected static final String DEFAULT_USER_ID = "$userId";
 
 	/** Current userId. */
-	public static String userID;
-
-	/** Previous userId. */
-	public static String previousUserID;
+	public static String userID = JstConfigureUserIdRule.DEFAULT_USER_ID;
 
 	/**
 	 * @return {@link TestRule}
@@ -66,8 +63,6 @@ public class JstConfigureUserIdRule extends JstBaseTestingRule {
 	 * @return {@link TestRule}
 	 */
 	public static <RULE extends TestRule> RULE withUserId(final String userId) {
-
-		JstConfigureUserIdRule.previousUserID = JstConfigureUserIdRule.userID;
 
 		return withUserIdAndSubClassInstance(userId);
 	}
@@ -103,16 +98,17 @@ public class JstConfigureUserIdRule extends JstBaseTestingRule {
 	@Override
 	public void afterTM() {
 
-		JstConfigureUserIdRule.userID = JstConfigureUserIdRule.previousUserID;
-
 		if (null != this.configureUserIdRule) {
 			try {
+				JstConfigureUserIdRule.userID = JstConfigureUserIdRule.DEFAULT_USER_ID;
 				this.configureUserIdRule.getClass().getDeclaredMethod("afterTM");
 				this.configureUserIdRule.afterTM();
 			} catch (@SuppressWarnings("unused") final Exception e) {
 
 				throw new TestingRuntimeException("This rule must support an [afterTM()] method.");
 			}
+		} else {
+			JstConfigureUserIdRule.userID = JstConfigureUserIdRule.DEFAULT_USER_ID;
 		}
 		return;
 	}
