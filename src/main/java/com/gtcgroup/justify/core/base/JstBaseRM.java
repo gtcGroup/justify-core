@@ -23,44 +23,28 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package com.gtcgroup.justify.core.base;
 
-import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
-
 /**
- * This Exception base class supports readability.
+ * This Resource Manager base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author
- * @since v.6.0
+ * @author Marvin Toll
+ * @since v3.0
  */
-public abstract class JstBaseTestingException extends RuntimeException {
-
-	private static final long serialVersionUID = 1L;
-
-	private static final String SUFFIX = "Exception";
+public abstract class JstBaseRM extends JstBaseSuffix {
 
 	/**
-	 * Constructor
-	 *
-	 * @param message
+	 * @see JstBaseSuffix#assignPatternSuffixTM()
 	 */
-	public JstBaseTestingException(final String message) {
+	@Override
+	protected String assignPatternSuffixTM() {
 
-		super(message);
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseTestingException.SUFFIX);
-	}
-
-	/**
-	 * Constructor
-	 */
-	public JstBaseTestingException(final String ruleClass, final Throwable exception) {
-
-		super("\n\n\tRule Class: " + ruleClass + "\n\tMessage: " + exception.getMessage() + "\n", exception);
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseTestingException.SUFFIX);
+		return "RM";
 	}
 }

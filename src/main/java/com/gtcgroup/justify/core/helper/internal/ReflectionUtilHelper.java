@@ -43,7 +43,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
+import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
 import com.gtcgroup.justify.core.po.internal.StreamPO;
 
 /**
@@ -96,7 +96,7 @@ public enum ReflectionUtilHelper {
 		} catch (final Exception e) {
 
 			// Probably never invoked.
-			throw new TestingRuntimeException(e);
+			throw new JustifyRuntimeException(e);
 		} finally {
 
 			if (null != out) {
@@ -673,13 +673,13 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @throws TestingRuntimeException
+	 * @throws JustifyRuntimeException
 	 */
 	private static void throwTestingRuntimeException(final String message, final boolean suppressException) {
 
 		if (!suppressException) {
 
-			throw new TestingRuntimeException(message);
+			throw new JustifyRuntimeException(message);
 		}
 	}
 

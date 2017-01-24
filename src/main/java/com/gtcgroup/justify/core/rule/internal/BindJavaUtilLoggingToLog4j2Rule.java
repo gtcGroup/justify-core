@@ -27,7 +27,7 @@ package com.gtcgroup.justify.core.rule.internal;
 
 import org.junit.Rule;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingRule;
+import com.gtcgroup.justify.core.base.JstBaseRule;
 
 /**
  * This {@link Rule} class initializes the use of Log4j2 for Java Util Logging.
@@ -40,7 +40,7 @@ import com.gtcgroup.justify.core.base.JstBaseTestingRule;
  * @author Marvin Toll
  * @since v3.0
  */
-public class BindJavaUtilLoggingToLog4j2Rule extends JstBaseTestingRule {
+public class BindJavaUtilLoggingToLog4j2Rule extends JstBaseRule {
 
 	/** Support for Java Util Logging */
 	public static final String LOG_MANAGER_VALUE = "org.apache.logging.log4j.jul.LogManager";
@@ -62,7 +62,7 @@ public class BindJavaUtilLoggingToLog4j2Rule extends JstBaseTestingRule {
 	}
 
 	/**
-	 * @see JstBaseTestingRule#afterTM()
+	 * @see JstBaseRule#afterTM()
 	 */
 	@Override
 	public void afterTM() throws Throwable {
@@ -73,7 +73,7 @@ public class BindJavaUtilLoggingToLog4j2Rule extends JstBaseTestingRule {
 	}
 
 	/**
-	 * @see JstBaseTestingRule#beforeTM()
+	 * @see JstBaseRule#beforeTM()
 	 */
 	@Override
 	public void beforeTM() {

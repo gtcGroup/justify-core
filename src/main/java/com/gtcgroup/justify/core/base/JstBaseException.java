@@ -23,33 +23,44 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package com.gtcgroup.justify.core.base;
 
 import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
 
 /**
- * This Test base class supports readability.
+ * This Exception base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author Marvin Toll
- * @since v3.0
+ * @author
+ * @since v.6.0
  */
-public abstract class JstBaseTestingTest {
+public abstract class JstBaseException extends RuntimeException {
+
+	private static final long serialVersionUID = 1L;
+
+	private static final String SUFFIX = "Exception";
+
+	/**
+	 * Constructor
+	 *
+	 * @param message
+	 */
+	public JstBaseException(final String message) {
+
+		super(message);
+		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseException.SUFFIX);
+	}
 
 	/**
 	 * Constructor
 	 */
-	public JstBaseTestingTest() {
+	public JstBaseException(final String ruleClass, final Throwable exception) {
 
-		super();
-
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), "Test");
-
-		return;
+		super("\n\n\tRule Class: " + ruleClass + "\n\tMessage: " + exception.getMessage() + "\n", exception);
+		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseException.SUFFIX);
 	}
 }

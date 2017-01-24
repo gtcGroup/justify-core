@@ -37,10 +37,10 @@ package com.gtcgroup.justify.core.base;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseTestingPO extends JstBaseTestingClass {
+public abstract class JstBasePO extends JstBaseSuffix {
 
 	/**
-	 * @see JstBaseTestingClass#assignPatternSuffixTM()
+	 * @see JstBaseSuffix#assignPatternSuffixTM()
 	 */
 	@Override
 	protected String assignPatternSuffixTM() {

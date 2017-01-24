@@ -26,7 +26,7 @@
 
 package com.gtcgroup.justify.core.exception.internal;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingException;
+import com.gtcgroup.justify.core.base.JstBaseException;
 import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
 
 /**
@@ -40,7 +40,7 @@ import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class BeforeTestMethodRuleException extends JstBaseTestingException {
+public class BeforeTestMethodRuleException extends JstBaseException {
 
 	private static final long serialVersionUID = 1L;
 

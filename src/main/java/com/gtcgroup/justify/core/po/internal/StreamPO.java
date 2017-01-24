@@ -28,7 +28,7 @@ package com.gtcgroup.justify.core.po.internal;
 
 import java.io.InputStream;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingPO;
+import com.gtcgroup.justify.core.base.JstBasePO;
 
 /**
  * This Bean Helper class supports stream operations.
@@ -42,7 +42,7 @@ import com.gtcgroup.justify.core.base.JstBaseTestingPO;
  * @since v3.0
  */
 
-public class StreamPO extends JstBaseTestingPO {
+public class StreamPO extends JstBasePO {
 
 	private ClassLoader classLoader;
 

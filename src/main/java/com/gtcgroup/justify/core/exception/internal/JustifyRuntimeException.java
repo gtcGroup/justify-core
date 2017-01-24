@@ -24,10 +24,12 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.base;
+package com.gtcgroup.justify.core.exception.internal;
+
+import com.gtcgroup.justify.core.base.JstBaseException;
 
 /**
- * This Resource Manager base class supports readability.
+ * This Exception class is used for testing only.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -37,14 +39,40 @@ package com.gtcgroup.justify.core.base;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseTestingRM extends JstBaseTestingClass {
+public class JustifyRuntimeException extends JstBaseException {
+
+	private static final long serialVersionUID = 1L;
+
+	private static String formulateExceptionMessage(final Throwable exception, final StringBuilder message) {
+
+		if (null == exception.getCause()) {
+
+			message.append("\n\n\tCausal exception: " + exception.getClass().getName() + "\n\tA causal message: "
+					+ exception.getMessage() + "\n");
+
+			return message.toString();
+		}
+
+		message.append("\n\n\tCausal exception: " + exception.getClass().getName() + "\n\tA causal message: "
+				+ exception.getMessage() + "\n");
+
+		return formulateExceptionMessage(exception.getCause(), message);
+
+	}
 
 	/**
-	 * @see JstBaseTestingClass#assignPatternSuffixTM()
+	 * Constructor
 	 */
-	@Override
-	protected String assignPatternSuffixTM() {
+	public JustifyRuntimeException(final String message) {
 
-		return "RM";
+		super(message);
+	}
+
+	/**
+	 * Constructor
+	 */
+	public JustifyRuntimeException(final Throwable exception) {
+
+		super(formulateExceptionMessage(exception, new StringBuilder()));
 	}
 }

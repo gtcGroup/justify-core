@@ -28,8 +28,8 @@ package com.gtcgroup.justify.core.rule;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingRule;
-import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
+import com.gtcgroup.justify.core.base.JstBaseRule;
+import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
 
 /**
  * This {@link Rule} class initializes a public user id for the duration of the
@@ -43,7 +43,7 @@ import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureUserIdRule extends JstBaseTestingRule {
+public class JstConfigureUserIdRule extends JstBaseRule {
 
 	/** Default user id. */
 	protected static final String DEFAULT_USER_ID = "$userId";
@@ -93,7 +93,7 @@ public class JstConfigureUserIdRule extends JstBaseTestingRule {
 	}
 
 	/**
-	 * @see JstBaseTestingRule#afterTM()
+	 * @see JstBaseRule#afterTM()
 	 */
 	@Override
 	public void afterTM() {
@@ -105,7 +105,7 @@ public class JstConfigureUserIdRule extends JstBaseTestingRule {
 				this.configureUserIdRule.afterTM();
 			} catch (@SuppressWarnings("unused") final Exception e) {
 
-				throw new TestingRuntimeException("This rule must support an [afterTM()] method.");
+				throw new JustifyRuntimeException("This rule must support an [afterTM()] method.");
 			}
 		} else {
 			JstConfigureUserIdRule.userID = JstConfigureUserIdRule.DEFAULT_USER_ID;
@@ -114,7 +114,7 @@ public class JstConfigureUserIdRule extends JstBaseTestingRule {
 	}
 
 	/**
-	 * @see JstBaseTestingRule#beforeTM()
+	 * @see JstBaseRule#beforeTM()
 	 */
 	@Override
 	public void beforeTM() {
@@ -125,7 +125,7 @@ public class JstConfigureUserIdRule extends JstBaseTestingRule {
 				this.configureUserIdRule.beforeTM();
 			} catch (@SuppressWarnings("unused") final Exception e) {
 
-				throw new TestingRuntimeException("This rule must support a [beforeTM()] method.");
+				throw new JustifyRuntimeException("This rule must support a [beforeTM()] method.");
 			}
 		}
 		return;

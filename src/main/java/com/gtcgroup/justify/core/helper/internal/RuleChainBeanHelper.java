@@ -34,7 +34,7 @@ import org.junit.Rule;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingBeanHelper;
+import com.gtcgroup.justify.core.base.JstBaseBeanHelper;
 import com.gtcgroup.justify.core.rule.internal.RequiredInnerRule;
 import com.gtcgroup.justify.core.rule.internal.RequiredOuterRule;
 
@@ -49,7 +49,7 @@ import com.gtcgroup.justify.core.rule.internal.RequiredOuterRule;
  * @author Marvin Toll
  * @since v3.0
  */
-public class RuleChainBeanHelper extends JstBaseTestingBeanHelper {
+public class RuleChainBeanHelper extends JstBaseBeanHelper {
 
 	/** Used by {@link RequiredOuterRule}. */
 	private AssertionError assertionFailure;

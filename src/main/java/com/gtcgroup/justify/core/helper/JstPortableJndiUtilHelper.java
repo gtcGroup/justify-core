@@ -29,7 +29,7 @@ package com.gtcgroup.justify.core.helper;
 import javax.naming.Context;
 import javax.naming.spi.NamingManager;
 
-import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
+import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
 import com.gtcgroup.justify.core.helper.internal.JndiContextCacheHelper;
 import com.gtcgroup.justify.core.jndi.internal.JndiInitialContextBuilder;
 
@@ -78,7 +78,7 @@ public enum JstPortableJndiUtilHelper {
 		final Object object = JndiContextCacheHelper.INSTANCE.lookup(name);
 
 		if (null == object) {
-			throw new TestingRuntimeException(
+			throw new JustifyRuntimeException(
 					"The name [" + name + "] is not available in the portable JNDI container.");
 		}
 		return object;

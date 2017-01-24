@@ -26,7 +26,7 @@
 
 package com.gtcgroup.justify.core.exception.internal;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingException;
+import com.gtcgroup.justify.core.base.JstBaseException;
 import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
 
 /**
@@ -40,7 +40,7 @@ import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class MethodNotSupportedException extends JstBaseTestingException {
+public class MethodNotSupportedException extends JstBaseException {
 
 	private static final long serialVersionUID = 1L;
 

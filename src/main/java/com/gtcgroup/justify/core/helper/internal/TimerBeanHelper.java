@@ -26,7 +26,7 @@
 
 package com.gtcgroup.justify.core.helper.internal;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingBeanHelper;
+import com.gtcgroup.justify.core.base.JstBaseBeanHelper;
 
 /**
  * This Bean Helper class supports performance timing and logging.
@@ -39,7 +39,7 @@ import com.gtcgroup.justify.core.base.JstBaseTestingBeanHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class TimerBeanHelper extends JstBaseTestingBeanHelper {
+public class TimerBeanHelper extends JstBaseBeanHelper {
 
 	private long elapsedNanos;
 

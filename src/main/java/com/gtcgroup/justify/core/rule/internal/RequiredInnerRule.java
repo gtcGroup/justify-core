@@ -27,7 +27,7 @@ package com.gtcgroup.justify.core.rule.internal;
 
 import org.junit.Rule;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingRule;
+import com.gtcgroup.justify.core.base.JstBaseRule;
 import com.gtcgroup.justify.core.helper.internal.DisplayRuleMessagesUtilHelper;
 import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
 import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
@@ -48,7 +48,7 @@ import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
 public class RequiredInnerRule extends BaseTimerRule {
 
 	/**
-	 * @see JstBaseTestingRule#afterTM()
+	 * @see JstBaseRule#afterTM()
 	 */
 	@Override
 	public void afterTM() {
@@ -57,7 +57,7 @@ public class RequiredInnerRule extends BaseTimerRule {
 	}
 
 	/**
-	 * @see JstBaseTestingRule#beforeTM()
+	 * @see JstBaseRule#beforeTM()
 	 */
 	@Override
 	public void beforeTM() {

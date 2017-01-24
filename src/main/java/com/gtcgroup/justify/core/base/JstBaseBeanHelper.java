@@ -26,26 +26,25 @@
 
 package com.gtcgroup.justify.core.base;
 
-import java.io.Serializable;
-
 /**
- * This Domain Entity base class supports readability.
+ * This Bean Helper base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author Marvin Toll
+ * @author MarvinToll
  * @since v3.0
  */
-public abstract class JstBaseTestingDE extends JstBaseTestingClass implements Serializable {
+public abstract class JstBaseBeanHelper extends JstBaseSuffix {
 
-	private static final long serialVersionUID = 1L;
-
+	/**
+	 * @see JstBaseSuffix#assignPatternSuffixTM()
+	 */
 	@Override
 	protected String assignPatternSuffixTM() {
 
-		return "DE";
+		return "BeanHelper";
 	}
 }

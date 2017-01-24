@@ -26,37 +26,25 @@
 
 package com.gtcgroup.justify.core.base;
 
-import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
-
 /**
- * This Testing base class supports readability.
+ * This Business Facade base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author MarvinToll
+ * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseTestingClass {
+public abstract class JstBaseBF extends JstBaseSuffix {
 
 	/**
-	 * Constructor
+	 * @see JstBaseSuffix#assignPatternSuffixTM()
 	 */
-	public JstBaseTestingClass() {
+	@Override
+	protected String assignPatternSuffixTM() {
 
-		super();
-
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), assignPatternSuffixTM());
-
-		return;
+		return "BF";
 	}
-
-	/**
-	 * This method establishes the class name suffix.
-	 *
-	 * @return {@link String}
-	 */
-	protected abstract String assignPatternSuffixTM();
 }

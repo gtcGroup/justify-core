@@ -38,7 +38,7 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
 import com.gtcgroup.justify.core.exception.internal.MethodNotSupportedException;
-import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
+import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
 import com.gtcgroup.justify.core.jndi.internal.JndiNameParser;
 
 /**
@@ -86,7 +86,7 @@ public enum JndiContextCacheHelper implements Context {
 		try {
 			this.bindings.put(nameString, object);
 		} catch (final Exception e) {
-			throw new TestingRuntimeException(e);
+			throw new JustifyRuntimeException(e);
 		}
 	}
 
@@ -245,7 +245,7 @@ public enum JndiContextCacheHelper implements Context {
 		try {
 			object = this.bindings.get(name);
 		} catch (final Exception e) {
-			throw new TestingRuntimeException(e);
+			throw new JustifyRuntimeException(e);
 		}
 		return object;
 	}

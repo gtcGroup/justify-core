@@ -27,7 +27,7 @@ package com.gtcgroup.justify.core.rule.internal;
 
 import org.junit.Rule;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingRule;
+import com.gtcgroup.justify.core.base.JstBaseRule;
 import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
 
 /**
@@ -41,7 +41,7 @@ import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
  * @author Marvin Toll
  * @since v.3.0
  */
-public abstract class BaseTimerRule extends JstBaseTestingRule {
+public abstract class BaseTimerRule extends JstBaseRule {
 
 	protected static TimerBeanHelper testMethodTimer;
 

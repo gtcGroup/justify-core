@@ -49,7 +49,7 @@ import com.gtcgroup.justify.core.rulechain.JstRuleChain;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseTestingRule implements TestRule {
+public abstract class JstBaseRule implements TestRule {
 
 	/** Suffix For All Rules */
 	public static final String RULE_SUFFIX = "Rule";
@@ -57,10 +57,10 @@ public abstract class JstBaseTestingRule implements TestRule {
 	/**
 	 * Constructor
 	 */
-	public JstBaseTestingRule() {
+	public JstBaseRule() {
 		super();
 
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseTestingRule.RULE_SUFFIX);
+		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseRule.RULE_SUFFIX);
 	}
 
 	/**

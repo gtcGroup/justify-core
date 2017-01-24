@@ -27,7 +27,7 @@ package com.gtcgroup.justify.core.rule.internal;
 
 import org.junit.Rule;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingRule;
+import com.gtcgroup.justify.core.base.JstBaseRule;
 import com.gtcgroup.justify.core.exception.internal.AfterTestMethodRuleException;
 import com.gtcgroup.justify.core.helper.internal.DisplayRuleMessagesUtilHelper;
 import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
@@ -87,7 +87,7 @@ public class RequiredOuterRule extends BaseTimerRule {
 
 	/**
 	 * @throws Throwable
-	 * @see JstBaseTestingRule#afterTM()
+	 * @see JstBaseRule#afterTM()
 	 */
 	@Override
 	public void afterTM() throws Throwable {
@@ -129,7 +129,7 @@ public class RequiredOuterRule extends BaseTimerRule {
 	}
 
 	/**
-	 * @see JstBaseTestingRule#beforeTM()
+	 * @see JstBaseRule#beforeTM()
 	 */
 	@Override
 	public void beforeTM() {

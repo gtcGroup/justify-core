@@ -28,7 +28,7 @@ package com.gtcgroup.justify.core.rule;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingRule;
+import com.gtcgroup.justify.core.base.JstBaseRule;
 
 /**
  * This {@link Rule} class initializes a system property for the duration of the
@@ -43,7 +43,7 @@ import com.gtcgroup.justify.core.base.JstBaseTestingRule;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureSystemPropertyRule extends JstBaseTestingRule {
+public class JstConfigureSystemPropertyRule extends JstBaseRule {
 
 	/**
 	 * @return {@link TestRule}
@@ -71,7 +71,7 @@ public class JstConfigureSystemPropertyRule extends JstBaseTestingRule {
 	}
 
 	/**
-	 * @see JstBaseTestingRule#afterTM()
+	 * @see JstBaseRule#afterTM()
 	 */
 	@Override
 	public void afterTM() {
@@ -86,7 +86,7 @@ public class JstConfigureSystemPropertyRule extends JstBaseTestingRule {
 	}
 
 	/**
-	 * @see JstBaseTestingRule#beforeTM()
+	 * @see JstBaseRule#beforeTM()
 	 */
 	@Override
 	public void beforeTM() {

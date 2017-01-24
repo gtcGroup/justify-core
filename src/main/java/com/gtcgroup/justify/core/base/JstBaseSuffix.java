@@ -24,55 +24,39 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.exception.internal;
+package com.gtcgroup.justify.core.base;
 
-import com.gtcgroup.justify.core.base.JstBaseTestingException;
+import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
 
 /**
- * This Exception class is used for testing only.
+ * This Testing base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author Marvin Toll
+ * @author MarvinToll
  * @since v3.0
  */
-public class TestingRuntimeException extends JstBaseTestingException {
-
-	private static final long serialVersionUID = 1L;
-
-	private static String formulateExceptionMessage(final Throwable exception, final StringBuilder message) {
-
-		if (null == exception.getCause()) {
-
-			message.append("\n\n\tCausal exception: " + exception.getClass().getName() + "\n\tA causal message: "
-					+ exception.getMessage() + "\n");
-
-			return message.toString();
-		}
-
-		message.append("\n\n\tCausal exception: " + exception.getClass().getName() + "\n\tA causal message: "
-				+ exception.getMessage() + "\n");
-
-		return formulateExceptionMessage(exception.getCause(), message);
-
-	}
+public abstract class JstBaseSuffix {
 
 	/**
 	 * Constructor
 	 */
-	public TestingRuntimeException(final String message) {
+	public JstBaseSuffix() {
 
-		super(message);
+		super();
+
+		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), assignPatternSuffixTM());
+
+		return;
 	}
 
 	/**
-	 * Constructor
+	 * This method establishes the class name suffix.
+	 *
+	 * @return {@link String}
 	 */
-	public TestingRuntimeException(final Throwable exception) {
-
-		super(formulateExceptionMessage(exception, new StringBuilder()));
-	}
+	protected abstract String assignPatternSuffixTM();
 }

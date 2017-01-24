@@ -26,8 +26,10 @@
 
 package com.gtcgroup.justify.core.base;
 
+import java.io.Serializable;
+
 /**
- * This Business Facade base class supports readability.
+ * This Domain Entity base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
@@ -37,14 +39,13 @@ package com.gtcgroup.justify.core.base;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseTestingBF extends JstBaseTestingClass {
+public abstract class JstBaseDE extends JstBaseSuffix implements Serializable {
 
-	/**
-	 * @see JstBaseTestingClass#assignPatternSuffixTM()
-	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected String assignPatternSuffixTM() {
 
-		return "BF";
+		return "DE";
 	}
 }

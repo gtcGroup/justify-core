@@ -26,7 +26,7 @@
 
 package com.gtcgroup.justify.core.helper.internal;
 
-import com.gtcgroup.justify.core.exception.internal.TestingRuntimeException;
+import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
 
 /**
  * This Util Helper class provides methods for runtime detection of coding
@@ -58,9 +58,9 @@ public enum CodingConventionUtilHelper {
 	}
 
 	/**
-	 * @return {@link TestingRuntimeException}
+	 * @return {@link JustifyRuntimeException}
 	 */
-	private static TestingRuntimeException throwException(final Class<?> clazz, final String... endsWith) {
+	private static JustifyRuntimeException throwException(final Class<?> clazz, final String... endsWith) {
 
 		final StringBuilder message = new StringBuilder();
 		message.append("The class named [");
@@ -75,6 +75,6 @@ public enum CodingConventionUtilHelper {
 		}
 		message.append(".");
 
-		return new TestingRuntimeException(message.toString());
+		return new JustifyRuntimeException(message.toString());
 	}
 }
