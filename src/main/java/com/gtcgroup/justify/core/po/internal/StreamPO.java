@@ -49,6 +49,20 @@ public class StreamPO extends JstBasePO {
 	private InputStream inputStream;
 
 	/**
+	 * This convenience method will close the {@link InputStream}.
+	 */
+	public void closeInputStream() {
+
+		if (this.inputStream != null) {
+			try {
+				this.inputStream.close();
+			} catch (@SuppressWarnings("unused") final Exception e) {
+				// Empty Block;
+			}
+		}
+	}
+
+	/**
 	 * @return {@link ClassLoader}
 	 */
 	public ClassLoader getClassLoader() {
@@ -59,7 +73,7 @@ public class StreamPO extends JstBasePO {
 	/**
 	 * @return {@link InputStream}
 	 */
-	public InputStream getInputStreamAndClose() {
+	public InputStream getInputStreamToBeClosed() {
 
 		return this.inputStream;
 	}

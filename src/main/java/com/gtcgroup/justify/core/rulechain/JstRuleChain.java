@@ -59,7 +59,7 @@ public class JstRuleChain implements JstRuleChainSI {
 	@SuppressWarnings("unchecked")
 	public static <RC extends JstRuleChainSI> RC outerRule() {
 
-		return (RC) outerRule(true, JstRuleChain.class);
+		return (RC) outerRule(false, JstRuleChain.class);
 	}
 
 	/**

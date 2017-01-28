@@ -29,7 +29,6 @@ import org.junit.Rule;
 import org.junit.rules.TestRule;
 
 import com.gtcgroup.justify.core.base.JstBaseRule;
-import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
 
 /**
  * This {@link Rule} class initializes a public user id for the duration of the
@@ -54,42 +53,36 @@ public class JstConfigureUserIdRule extends JstBaseRule {
 	/**
 	 * @return {@link TestRule}
 	 */
-	public static <RULE extends TestRule> RULE withUserId() {
+	@SuppressWarnings("unchecked")
+	protected static <RULE extends TestRule, SUBCLASS extends JstConfigureUserIdRule> RULE decorateSubClassInstance(
+			final SUBCLASS subClassInstance) {
 
-		return withUserIdAndSubClassInstance(JstConfigureUserIdRule.DEFAULT_USER_ID);
+		return (RULE) subClassInstance;
 	}
 
 	/**
 	 * @return {@link TestRule}
 	 */
-	public static <RULE extends TestRule> RULE withUserId(final String userId) {
+	public static <RULE extends TestRule> RULE withUserId() {
 
-		return withUserIdAndSubClassInstance(userId);
+		return withUserId(JstConfigureUserIdRule.DEFAULT_USER_ID);
 	}
 
 	/**
 	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
-	protected static <RULE extends TestRule, SUBCLASS extends JstConfigureUserIdRule> RULE withUserIdAndSubClassInstance(
-			final String userId, final SUBCLASS... subClassInstance) {
+	public static <RULE extends TestRule> RULE withUserId(final String userId) {
 
-		return (RULE) new JstConfigureUserIdRule(userId, subClassInstance);
+		return (RULE) new JstConfigureUserIdRule(userId);
 	}
-
-	protected JstConfigureUserIdRule configureUserIdRule;
 
 	/**
 	 * Constructor - protected
 	 */
-	protected <SUBCLASS extends JstConfigureUserIdRule> JstConfigureUserIdRule(final String userId,
-			final SUBCLASS... subClassInstance) {
+	protected JstConfigureUserIdRule(final String userId) {
 
 		JstConfigureUserIdRule.userID = userId;
-
-		if (0 != subClassInstance.length) {
-			this.configureUserIdRule = subClassInstance[0];
-		}
 	}
 
 	/**
@@ -98,18 +91,8 @@ public class JstConfigureUserIdRule extends JstBaseRule {
 	@Override
 	public void afterTM() {
 
-		if (null != this.configureUserIdRule) {
-			try {
-				JstConfigureUserIdRule.userID = JstConfigureUserIdRule.DEFAULT_USER_ID;
-				this.configureUserIdRule.getClass().getDeclaredMethod("afterTM");
-				this.configureUserIdRule.afterTM();
-			} catch (@SuppressWarnings("unused") final Exception e) {
+		JstConfigureUserIdRule.userID = JstConfigureUserIdRule.DEFAULT_USER_ID;
 
-				throw new JustifyRuntimeException("This rule must support an [afterTM()] method.");
-			}
-		} else {
-			JstConfigureUserIdRule.userID = JstConfigureUserIdRule.DEFAULT_USER_ID;
-		}
 		return;
 	}
 
@@ -119,15 +102,6 @@ public class JstConfigureUserIdRule extends JstBaseRule {
 	@Override
 	public void beforeTM() {
 
-		if (null != this.configureUserIdRule) {
-			try {
-				this.configureUserIdRule.getClass().getDeclaredMethod("beforeTM");
-				this.configureUserIdRule.beforeTM();
-			} catch (@SuppressWarnings("unused") final Exception e) {
-
-				throw new JustifyRuntimeException("This rule must support a [beforeTM()] method.");
-			}
-		}
 		return;
 	}
 }
