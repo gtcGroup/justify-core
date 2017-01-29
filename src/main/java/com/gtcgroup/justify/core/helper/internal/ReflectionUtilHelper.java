@@ -1,7 +1,7 @@
 /*
  * [Licensed per the Open Source "MIT License".]
  *
- * Copyright (c) 2006 - 2016 by
+ * Copyright (c) 2006 - 2017 by
  * Global Technology Consulting Group, Inc. at
  * http://gtcGroup.com
  *
@@ -51,7 +51,7 @@ import com.gtcgroup.justify.core.po.internal.StreamPO;
  * processing.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
- * Copyright (c) 2006 - 2016 by Global Technology Consulting Group, Inc. at
+ * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
@@ -137,7 +137,7 @@ public enum ReflectionUtilHelper {
 
 			if (null == inputStream) {
 
-				throwTestingRuntimeException("The resources [" + resourceName + "] could not be acquired.",
+				throwRuntimeException("The resource [" + resourceName + "] could not be acquired.",
 						suppressException);
 
 				return null;
@@ -191,7 +191,7 @@ public enum ReflectionUtilHelper {
 				// Determine if this is the last constructor.
 				if (i + 1 >= constructorList.size()) {
 
-					throwTestingRuntimeException(e.getMessage(), suppressException);
+					throwRuntimeException(e.getMessage(), suppressException);
 				}
 
 				// Else - continue with another constructor.
@@ -246,7 +246,7 @@ public enum ReflectionUtilHelper {
 		} catch (final Throwable e) {
 
 			// Probably never invoked.
-			throwTestingRuntimeException(e.getMessage(), suppressException);
+			throwRuntimeException(e.getMessage(), suppressException);
 		}
 		// Probably never invoked.
 		return null;
@@ -278,7 +278,7 @@ public enum ReflectionUtilHelper {
 
 		} catch (final Exception e) {
 
-			throwTestingRuntimeException(e.getMessage(), suppressException);
+			throwRuntimeException(e.getMessage(), suppressException);
 		}
 
 		return objInstantiated;
@@ -339,7 +339,7 @@ public enum ReflectionUtilHelper {
 
 		} catch (final Exception e) {
 
-			throwTestingRuntimeException(e.getMessage(), suppressException);
+			throwRuntimeException(e.getMessage(), suppressException);
 		}
 		return object;
 	}
@@ -390,7 +390,7 @@ public enum ReflectionUtilHelper {
 
 		} catch (final Exception e) {
 
-			throwTestingRuntimeException(e.getMessage(), false);
+			throwRuntimeException(e.getMessage(), false);
 		}
 		return method;
 	}
@@ -469,7 +469,7 @@ public enum ReflectionUtilHelper {
 
 		} catch (final Exception e) {
 
-			throwTestingRuntimeException(e.getMessage(), suppressException);
+			throwRuntimeException(e.getMessage(), suppressException);
 		}
 		return targetClass;
 	}
@@ -489,7 +489,7 @@ public enum ReflectionUtilHelper {
 
 		} catch (final Exception e) {
 
-			throwTestingRuntimeException(e.getMessage(), suppressException);
+			throwRuntimeException(e.getMessage(), suppressException);
 		}
 
 		return fieldInstance;
@@ -512,12 +512,12 @@ public enum ReflectionUtilHelper {
 
 				} catch (final Exception e) {
 
-					throwTestingRuntimeException(e.getMessage(), suppressException);
+					throwRuntimeException(e.getMessage(), suppressException);
 				}
 			}
 		}
 
-		throwTestingRuntimeException("The method name [" + methodName
+		throwRuntimeException("The method name [" + methodName
 				+ "] could not be found on the instance provided [" + instance.getClass().getSimpleName() + "].",
 				suppressException);
 
@@ -538,7 +538,7 @@ public enum ReflectionUtilHelper {
 
 		} catch (final Exception e) {
 
-			throwTestingRuntimeException(e.getMessage(), false);
+			throwRuntimeException(e.getMessage(), false);
 		}
 
 		return field;
@@ -577,7 +577,7 @@ public enum ReflectionUtilHelper {
 
 			if (null == inputStream) {
 
-				throwTestingRuntimeException("Input stream is null", false);
+				throwRuntimeException("Input stream is null", false);
 			}
 		}
 		return inputStream;
@@ -662,11 +662,11 @@ public enum ReflectionUtilHelper {
 					return methodTemp;
 				}
 			}
-			throwTestingRuntimeException("Method not found.", suppressException);
+			throwRuntimeException("Method not found.", suppressException);
 
 		} catch (final Exception e) {
 
-			throwTestingRuntimeException(e.getMessage(), suppressException);
+			throwRuntimeException(e.getMessage(), suppressException);
 
 		}
 		return null;
@@ -675,7 +675,7 @@ public enum ReflectionUtilHelper {
 	/**
 	 * @throws JustifyRuntimeException
 	 */
-	private static void throwTestingRuntimeException(final String message, final boolean suppressException) {
+	private static void throwRuntimeException(final String message, final boolean suppressException) {
 
 		if (!suppressException) {
 
