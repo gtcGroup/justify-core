@@ -53,17 +53,7 @@ public class JstConfigureUserIdRule extends JstBaseRule {
 	/**
 	 * @return {@link TestRule}
 	 */
-	@SuppressWarnings("unchecked")
-	protected static <RULE extends TestRule, SUBCLASS extends JstConfigureUserIdRule> RULE decorateSubClassInstance(
-			final SUBCLASS subClassInstance) {
-
-		return (RULE) subClassInstance;
-	}
-
-	/**
-	 * @return {@link TestRule}
-	 */
-	public static <RULE extends TestRule> RULE withUserId() {
+	public static <RULE extends JstConfigureUserIdRule> RULE withUserId() {
 
 		return withUserId(JstConfigureUserIdRule.DEFAULT_USER_ID);
 	}
@@ -72,7 +62,7 @@ public class JstConfigureUserIdRule extends JstBaseRule {
 	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
-	public static <RULE extends TestRule> RULE withUserId(final String userId) {
+	public static <RULE extends JstConfigureUserIdRule> RULE withUserId(final String userId) {
 
 		return (RULE) new JstConfigureUserIdRule(userId);
 	}

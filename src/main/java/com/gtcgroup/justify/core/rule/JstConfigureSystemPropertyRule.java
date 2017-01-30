@@ -49,17 +49,8 @@ public class JstConfigureSystemPropertyRule extends JstBaseRule {
 	 * @return {@link TestRule}
 	 */
 	@SuppressWarnings("unchecked")
-	protected static <RULE extends TestRule, SUBCLASS extends JstConfigureSystemPropertyRule> RULE decorateSubClassInstance(
-			final SUBCLASS subClassInstance) {
-
-		return (RULE) subClassInstance;
-	}
-
-	/**
-	 * @return {@link TestRule}
-	 */
-	@SuppressWarnings("unchecked")
-	public static <RULE extends TestRule> RULE withProperty(final String key, final String value) {
+	public static <RULE extends JstConfigureSystemPropertyRule> RULE withProperty(final String key,
+			final String value) {
 
 		return (RULE) new JstConfigureSystemPropertyRule(key, value);
 	}
