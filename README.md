@@ -7,7 +7,12 @@ CORE MODULE: Justify supports JUnit testing with "real" (functionally equivalent
 
 ### <a name="changes"></a>Release Notes
 
-#### Version 1.2.0 <span class="date">2017-00-10</span>
+#### Version 6.3.0 <span class="date">2017-03-12</span>
+
+*   12 [Prepare for v6.3.0 Launch](https://github.com/gtcGroup/justify-core/issues/12)
+*   11 [Refractor Exception Name](https://github.com/gtcGroup/justify-core/issues/11)
+
+#### Version 6.2.0 <span class="date">2017-00-10</span>
 
 *   10 [Eliminate Exception from DisplayRuleMessagesUtilHelper](https://github.com/gtcGroup/justify-core/issues/10)
 *   09 [ArrayUtilHelper.joinArrays()](https://github.com/gtcGroup/justify-core/issues/9)
