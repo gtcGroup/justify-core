@@ -40,14 +40,14 @@ import com.gtcgroup.justify.core.helper.internal.DisplayRuleMessagesUtilHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class TestingConstructorRuleException extends JstBaseException {
+public class RuleException extends JstBaseException {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor
 	 */
-	public TestingConstructorRuleException(final String message) {
+	public RuleException(final String message) {
 
 		super(message);
 		DisplayRuleMessagesUtilHelper.displayTestingHeader();
