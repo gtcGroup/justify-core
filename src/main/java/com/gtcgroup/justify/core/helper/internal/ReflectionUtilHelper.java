@@ -255,14 +255,6 @@ public enum ReflectionUtilHelper {
 	/**
 	 * @return instance or null
 	 */
-	public static Object instantiatePublicConstructorNoArgument(final Constructor<?> constructor) {
-
-		return ReflectionUtilHelper.instantiatePublicConstructorNoArgument(constructor, false);
-	}
-
-	/**
-	 * @return instance or null
-	 */
 	public static Object instantiatePublicConstructorNoArgument(final Constructor<?> constructor,
 			final boolean suppressException) {
 

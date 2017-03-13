@@ -30,7 +30,7 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-import com.gtcgroup.justify.core.exception.internal.TestingConstructorRuleException;
+import com.gtcgroup.justify.core.exception.internal.RuleException;
 import com.gtcgroup.justify.core.rule.internal.RequiredInnerRule;
 import com.gtcgroup.justify.core.rule.internal.RequiredOuterRule;
 import com.gtcgroup.justify.core.rulechain.JstRuleChain;
@@ -63,7 +63,7 @@ public enum RuleChainCacheHelper {
 
 		if (ruleInstance instanceof RuleChain) {
 
-			throw new TestingConstructorRuleException("More than one RuleChain class type is being used concurrently.");
+			throw new RuleException("More than one RuleChain class type is being used concurrently.");
 		}
 
 		RuleChainCacheHelper.getRuleChainHelper().addRuleToList(ruleInstance);
