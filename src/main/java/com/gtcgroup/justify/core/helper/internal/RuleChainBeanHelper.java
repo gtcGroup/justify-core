@@ -68,7 +68,7 @@ public class RuleChainBeanHelper extends JstBaseBeanHelper {
 	/** Used by {@link RequiredOuterRule}. */
 	private Throwable exceptionErrorDuringTestMethod;
 
-	private final List<TestRule> ruleList = new ArrayList<TestRule>();
+	private final List<TestRule> ruleList = new ArrayList<>();
 
 	/** Used by {@link RequiredOuterRule}. */
 	private final StringBuilder rulesDisplayedInMethodFooter = new StringBuilder();

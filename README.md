@@ -7,6 +7,10 @@ CORE MODULE: Justify supports JUnit testing with "real" (functionally equivalent
 
 ### <a name="changes"></a>Release Notes
 
+#### Version 8.3.0 <span class="date">2017-04-14</span> Compiled with Java 1.8.
+
+*   15 [Prepare for v8.3.0 Launch](https://github.com/gtcGroup/justify-core/issues/15)
+
 #### Version 6.3.0 <span class="date">2017-03-12</span>
 
 *   12 [Prepare for v6.3.0 Launch](https://github.com/gtcGroup/justify-core/issues/12)
@@ -19,5 +23,3 @@ CORE MODULE: Justify supports JUnit testing with "real" (functionally equivalent
 *   08 [Compiled with Java 6](https://github.com/gtcGroup/justify-core/issues/8)
 *   07 [Prepare for v6.2.0 Launch](https://github.com/gtcGroup/justify-core/issues/7)
 *   06 [Update Coding Preferences Template](https://github.com/gtcGroup/justify-core/issues/6)
-
-

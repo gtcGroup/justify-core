@@ -137,8 +137,7 @@ public enum ReflectionUtilHelper {
 
 			if (null == inputStream) {
 
-				throwRuntimeException("The resource [" + resourceName + "] could not be acquired.",
-						suppressException);
+				throwRuntimeException("The resource [" + resourceName + "] could not be acquired.", suppressException);
 
 				return null;
 			}
@@ -155,7 +154,7 @@ public enum ReflectionUtilHelper {
 	public static Object instantiate(final Object[] constructorParameterValues, final boolean suppressException,
 			final Constructor<?>[] constructors) {
 
-		final List<Constructor<?>> constructorList = new ArrayList<Constructor<?>>(Arrays.asList(constructors));
+		final List<Constructor<?>> constructorList = new ArrayList<>(Arrays.asList(constructors));
 
 		return ReflectionUtilHelper.instantiate(constructorParameterValues, constructorList, suppressException);
 	}
@@ -509,9 +508,8 @@ public enum ReflectionUtilHelper {
 			}
 		}
 
-		throwRuntimeException("The method name [" + methodName
-				+ "] could not be found on the instance provided [" + instance.getClass().getSimpleName() + "].",
-				suppressException);
+		throwRuntimeException("The method name [" + methodName + "] could not be found on the instance provided ["
+				+ instance.getClass().getSimpleName() + "].", suppressException);
 
 		return null;
 
@@ -593,6 +591,7 @@ public enum ReflectionUtilHelper {
 	 */
 	public static Scanner retrieveFileAsScanner(final String fileName) {
 
+		@SuppressWarnings("resource")
 		InputStream inputStream = null;
 		Scanner scanner;
 

@@ -49,7 +49,7 @@ public enum ArrayUtilHelper {
 	 *
 	 * @return ARRAY[]
 	 */
-	public static <ARRAY> ARRAY[] joinArrays(final ARRAY[]... arrays) {
+	public static <ARRAY> ARRAY[] joinArrays(@SuppressWarnings("unchecked") final ARRAY[]... arrays) {
 		int length = 0;
 
 		for (final ARRAY[] array : arrays) {

@@ -37,8 +37,8 @@ import javax.naming.NameParser;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
-import com.gtcgroup.justify.core.exception.internal.MethodNotSupportedException;
 import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
+import com.gtcgroup.justify.core.exception.internal.MethodNotSupportedException;
 import com.gtcgroup.justify.core.jndi.internal.JndiNameParser;
 
 /**
@@ -57,7 +57,7 @@ public enum JndiContextCacheHelper implements Context {
 	@SuppressWarnings("javadoc")
 	INSTANCE;
 
-	private final Map<String, Object> bindings = new HashMap<String, Object>();
+	private final Map<String, Object> bindings = new HashMap<>();
 
 	/**
 	 * @see Context#addToEnvironment(String, Object)
