@@ -56,7 +56,7 @@ public class StreamPO extends JstBasePO {
 		if (this.inputStream != null) {
 			try {
 				this.inputStream.close();
-			} catch (@SuppressWarnings("unused") final Exception e) {
+			} catch (final Exception e) {
 				// Empty Block;
 			}
 		}

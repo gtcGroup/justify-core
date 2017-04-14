@@ -115,7 +115,7 @@ public enum DisplayRuleMessagesUtilHelper {
 		// Interrupt logging (briefly) to help ensure readability.
 		try {
 			Thread.sleep(1);
-		} catch (@SuppressWarnings("unused") final InterruptedException e) {
+		} catch (final InterruptedException e) {
 			// Ignore
 		}
 

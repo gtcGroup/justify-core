@@ -70,7 +70,7 @@ public enum ConversionUtilHelper {
 		try {
 			ConversionUtilHelper.DATATYPE_FACTORY = DatatypeFactory.newInstance();
 
-		} catch (@SuppressWarnings("unused") final Exception e) {
+		} catch (final Exception e) {
 			// Ignore, not likely.
 		}
 	}

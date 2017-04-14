@@ -102,7 +102,7 @@ public enum ReflectionUtilHelper {
 			if (null != out) {
 				try {
 					out.close();
-				} catch (@SuppressWarnings("unused") final Exception e) {
+				} catch (final Exception e) {
 					// Ignore.
 				}
 			}
@@ -121,7 +121,6 @@ public enum ReflectionUtilHelper {
 	/**
 	 * @return {@link StreamPO} or null
 	 */
-	@SuppressWarnings("resource")
 	public static StreamPO getResourceAsStream(final String resourceName, final boolean suppressException) {
 
 		ClassLoader classLoader = ReflectionUtilHelper.class.getClassLoader();
@@ -549,7 +548,6 @@ public enum ReflectionUtilHelper {
 	/**
 	 * @return {@link InputStream}
 	 */
-	@SuppressWarnings("resource")
 	public static InputStream retrieveFileAsInputStreamAndBeSureToClose(final String resourceName) {
 
 		ClassLoader loader;
@@ -591,7 +589,6 @@ public enum ReflectionUtilHelper {
 	 */
 	public static Scanner retrieveFileAsScanner(final String fileName) {
 
-		@SuppressWarnings("resource")
 		InputStream inputStream = null;
 		Scanner scanner;
 
@@ -604,7 +601,7 @@ public enum ReflectionUtilHelper {
 			if (null != inputStream) {
 				try {
 					inputStream.close();
-				} catch (@SuppressWarnings("unused") final Exception e) {
+				} catch (final Exception e) {
 					// Ignore.
 				}
 			}
