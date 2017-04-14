@@ -25,11 +25,10 @@
  */
 
 apply plugin: 'java'
-//apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-def javaVersion = JavaVersion.VERSION_1_6;
+def javaVersion = JavaVersion.VERSION_1_8;
 sourceCompatibility = javaVersion;
 targetCompatibility = javaVersion;
 
@@ -59,7 +58,7 @@ signing {
 
 group = "com.gtcgroup"
 archivesBaseName = "justify-core"
-version = "6.3.0"
+version = "8.3.0"
 
 artifacts {
     archives javadocJar, sourcesJar
