@@ -35,7 +35,7 @@ import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author
+ * @author Marvin Toll
  * @since v.6.0
  */
 public abstract class JstBaseException extends RuntimeException {
@@ -46,8 +46,6 @@ public abstract class JstBaseException extends RuntimeException {
 
 	/**
 	 * Constructor
-	 *
-	 * @param message
 	 */
 	public JstBaseException(final String message) {
 

@@ -137,9 +137,7 @@ public enum DisplayRuleMessagesUtilHelper {
 		System.out.println("\n\t*** Test Method Begin: " + descriptionFromJUnit.getDisplayName() + " ***");
 	}
 
-	/**
-	 * @param methodTimer
-	 */
+
 	public static void displaySucceedFooter(final TimerBeanHelper methodTimer) {
 
 		if (null == methodTimer) {

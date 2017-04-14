@@ -624,7 +624,6 @@ public enum ReflectionUtilHelper {
 	}
 
 	/**
-	 * @param clazz
 	 * @return {@link Constructor} or null
 	 */
 	public static Constructor<?> retrievePublicConstructorNoArgument(final Class<?> clazz) {

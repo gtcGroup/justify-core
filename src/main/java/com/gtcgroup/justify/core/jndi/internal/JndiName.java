@@ -40,7 +40,7 @@ import com.gtcgroup.justify.core.exception.internal.MethodNotSupportedException;
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author
+ * @author Marvin Toll
  * @since v.6.0
  */
 public class JndiName implements Name {
