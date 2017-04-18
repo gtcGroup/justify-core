@@ -200,7 +200,7 @@ public enum DisplayRuleMessagesUtilHelper {
 
 			border = ConversionUtilHelper.convertMessageLengthToBorder(exampleMessage);
 
-			System.out.print(border.toString() + exampleMessage + border.toString());
+            System.out.print(border.toString() + exampleMessage + border.toString());
 
 			doco = new StringBuilder();
 
@@ -212,8 +212,6 @@ public enum DisplayRuleMessagesUtilHelper {
 			doco.append(System.getProperty("java.version") + "\n");
 
 			doco.append("\t  Java Classpath -\n");
-
-			System.out.print(System.getProperty("java.class.path"));
 
 			final String[] tokens = System.getProperty("java.class.path").replace(":/", "~&~").replace(":\\", "~#~")
 					.replace(":", ";").replace("~#~", ":\\").replace("~&~", ":/").split(";");
