@@ -7,6 +7,10 @@ CORE MODULE: Justify supports JUnit testing with "real" (functionally equivalent
 
 ### <a name="changes"></a>Release Notes
 
+#### Version 6.4.0 & 8.4.0 <span class="date">2017-07-04</span>
+
+*   14 [DisplayRuleMessagesUtilHelper... protect for nulls.](https://github.com/gtcGroup/justify-core/issues/14)
+
 #### Version 8.3.0 <span class="date">2017-04-14</span>
 
 *   15 [Prepare for v8.3.0 Launch](https://github.com/gtcGroup/justify-core/issues/15)

@@ -49,7 +49,7 @@ public enum ArrayUtilHelper {
 	 *
 	 * @return ARRAY[]
 	 */
-	@SafeVarargs
+	//@SafeVarargs
 	public static <ARRAY> ARRAY[] joinArrays(final ARRAY[]... arrays) {
 		int length = 0;
 

@@ -90,6 +90,10 @@ public enum DisplayRuleMessagesUtilHelper {
 	public static void displayMethodFooter(final String status, final Description description,
 			final long elapsedNanoSeconds, final String rulesForMethodFooter) {
 
+		if (null == description) {
+			System.out.println("\t*** Test Method End [" + status + "] ***");
+		}
+		
 		if (0 == elapsedNanoSeconds) {
 			System.out.println("\t*** Test Method End [" + status + "]: " + description.getDisplayName() + " ***");
 		} else {
