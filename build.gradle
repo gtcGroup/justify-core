@@ -45,3 +45,79 @@ dependencies {
 
 	compile 'org.junit.jupiter:junit-jupiter-api:latest-release'
 }
+
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+      tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+  }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+signing {
+    sign configurations.archives
+}
+
+group = "com.gtcgroup"
+archivesBaseName = "justify-core"
+version = "8.5.0"
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'Justify Core'
+        packaging 'jar'
+
+        description 'CORE MODULE: Justify supports JUnit testing with "real" (functionally equivalent) services, relegating mocks to the role of servicing reluctant collaborators.'
+        url 'http://pedCentral.com/justify'
+
+        scm {
+          connection 'scm:git:https://github.com/gtcGroup/justify-core'
+          developerConnection 'scm:git:git@github.com:gtcGroup/justify-core.git'
+          url 'git@github.com:gtcGroup/justify-core.git'
+        }
+
+        licenses {
+          license {
+            name 'The MIT License'
+            url 'http://pedcentral.com/justify/justify-license/'
+          }
+        }
+
+        developers {
+          developer {
+            id 'MarvinToll'
+            name 'Marvin Toll'
+            email 'MarvinToll@gtcGroup.com'
+          }
+        }
+      }
+    }
+  }
+}
+
