@@ -24,27 +24,18 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.base;
+package com.gtcgroup.justify.core.extension;
 
-/**
- * This Business Facade base class supports readability.
- *
- * <p style="font-family:Verdana; font-size:10px; font-style:italic">
- * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
- * <a href="http://gtcGroup.com">gtcGroup.com </a>.
- * </p>
- *
- * @author Marvin Toll
- * @since v3.0
- */
-public abstract class JstBaseBF extends JstBaseSuffix {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-	/**
-	 * @see JstBaseSuffix#assignPatternSuffixTM()
-	 */
-	@Override
-	protected String assignPatternSuffixTM() {
+import org.junit.jupiter.api.extension.ExtendWith;
 
-		return "BF";
-	}
+@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+@ExtendWith(JstDisplayOnConsoleExtension.class)
+public @interface JstDisplayOnConsole {
+    public boolean verbose() default false;
 }

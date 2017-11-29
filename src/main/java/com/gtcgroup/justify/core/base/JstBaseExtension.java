@@ -23,14 +23,14 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.base;
 
-package com.gtcgroup.justify.core.exception.internal;
+import org.junit.jupiter.api.extension.Extension;
 
-import com.gtcgroup.justify.core.base.JstBaseException;
-import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
+import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
 
 /**
- * This Exception class is used for testing only.
+ * This {@link Extension} base class works in harmony with the lifecycle.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -40,17 +40,17 @@ import com.gtcgroup.justify.core.helper.internal.RuleChainCacheHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class BeforeTestMethodRuleException extends JstBaseException {
+public abstract class JstBaseExtension implements Extension {
 
-	private static final long serialVersionUID = 1L;
+    /** Suffix For All Rules */
+    public static final String RULE_SUFFIX = "Extension";
 
-	/**
-	 * Constructor
-	 */
-	public BeforeTestMethodRuleException(final String ruleClass, final Throwable exception) {
+    /**
+     * Constructor
+     */
+    public JstBaseExtension() {
+        super();
 
-		super(ruleClass, exception);
-		RuleChainCacheHelper.getRuleChainHelper().setExceptionErrorDuringBefore(this);
-		return;
-	}
+        CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.RULE_SUFFIX);
+    }
 }

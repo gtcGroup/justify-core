@@ -29,7 +29,7 @@ package com.gtcgroup.justify.core.helper.internal;
 import com.gtcgroup.justify.core.base.JstBaseBeanHelper;
 
 /**
- * This Bean Helper class supports performance timing and logging.
+ * This Bean Helper class supports performance timing.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -41,28 +41,23 @@ import com.gtcgroup.justify.core.base.JstBaseBeanHelper;
  */
 public class TimerBeanHelper extends JstBaseBeanHelper {
 
-	private long elapsedNanos;
+    private final long startNanos;
 
-	private long startNanos;
+    /**
+     * Constructor
+     */
+    public TimerBeanHelper() {
+        super();
+        this.startNanos = System.nanoTime();
+    }
 
-	/**
-	 * Constructor
-	 */
-	public TimerBeanHelper() {
-		super();
-		this.startNanos = System.nanoTime();
-	}
+    /**
+     * This method calculates elapsed time.
+     *
+     * @return long
+     */
+    public long calculateElapsedNanoSeconds() {
 
-	/**
-	 * This method calculates elapsed time.
-	 *
-	 * @return long
-	 */
-	public long calculateElapsedNanoSeconds() {
-
-		this.elapsedNanos = System.nanoTime() - this.startNanos;
-		this.startNanos = 0;
-
-		return this.elapsedNanos;
-	}
+        return System.nanoTime() - this.startNanos;
+    }
 }

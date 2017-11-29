@@ -6,22 +6,22 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>com.atlassian.clover.eclipse.core.prejavabuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.atlassian.clover.eclipse.core.postjavabuilder</name>
+			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
+			<name>com.atlassian.clover.eclipse.core.prejavabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.atlassian.clover.eclipse.core.postjavabuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
