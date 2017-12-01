@@ -41,7 +41,7 @@ import com.gtcgroup.justify.core.helper.internal.ConversionUtilHelper;
 import com.gtcgroup.justify.core.helper.internal.DisplayUtilHelper;
 import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
 
-public class JstDisplayOnConsoleExtension extends JstBaseExtension
+public class JstConfigureDisplayOnConsoleExtension extends JstBaseExtension
         implements BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback {
 
     private static final String MESSAGE = "-message";
@@ -54,11 +54,11 @@ public class JstDisplayOnConsoleExtension extends JstBaseExtension
 
     private static boolean determineIfVerbose(final ExtensionContext context) {
 
-        if (context.getRequiredTestInstance().getClass().isAnnotationPresent(JstDisplayOnConsole.class)) {
+        if (context.getRequiredTestInstance().getClass().isAnnotationPresent(JstConfigureDisplayOnConsole.class)) {
 
             final Annotation annotation = context.getRequiredTestInstance().getClass()
-                    .getAnnotation(JstDisplayOnConsole.class);
-            final JstDisplayOnConsole displayOnConsole = (JstDisplayOnConsole) annotation;
+                    .getAnnotation(JstConfigureDisplayOnConsole.class);
+            final JstConfigureDisplayOnConsole displayOnConsole = (JstConfigureDisplayOnConsole) annotation;
 
             return displayOnConsole.verbose();
         }
@@ -67,14 +67,14 @@ public class JstDisplayOnConsoleExtension extends JstBaseExtension
 
     private static String displayMethodDetails(final String uniqueId) {
 
-        final StringBuilder message = (StringBuilder) JstDisplayOnConsoleExtension.mapContainingStateForTestMethod
-                .get(uniqueId + JstDisplayOnConsoleExtension.MESSAGE);
+        final StringBuilder message = (StringBuilder) JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
+                .get(uniqueId + JstConfigureDisplayOnConsoleExtension.MESSAGE);
 
-        final String status = (String) JstDisplayOnConsoleExtension.mapContainingStateForTestMethod
-                .get(uniqueId + JstDisplayOnConsoleExtension.STATUS);
+        final String status = (String) JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
+                .get(uniqueId + JstConfigureDisplayOnConsoleExtension.STATUS);
 
-        final TimerBeanHelper timerBeanHelper = (TimerBeanHelper) JstDisplayOnConsoleExtension.mapContainingStateForTestMethod
-                .get(uniqueId + JstDisplayOnConsoleExtension.TIMER);
+        final TimerBeanHelper timerBeanHelper = (TimerBeanHelper) JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
+                .get(uniqueId + JstConfigureDisplayOnConsoleExtension.TIMER);
 
         return DisplayUtilHelper
                 .buildMethodEndMessage(message, status,
@@ -92,46 +92,46 @@ public class JstDisplayOnConsoleExtension extends JstBaseExtension
     @Override
     public void beforeTestExecution(final ExtensionContext context) throws Exception {
 
-        if (JstDisplayOnConsoleExtension.firstTestWantingHeaderDisplayed) {
+        if (JstConfigureDisplayOnConsoleExtension.firstTestWantingHeaderDisplayed) {
 
             DisplayUtilHelper.displayTestingHeader();
-            JstDisplayOnConsoleExtension.firstTestWantingHeaderDisplayed = false;
+            JstConfigureDisplayOnConsoleExtension.firstTestWantingHeaderDisplayed = false;
         }
 
         final StringBuilder message = DisplayUtilHelper.buildMethodBeginMessage(context.getDisplayName(),
                 context.getRequiredTestClass().getSimpleName());
 
-        if (JstDisplayOnConsoleExtension.firstTestWantingClasspathDisplayed) {
+        if (JstConfigureDisplayOnConsoleExtension.firstTestWantingClasspathDisplayed) {
 
             if (determineIfVerbose(context)) {
                 DisplayUtilHelper.buildClasspath(message);
-                JstDisplayOnConsoleExtension.firstTestWantingClasspathDisplayed = false;
+                JstConfigureDisplayOnConsoleExtension.firstTestWantingClasspathDisplayed = false;
             }
         }
 
-        JstDisplayOnConsoleExtension.mapContainingStateForTestMethod
-                .put(context.getUniqueId() + JstDisplayOnConsoleExtension.STATUS, "Success");
-        JstDisplayOnConsoleExtension.mapContainingStateForTestMethod
-                .put(context.getUniqueId() + JstDisplayOnConsoleExtension.MESSAGE, message);
-        JstDisplayOnConsoleExtension.mapContainingStateForTestMethod
-                .put(context.getUniqueId() + JstDisplayOnConsoleExtension.TIMER, new TimerBeanHelper());
+        JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
+                .put(context.getUniqueId() + JstConfigureDisplayOnConsoleExtension.STATUS, "Success");
+        JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
+                .put(context.getUniqueId() + JstConfigureDisplayOnConsoleExtension.MESSAGE, message);
+        JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
+                .put(context.getUniqueId() + JstConfigureDisplayOnConsoleExtension.TIMER, new TimerBeanHelper());
     }
 
     @Override
     public void handleTestExecutionException(final ExtensionContext context, final Throwable throwable)
             throws Throwable {
 
-        final StringBuilder message = (StringBuilder) JstDisplayOnConsoleExtension.mapContainingStateForTestMethod
-                .get(context.getUniqueId() + JstDisplayOnConsoleExtension.MESSAGE);
+        final StringBuilder message = (StringBuilder) JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
+                .get(context.getUniqueId() + JstConfigureDisplayOnConsoleExtension.MESSAGE);
 
         if (throwable instanceof AssertionFailedError) {
-            JstDisplayOnConsoleExtension.mapContainingStateForTestMethod
-                    .put(context.getUniqueId() + JstDisplayOnConsoleExtension.STATUS, "Error");
+            JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
+                    .put(context.getUniqueId() + JstConfigureDisplayOnConsoleExtension.STATUS, "Error");
             DisplayUtilHelper.buildAssertionFailedMessage(throwable, message);
 
         } else {
-            JstDisplayOnConsoleExtension.mapContainingStateForTestMethod
-                    .put(context.getUniqueId() + JstDisplayOnConsoleExtension.STATUS, "Failure");
+            JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
+                    .put(context.getUniqueId() + JstConfigureDisplayOnConsoleExtension.STATUS, "Failure");
             DisplayUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
         }
         throw throwable;

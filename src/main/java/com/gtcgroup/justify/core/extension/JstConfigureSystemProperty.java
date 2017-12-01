@@ -24,30 +24,21 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.exception.internal;
+package com.gtcgroup.justify.core.extension;
 
-import com.gtcgroup.justify.core.base.JstBaseException;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-/**
- * This Exception class is used for testing only.
- *
- * <p style="font-family:Verdana; font-size:10px; font-style:italic">
- * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
- * <a href="http://gtcGroup.com">gtcGroup.com </a>.
- * </p>
- *
- * @author Marvin Toll
- * @since v3.0
- */
-public class AfterTestMethodRuleException extends JstBaseException {
+import org.junit.jupiter.api.extension.ExtendWith;
 
-	private static final long serialVersionUID = 1L;
+@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+@ExtendWith(ConfigureSystemPropertyExtension.class)
+public @interface JstConfigureSystemProperty {
 
-	/**
-	 * Constructor
-	 */
-	public AfterTestMethodRuleException(final String ruleClass, final Throwable exception) {
+    public String[] key() default "";
 
-		super(ruleClass, exception);
-	}
+    public String[] value() default "";
 }

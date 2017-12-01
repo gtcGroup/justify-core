@@ -23,7 +23,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.rule;
+package com.gtcgroup.justify.core.extension;
 
 import org.junit.Rule;
 import org.junit.rules.TestRule;
@@ -31,9 +31,8 @@ import org.junit.rules.TestRule;
 import com.gtcgroup.justify.core.base.JstBaseExtension;
 
 /**
- * This {@link Rule} class initializes a system property for the duration of the
- * method and then reinstates the original property value, or if none, then it
- * clears the property.
+ * This {@link Rule} class initializes a public user id for the duration of the
+ * method and then reinstates the original user id value.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -43,57 +42,57 @@ import com.gtcgroup.justify.core.base.JstBaseExtension;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureSystemPropertyRule extends JstBaseExtension {
+public class JstConfigureUserIdExtension extends JstBaseExtension {
 
-	/**
-	 * @return {@link TestRule}
-	 */
-	@SuppressWarnings("unchecked")
-	public static <RULE extends JstConfigureSystemPropertyRule> RULE withProperty(final String key,
-			final String value) {
+    /** Default user id. */
+    protected static final String DEFAULT_USER_ID = "$userId";
 
-		return (RULE) new JstConfigureSystemPropertyRule(key, value);
-	}
+    /** Current userId. */
+    public static String userID = JstConfigureUserIdExtension.DEFAULT_USER_ID;
 
-	protected final String key;
+    /**
+     * @return {@link TestRule}
+     */
+    public static <RULE extends JstConfigureUserIdExtension> RULE withUserId() {
 
-	protected final String value;
+        return withUserId(JstConfigureUserIdExtension.DEFAULT_USER_ID);
+    }
 
-	protected final String durableValue;
+    /**
+     * @return {@link TestRule}
+     */
+    @SuppressWarnings("unchecked")
+    public static <RULE extends JstConfigureUserIdExtension> RULE withUserId(final String userId) {
 
-	/**
-	 * Constructor - protected
-	 */
-	protected JstConfigureSystemPropertyRule(final String key, final String value) {
+        return (RULE) new JstConfigureUserIdExtension(userId);
+    }
 
-		this.durableValue = System.getProperty(key);
-		this.key = key;
-		this.value = value;
-	}
+    /**
+     * Constructor - protected
+     */
+    protected JstConfigureUserIdExtension(final String userId) {
 
-	/**
-	 * @see JstBaseExtension#afterTM()
-	 */
-	@Override
-	public void afterTM() {
-
-		if (null == this.durableValue) {
-			System.clearProperty(this.key);
-		} else {
-			System.setProperty(this.key, this.durableValue);
-		}
-
-		return;
-	}
-
-	/**
-	 * @see JstBaseExtension#beforeTM()
-	 */
-	@Override
-	public void beforeTM() {
-
-		System.setProperty(this.key, this.value);
-
-		return;
-	}
+        JstConfigureUserIdExtension.userID = userId;
+    }
+    // TODO: Implement
+    // /**
+    // * @see JstBaseExtension#afterTM()
+    // */
+    // @Override
+    // public void afterTM() {
+    //
+    // JstConfigureUserIdExtension.userID =
+    // JstConfigureUserIdExtension.DEFAULT_USER_ID;
+    //
+    // return;
+    // }
+    //
+    // /**
+    // * @see JstBaseExtension#beforeTM()
+    // */
+    // @Override
+    // public void beforeTM() {
+    //
+    // return;
+    // }
 }

@@ -35,7 +35,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(JstDisplayOnConsoleExtension.class)
-public @interface JstDisplayOnConsole {
+@ExtendWith(JstConfigureDisplayOnConsoleExtension.class)
+public @interface JstConfigureDisplayOnConsole {
+
     public boolean verbose() default false;
 }
