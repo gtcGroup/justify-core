@@ -26,6 +26,8 @@
 package com.gtcgroup.justify.core.extension;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -54,20 +56,17 @@ public class ConfigureSystemPropertyExtension extends JstBaseExtension
 
     private String[] valueArray;
 
-    public String[] keyValue;
+    public List<String> durableKeyList;
 
-    public String[] durableValue;
+    public List<String> durableValueList;
 
     @Override
     public void afterTestExecution(final ExtensionContext context) throws Exception {
 
-        // TODO: implement
+        for (int i = 0; i < this.durableKeyList.size(); i++) {
 
-        // if (null == this.durableValue) {
-        // System.clearProperty(this.key);
-        // } else {
-        // System.setProperty(this.key, this.durableValue);
-        // }
+            System.setProperty(this.durableKeyList.get(i), this.durableValueList.get(i));
+        }
 
         return;
     }
@@ -75,12 +74,19 @@ public class ConfigureSystemPropertyExtension extends JstBaseExtension
     @Override
     public void beforeTestExecution(final ExtensionContext context) throws Exception {
 
+        this.durableKeyList = new ArrayList<>();
+        this.durableValueList = new ArrayList<>();
         determineProperties(context);
-        // TODO: Implement
-        // System.setProperty(this.key, this.value);
 
+        for (int i = 0; i < this.keyArray.length; i++) {
+
+            this.durableKeyList.add(this.keyArray[i]);
+            System.getProperty(this.keyArray[i]);
+            this.durableValueList.add(this.keyArray[i]);
+
+            System.setProperty(this.keyArray[i], this.valueArray[i]);
+        }
         return;
-
     }
 
     private void determineProperties(final ExtensionContext context) {
@@ -88,7 +94,7 @@ public class ConfigureSystemPropertyExtension extends JstBaseExtension
         if (context.getRequiredTestInstance().getClass().isAnnotationPresent(JstConfigureSystemProperty.class)) {
 
             final Annotation annotation = context.getRequiredTestInstance().getClass()
-                    .getAnnotation(JstConfigureDisplayOnConsole.class);
+                    .getAnnotation(JstConfigureSystemProperty.class);
             final JstConfigureSystemProperty configureSystemProperty = (JstConfigureSystemProperty) annotation;
 
             this.keyArray = configureSystemProperty.key();
