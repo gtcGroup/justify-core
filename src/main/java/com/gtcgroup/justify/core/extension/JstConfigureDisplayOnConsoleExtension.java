@@ -26,7 +26,6 @@
 
 package com.gtcgroup.justify.core.extension;
 
-import java.lang.annotation.Annotation;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -54,13 +53,12 @@ public class JstConfigureDisplayOnConsoleExtension extends JstBaseExtension
 
     private static boolean determineIfVerbose(final ExtensionContext context) {
 
-        if (context.getRequiredTestInstance().getClass().isAnnotationPresent(JstConfigureDisplayOnConsole.class)) {
+        final JstConfigureDisplayOnConsole configureDisplayOnConsole = retrieveAnnotation(context,
+                JstConfigureDisplayOnConsole.class);
 
-            final Annotation annotation = context.getRequiredTestInstance().getClass()
-                    .getAnnotation(JstConfigureDisplayOnConsole.class);
-            final JstConfigureDisplayOnConsole displayOnConsole = (JstConfigureDisplayOnConsole) annotation;
+        if (null != configureDisplayOnConsole) {
 
-            return displayOnConsole.verbose();
+            return configureDisplayOnConsole.verbose();
         }
         return false;
     }

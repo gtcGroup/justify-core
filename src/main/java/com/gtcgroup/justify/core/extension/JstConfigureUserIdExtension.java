@@ -25,14 +25,16 @@
  */
 package com.gtcgroup.justify.core.extension;
 
-import org.junit.Rule;
-import org.junit.rules.TestRule;
+import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
+import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
+import org.junit.jupiter.api.extension.Extension;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.base.JstBaseExtension;
 
 /**
- * This {@link Rule} class initializes a public user id for the duration of the
- * method and then reinstates the original user id value.
+ * This {@link Extension} class initializes a public user id for the duration of
+ * the method and then reinstates the original user id value.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -42,7 +44,8 @@ import com.gtcgroup.justify.core.base.JstBaseExtension;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureUserIdExtension extends JstBaseExtension {
+public class JstConfigureUserIdExtension extends JstBaseExtension
+        implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
     /** Default user id. */
     protected static final String DEFAULT_USER_ID = "$userId";
@@ -50,49 +53,17 @@ public class JstConfigureUserIdExtension extends JstBaseExtension {
     /** Current userId. */
     public static String userID = JstConfigureUserIdExtension.DEFAULT_USER_ID;
 
-    /**
-     * @return {@link TestRule}
-     */
-    public static <RULE extends JstConfigureUserIdExtension> RULE withUserId() {
+    @Override
+    public void afterTestExecution(final ExtensionContext context) throws Exception {
 
-        return withUserId(JstConfigureUserIdExtension.DEFAULT_USER_ID);
+        JstConfigureUserIdExtension.userID = JstConfigureUserIdExtension.DEFAULT_USER_ID;
+
+        return;
     }
 
-    /**
-     * @return {@link TestRule}
-     */
-    @SuppressWarnings("unchecked")
-    public static <RULE extends JstConfigureUserIdExtension> RULE withUserId(final String userId) {
-
-        return (RULE) new JstConfigureUserIdExtension(userId);
-    }
-
-    /**
-     * Constructor - protected
-     */
-    protected JstConfigureUserIdExtension(final String userId) {
+    @Override
+    public void beforeTestExecution(final ExtensionContext context) throws Exception {
 
         JstConfigureUserIdExtension.userID = userId;
     }
-    // TODO: Implement
-    // /**
-    // * @see JstBaseExtension#afterTM()
-    // */
-    // @Override
-    // public void afterTM() {
-    //
-    // JstConfigureUserIdExtension.userID =
-    // JstConfigureUserIdExtension.DEFAULT_USER_ID;
-    //
-    // return;
-    // }
-    //
-    // /**
-    // * @see JstBaseExtension#beforeTM()
-    // */
-    // @Override
-    // public void beforeTM() {
-    //
-    // return;
-    // }
 }

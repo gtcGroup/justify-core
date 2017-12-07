@@ -25,7 +25,10 @@
  */
 package com.gtcgroup.justify.core.base;
 
+import java.lang.annotation.Annotation;
+
 import org.junit.jupiter.api.extension.Extension;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
 
@@ -44,6 +47,18 @@ public abstract class JstBaseExtension implements Extension {
 
     /** Suffix For All Rules */
     public static final String RULE_SUFFIX = "Extension";
+
+    protected static <ANNOTATION extends Annotation> ANNOTATION retrieveAnnotation(final ExtensionContext context,
+            final Class<ANNOTATION> annotationClass) {
+
+        if (context.getRequiredTestInstance().getClass().isAnnotationPresent(annotationClass)) {
+
+            final ANNOTATION annotation = context.getRequiredTestInstance().getClass().getAnnotation(annotationClass);
+
+            return annotation;
+        }
+        return null;
+    }
 
     /**
      * Constructor
