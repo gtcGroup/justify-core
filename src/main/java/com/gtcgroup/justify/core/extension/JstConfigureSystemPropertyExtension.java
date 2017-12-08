@@ -25,7 +25,6 @@
  */
 package com.gtcgroup.justify.core.extension;
 
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,16 +48,16 @@ import com.gtcgroup.justify.core.base.JstBaseExtension;
  * @author Marvin Toll
  * @since v3.0
  */
-public class ConfigureSystemPropertyExtension extends JstBaseExtension
+public class JstConfigureSystemPropertyExtension extends JstBaseExtension
         implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
-    private String[] keyArray;
+    protected String[] keyArray;
 
-    private String[] valueArray;
+    protected String[] valueArray;
 
-    public List<String> durableKeyList;
+    protected List<String> durableKeyList;
 
-    public List<String> durableValueList;
+    protected List<String> durableValueList;
 
     @Override
     public void afterTestExecution(final ExtensionContext context) throws Exception {
@@ -93,9 +92,8 @@ public class ConfigureSystemPropertyExtension extends JstBaseExtension
 
         if (context.getRequiredTestInstance().getClass().isAnnotationPresent(JstConfigureSystemProperty.class)) {
 
-            final Annotation annotation = context.getRequiredTestInstance().getClass()
-                    .getAnnotation(JstConfigureSystemProperty.class);
-            final JstConfigureSystemProperty configureSystemProperty = (JstConfigureSystemProperty) annotation;
+            final JstConfigureSystemProperty configureSystemProperty = retrieveAnnotation(context,
+                    JstConfigureSystemProperty.class);
 
             this.keyArray = configureSystemProperty.key();
             this.valueArray = configureSystemProperty.value();

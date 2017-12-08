@@ -48,47 +48,47 @@ import com.gtcgroup.justify.core.jndi.internal.JndiInitialContextBuilder;
 
 public enum JstPortableJndiUtilHelper {
 
-	@SuppressWarnings("javadoc")
-	INSTANCE;
+    @SuppressWarnings("javadoc")
+    INSTANCE;
 
-	static {
+    static {
 
-		try {
-			NamingManager.setInitialContextFactoryBuilder(new JndiInitialContextBuilder());
+        try {
+            NamingManager.setInitialContextFactoryBuilder(new JndiInitialContextBuilder());
 
-		} catch (final Exception e) {
+        } catch (@SuppressWarnings("unused") final Exception e) {
 
-			// Ignore, should never happen.
-		}
-	}
+            // Ignore, should never happen.
+        }
+    }
 
-	/**
-	 * @see Context#bind(String, Object)
-	 */
-	public static void bind(final String name, final Object object) {
+    /**
+     * @see Context#bind(String, Object)
+     */
+    public static void bind(final String name, final Object object) {
 
-		JndiContextCacheHelper.INSTANCE.bind(name, object);
-	}
+        JndiContextCacheHelper.INSTANCE.bind(name, object);
+    }
 
-	/**
-	 * @see Context#lookup(String)
-	 */
-	public static Object lookup(final String name) {
+    /**
+     * @see Context#lookup(String)
+     */
+    public static Object lookup(final String name) {
 
-		final Object object = JndiContextCacheHelper.INSTANCE.lookup(name);
+        final Object object = JndiContextCacheHelper.INSTANCE.lookup(name);
 
-		if (null == object) {
-			throw new JustifyRuntimeException(
-					"The name [" + name + "] is not available in the portable JNDI container.");
-		}
-		return object;
-	}
+        if (null == object) {
+            throw new JustifyRuntimeException(
+                    "The name [" + name + "] is not available in the portable JNDI container.");
+        }
+        return object;
+    }
 
-	/**
-	 * @see Context#bind(String, Object)
-	 */
-	public static void rebind(final String name, final Object object) {
+    /**
+     * @see Context#bind(String, Object)
+     */
+    public static void rebind(final String name, final Object object) {
 
-		JndiContextCacheHelper.INSTANCE.rebind(name, object);
-	}
+        JndiContextCacheHelper.INSTANCE.rebind(name, object);
+    }
 }

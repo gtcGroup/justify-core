@@ -47,23 +47,31 @@ import com.gtcgroup.justify.core.base.JstBaseExtension;
 public class JstConfigureUserIdExtension extends JstBaseExtension
         implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
-    /** Default user id. */
     protected static final String DEFAULT_USER_ID = "$userId";
 
-    /** Current userId. */
-    public static String userID = JstConfigureUserIdExtension.DEFAULT_USER_ID;
+    public static String userId;
+
+    protected static void initializeUserId(final ExtensionContext context) {
+
+        final JstConfigureUserId configureUserId = retrieveAnnotation(context, JstConfigureUserId.class);
+
+        if (null != configureUserId) {
+
+            JstConfigureUserIdExtension.userId = configureUserId.userId();
+        }
+        JstConfigureUserIdExtension.userId = JstConfigureUserIdExtension.DEFAULT_USER_ID;
+    }
 
     @Override
     public void afterTestExecution(final ExtensionContext context) throws Exception {
 
-        JstConfigureUserIdExtension.userID = JstConfigureUserIdExtension.DEFAULT_USER_ID;
-
+        JstConfigureUserIdExtension.userId = null;
         return;
     }
 
     @Override
     public void beforeTestExecution(final ExtensionContext context) throws Exception {
 
-        JstConfigureUserIdExtension.userID = userId;
+        initializeUserId(context);
     }
 }

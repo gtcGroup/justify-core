@@ -60,643 +60,643 @@ import com.gtcgroup.justify.core.po.internal.StreamPO;
  */
 public enum ReflectionUtilHelper {
 
-	@SuppressWarnings("javadoc")
-	INSTANCE;
+    @SuppressWarnings("javadoc")
+    INSTANCE;
 
-	/**
-	 * @return boolean
-	 */
-	public static boolean containsPublicConstructorNoArgument(final Class<?> clazz) {
+    /**
+     * @return boolean
+     */
+    public static boolean containsPublicConstructorNoArgument(final Class<?> clazz) {
 
-		return null != ReflectionUtilHelper.retrievePublicConstructorNoArgument(clazz);
-	}
+        return null != ReflectionUtilHelper.retrievePublicConstructorNoArgument(clazz);
+    }
 
-	/**
-	 * @return Object
-	 */
-	public static Object copy(final Object instance) {
+    /**
+     * @return Object
+     */
+    public static Object copy(final Object instance) {
 
-		ObjectOutputStream out = null;
-		Object object = null;
+        ObjectOutputStream out = null;
+        Object object = null;
 
-		try {
-			// Write the object out to a byte array
-			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			out = new ObjectOutputStream(bos);
-			out.writeObject(instance);
-			out.flush();
-			out.close();
+        try {
+            // Write the object out to a byte array
+            final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            out = new ObjectOutputStream(bos);
+            out.writeObject(instance);
+            out.flush();
+            out.close();
 
-			// Make an input stream from the byte array and read
-			// a copy of the object back in.
-			final ObjectInputStream objectInputStream = new ObjectInputStream(
-					new ByteArrayInputStream(bos.toByteArray()));
-			object = objectInputStream.readObject();
+            // Make an input stream from the byte array and read
+            // a copy of the object back in.
+            final ObjectInputStream objectInputStream = new ObjectInputStream(
+                    new ByteArrayInputStream(bos.toByteArray()));
+            object = objectInputStream.readObject();
 
-		} catch (final Exception e) {
+        } catch (final Exception e) {
 
-			// Probably never invoked.
-			throw new JustifyRuntimeException(e);
-		} finally {
+            // Probably never invoked.
+            throw new JustifyRuntimeException(e);
+        } finally {
 
-			if (null != out) {
-				try {
-					out.close();
-				} catch (final Exception e) {
-					// Ignore.
-				}
-			}
-		}
-		return object;
-	}
+            if (null != out) {
+                try {
+                    out.close();
+                } catch (@SuppressWarnings("unused") final Exception e) {
+                    // Ignore.
+                }
+            }
+        }
+        return object;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public static boolean existsOnClasspath(final String className) {
+    /**
+     * @return boolean
+     */
+    public static boolean existsOnClasspath(final String className) {
 
-		return null != ReflectionUtilHelper.retrieveClass(className, true);
-	}
+        return null != ReflectionUtilHelper.retrieveClass(className, true);
+    }
 
-	/**
-	 * @return {@link StreamPO} or null
-	 */
-	public static StreamPO getResourceAsStream(final String resourceName, final boolean suppressException) {
+    /**
+     * @return {@link StreamPO} or null
+     */
+    public static StreamPO getResourceAsStream(final String resourceName, final boolean suppressException) {
 
-		ClassLoader classLoader = ReflectionUtilHelper.class.getClassLoader();
+        ClassLoader classLoader = ReflectionUtilHelper.class.getClassLoader();
 
-		InputStream inputStream = classLoader.getResourceAsStream(resourceName);
+        InputStream inputStream = classLoader.getResourceAsStream(resourceName);
 
-		if (null == inputStream) {
+        if (null == inputStream) {
 
-			// Try the thread.
-			classLoader = Thread.currentThread().getContextClassLoader();
+            // Try the thread.
+            classLoader = Thread.currentThread().getContextClassLoader();
 
-			inputStream = classLoader.getResourceAsStream(resourceName);
+            inputStream = classLoader.getResourceAsStream(resourceName);
 
-			if (null == inputStream) {
+            if (null == inputStream) {
 
-				throwRuntimeException("The resource [" + resourceName + "] could not be acquired.", suppressException);
+                throwRuntimeException("The resource [" + resourceName + "] could not be acquired.", suppressException);
 
-				return null;
-			}
-		}
+                return null;
+            }
+        }
 
-		final StreamPO streamPO = new StreamPO().setInputStream(inputStream).setClassLoader(classLoader);
+        final StreamPO streamPO = new StreamPO().setInputStream(inputStream).setClassLoader(classLoader);
 
-		return streamPO;
-	}
+        return streamPO;
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiate(final Object[] constructorParameterValues, final boolean suppressException,
-			final Constructor<?>[] constructors) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiate(final Object[] constructorParameterValues, final boolean suppressException,
+            final Constructor<?>[] constructors) {
 
-		final List<Constructor<?>> constructorList = new ArrayList<>(Arrays.asList(constructors));
+        final List<Constructor<?>> constructorList = new ArrayList<>(Arrays.asList(constructors));
 
-		return ReflectionUtilHelper.instantiate(constructorParameterValues, constructorList, suppressException);
-	}
+        return ReflectionUtilHelper.instantiate(constructorParameterValues, constructorList, suppressException);
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiate(final Object[] constructorParameterValues,
-			final List<Constructor<?>> constructorList) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiate(final Object[] constructorParameterValues,
+            final List<Constructor<?>> constructorList) {
 
-		return ReflectionUtilHelper.instantiate(constructorParameterValues, constructorList, false);
-	}
+        return ReflectionUtilHelper.instantiate(constructorParameterValues, constructorList, false);
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiate(final Object[] constructorParameterValues,
-			final List<Constructor<?>> constructorList, final boolean suppressException) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiate(final Object[] constructorParameterValues,
+            final List<Constructor<?>> constructorList, final boolean suppressException) {
 
-		Object object = null;
+        Object object = null;
 
-		for (int i = 0; i < constructorList.size(); i++) {
+        for (int i = 0; i < constructorList.size(); i++) {
 
-			try {
+            try {
 
-				object = constructorList.get(i).newInstance(constructorParameterValues);
+                object = constructorList.get(i).newInstance(constructorParameterValues);
 
-				// Success - break out of loop.
-				break;
+                // Success - break out of loop.
+                break;
 
-			} catch (final Throwable e) {
+            } catch (final Throwable e) {
 
-				// Determine if this is the last constructor.
-				if (i + 1 >= constructorList.size()) {
+                // Determine if this is the last constructor.
+                if (i + 1 >= constructorList.size()) {
 
-					throwRuntimeException(e.getMessage(), suppressException);
-				}
+                    throwRuntimeException(e.getMessage(), suppressException);
+                }
 
-				// Else - continue with another constructor.
+                // Else - continue with another constructor.
 
-			}
-		}
-		return object;
-	}
+            }
+        }
+        return object;
+    }
 
-	/**
-	 * This method returns an instance of type <code>Object</code> by invoking a
-	 * non-public no-argument constructor. A class may have many constructors.
-	 *
-	 * @return instance or null
-	 */
-	public static Object instantiateNonPublicConstructorNoArgument(final Class<?> clazz) {
+    /**
+     * This method returns an instance of type <code>Object</code> by invoking a
+     * non-public no-argument constructor. A class may have many constructors.
+     *
+     * @return instance or null
+     */
+    public static Object instantiateNonPublicConstructorNoArgument(final Class<?> clazz) {
 
-		return instantiateNonPublicConstructorNoArgument(clazz, false);
-	}
+        return instantiateNonPublicConstructorNoArgument(clazz, false);
+    }
 
-	/**
-	 * This method returns an instance of type <code>Object</code> by invoking a
-	 * non-public no-argument constructor. A class may have many constructors.
-	 * Support is provided for suppressing an exception.
-	 *
-	 * @return instance or null
-	 */
-	public static Object instantiateNonPublicConstructorNoArgument(final Class<?> clazz,
-			final boolean suppressException) {
+    /**
+     * This method returns an instance of type <code>Object</code> by invoking a
+     * non-public no-argument constructor. A class may have many constructors.
+     * Support is provided for suppressing an exception.
+     *
+     * @return instance or null
+     */
+    public static Object instantiateNonPublicConstructorNoArgument(final Class<?> clazz,
+            final boolean suppressException) {
 
-		return instantiatePublicConstructorNoArgument(retrieveNonPublicConstructorNoArgument(clazz), suppressException);
-	}
+        return instantiatePublicConstructorNoArgument(retrieveNonPublicConstructorNoArgument(clazz), suppressException);
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz) {
 
-		return ReflectionUtilHelper.instantiatePublicConstructorNoArgument(clazz, false);
-	}
+        return ReflectionUtilHelper.instantiatePublicConstructorNoArgument(clazz, false);
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz, final boolean suppressException) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz, final boolean suppressException) {
 
-		try {
+        try {
 
-			final Object instance = clazz.newInstance();
-			return instance;
+            final Object instance = clazz.newInstance();
+            return instance;
 
-		} catch (final Throwable e) {
+        } catch (final Throwable e) {
 
-			// Probably never invoked.
-			throwRuntimeException(e.getMessage(), suppressException);
-		}
-		// Probably never invoked.
-		return null;
-	}
+            // Probably never invoked.
+            throwRuntimeException(e.getMessage(), suppressException);
+        }
+        // Probably never invoked.
+        return null;
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiatePublicConstructorNoArgument(final Constructor<?> constructor,
-			final boolean suppressException) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiatePublicConstructorNoArgument(final Constructor<?> constructor,
+            final boolean suppressException) {
 
-		// Declare.
-		Object objInstantiated = null;
-		final Object[] intArgs = null;
+        // Declare.
+        Object objInstantiated = null;
+        final Object[] intArgs = null;
 
-		try {
-			// Check for accessibility.
-			ReflectionUtilHelper.verifyConstructorAccessible(constructor);
+        try {
+            // Check for accessibility.
+            ReflectionUtilHelper.verifyConstructorAccessible(constructor);
 
-			objInstantiated = constructor.newInstance(intArgs);
+            objInstantiated = constructor.newInstance(intArgs);
 
-		} catch (final Exception e) {
+        } catch (final Exception e) {
 
-			throwRuntimeException(e.getMessage(), suppressException);
-		}
+            throwRuntimeException(e.getMessage(), suppressException);
+        }
 
-		return objInstantiated;
-	}
+        return objInstantiated;
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiatePublicConstructorWithArgument(final Class<?> clazz, final boolean suppressException,
-			final Object constructorParameterValues[], final Class<?>... parameterTypes) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiatePublicConstructorWithArgument(final Class<?> clazz, final boolean suppressException,
+            final Object constructorParameterValues[], final Class<?>... parameterTypes) {
 
-		return ReflectionUtilHelper.instantiatePublicConstructorWithArgument(clazz.getName(), suppressException,
-				constructorParameterValues, parameterTypes);
-	}
+        return ReflectionUtilHelper.instantiatePublicConstructorWithArgument(clazz.getName(), suppressException,
+                constructorParameterValues, parameterTypes);
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiatePublicConstructorWithArgument(final Object[] constructorParameterValues,
-			final Class<?> clazz) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiatePublicConstructorWithArgument(final Object[] constructorParameterValues,
+            final Class<?> clazz) {
 
-		final Object instance = ReflectionUtilHelper
-				.instantiatePublicConstructorWithArgument(constructorParameterValues, clazz, false);
+        final Object instance = ReflectionUtilHelper
+                .instantiatePublicConstructorWithArgument(constructorParameterValues, clazz, false);
 
-		return instance;
-	}
+        return instance;
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiatePublicConstructorWithArgument(final Object[] constructorParameterValues,
-			final Class<?> clazz, final boolean suppressException) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiatePublicConstructorWithArgument(final Object[] constructorParameterValues,
+            final Class<?> clazz, final boolean suppressException) {
 
-		final Constructor<?>[] constructors = clazz.getConstructors();
+        final Constructor<?>[] constructors = clazz.getConstructors();
 
-		return ReflectionUtilHelper.instantiate(constructorParameterValues, suppressException, constructors);
-	}
+        return ReflectionUtilHelper.instantiate(constructorParameterValues, suppressException, constructors);
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiatePublicConstructorWithArgument(final String className,
-			final boolean suppressException, final Object constructorParameterValues[],
-			final Class<?>... parameterTypes) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiatePublicConstructorWithArgument(final String className,
+            final boolean suppressException, final Object constructorParameterValues[],
+            final Class<?>... parameterTypes) {
 
-		Object object = null;
+        Object object = null;
 
-		try {
+        try {
 
-			final Class<?> clazz = Class.forName(className);
+            final Class<?> clazz = Class.forName(className);
 
-			final Constructor<?> constructor = clazz.getDeclaredConstructor(parameterTypes);
+            final Constructor<?> constructor = clazz.getDeclaredConstructor(parameterTypes);
 
-			// Ensure accessibility.
-			ReflectionUtilHelper.verifyConstructorAccessible(constructor);
+            // Ensure accessibility.
+            ReflectionUtilHelper.verifyConstructorAccessible(constructor);
 
-			object = constructor.newInstance(constructorParameterValues);
+            object = constructor.newInstance(constructorParameterValues);
 
-		} catch (final Exception e) {
+        } catch (final Exception e) {
 
-			throwRuntimeException(e.getMessage(), suppressException);
-		}
-		return object;
-	}
+            throwRuntimeException(e.getMessage(), suppressException);
+        }
+        return object;
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiatePublicConstructorWithArgument(final String className,
-			final Object[] constructorParameterValues) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiatePublicConstructorWithArgument(final String className,
+            final Object[] constructorParameterValues) {
 
-		final Object instance = ReflectionUtilHelper.instantiatePublicConstructorWithArgument(className,
-				constructorParameterValues, false);
+        final Object instance = ReflectionUtilHelper.instantiatePublicConstructorWithArgument(className,
+                constructorParameterValues, false);
 
-		return instance;
-	}
+        return instance;
+    }
 
-	/**
-	 * @return instance or null
-	 */
-	public static Object instantiatePublicConstructorWithArgument(final String className,
-			final Object[] constructorParameterValues, final boolean suppressException) {
+    /**
+     * @return instance or null
+     */
+    public static Object instantiatePublicConstructorWithArgument(final String className,
+            final Object[] constructorParameterValues, final boolean suppressException) {
 
-		Class<Object> clazz;
+        Class<Object> clazz;
 
-		clazz = ReflectionUtilHelper.retrieveClass(className, suppressException);
+        clazz = ReflectionUtilHelper.retrieveClass(className, suppressException);
 
-		if (null == clazz) {
-			return null;
-		}
+        if (null == clazz) {
+            return null;
+        }
 
-		final Object instance = ReflectionUtilHelper
-				.instantiatePublicConstructorWithArgument(constructorParameterValues, clazz, suppressException);
+        final Object instance = ReflectionUtilHelper
+                .instantiatePublicConstructorWithArgument(constructorParameterValues, clazz, suppressException);
 
-		// Return instantiated instance or null.
-		return instance;
-	}
+        // Return instantiated instance or null.
+        return instance;
+    }
 
-	/**
-	 * @return {@link Object}
-	 */
-	public static Object invokePublicMethod(final String methodName, final Object instance, final Object... args) {
+    /**
+     * @return {@link Object}
+     */
+    public static Object invokePublicMethod(final String methodName, final Object instance, final Object... args) {
 
-		final Method method = ReflectionUtilHelper.retrievePublicMethod(instance.getClass(), methodName, false);
+        final Method method = ReflectionUtilHelper.retrievePublicMethod(instance.getClass(), methodName, false);
 
-		try {
+        try {
 
-			return method.invoke(instance, args);
+            return method.invoke(instance, args);
 
-		} catch (final Exception e) {
+        } catch (final Exception e) {
 
-			throwRuntimeException(e.getMessage(), false);
-		}
-		return method;
-	}
+            throwRuntimeException(e.getMessage(), false);
+        }
+        return method;
+    }
 
-	/**
-	 * This method iterates through an array of constructors in pursuit of a no
-	 * argument version.
-	 *
-	 * @return {@link Constructor}
-	 */
-	private static Constructor<?> iterateForNonPublicConstructorNoArgument(final Constructor<?>[] constructors) {
+    /**
+     * This method iterates through an array of constructors in pursuit of a no
+     * argument version.
+     *
+     * @return {@link Constructor}
+     */
+    private static Constructor<?> iterateForNonPublicConstructorNoArgument(final Constructor<?>[] constructors) {
 
-		Constructor<?> constructorTemp = null;
+        Constructor<?> constructorTemp = null;
 
-		for (final Constructor<?> constructor : constructors) {
+        for (final Constructor<?> constructor : constructors) {
 
-			// Determine if there is a no argument constructor.
-			if (0 == constructor.getParameterTypes().length) {
+            // Determine if there is a no argument constructor.
+            if (0 == constructor.getParameterTypes().length) {
 
-				// Determine if it is accessible.
-				verifyConstructorAccessible(constructor);
+                // Determine if it is accessible.
+                verifyConstructorAccessible(constructor);
 
-				// Determine if it is *not* public.
-				if (!Modifier.isPublic(constructor.getModifiers())) {
+                // Determine if it is *not* public.
+                if (!Modifier.isPublic(constructor.getModifiers())) {
 
-					constructorTemp = constructor;
-					break;
-				}
-			}
-		}
-		return constructorTemp;
-	}
+                    constructorTemp = constructor;
+                    break;
+                }
+            }
+        }
+        return constructorTemp;
+    }
 
-	/**
-	 * @return {@link Constructor}
-	 */
-	private static Constructor<?> iterateForPublicConstructorNoArgument(final Constructor<?>[] constructors) {
+    /**
+     * @return {@link Constructor}
+     */
+    private static Constructor<?> iterateForPublicConstructorNoArgument(final Constructor<?>[] constructors) {
 
-		Constructor<?> constructorTemp = null;
+        Constructor<?> constructorTemp = null;
 
-		for (final Constructor<?> constructor : constructors) {
+        for (final Constructor<?> constructor : constructors) {
 
-			// Determine if there is a no argument constructor.
-			if (0 == constructor.getParameterTypes().length) {
+            // Determine if there is a no argument constructor.
+            if (0 == constructor.getParameterTypes().length) {
 
-				// Determine if it is accessible.
-				ReflectionUtilHelper.verifyConstructorAccessible(constructor);
+                // Determine if it is accessible.
+                ReflectionUtilHelper.verifyConstructorAccessible(constructor);
 
-				constructorTemp = constructor;
-				break;
-			}
-		}
-		return constructorTemp;
-	}
+                constructorTemp = constructor;
+                break;
+            }
+        }
+        return constructorTemp;
+    }
 
-	/**
-	 * @return {@link Class}
-	 * @throws ClassNotFoundException
-	 */
-	public static Class<Object> retrieveClass(final String className) throws ClassNotFoundException {
+    /**
+     * @return {@link Class}
+     * @throws ClassNotFoundException
+     */
+    public static Class<Object> retrieveClass(final String className) throws ClassNotFoundException {
 
-		return ReflectionUtilHelper.retrieveClass(className, false);
-	}
+        return ReflectionUtilHelper.retrieveClass(className, false);
+    }
 
-	/**
-	 * @return {@link Class} of null
-	 */
-	@SuppressWarnings("unchecked")
-	public static Class<Object> retrieveClass(final String className, final boolean suppressException) {
+    /**
+     * @return {@link Class} of null
+     */
+    @SuppressWarnings("unchecked")
+    public static Class<Object> retrieveClass(final String className, final boolean suppressException) {
 
-		Class<Object> targetClass = null;
+        Class<Object> targetClass = null;
 
-		try {
+        try {
 
-			targetClass = (Class<Object>) Class.forName(className, true, ReflectionUtilHelper.class.getClassLoader());
+            targetClass = (Class<Object>) Class.forName(className, true, ReflectionUtilHelper.class.getClassLoader());
 
-		} catch (final Exception e) {
+        } catch (final Exception e) {
 
-			throwRuntimeException(e.getMessage(), suppressException);
-		}
-		return targetClass;
-	}
+            throwRuntimeException(e.getMessage(), suppressException);
+        }
+        return targetClass;
+    }
 
-	/**
-	 * @return {@link Field}
-	 */
-	public static Object retrieveFieldInstanceWithDirectAccess(final Object classInstance, final String fieldName,
-			final boolean suppressException) {
+    /**
+     * @return {@link Field}
+     */
+    public static Object retrieveFieldInstanceWithDirectAccess(final Object classInstance, final String fieldName,
+            final boolean suppressException) {
 
-		final Field field = retrieveFieldWithDirectAccess(classInstance, fieldName);
+        final Field field = retrieveFieldWithDirectAccess(classInstance, fieldName);
 
-		Object fieldInstance = null;
+        Object fieldInstance = null;
 
-		try {
-			fieldInstance = field.get(classInstance);
+        try {
+            fieldInstance = field.get(classInstance);
 
-		} catch (final Exception e) {
+        } catch (final Exception e) {
 
-			throwRuntimeException(e.getMessage(), suppressException);
-		}
+            throwRuntimeException(e.getMessage(), suppressException);
+        }
 
-		return fieldInstance;
-	}
+        return fieldInstance;
+    }
 
-	/**
-	 * @return {@link Field}
-	 */
-	public static Object retrieveFieldValueFromMethodName(final Object instance, final String methodName,
-			final boolean suppressException) {
+    /**
+     * @return {@link Field}
+     */
+    public static Object retrieveFieldValueFromMethodName(final Object instance, final String methodName,
+            final boolean suppressException) {
 
-		final Method[] methods = instance.getClass().getMethods();
+        final Method[] methods = instance.getClass().getMethods();
 
-		for (final Method method : methods) {
+        for (final Method method : methods) {
 
-			if (method.getName().equals(methodName)) {
+            if (method.getName().equals(methodName)) {
 
-				try {
-					return method.invoke(instance);
+                try {
+                    return method.invoke(instance);
 
-				} catch (final Exception e) {
+                } catch (final Exception e) {
 
-					throwRuntimeException(e.getMessage(), suppressException);
-				}
-			}
-		}
+                    throwRuntimeException(e.getMessage(), suppressException);
+                }
+            }
+        }
 
-		throwRuntimeException("The method name [" + methodName + "] could not be found on the instance provided ["
-				+ instance.getClass().getSimpleName() + "].", suppressException);
+        throwRuntimeException("The method name [" + methodName + "] could not be found on the instance provided ["
+                + instance.getClass().getSimpleName() + "].", suppressException);
 
-		return null;
+        return null;
 
-	}
+    }
 
-	/**
-	 * @return {@link Field}
-	 */
-	public static Field retrieveFieldWithDirectAccess(final Object instance, final String fieldName) {
+    /**
+     * @return {@link Field}
+     */
+    public static Field retrieveFieldWithDirectAccess(final Object instance, final String fieldName) {
 
-		Field field = null;
+        Field field = null;
 
-		try {
-			field = instance.getClass().getDeclaredField(fieldName);
-			field.setAccessible(true);
+        try {
+            field = instance.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
 
-		} catch (final Exception e) {
+        } catch (final Exception e) {
 
-			throwRuntimeException(e.getMessage(), false);
-		}
+            throwRuntimeException(e.getMessage(), false);
+        }
 
-		return field;
-	}
+        return field;
+    }
 
-	/**
-	 * @return {@link DataInputStream}
-	 */
-	public static DataInputStream retrieveFileAsDataInputStreamAndBeSureToClose(final String fileName) {
+    /**
+     * @return {@link DataInputStream}
+     */
+    public static DataInputStream retrieveFileAsDataInputStreamAndBeSureToClose(final String fileName) {
 
-		final InputStream inputStream = ReflectionUtilHelper.retrieveFileAsInputStreamAndBeSureToClose(fileName);
+        final InputStream inputStream = ReflectionUtilHelper.retrieveFileAsInputStreamAndBeSureToClose(fileName);
 
-		final DataInputStream dataInputStream = new DataInputStream(inputStream);
+        final DataInputStream dataInputStream = new DataInputStream(inputStream);
 
-		return dataInputStream;
-	}
+        return dataInputStream;
+    }
 
-	/**
-	 * @return {@link InputStream}
-	 */
-	public static InputStream retrieveFileAsInputStreamAndBeSureToClose(final String resourceName) {
+    /**
+     * @return {@link InputStream}
+     */
+    public static InputStream retrieveFileAsInputStreamAndBeSureToClose(final String resourceName) {
 
-		ClassLoader loader;
-		InputStream inputStream = null;
+        ClassLoader loader;
+        InputStream inputStream = null;
 
-		loader = ReflectionUtilHelper.class.getClassLoader();
+        loader = ReflectionUtilHelper.class.getClassLoader();
 
-		inputStream = loader.getResourceAsStream(resourceName);
+        inputStream = loader.getResourceAsStream(resourceName);
 
-		if (null == inputStream) {
+        if (null == inputStream) {
 
-			loader = Thread.currentThread().getContextClassLoader();
+            loader = Thread.currentThread().getContextClassLoader();
 
-			inputStream = loader.getResourceAsStream(resourceName);
+            inputStream = loader.getResourceAsStream(resourceName);
 
-			if (null == inputStream) {
+            if (null == inputStream) {
 
-				throwRuntimeException("Input stream is null", false);
-			}
-		}
-		return inputStream;
-	}
+                throwRuntimeException("Input stream is null", false);
+            }
+        }
+        return inputStream;
+    }
 
-	/**
-	 * @return {@link BufferedReader}
-	 */
-	public static BufferedReader retrieveFileAsReader(final String resourceName) {
+    /**
+     * @return {@link BufferedReader}
+     */
+    public static BufferedReader retrieveFileAsReader(final String resourceName) {
 
-		final DataInputStream dataInputStream = ReflectionUtilHelper
-				.retrieveFileAsDataInputStreamAndBeSureToClose(resourceName);
+        final DataInputStream dataInputStream = ReflectionUtilHelper
+                .retrieveFileAsDataInputStreamAndBeSureToClose(resourceName);
 
-		final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
+        final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
 
-		return bufferedReader;
-	}
+        return bufferedReader;
+    }
 
-	/**
-	 * @return {@link Scanner}
-	 */
-	public static Scanner retrieveFileAsScanner(final String fileName) {
+    /**
+     * @return {@link Scanner}
+     */
+    public static Scanner retrieveFileAsScanner(final String fileName) {
 
-		InputStream inputStream = null;
-		Scanner scanner;
+        InputStream inputStream = null;
+        Scanner scanner;
 
-		try {
-			inputStream = ReflectionUtilHelper.retrieveFileAsInputStreamAndBeSureToClose(fileName);
-			scanner = new Scanner(inputStream);
+        try {
+            inputStream = ReflectionUtilHelper.retrieveFileAsInputStreamAndBeSureToClose(fileName);
+            scanner = new Scanner(inputStream);
 
-		} finally {
+        } finally {
 
-			if (null != inputStream) {
-				try {
-					inputStream.close();
-				} catch (final Exception e) {
-					// Ignore.
-				}
-			}
-		}
+            if (null != inputStream) {
+                try {
+                    inputStream.close();
+                } catch (@SuppressWarnings("unused") final Exception e) {
+                    // Ignore.
+                }
+            }
+        }
 
-		return scanner;
-	}
+        return scanner;
+    }
 
-	/**
-	 * This method returns an accessible no-argument <code>Constructor</code> or
-	 * <code>null</code>.
-	 *
-	 * @return {@link Constructor} or null.
-	 */
-	public static Constructor<?> retrieveNonPublicConstructorNoArgument(final Class<?> clazz) {
+    /**
+     * This method returns an accessible no-argument <code>Constructor</code> or
+     * <code>null</code>.
+     *
+     * @return {@link Constructor} or null.
+     */
+    public static Constructor<?> retrieveNonPublicConstructorNoArgument(final Class<?> clazz) {
 
-		final Constructor<?>[] constructors = clazz.getDeclaredConstructors();
+        final Constructor<?>[] constructors = clazz.getDeclaredConstructors();
 
-		return iterateForNonPublicConstructorNoArgument(constructors);
-	}
+        return iterateForNonPublicConstructorNoArgument(constructors);
+    }
 
-	/**
-	 * @return {@link Constructor} or null
-	 */
-	public static Constructor<?> retrievePublicConstructorNoArgument(final Class<?> clazz) {
+    /**
+     * @return {@link Constructor} or null
+     */
+    public static Constructor<?> retrievePublicConstructorNoArgument(final Class<?> clazz) {
 
-		final Constructor<?>[] constructors = clazz.getConstructors();
+        final Constructor<?>[] constructors = clazz.getConstructors();
 
-		return ReflectionUtilHelper.iterateForPublicConstructorNoArgument(constructors);
-	}
+        return ReflectionUtilHelper.iterateForPublicConstructorNoArgument(constructors);
+    }
 
-	/**
-	 * @return {@link Method}
-	 */
-	public static Method retrievePublicMethod(final Class<?> clazz, final String methodName,
-			final boolean suppressException) {
+    /**
+     * @return {@link Method}
+     */
+    public static Method retrievePublicMethod(final Class<?> clazz, final String methodName,
+            final boolean suppressException) {
 
-		try {
-			final Method methods[] = clazz.getMethods();
+        try {
+            final Method methods[] = clazz.getMethods();
 
-			for (final Method methodTemp : methods) {
+            for (final Method methodTemp : methods) {
 
-				if (methodName.equalsIgnoreCase(methodTemp.getName())) {
+                if (methodName.equalsIgnoreCase(methodTemp.getName())) {
 
-					return methodTemp;
-				}
-			}
-			throwRuntimeException("Method not found.", suppressException);
+                    return methodTemp;
+                }
+            }
+            throwRuntimeException("Method not found.", suppressException);
 
-		} catch (final Exception e) {
+        } catch (final Exception e) {
 
-			throwRuntimeException(e.getMessage(), suppressException);
+            throwRuntimeException(e.getMessage(), suppressException);
 
-		}
-		return null;
-	}
+        }
+        return null;
+    }
 
-	/**
-	 * @throws JustifyRuntimeException
-	 */
-	private static void throwRuntimeException(final String message, final boolean suppressException) {
+    /**
+     * @throws JustifyRuntimeException
+     */
+    private static void throwRuntimeException(final String message, final boolean suppressException) {
 
-		if (!suppressException) {
+        if (!suppressException) {
 
-			throw new JustifyRuntimeException(message);
-		}
-	}
+            throw new JustifyRuntimeException(message);
+        }
+    }
 
-	/**
-	 * This method provides a security verification.
-	 */
-	public static void verifyConstructorAccessible(final Constructor<?> constructor) {
+    /**
+     * This method provides a security verification.
+     */
+    public static void verifyConstructorAccessible(final Constructor<?> constructor) {
 
-		if (constructor.isAccessible()) {
-			return;
-		}
+        if (constructor.isAccessible()) {
+            return;
+        }
 
-		// Enable use of a non-public constructor.
-		constructor.setAccessible(true);
-		return;
-	}
+        // Enable use of a non-public constructor.
+        constructor.setAccessible(true);
+        return;
+    }
 
-	/**
-	 * @return {@link Constructor} or null
-	 */
-	public static boolean verifyPublicNoArgumentConstructorOnly(final Class<?> clazz) {
+    /**
+     * @return {@link Constructor} or null
+     */
+    public static boolean verifyPublicNoArgumentConstructorOnly(final Class<?> clazz) {
 
-		final Constructor<?>[] constructors = clazz.getConstructors();
+        final Constructor<?>[] constructors = clazz.getConstructors();
 
-		if (constructors.length == 1) {
+        if (constructors.length == 1) {
 
-			if (null != ReflectionUtilHelper.iterateForPublicConstructorNoArgument(constructors)) {
-				return true;
-			}
-		}
-		return false;
-	}
+            if (null != ReflectionUtilHelper.iterateForPublicConstructorNoArgument(constructors)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

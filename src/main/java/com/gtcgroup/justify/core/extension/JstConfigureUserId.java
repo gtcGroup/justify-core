@@ -35,10 +35,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(JstConfigureSystemPropertyExtension.class)
-public @interface JstConfigureSystemProperty {
+@ExtendWith(JstConfigureUserIdExtension.class)
+public @interface JstConfigureUserId {
 
-    public String[] key() default "";
-
-    public String[] value() default "";
+    public String userId() default "$userId";
 }

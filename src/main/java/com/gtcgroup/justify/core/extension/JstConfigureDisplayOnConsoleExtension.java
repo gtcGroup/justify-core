@@ -43,15 +43,15 @@ import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
 public class JstConfigureDisplayOnConsoleExtension extends JstBaseExtension
         implements BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback {
 
-    private static final String MESSAGE = "-message";
-    private static final String TIMER = "-timer";
-    private static final String STATUS = "-status";
-    private static boolean firstTestWantingHeaderDisplayed = true;
-    private static boolean firstTestWantingClasspathDisplayed = true;
+    protected static final String MESSAGE = "-message";
+    protected static final String TIMER = "-timer";
+    protected static final String STATUS = "-status";
+    protected static boolean firstTestWantingHeaderDisplayed = true;
+    protected static boolean firstTestWantingClasspathDisplayed = true;
 
-    private static final Map<String, Object> mapContainingStateForTestMethod = new ConcurrentHashMap<>();
+    protected static final Map<String, Object> mapContainingStateForTestMethod = new ConcurrentHashMap<>();
 
-    private static boolean determineIfVerbose(final ExtensionContext context) {
+    protected static boolean determineIfVerbose(final ExtensionContext context) {
 
         final JstConfigureDisplayOnConsole configureDisplayOnConsole = retrieveAnnotation(context,
                 JstConfigureDisplayOnConsole.class);
@@ -63,7 +63,7 @@ public class JstConfigureDisplayOnConsoleExtension extends JstBaseExtension
         return false;
     }
 
-    private static String displayMethodDetails(final String uniqueId) {
+    protected static String displayMethodDetails(final String uniqueId) {
 
         final StringBuilder message = (StringBuilder) JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
                 .get(uniqueId + JstConfigureDisplayOnConsoleExtension.MESSAGE);

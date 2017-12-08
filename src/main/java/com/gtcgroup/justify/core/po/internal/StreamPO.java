@@ -44,53 +44,53 @@ import com.gtcgroup.justify.core.base.JstBasePO;
 
 public class StreamPO extends JstBasePO {
 
-	private ClassLoader classLoader;
+    private ClassLoader classLoader;
 
-	private InputStream inputStream;
+    private InputStream inputStream;
 
-	/**
-	 * This convenience method will close the {@link InputStream}.
-	 */
-	public void closeInputStream() {
+    /**
+     * This convenience method will close the {@link InputStream}.
+     */
+    public void closeInputStream() {
 
-		if (this.inputStream != null) {
-			try {
-				this.inputStream.close();
-			} catch (final Exception e) {
-				// Empty Block;
-			}
-		}
-	}
+        if (this.inputStream != null) {
+            try {
+                this.inputStream.close();
+            } catch (@SuppressWarnings("unused") final Exception e) {
+                // Empty Block;
+            }
+        }
+    }
 
-	/**
-	 * @return {@link ClassLoader}
-	 */
-	public ClassLoader getClassLoader() {
+    /**
+     * @return {@link ClassLoader}
+     */
+    public ClassLoader getClassLoader() {
 
-		return this.classLoader;
-	}
+        return this.classLoader;
+    }
 
-	/**
-	 * @return {@link InputStream}
-	 */
-	public InputStream getInputStreamToBeClosed() {
+    /**
+     * @return {@link InputStream}
+     */
+    public InputStream getInputStreamToBeClosed() {
 
-		return this.inputStream;
-	}
+        return this.inputStream;
+    }
 
-	/**
-	 * @return {@link StreamPO}
-	 */
-	public StreamPO setClassLoader(final ClassLoader classLoader) {
-		this.classLoader = classLoader;
-		return this;
-	}
+    /**
+     * @return {@link StreamPO}
+     */
+    public StreamPO setClassLoader(final ClassLoader classLoader) {
+        this.classLoader = classLoader;
+        return this;
+    }
 
-	/**
-	 * @return {@link StreamPO}
-	 */
-	public StreamPO setInputStream(final InputStream inputStream) {
-		this.inputStream = inputStream;
-		return this;
-	}
+    /**
+     * @return {@link StreamPO}
+     */
+    public StreamPO setInputStream(final InputStream inputStream) {
+        this.inputStream = inputStream;
+        return this;
+    }
 }
