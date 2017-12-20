@@ -26,7 +26,7 @@
 
 package com.gtcgroup.justify.core.base;
 
-import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
+import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
 
 /**
  * This Testing base class supports readability.
@@ -48,7 +48,7 @@ public abstract class JstBaseSuffix {
 
 		super();
 
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), assignPatternSuffixTM());
+		JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), assignPatternSuffixTM());
 
 		return;
 	}

@@ -24,14 +24,14 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.po.internal;
+package com.gtcgroup.justify.core.po;
 
 import java.io.InputStream;
 
 import com.gtcgroup.justify.core.base.JstBasePO;
 
 /**
- * This Bean Helper class supports stream operations.
+ * This Parameter Object class supports stream operations.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -42,7 +42,7 @@ import com.gtcgroup.justify.core.base.JstBasePO;
  * @since v3.0
  */
 
-public class StreamPO extends JstBasePO {
+public class JstStreamPO extends JstBasePO {
 
     private ClassLoader classLoader;
 
@@ -79,17 +79,17 @@ public class StreamPO extends JstBasePO {
     }
 
     /**
-     * @return {@link StreamPO}
+     * @return {@link JstStreamPO}
      */
-    public StreamPO setClassLoader(final ClassLoader classLoader) {
+    public JstStreamPO setClassLoader(final ClassLoader classLoader) {
         this.classLoader = classLoader;
         return this;
     }
 
     /**
-     * @return {@link StreamPO}
+     * @return {@link JstStreamPO}
      */
-    public StreamPO setInputStream(final InputStream inputStream) {
+    public JstStreamPO setInputStream(final InputStream inputStream) {
         this.inputStream = inputStream;
         return this;
     }

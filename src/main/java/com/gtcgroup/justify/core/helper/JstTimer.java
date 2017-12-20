@@ -24,13 +24,10 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.helper.internal;
-
-import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
+package com.gtcgroup.justify.core.helper;
 
 /**
- * This Util Helper class provides methods for runtime detection of coding
- * convention violations.
+ * This Timer class can be used to support performance logging.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -40,41 +37,25 @@ import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
  * @author Marvin Toll
  * @since v3.0
  */
-public enum CodingConventionUtilHelper {
+public class JstTimer {
 
-	@SuppressWarnings("javadoc")
-	INSTANCE;
+    private final long startNanos;
 
-	/**
-	 * This method throws an exception if a suffix violation occurs.
-	 */
-	public static void checkSuffixInClassName(final Class<?> clazz, final String containsCharacters) {
+    /**
+     * Constructor
+     */
+    public JstTimer() {
+        super();
+        this.startNanos = System.nanoTime();
+    }
 
-		// Verify naming convention.
-		if (!clazz.getSimpleName().contains(containsCharacters)) {
+    /**
+     * This method calculates elapsed time.
+     *
+     * @return long
+     */
+    public long calculateElapsedNanoSeconds() {
 
-			throw CodingConventionUtilHelper.throwException(clazz, containsCharacters);
-		}
-	}
-
-	/**
-	 * @return {@link JustifyRuntimeException}
-	 */
-	private static JustifyRuntimeException throwException(final Class<?> clazz, final String... endsWith) {
-
-		final StringBuilder message = new StringBuilder();
-		message.append("The class named [");
-		message.append(clazz.getName());
-		message.append("] MUST end with ");
-
-		for (final String endWith : endsWith) {
-
-			message.append("[");
-			message.append(endWith);
-			message.append("]");
-		}
-		message.append(".");
-
-		return new JustifyRuntimeException(message.toString());
-	}
+        return System.nanoTime() - this.startNanos;
+    }
 }

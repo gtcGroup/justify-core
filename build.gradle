@@ -45,7 +45,6 @@ repositories {
 
 dependencies {
 
-	
 	compile("org.junit.jupiter:junit-jupiter-api:5.+") {
         exclude group: 'junit', module: 'junit'
     }

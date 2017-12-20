@@ -26,7 +26,7 @@
 
 package com.gtcgroup.justify.core.exception.internal;
 
-import com.gtcgroup.justify.core.base.JstBaseException;
+import com.gtcgroup.justify.core.base.internal.BaseException;
 
 /**
  * This Exception class is used for testing only.
@@ -39,7 +39,7 @@ import com.gtcgroup.justify.core.base.JstBaseException;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JustifyRuntimeException extends JstBaseException {
+public class JustifyRuntimeException extends BaseException {
 
 	private static final long serialVersionUID = 1L;
 

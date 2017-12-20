@@ -30,7 +30,7 @@ import java.lang.annotation.Annotation;
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
+import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
 
 /**
  * This {@link Extension} base class works in harmony with the lifecycle.
@@ -66,6 +66,6 @@ public abstract class JstBaseExtension implements Extension {
     public JstBaseExtension() {
         super();
 
-        CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.RULE_SUFFIX);
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.RULE_SUFFIX);
     }
 }

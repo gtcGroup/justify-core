@@ -56,19 +56,13 @@ import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
  */
 public enum ConversionUtilHelper {
 
-    @SuppressWarnings("javadoc")
     INSTANCE;
 
-    private static DatatypeFactory DATATYPE_FACTORY;
-
-    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(
-            ConversionUtilHelper.STRING_DATE_FORMAT);
-
-    private static final String STRING_DATE_FORMAT = "MMM-dd-yyyy";
+    private static DatatypeFactory dataTypeFactory;
 
     static {
         try {
-            ConversionUtilHelper.DATATYPE_FACTORY = DatatypeFactory.newInstance();
+            ConversionUtilHelper.dataTypeFactory = DatatypeFactory.newInstance();
 
         } catch (@SuppressWarnings("unused") final Exception e) {
             // Ignore, not likely.
@@ -76,9 +70,6 @@ public enum ConversionUtilHelper {
     }
 
     /**
-     * This method converts a {@link Calendar} into a different {@link Locale} and
-     * return the date value in MMM-dd-yyyy format.
-     *
      * @return {@link String}
      */
     public static String convertCalendarToMMMddyyyyWithLocale(final Calendar calendar, final Locale inLocale) {
@@ -86,7 +77,8 @@ public enum ConversionUtilHelper {
         final String dateString;
 
         try {
-            final SimpleDateFormat formatter = new SimpleDateFormat(ConversionUtilHelper.STRING_DATE_FORMAT, inLocale);
+            final SimpleDateFormat formatter = new SimpleDateFormat(ConversionUtilHelper.INSTANCE.monthDayYear,
+                    inLocale);
             final Date today = new Date(calendar.getTimeInMillis());
             dateString = formatter.format(today);
 
@@ -98,9 +90,6 @@ public enum ConversionUtilHelper {
     }
 
     /**
-     * This method converts a {@link Calendar} to an {@link XMLGregorianCalendar}
-     * that can be used for XML DateTime processing.
-     *
      * @return {@link XMLGregorianCalendar}
      * @throws DatatypeConfigurationException
      */
@@ -134,10 +123,8 @@ public enum ConversionUtilHelper {
      */
     public static Calendar convertDateMMMddyyyyToCalendar(final String MMMddyyyyString) {
 
-        final Calendar calendar = ConversionUtilHelper.convertDateStringToCalendar(MMMddyyyyString,
-                ConversionUtilHelper.SIMPLE_DATE_FORMAT);
-
-        return calendar;
+        return ConversionUtilHelper.convertDateStringToCalendar(MMMddyyyyString,
+                ConversionUtilHelper.INSTANCE.simpleDateFormat);
     }
 
     /**
@@ -150,12 +137,9 @@ public enum ConversionUtilHelper {
     public static Timestamp convertDateMMMddyyyyToTimestamp(final String MMMddyyyyString) {
 
         // SimpleDateFormat object for "MMM-dd-yyyy" (e.g. Jul-27-2015)
-        final SimpleDateFormat dateFormatMMMddyyyy = new SimpleDateFormat("MMM-dd-yyyy");
+        final SimpleDateFormat dateFormatMMMddyyyy = new SimpleDateFormat(ConversionUtilHelper.INSTANCE.monthDayYear);
 
-        final Timestamp timestamp = ConversionUtilHelper.convertDateStringToTimestamp(MMMddyyyyString,
-                dateFormatMMMddyyyy);
-
-        return timestamp;
+        return ConversionUtilHelper.convertDateStringToTimestamp(MMMddyyyyString, dateFormatMMMddyyyy);
     }
 
     /**
@@ -168,12 +152,9 @@ public enum ConversionUtilHelper {
     public static XMLGregorianCalendar convertDateMMMddyyyyToXmlDate(final String MMMddyyyyString) {
 
         // SimpleDateFormat object for "MMM-dd-yyyy" (e.g. Jul-27-2015)
-        final SimpleDateFormat dateFormatMMMddyyyy = new SimpleDateFormat("MMM-dd-yyyy");
+        final SimpleDateFormat dateFormatMMMddyyyy = new SimpleDateFormat(ConversionUtilHelper.INSTANCE.monthDayYear);
 
-        final XMLGregorianCalendar xmlDate = ConversionUtilHelper.convertDateStringToXmlDate(MMMddyyyyString,
-                dateFormatMMMddyyyy);
-
-        return xmlDate;
+        return ConversionUtilHelper.convertDateStringToXmlDate(MMMddyyyyString, dateFormatMMMddyyyy);
     }
 
     /**
@@ -201,13 +182,13 @@ public enum ConversionUtilHelper {
      * @return {@link Calendar}
      */
     public static Calendar convertDateStringToCalendar(final String dateString,
-            final SimpleDateFormat dateStringFormat) {
+            final SimpleDateFormat simpleDateFormat) {
 
         final Calendar calendar = Calendar.getInstance();
 
         try {
 
-            final Date date = dateStringFormat.parse(dateString);
+            final Date date = simpleDateFormat.parse(dateString);
             calendar.setTime(date);
 
         } catch (final Exception e) {
@@ -225,12 +206,12 @@ public enum ConversionUtilHelper {
      * @return {@link Timestamp}
      */
     public static Timestamp convertDateStringToTimestamp(final String dateString,
-            final SimpleDateFormat dateStringFormat) {
+            final SimpleDateFormat simpleDateFormat) {
 
         Timestamp timestamp;
 
         try {
-            final Date date = dateStringFormat.parse(dateString);
+            final Date date = simpleDateFormat.parse(dateString);
             timestamp = new Timestamp(date.getTime());
 
         } catch (final Exception e) {
@@ -249,11 +230,11 @@ public enum ConversionUtilHelper {
      * @return {@link XMLGregorianCalendar}
      */
     public static XMLGregorianCalendar convertDateStringToXmlDate(final String dateString,
-            final SimpleDateFormat dateStringFormat) {
+            final SimpleDateFormat simpleDateFormat) {
 
         XMLGregorianCalendar xmlDate;
 
-        xmlDate = ConversionUtilHelper.instantiateXmlGregorianCalendar(dateString, dateStringFormat);
+        xmlDate = ConversionUtilHelper.instantiateXmlGregorianCalendar(dateString, simpleDateFormat);
 
         return xmlDate;
     }
@@ -297,7 +278,7 @@ public enum ConversionUtilHelper {
      * @return {@link String}
      */
     public static String convertDateXmlToDateString(final XMLGregorianCalendar xmlDate,
-            final SimpleDateFormat dateStringFormat) {
+            final SimpleDateFormat simpleDateFormat) {
 
         Calendar calendar;
 
@@ -312,7 +293,7 @@ public enum ConversionUtilHelper {
             throw new JustifyRuntimeException(e);
         }
 
-        return dateStringFormat.format(calendar.getTime());
+        return simpleDateFormat.format(calendar.getTime());
     }
 
     /**
@@ -323,10 +304,7 @@ public enum ConversionUtilHelper {
      */
     public static String convertDateXmlToMMMddyyyy(final XMLGregorianCalendar xmlDate) {
 
-        final String MMMddyyyyString = ConversionUtilHelper.convertDateXmlToDateString(xmlDate,
-                ConversionUtilHelper.SIMPLE_DATE_FORMAT);
-
-        return MMMddyyyyString;
+        return ConversionUtilHelper.convertDateXmlToDateString(xmlDate, ConversionUtilHelper.INSTANCE.simpleDateFormat);
     }
 
     /**
@@ -430,9 +408,6 @@ public enum ConversionUtilHelper {
     }
 
     /**
-     * This method returns a string with characters replaced. A null is returned as
-     * an empty string.
-     *
      * @return {@link String}
      */
     public static String convertStringWithReplacementPattern(final String originalString, final String pattern,
@@ -440,7 +415,7 @@ public enum ConversionUtilHelper {
 
         if (originalString != null) {
             final int len = pattern.length();
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             int found = -1;
             int start = 0;
 
@@ -493,9 +468,6 @@ public enum ConversionUtilHelper {
     }
 
     /**
-     * This method converts a {@link Timestamp} into a String with the format
-     * specified.
-     *
      * @return {@link String}
      */
     public static String convertTimestampToDateString(final Timestamp timestamp,
@@ -517,29 +489,24 @@ public enum ConversionUtilHelper {
     }
 
     /**
-     * This method returns a {@link String} instance in the "MMM-dd-yyyy" format
-     * from a timestamp.
-     *
      * @return {@link String}
      */
     public static String convertTimestampToMMMddyyyy(final Timestamp timestamp) {
 
-        final String MMMddyyyyString = ConversionUtilHelper.convertTimestampToDateString(timestamp,
-                ConversionUtilHelper.SIMPLE_DATE_FORMAT);
-
-        return MMMddyyyyString;
+        return ConversionUtilHelper.convertTimestampToDateString(timestamp,
+                ConversionUtilHelper.INSTANCE.simpleDateFormat);
     }
 
     /**
      * @return {@link XMLGregorianCalendar}
      */
-    public static Calendar instantiateCalendar(final String dateString, final SimpleDateFormat dateStringFormat) {
+    public static Calendar instantiateCalendar(final String dateString, final SimpleDateFormat simpleDateFormat) {
 
         final Calendar calendar = Calendar.getInstance();
 
         try {
 
-            calendar.setTime(dateStringFormat.parse(dateString));
+            calendar.setTime(simpleDateFormat.parse(dateString));
 
         } catch (final Exception e) {
             throw new JustifyRuntimeException(e);
@@ -552,15 +519,15 @@ public enum ConversionUtilHelper {
      * @return {@link XMLGregorianCalendar}
      */
     public static XMLGregorianCalendar instantiateXmlGregorianCalendar(final String dateString,
-            final SimpleDateFormat dateStringFormat) {
+            final SimpleDateFormat simpleDateFormat) {
 
         XMLGregorianCalendar xmlDate;
 
         try {
             final Calendar calendar = Calendar.getInstance();
 
-            calendar.setTime(dateStringFormat.parse(dateString));
-            xmlDate = ConversionUtilHelper.DATATYPE_FACTORY.newXMLGregorianCalendarDate(calendar.get(Calendar.YEAR),
+            calendar.setTime(simpleDateFormat.parse(dateString));
+            xmlDate = ConversionUtilHelper.dataTypeFactory.newXMLGregorianCalendarDate(calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH),
                     DatatypeConstants.FIELD_UNDEFINED);
         } catch (final Exception e) {
@@ -571,4 +538,7 @@ public enum ConversionUtilHelper {
         return xmlDate;
     }
 
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM-dd-yyyy");
+
+    private final String monthDayYear = "MMM-dd-yyyy";
 }

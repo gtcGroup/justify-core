@@ -26,8 +26,8 @@
 
 package com.gtcgroup.justify.core.exception.internal;
 
-import com.gtcgroup.justify.core.base.JstBaseException;
-import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
+import com.gtcgroup.justify.core.base.internal.BaseException;
+import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
 
 /**
  * This Exception class is used for testing only.
@@ -40,7 +40,7 @@ import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class MethodNotSupportedException extends JstBaseException {
+public class MethodNotSupportedException extends BaseException {
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,6 +52,6 @@ public class MethodNotSupportedException extends JstBaseException {
 	public MethodNotSupportedException() {
 
 		super("Method not supported.");
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), MethodNotSupportedException.SUFFIX);
+		JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), MethodNotSupportedException.SUFFIX);
 	}
 }

@@ -45,139 +45,139 @@ import com.gtcgroup.justify.core.exception.internal.MethodNotSupportedException;
  */
 public class JndiName implements Name {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see Name#add(int, String)
-	 */
-	@Override
-	public Name add(final int posn, final String comp) throws InvalidNameException {
+    /**
+     * @see Name#add(int, String)
+     */
+    @Override
+    public Name add(final int posn, final String comp) throws InvalidNameException {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#add(String)
-	 */
-	@Override
-	public Name add(final String comp) throws InvalidNameException {
+    /**
+     * @see Name#add(String)
+     */
+    @Override
+    public Name add(final String comp) throws InvalidNameException {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#addAll(int, Name)
-	 */
-	@Override
-	public Name addAll(final int posn, final Name n) throws InvalidNameException {
+    /**
+     * @see Name#addAll(int, Name)
+     */
+    @Override
+    public Name addAll(final int posn, final Name n) throws InvalidNameException {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#addAll(Name)
-	 */
-	@Override
-	public Name addAll(final Name suffix) throws InvalidNameException {
+    /**
+     * @see Name#addAll(Name)
+     */
+    @Override
+    public Name addAll(final Name suffix) throws InvalidNameException {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Object#clone()
-	 */
-	@Override
-	public Object clone() {
-		return null;
-	}
+    /**
+     * @see Object#clone()
+     */
+    @Override
+    public Object clone() {
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#compareTo(Object)
-	 */
-	@Override
-	public int compareTo(final Object obj) {
+    /**
+     * @see Name#compareTo(Object)
+     */
+    @Override
+    public int compareTo(final Object obj) {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#endsWith(Name)
-	 */
-	@Override
-	public boolean endsWith(final Name n) {
+    /**
+     * @see Name#endsWith(Name)
+     */
+    @Override
+    public boolean endsWith(final Name n) {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#get(int)
-	 */
-	@Override
-	public String get(final int posn) {
+    /**
+     * @see Name#get(int)
+     */
+    @Override
+    public String get(final int posn) {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#getAll()
-	 */
-	@Override
-	public Enumeration<String> getAll() {
+    /**
+     * @see Name#getAll()
+     */
+    @Override
+    public Enumeration<String> getAll() {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#getPrefix(int)
-	 */
-	@Override
-	public Name getPrefix(final int posn) {
+    /**
+     * @see Name#getPrefix(int)
+     */
+    @Override
+    public Name getPrefix(final int posn) {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#getSuffix(int)
-	 */
-	@Override
-	public Name getSuffix(final int posn) {
+    /**
+     * @see Name#getSuffix(int)
+     */
+    @Override
+    public Name getSuffix(final int posn) {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#isEmpty()
-	 */
-	@Override
-	public boolean isEmpty() {
+    /**
+     * @see Name#isEmpty()
+     */
+    @Override
+    public boolean isEmpty() {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#remove(int)
-	 */
-	@Override
-	public Object remove(final int posn) throws InvalidNameException {
+    /**
+     * @see Name#remove(int)
+     */
+    @Override
+    public Object remove(final int posn) throws InvalidNameException {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#size()
-	 */
-	@Override
-	public int size() {
+    /**
+     * @see Name#size()
+     */
+    @Override
+    public int size() {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 
-	/**
-	 * @see Name#startsWith(Name)
-	 */
-	@Override
-	public boolean startsWith(final Name n) {
+    /**
+     * @see Name#startsWith(Name)
+     */
+    @Override
+    public boolean startsWith(final Name n) {
 
-		throw new MethodNotSupportedException();
-	}
+        throw new MethodNotSupportedException();
+    }
 }

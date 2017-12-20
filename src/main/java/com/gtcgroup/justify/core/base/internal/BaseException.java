@@ -23,28 +23,42 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.base.internal;
 
-package com.gtcgroup.justify.core.base;
+import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
 
 /**
- * This Bean Helper base class supports readability.
+ * This Exception base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author MarvinToll
- * @since v3.0
+ * @author Marvin Toll
+ * @since v.6.0
  */
-public abstract class JstBaseBeanHelper extends JstBaseSuffix {
+public abstract class BaseException extends RuntimeException {
 
-	/**
-	 * @see JstBaseSuffix#assignPatternSuffixTM()
-	 */
-	@Override
-	protected String assignPatternSuffixTM() {
+    private static final long serialVersionUID = 1L;
 
-		return "BeanHelper";
-	}
+    private static final String SUFFIX = "Exception";
+
+    /**
+     * Constructor
+     */
+    public BaseException(final String message) {
+
+        super(message);
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), BaseException.SUFFIX);
+    }
+
+    /**
+     * Constructor
+     */
+    public BaseException(final Throwable exception) {
+
+        super("\n\n\tMessage: " + exception.getMessage() + "\n", exception);
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), BaseException.SUFFIX);
+    }
 }

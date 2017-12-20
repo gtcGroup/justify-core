@@ -41,86 +41,85 @@ import java.util.Date;
  * @author Marvin Toll
  * @since v3.0
  */
-@SuppressWarnings("javadoc")
 public enum SystemOutLoggingUtilHelper {
 
-	INSTANCE;
+    INSTANCE;
 
-	public static String CONFIG = "CONFIG";
-	public static String FINE = "FINE";
-	public static String FINER = "FINER";
-	public static String FINEST = "FINEST";
-	public static String INFO = "INFO";
-	public static String SEVERE = "SEVERE";
-	public static String USER_ID = "testId";
-	public static String WARNING = "WARNING";
+    public static String CONFIG = "CONFIG";
+    public static String FINE = "FINE";
+    public static String FINER = "FINER";
+    public static String FINEST = "FINEST";
+    public static String INFO = "INFO";
+    public static String SEVERE = "SEVERE";
+    public static String USER_ID = "testId";
+    public static String WARNING = "WARNING";
 
-	public static void config(final String className, final String methodName, final String message) {
+    public static void config(final String className, final String methodName, final String message) {
 
-		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.CONFIG);
-	}
+        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.CONFIG);
+    }
 
-	public static void fine(final String className, final String methodName, final String message) {
+    public static void fine(final String className, final String methodName, final String message) {
 
-		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINE);
-	}
+        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINE);
+    }
 
-	public static void finer(final String className, final String methodName, final String message) {
+    public static void finer(final String className, final String methodName, final String message) {
 
-		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINER);
-	}
+        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINER);
+    }
 
-	public static void finest(final String className, final String methodName, final String message) {
+    public static void finest(final String className, final String methodName, final String message) {
 
-		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINEST);
-	}
+        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINEST);
+    }
 
-	private static String getUserId() {
+    private static String getUserId() {
 
-		return SystemOutLoggingUtilHelper.USER_ID;
-	}
+        return SystemOutLoggingUtilHelper.USER_ID;
+    }
 
-	public static void info(final String className, final String methodName, final String message) {
+    public static void info(final String className, final String methodName, final String message) {
 
-		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.INFO);
-	}
+        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.INFO);
+    }
 
-	/**
-	 * This method supports all logging.
-	 */
-	public static void log(final String className, final String methodName, final String message, final String level) {
+    /**
+     * This method supports all logging.
+     */
+    public static void log(final String className, final String methodName, final String message, final String level) {
 
-		final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss,SSS");
-		final Date date = new Date();
-		final String dateResult = formatter.format(date);
+        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss,SSS");
+        final Date date = new Date();
+        final String dateResult = formatter.format(date);
 
-		final StringBuilder logStatement = new StringBuilder();
+        final StringBuilder logStatement = new StringBuilder();
 
-		logStatement.append("[JST ");
-		logStatement.append(level);
-		logStatement.append("] ");
-		logStatement.append(dateResult);
-		logStatement.append(" [");
-		logStatement.append(Thread.currentThread().getName());
-		logStatement.append("] ");
-		logStatement.append(SystemOutLoggingUtilHelper.getUserId());
-		logStatement.append(": ");
-		logStatement.append(className);
-		logStatement.append(".");
-		logStatement.append(methodName);
-		logStatement.append("() -");
-		logStatement.append(message);
+        logStatement.append("[JST ");
+        logStatement.append(level);
+        logStatement.append("] ");
+        logStatement.append(dateResult);
+        logStatement.append(" [");
+        logStatement.append(Thread.currentThread().getName());
+        logStatement.append("] ");
+        logStatement.append(SystemOutLoggingUtilHelper.getUserId());
+        logStatement.append(": ");
+        logStatement.append(className);
+        logStatement.append(".");
+        logStatement.append(methodName);
+        logStatement.append("() -");
+        logStatement.append(message);
 
-		System.out.println(logStatement.toString());
-	}
+        System.out.println(logStatement.toString());
+    }
 
-	public static void severe(final String className, final String methodName, final String message) {
+    public static void severe(final String className, final String methodName, final String message) {
 
-		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.SEVERE);
-	}
+        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.SEVERE);
+    }
 
-	public static void warning(final String className, final String methodName, final String message) {
+    public static void warning(final String className, final String methodName, final String message) {
 
-		SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.WARNING);
-	}
+        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.WARNING);
+    }
 }

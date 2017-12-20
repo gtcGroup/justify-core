@@ -24,12 +24,13 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.helper.internal;
+package com.gtcgroup.justify.core.helper;
 
-import com.gtcgroup.justify.core.base.JstBaseBeanHelper;
+import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
 
 /**
- * This Bean Helper class supports performance timing.
+ * This Util Helper class provides methods for runtime detection of coding
+ * convention violations.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -39,25 +40,40 @@ import com.gtcgroup.justify.core.base.JstBaseBeanHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class TimerBeanHelper extends JstBaseBeanHelper {
+public enum JstCodingConventionUtilHelper {
 
-    private final long startNanos;
+    INSTANCE;
 
     /**
-     * Constructor
+     * This method throws an exception if a suffix violation occurs.
      */
-    public TimerBeanHelper() {
-        super();
-        this.startNanos = System.nanoTime();
+    public static void checkSuffixInClassName(final Class<?> clazz, final String containsCharacters) {
+
+        // Verify naming convention.
+        if (!clazz.getSimpleName().contains(containsCharacters)) {
+
+            throw JstCodingConventionUtilHelper.instantiateException(clazz, containsCharacters);
+        }
     }
 
     /**
-     * This method calculates elapsed time.
-     *
-     * @return long
+     * @return {@link JustifyRuntimeException}
      */
-    public long calculateElapsedNanoSeconds() {
+    private static JustifyRuntimeException instantiateException(final Class<?> clazz, final String... endsWith) {
 
-        return System.nanoTime() - this.startNanos;
+        final StringBuilder message = new StringBuilder();
+        message.append("The class named [");
+        message.append(clazz.getName());
+        message.append("] MUST end with ");
+
+        for (final String endWith : endsWith) {
+
+            message.append("[");
+            message.append(endWith);
+            message.append("]");
+        }
+        message.append(".");
+
+        return new JustifyRuntimeException(message.toString());
     }
 }

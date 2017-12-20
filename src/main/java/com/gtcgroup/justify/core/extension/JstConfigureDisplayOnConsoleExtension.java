@@ -36,9 +36,9 @@ import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.opentest4j.AssertionFailedError;
 
 import com.gtcgroup.justify.core.base.JstBaseExtension;
+import com.gtcgroup.justify.core.helper.JstTimer;
 import com.gtcgroup.justify.core.helper.internal.ConversionUtilHelper;
 import com.gtcgroup.justify.core.helper.internal.DisplayUtilHelper;
-import com.gtcgroup.justify.core.helper.internal.TimerBeanHelper;
 
 public class JstConfigureDisplayOnConsoleExtension extends JstBaseExtension
         implements BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback {
@@ -71,13 +71,13 @@ public class JstConfigureDisplayOnConsoleExtension extends JstBaseExtension
         final String status = (String) JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
                 .get(uniqueId + JstConfigureDisplayOnConsoleExtension.STATUS);
 
-        final TimerBeanHelper timerBeanHelper = (TimerBeanHelper) JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
+        final JstTimer jstTimer = (JstTimer) JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
                 .get(uniqueId + JstConfigureDisplayOnConsoleExtension.TIMER);
 
         return DisplayUtilHelper
                 .buildMethodEndMessage(message, status,
                         ConversionUtilHelper
-                                .convertNanosecondToMillisecondString(timerBeanHelper.calculateElapsedNanoSeconds()))
+                                .convertNanosecondToMillisecondString(jstTimer.calculateElapsedNanoSeconds()))
                 .toString();
     }
 
@@ -112,7 +112,7 @@ public class JstConfigureDisplayOnConsoleExtension extends JstBaseExtension
         JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
                 .put(context.getUniqueId() + JstConfigureDisplayOnConsoleExtension.MESSAGE, message);
         JstConfigureDisplayOnConsoleExtension.mapContainingStateForTestMethod
-                .put(context.getUniqueId() + JstConfigureDisplayOnConsoleExtension.TIMER, new TimerBeanHelper());
+                .put(context.getUniqueId() + JstConfigureDisplayOnConsoleExtension.TIMER, new JstTimer());
     }
 
     @Override

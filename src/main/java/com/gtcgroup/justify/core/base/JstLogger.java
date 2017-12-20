@@ -23,12 +23,17 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package com.gtcgroup.justify.core.base;
 
-import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
+import java.util.Date;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
- * This Exception base class supports readability.
+ * This Domain Entity base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -36,29 +41,41 @@ import com.gtcgroup.justify.core.helper.internal.CodingConventionUtilHelper;
  * </p>
  *
  * @author Marvin Toll
- * @since v.6.0
+ * @since v3.0
  */
-public abstract class JstBaseException extends RuntimeException {
+public enum JstLogger {
 
-	private static final long serialVersionUID = 1L;
+    INSTANCE;
 
-	private static final String SUFFIX = "Exception";
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor
-	 */
-	public JstBaseException(final String message) {
+    static {
+        final Logger mainLogger = Logger.getLogger("com.gtcgroup.justify");
+        mainLogger.setUseParentHandlers(false);
 
-		super(message);
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseException.SUFFIX);
-	}
+        final ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.setFormatter(new SimpleFormatter() {
 
-	/**
-	 * Constructor
-	 */
-	public JstBaseException(final String ruleClass, final Throwable exception) {
+            private static final String FORMAT = "Justify: [%1$tF %1$tT] [%2$-7s] %3$s %n";
 
-		super("\n\n\tRule Class: " + ruleClass + "\n\tMessage: " + exception.getMessage() + "\n", exception);
-		CodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseException.SUFFIX);
-	}
+            @Override
+            public synchronized String format(final LogRecord lr) {
+                return String.format(FORMAT, new Date(lr.getMillis()), lr.getLevel().getLocalizedName(),
+                        lr.getMessage());
+            }
+        });
+        mainLogger.addHandler(consoleHandler);
+        JstLogger.INSTANCE.mainLogger = Logger.getLogger(JstLogger.class.getName());
+    }
+
+    public static Logger log() {
+        return JstLogger.INSTANCE.mainLogger;
+    }
+
+    private Logger mainLogger = null;
+
+    @SuppressWarnings("static-method")
+    public void setMainLogger(final Logger logger) {
+        JstLogger.INSTANCE.mainLogger = logger;
+    }
 }
