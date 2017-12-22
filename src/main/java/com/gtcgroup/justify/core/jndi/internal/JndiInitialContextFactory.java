@@ -48,23 +48,23 @@ import com.gtcgroup.justify.core.helper.internal.JndiContextCacheHelper;
  */
 public class JndiInitialContextFactory implements InitialContextFactory, ObjectFactory {
 
-	/**
-	 * @see JndiInitialContextFactory#getInitialContext(Hashtable)
-	 */
-	@Override
-	public synchronized Context getInitialContext(final Hashtable<?, ?> portableInitialContextFactory)
-			throws NamingException {
+    /**
+     * @see JndiInitialContextFactory#getInitialContext(Hashtable)
+     */
+    @Override
+    public synchronized Context getInitialContext(final Hashtable<?, ?> portableInitialContextFactory)
+            throws NamingException {
 
-		return JndiContextCacheHelper.INSTANCE;
-	}
+        return JndiContextCacheHelper.INSTANCE;
+    }
 
-	/**
-	 * @see ObjectFactory#getObjectInstance(Object, Name, Context, Hashtable)
-	 */
-	@Override
-	public Object getObjectInstance(final Object obj, final Name name, final Context nameCtx,
-			final Hashtable<?, ?> environment) throws Exception {
+    /**
+     * @see ObjectFactory#getObjectInstance(Object, Name, Context, Hashtable)
+     */
+    @Override
+    public Object getObjectInstance(final Object obj, final Name name, final Context nameCtx,
+            final Hashtable<?, ?> environment) throws Exception {
 
-		return getInitialContext(environment);
-	}
+        return getInitialContext(environment);
+    }
 }

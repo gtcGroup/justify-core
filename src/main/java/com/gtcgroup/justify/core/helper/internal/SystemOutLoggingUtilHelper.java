@@ -45,31 +45,31 @@ public enum SystemOutLoggingUtilHelper {
 
     INSTANCE;
 
-    public static String CONFIG = "CONFIG";
-    public static String FINE = "FINE";
-    public static String FINER = "FINER";
-    public static String FINEST = "FINEST";
-    public static String INFO = "INFO";
-    public static String SEVERE = "SEVERE";
-    public static String USER_ID = "testId";
-    public static String WARNING = "WARNING";
+    public static final String CONFIG = "CONFIG";
+    public static final String FINE = "FINE";
+    public static final String FINER = "FINER";
+    public static final String FINEST = "FINEST";
+    public static final String INFO = "INFO";
+    public static final String SEVERE = "SEVERE";
+    public static final String USER_ID = "testId";
+    public static final String WARNING = "WARNING";
 
-    public static void config(final String className, final String methodName, final String message) {
+    public static void configLevel(final String className, final String methodName, final String message) {
 
         SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.CONFIG);
     }
 
-    public static void fine(final String className, final String methodName, final String message) {
+    public static void fineLevel(final String className, final String methodName, final String message) {
 
         SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINE);
     }
 
-    public static void finer(final String className, final String methodName, final String message) {
+    public static void finerLevel(final String className, final String methodName, final String message) {
 
         SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINER);
     }
 
-    public static void finest(final String className, final String methodName, final String message) {
+    public static void finestLevel(final String className, final String methodName, final String message) {
 
         SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINEST);
     }
@@ -79,7 +79,7 @@ public enum SystemOutLoggingUtilHelper {
         return SystemOutLoggingUtilHelper.USER_ID;
     }
 
-    public static void info(final String className, final String methodName, final String message) {
+    public static void infoLevel(final String className, final String methodName, final String message) {
 
         SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.INFO);
     }
@@ -110,15 +110,15 @@ public enum SystemOutLoggingUtilHelper {
         logStatement.append("() -");
         logStatement.append(message);
 
-        System.out.println(logStatement.toString());
+        DisplayUtilHelper.display(logStatement.toString());
     }
 
-    public static void severe(final String className, final String methodName, final String message) {
+    public static void severeLevel(final String className, final String methodName, final String message) {
 
         SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.SEVERE);
     }
 
-    public static void warning(final String className, final String methodName, final String message) {
+    public static void warningLevel(final String className, final String methodName, final String message) {
 
         SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.WARNING);
     }

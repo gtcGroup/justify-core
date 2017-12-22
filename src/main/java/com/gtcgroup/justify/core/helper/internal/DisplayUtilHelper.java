@@ -134,6 +134,10 @@ public enum DisplayUtilHelper {
         message.append(stringWriter.toString());
     }
 
+    public static void display(final String message) {
+        System.out.println(message);
+    }
+
     public static String displayMethodDetails(final String uniqueId) {
 
         final StringBuilder message = (StringBuilder) DisplayUtilHelper.statusMapForTestMethod
@@ -161,7 +165,7 @@ public enum DisplayUtilHelper {
 
         final StringBuilder border = ConversionUtilHelper.convertMessageLengthToBorder(message);
 
-        System.out.print(border.toString() + message + border.toString());
+        display(border.toString() + message + border.toString());
     }
 
     public static Map<String, Object> getStatusMapForTestMethod() {

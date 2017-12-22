@@ -42,7 +42,7 @@ public class JstConfigureDisplayOnConsoleExtension extends JstBaseExtension
     @Override
     public void afterTestExecution(final ExtensionContext context) throws Exception {
 
-        System.out.println(DisplayUtilHelper.displayMethodDetails(context.getUniqueId()));
+        DisplayUtilHelper.displayMethodDetails(context.getUniqueId());
     }
 
     @Override

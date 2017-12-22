@@ -88,6 +88,7 @@ public class JndiName implements Name {
      */
     @Override
     public Object clone() {
+
         throw new MethodNotSupportedException();
     }
 

@@ -27,13 +27,9 @@
 package com.gtcgroup.justify.core.helper;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -41,7 +37,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
 import com.gtcgroup.justify.core.po.JstStreamPO;
@@ -65,48 +60,10 @@ public enum JstReflectionUtilHelper {
     /**
      * @return boolean
      */
+    @SuppressWarnings("unchecked")
     public static boolean containsPublicConstructorNoArgument(final Class<?> clazz) {
 
-        return null != JstReflectionUtilHelper.retrievePublicConstructorNoArgument(clazz);
-    }
-
-    /**
-     * @return Object
-     */
-    public static Object copy(final Object instance) {
-
-        ObjectOutputStream out = null;
-        Object object = null;
-
-        try {
-            // Write the object out to a byte array
-            final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            out = new ObjectOutputStream(bos);
-            out.writeObject(instance);
-            out.flush();
-            out.close();
-
-            // Make an input stream from the byte array and read
-            // a copy of the object back in.
-            final ObjectInputStream objectInputStream = new ObjectInputStream(
-                    new ByteArrayInputStream(bos.toByteArray()));
-            object = objectInputStream.readObject();
-
-        } catch (final Exception e) {
-
-            // Probably never invoked.
-            throw new JustifyRuntimeException(e);
-        } finally {
-
-            if (null != out) {
-                try {
-                    out.close();
-                } catch (@SuppressWarnings("unused") final Exception e) {
-                    // Ignore.
-                }
-            }
-        }
-        return object;
+        return null != JstReflectionUtilHelper.retrievePublicConstructorNoArgument((Class<Object>) clazz);
     }
 
     /**
@@ -141,10 +98,7 @@ public enum JstReflectionUtilHelper {
                 return null;
             }
         }
-
-        final JstStreamPO jstStreamPO = new JstStreamPO().setInputStream(inputStream).setClassLoader(classLoader);
-
-        return jstStreamPO;
+        return new JstStreamPO().setInputStream(inputStream).setClassLoader(classLoader);
     }
 
     /**
@@ -184,7 +138,7 @@ public enum JstReflectionUtilHelper {
                 // Success - break out of loop.
                 break;
 
-            } catch (final Throwable e) {
+            } catch (final Exception e) {
 
                 // Determine if this is the last constructor.
                 if (i + 1 >= constructorList.size()) {
@@ -205,7 +159,7 @@ public enum JstReflectionUtilHelper {
      *
      * @return instance or null
      */
-    public static Object instantiateNonPublicConstructorNoArgument(final Class<?> clazz) {
+    public static Object instantiateNonPublicConstructorNoArgument(final Class<Object> clazz) {
 
         return instantiateNonPublicConstructorNoArgument(clazz, false);
     }
@@ -217,7 +171,7 @@ public enum JstReflectionUtilHelper {
      *
      * @return instance or null
      */
-    public static Object instantiateNonPublicConstructorNoArgument(final Class<?> clazz,
+    public static Object instantiateNonPublicConstructorNoArgument(final Class<Object> clazz,
             final boolean suppressException) {
 
         return instantiatePublicConstructorNoArgument(retrieveNonPublicConstructorNoArgument(clazz), suppressException);
@@ -237,11 +191,9 @@ public enum JstReflectionUtilHelper {
     public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz, final boolean suppressException) {
 
         try {
+            return clazz.newInstance();
 
-            final Object instance = clazz.newInstance();
-            return instance;
-
-        } catch (final Throwable e) {
+        } catch (final Exception e) {
 
             // Probably never invoked.
             throwRuntimeException(e.getMessage(), suppressException);
@@ -278,7 +230,7 @@ public enum JstReflectionUtilHelper {
      * @return instance or null
      */
     public static Object instantiatePublicConstructorWithArgument(final Class<?> clazz, final boolean suppressException,
-            final Object constructorParameterValues[], final Class<?>... parameterTypes) {
+            final Object[] constructorParameterValues, final Class<?>... parameterTypes) {
 
         return JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(clazz.getName(), suppressException,
                 constructorParameterValues, parameterTypes);
@@ -290,10 +242,8 @@ public enum JstReflectionUtilHelper {
     public static Object instantiatePublicConstructorWithArgument(final Object[] constructorParameterValues,
             final Class<?> clazz) {
 
-        final Object instance = JstReflectionUtilHelper
-                .instantiatePublicConstructorWithArgument(constructorParameterValues, clazz, false);
-
-        return instance;
+        return JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(constructorParameterValues, clazz,
+                false);
     }
 
     /**
@@ -311,7 +261,7 @@ public enum JstReflectionUtilHelper {
      * @return instance or null
      */
     public static Object instantiatePublicConstructorWithArgument(final String className,
-            final boolean suppressException, final Object constructorParameterValues[],
+            final boolean suppressException, final Object[] constructorParameterValues,
             final Class<?>... parameterTypes) {
 
         Object object = null;
@@ -340,10 +290,8 @@ public enum JstReflectionUtilHelper {
     public static Object instantiatePublicConstructorWithArgument(final String className,
             final Object[] constructorParameterValues) {
 
-        final Object instance = JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(className,
-                constructorParameterValues, false);
-
-        return instance;
+        return JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(className, constructorParameterValues,
+                false);
     }
 
     /**
@@ -360,11 +308,9 @@ public enum JstReflectionUtilHelper {
             return null;
         }
 
-        final Object instance = JstReflectionUtilHelper
-                .instantiatePublicConstructorWithArgument(constructorParameterValues, clazz, suppressException);
-
         // Return instantiated instance or null.
-        return instance;
+        return JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(constructorParameterValues, clazz,
+                suppressException);
     }
 
     /**
@@ -417,11 +363,11 @@ public enum JstReflectionUtilHelper {
     /**
      * @return {@link Constructor}
      */
-    private static Constructor<?> iterateForPublicConstructorNoArgument(final Constructor<?>[] constructors) {
+    private static Constructor<Object> iterateForPublicConstructorNoArgument(final Constructor<Object>[] constructors) {
 
-        Constructor<?> constructorTemp = null;
+        Constructor<Object> constructorTemp = null;
 
-        for (final Constructor<?> constructor : constructors) {
+        for (final Constructor<Object> constructor : constructors) {
 
             // Determine if there is a no argument constructor.
             if (0 == constructor.getParameterTypes().length) {
@@ -438,9 +384,8 @@ public enum JstReflectionUtilHelper {
 
     /**
      * @return {@link Class}
-     * @throws ClassNotFoundException
      */
-    public static Class<Object> retrieveClass(final String className) throws ClassNotFoundException {
+    public static Class<Object> retrieveClass(final String className) {
 
         return JstReflectionUtilHelper.retrieveClass(className, false);
     }
@@ -455,7 +400,8 @@ public enum JstReflectionUtilHelper {
 
         try {
 
-            targetClass = (Class<Object>) Class.forName(className, true, JstReflectionUtilHelper.class.getClassLoader());
+            targetClass = (Class<Object>) Class.forName(className, true,
+                    JstReflectionUtilHelper.class.getClassLoader());
 
         } catch (final Exception e) {
 
@@ -540,9 +486,7 @@ public enum JstReflectionUtilHelper {
 
         final InputStream inputStream = JstReflectionUtilHelper.retrieveFileAsInputStreamAndBeSureToClose(fileName);
 
-        final DataInputStream dataInputStream = new DataInputStream(inputStream);
-
-        return dataInputStream;
+        return new DataInputStream(inputStream);
     }
 
     /**
@@ -580,36 +524,7 @@ public enum JstReflectionUtilHelper {
         final DataInputStream dataInputStream = JstReflectionUtilHelper
                 .retrieveFileAsDataInputStreamAndBeSureToClose(resourceName);
 
-        final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
-
-        return bufferedReader;
-    }
-
-    /**
-     * @return {@link Scanner}
-     */
-    public static Scanner retrieveFileAsScanner(final String fileName) {
-
-        @SuppressWarnings("resource")
-        InputStream inputStream = null;
-        Scanner scanner;
-
-        try {
-            inputStream = JstReflectionUtilHelper.retrieveFileAsInputStreamAndBeSureToClose(fileName);
-            scanner = new Scanner(inputStream);
-
-        } finally {
-
-            if (null != inputStream) {
-                try {
-                    inputStream.close();
-                } catch (@SuppressWarnings("unused") final Exception e) {
-                    // Ignore.
-                }
-            }
-        }
-
-        return scanner;
+        return new BufferedReader(new InputStreamReader(dataInputStream));
     }
 
     /**
@@ -618,21 +533,23 @@ public enum JstReflectionUtilHelper {
      *
      * @return {@link Constructor} or null.
      */
-    public static Constructor<?> retrieveNonPublicConstructorNoArgument(final Class<?> clazz) {
+    @SuppressWarnings("unchecked")
+    public static Constructor<Object> retrieveNonPublicConstructorNoArgument(final Class<Object> clazz) {
 
-        final Constructor<?>[] constructors = clazz.getDeclaredConstructors();
+        final Constructor<Object>[] constructors = (Constructor<Object>[]) clazz.getDeclaredConstructors();
 
-        return iterateForNonPublicConstructorNoArgument(constructors);
+        return (Constructor<Object>) iterateForNonPublicConstructorNoArgument(constructors);
     }
 
     /**
      * @return {@link Constructor} or null
      */
-    public static Constructor<?> retrievePublicConstructorNoArgument(final Class<?> clazz) {
+    @SuppressWarnings("unchecked")
+    public static Constructor<Object> retrievePublicConstructorNoArgument(final Class<Object> clazz) {
 
         final Constructor<?>[] constructors = clazz.getConstructors();
 
-        return JstReflectionUtilHelper.iterateForPublicConstructorNoArgument(constructors);
+        return JstReflectionUtilHelper.iterateForPublicConstructorNoArgument((Constructor<Object>[]) constructors);
     }
 
     /**
@@ -642,7 +559,7 @@ public enum JstReflectionUtilHelper {
             final boolean suppressException) {
 
         try {
-            final Method methods[] = clazz.getMethods();
+            final Method[] methods = clazz.getMethods();
 
             for (final Method methodTemp : methods) {
 
@@ -689,16 +606,12 @@ public enum JstReflectionUtilHelper {
     /**
      * @return {@link Constructor} or null
      */
-    public static boolean verifyPublicNoArgumentConstructorOnly(final Class<?> clazz) {
+    @SuppressWarnings("unchecked")
+    public static boolean verifyPublicNoArgumentConstructorOnly(final Class<Object> clazz) {
 
-        final Constructor<?>[] constructors = clazz.getConstructors();
+        final Constructor<Object>[] constructors = (Constructor<Object>[]) clazz.getConstructors();
 
-        if (constructors.length == 1) {
-
-            if (null != JstReflectionUtilHelper.iterateForPublicConstructorNoArgument(constructors)) {
-                return true;
-            }
-        }
-        return false;
+        return constructors.length == 1
+                && null != JstReflectionUtilHelper.iterateForPublicConstructorNoArgument(constructors);
     }
 }

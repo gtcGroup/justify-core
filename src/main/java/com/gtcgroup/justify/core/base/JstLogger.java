@@ -49,9 +49,11 @@ public enum JstLogger {
 
     private static final long serialVersionUID = 1L;
 
+    static Logger mainLogger;
+
     static {
-        final Logger mainLogger = Logger.getLogger("com.gtcgroup.justify");
-        mainLogger.setUseParentHandlers(false);
+        JstLogger.mainLogger = Logger.getLogger("com.gtcgroup.justify");
+        JstLogger.mainLogger.setUseParentHandlers(false);
 
         final ConsoleHandler consoleHandler = new ConsoleHandler();
         consoleHandler.setFormatter(new SimpleFormatter() {
@@ -64,18 +66,15 @@ public enum JstLogger {
                         lr.getMessage());
             }
         });
-        mainLogger.addHandler(consoleHandler);
-        JstLogger.INSTANCE.mainLogger = Logger.getLogger(JstLogger.class.getName());
+        JstLogger.mainLogger.addHandler(consoleHandler);
+        JstLogger.mainLogger = Logger.getLogger(JstLogger.class.getName());
     }
 
     public static Logger log() {
-        return JstLogger.INSTANCE.mainLogger;
+        return JstLogger.mainLogger;
     }
 
-    private Logger mainLogger = null;
-
-    @SuppressWarnings("static-method")
-    public void setMainLogger(final Logger logger) {
-        JstLogger.INSTANCE.mainLogger = logger;
+    public static void setMainLogger(final Logger logger) {
+        JstLogger.mainLogger = logger;
     }
 }
