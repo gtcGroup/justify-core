@@ -34,6 +34,7 @@ import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.base.JstBaseExtension;
+import com.gtcgroup.justify.core.helper.internal.DisplayUtilHelper;
 
 /**
  * This {@link Extension} class initializes a system property for the duration
@@ -92,7 +93,7 @@ public class JstConfigureSystemPropertyExtension extends JstBaseExtension
 
         if (context.getRequiredTestInstance().getClass().isAnnotationPresent(JstConfigureSystemProperty.class)) {
 
-            final JstConfigureSystemProperty configureSystemProperty = retrieveAnnotation(context,
+            final JstConfigureSystemProperty configureSystemProperty = DisplayUtilHelper.retrieveAnnotation(context,
                     JstConfigureSystemProperty.class);
 
             this.keyArray = configureSystemProperty.key();

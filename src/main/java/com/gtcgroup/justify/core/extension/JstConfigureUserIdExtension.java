@@ -31,6 +31,7 @@ import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.base.JstBaseExtension;
+import com.gtcgroup.justify.core.helper.internal.DisplayUtilHelper;
 
 /**
  * This {@link Extension} class initializes a public user id for the duration of
@@ -47,25 +48,22 @@ import com.gtcgroup.justify.core.base.JstBaseExtension;
 public class JstConfigureUserIdExtension extends JstBaseExtension
         implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
-    protected static final String DEFAULT_USER_ID = "$userId";
-
-    public static String userId;
-
     protected static void initializeUserId(final ExtensionContext context) {
 
-        final JstConfigureUserId configureUserId = retrieveAnnotation(context, JstConfigureUserId.class);
+        final JstConfigureUserId configureUserId = DisplayUtilHelper.retrieveAnnotation(context,
+                JstConfigureUserId.class);
 
         if (null != configureUserId) {
 
-            JstConfigureUserIdExtension.userId = configureUserId.userId();
+            JstBaseExtension.userId = configureUserId.userId();
         }
-        JstConfigureUserIdExtension.userId = JstConfigureUserIdExtension.DEFAULT_USER_ID;
+        JstBaseExtension.userId = JstBaseExtension.DEFAULT_USER_ID;
     }
 
     @Override
     public void afterTestExecution(final ExtensionContext context) throws Exception {
 
-        JstConfigureUserIdExtension.userId = null;
+        JstBaseExtension.setUserId(JstBaseExtension.DEFAULT_USER_ID);
         return;
     }
 

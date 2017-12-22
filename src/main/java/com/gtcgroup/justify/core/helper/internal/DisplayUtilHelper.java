@@ -28,7 +28,15 @@ package com.gtcgroup.justify.core.helper.internal;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.junit.jupiter.api.extension.ExtensionContext;
+
+import com.gtcgroup.justify.core.extension.JstConfigureDisplayOnConsole;
+import com.gtcgroup.justify.core.helper.JstTimer;
 
 /**
  * This Util Helper class provides support for console display.
@@ -45,6 +53,14 @@ import java.util.Arrays;
 public enum DisplayUtilHelper {
 
     INSTANCE;
+
+    public static final String MESSAGE = "-message";
+    public static final String TIMER = "-timer";
+    public static final String STATUS = "-status";
+    private static boolean firstTestDisplayingHeader = true;
+    private static boolean firstTestDisplayingClasspath = true;
+
+    private static final Map<String, Object> statusMapForTestMethod = new ConcurrentHashMap<>();
 
     /**
      * This is a Collecting Parameter method.
@@ -118,6 +134,24 @@ public enum DisplayUtilHelper {
         message.append(stringWriter.toString());
     }
 
+    public static String displayMethodDetails(final String uniqueId) {
+
+        final StringBuilder message = (StringBuilder) DisplayUtilHelper.statusMapForTestMethod
+                .get(uniqueId + DisplayUtilHelper.MESSAGE);
+
+        final String status = (String) DisplayUtilHelper.statusMapForTestMethod
+                .get(uniqueId + DisplayUtilHelper.STATUS);
+
+        final JstTimer jstTimer = (JstTimer) DisplayUtilHelper.statusMapForTestMethod
+                .get(uniqueId + DisplayUtilHelper.TIMER);
+
+        return DisplayUtilHelper
+                .buildMethodEndMessage(message, status,
+                        ConversionUtilHelper
+                                .convertNanosecondToMillisecondString(jstTimer.calculateElapsedNanoSeconds()))
+                .toString();
+    }
+
     /**
      * This method is for console display.
      */
@@ -128,5 +162,43 @@ public enum DisplayUtilHelper {
         final StringBuilder border = ConversionUtilHelper.convertMessageLengthToBorder(message);
 
         System.out.print(border.toString() + message + border.toString());
+    }
+
+    public static Map<String, Object> getStatusMapForTestMethod() {
+        return DisplayUtilHelper.statusMapForTestMethod;
+    }
+
+    public static boolean isFirstTestDisplayingClasspath() {
+        final boolean firstTest = DisplayUtilHelper.firstTestDisplayingClasspath;
+        DisplayUtilHelper.firstTestDisplayingClasspath = false;
+        return firstTest;
+    }
+
+    public static boolean isFirstTestDisplayingHeader() {
+        final boolean firstTest = DisplayUtilHelper.firstTestDisplayingHeader;
+        DisplayUtilHelper.firstTestDisplayingHeader = false;
+        return firstTest;
+    }
+
+    public static boolean isVerbose(final ExtensionContext context) {
+
+        final JstConfigureDisplayOnConsole configureDisplayOnConsole = retrieveAnnotation(context,
+                JstConfigureDisplayOnConsole.class);
+
+        if (null != configureDisplayOnConsole) {
+
+            return configureDisplayOnConsole.verbose();
+        }
+        return false;
+    }
+
+    public static <ANNOTATION extends Annotation> ANNOTATION retrieveAnnotation(final ExtensionContext context,
+            final Class<ANNOTATION> annotationClass) {
+
+        if (context.getRequiredTestInstance().getClass().isAnnotationPresent(annotationClass)) {
+
+            return context.getRequiredTestInstance().getClass().getAnnotation(annotationClass);
+        }
+        return null;
     }
 }

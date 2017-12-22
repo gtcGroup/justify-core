@@ -25,10 +25,7 @@
  */
 package com.gtcgroup.justify.core.base;
 
-import java.lang.annotation.Annotation;
-
 import org.junit.jupiter.api.extension.Extension;
-import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
 
@@ -48,16 +45,12 @@ public abstract class JstBaseExtension implements Extension {
     /** Suffix For All Rules */
     public static final String RULE_SUFFIX = "Extension";
 
-    protected static <ANNOTATION extends Annotation> ANNOTATION retrieveAnnotation(final ExtensionContext context,
-            final Class<ANNOTATION> annotationClass) {
+    protected static final String DEFAULT_USER_ID = "$userId";
 
-        if (context.getRequiredTestInstance().getClass().isAnnotationPresent(annotationClass)) {
+    protected static String userId = JstBaseExtension.DEFAULT_USER_ID;
 
-            final ANNOTATION annotation = context.getRequiredTestInstance().getClass().getAnnotation(annotationClass);
-
-            return annotation;
-        }
-        return null;
+    protected static void setUserId(final String userId) {
+        JstBaseExtension.userId = userId;
     }
 
     /**
@@ -67,5 +60,10 @@ public abstract class JstBaseExtension implements Extension {
         super();
 
         JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.RULE_SUFFIX);
+    }
+
+    @SuppressWarnings("static-method")
+    public String getUserId() {
+        return JstBaseExtension.userId;
     }
 }
