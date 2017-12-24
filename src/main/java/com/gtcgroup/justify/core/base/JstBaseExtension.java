@@ -49,6 +49,10 @@ public abstract class JstBaseExtension implements Extension {
 
     protected static String userId = JstBaseExtension.DEFAULT_USER_ID;
 
+    public static String getUserId() {
+        return JstBaseExtension.userId;
+    }
+
     protected static void setUserId(final String userId) {
         JstBaseExtension.userId = userId;
     }
@@ -60,10 +64,5 @@ public abstract class JstBaseExtension implements Extension {
         super();
 
         JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.RULE_SUFFIX);
-    }
-
-    @SuppressWarnings("static-method")
-    public String getUserId() {
-        return JstBaseExtension.userId;
     }
 }

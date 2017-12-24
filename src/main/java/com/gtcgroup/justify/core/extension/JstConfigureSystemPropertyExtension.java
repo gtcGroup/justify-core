@@ -27,6 +27,7 @@ package com.gtcgroup.justify.core.extension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -52,9 +53,9 @@ import com.gtcgroup.justify.core.helper.internal.DisplayUtilHelper;
 public class JstConfigureSystemPropertyExtension extends JstBaseExtension
         implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
-    protected String[] keyArray;
+    protected String[] keyArray = new String[] {};
 
-    protected String[] valueArray;
+    protected String[] valueArray = new String[] {};
 
     protected List<String> durableKeyList;
 
@@ -93,11 +94,13 @@ public class JstConfigureSystemPropertyExtension extends JstBaseExtension
 
         if (context.getRequiredTestInstance().getClass().isAnnotationPresent(JstConfigureSystemProperty.class)) {
 
-            final JstConfigureSystemProperty configureSystemProperty = DisplayUtilHelper.retrieveAnnotation(context,
-                    JstConfigureSystemProperty.class);
+            final Optional<JstConfigureSystemProperty> configureSystemProperty = DisplayUtilHelper
+                    .retrieveAnnotation(context, JstConfigureSystemProperty.class);
 
-            this.keyArray = configureSystemProperty.key();
-            this.valueArray = configureSystemProperty.value();
+            if (configureSystemProperty.isPresent()) {
+                this.keyArray = configureSystemProperty.get().key();
+                this.valueArray = configureSystemProperty.get().value();
+            }
         }
     }
 }

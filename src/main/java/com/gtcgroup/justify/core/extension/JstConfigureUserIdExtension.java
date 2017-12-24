@@ -25,6 +25,8 @@
  */
 package com.gtcgroup.justify.core.extension;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.Extension;
@@ -50,14 +52,15 @@ public class JstConfigureUserIdExtension extends JstBaseExtension
 
     protected static void initializeUserId(final ExtensionContext context) {
 
-        final JstConfigureUserId configureUserId = DisplayUtilHelper.retrieveAnnotation(context,
+        final Optional<JstConfigureUserId> configureUserId = DisplayUtilHelper.retrieveAnnotation(context,
                 JstConfigureUserId.class);
 
-        if (null != configureUserId) {
+        if (configureUserId.isPresent()) {
 
-            JstBaseExtension.userId = configureUserId.userId();
+            JstBaseExtension.userId = configureUserId.get().userId();
+        } else {
+            JstBaseExtension.userId = JstBaseExtension.DEFAULT_USER_ID;
         }
-        JstBaseExtension.userId = JstBaseExtension.DEFAULT_USER_ID;
     }
 
     @Override

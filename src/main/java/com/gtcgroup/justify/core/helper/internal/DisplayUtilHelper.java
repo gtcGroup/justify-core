@@ -31,6 +31,7 @@ import java.io.StringWriter;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -186,23 +187,23 @@ public enum DisplayUtilHelper {
 
     public static boolean isVerbose(final ExtensionContext context) {
 
-        final JstConfigureDisplayOnConsole configureDisplayOnConsole = retrieveAnnotation(context,
+        final Optional<JstConfigureDisplayOnConsole> configureDisplayOnConsole = retrieveAnnotation(context,
                 JstConfigureDisplayOnConsole.class);
 
-        if (null != configureDisplayOnConsole) {
+        if (configureDisplayOnConsole.isPresent()) {
 
-            return configureDisplayOnConsole.verbose();
+            return true;
         }
         return false;
     }
 
-    public static <ANNOTATION extends Annotation> ANNOTATION retrieveAnnotation(final ExtensionContext context,
-            final Class<ANNOTATION> annotationClass) {
+    public static <ANNOTATION extends Annotation> Optional<ANNOTATION> retrieveAnnotation(
+            final ExtensionContext context, final Class<ANNOTATION> annotationClass) {
 
         if (context.getRequiredTestInstance().getClass().isAnnotationPresent(annotationClass)) {
 
-            return context.getRequiredTestInstance().getClass().getAnnotation(annotationClass);
+            return Optional.of(context.getRequiredTestInstance().getClass().getAnnotation(annotationClass));
         }
-        return null;
+        return Optional.empty();
     }
 }
