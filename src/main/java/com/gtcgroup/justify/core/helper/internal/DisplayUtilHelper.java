@@ -109,20 +109,6 @@ public enum DisplayUtilHelper {
     /**
      * This is a Collecting Parameter method.
      */
-    public static StringBuilder buildMethodEndMessage(final StringBuilder message, final String status,
-            final String milliseconds) {
-
-        message.append("\n\t***  End:  [");
-        message.append(status);
-        message.append("] ");
-        message.append(milliseconds);
-        message.append(" ms ***");
-        return message;
-    }
-
-    /**
-     * This is a Collecting Parameter method.
-     */
     public static void buildUnexpectedExceptionMessage(final Throwable throwable, final StringBuilder message) {
 
         message.append("\n\n[");
@@ -139,7 +125,7 @@ public enum DisplayUtilHelper {
         System.out.println(message);
     }
 
-    public static String displayMethodDetails(final String uniqueId) {
+    public static void displayMethodDetails(final String uniqueId) {
 
         final StringBuilder message = (StringBuilder) DisplayUtilHelper.statusMapForTestMethod
                 .get(uniqueId + DisplayUtilHelper.MESSAGE);
@@ -150,11 +136,13 @@ public enum DisplayUtilHelper {
         final JstTimer jstTimer = (JstTimer) DisplayUtilHelper.statusMapForTestMethod
                 .get(uniqueId + DisplayUtilHelper.TIMER);
 
-        return DisplayUtilHelper
-                .buildMethodEndMessage(message, status,
-                        ConversionUtilHelper
-                                .convertNanosecondToMillisecondString(jstTimer.calculateElapsedNanoSeconds()))
-                .toString();
+        message.append("\n\t***  End:  [");
+        message.append(status);
+        message.append("] ");
+        message.append(
+                ConversionUtilHelper.convertNanosecondToMillisecondString(jstTimer.calculateElapsedNanoSeconds()));
+        message.append(" ms ***");
+        display(message.toString());
     }
 
     /**
@@ -191,9 +179,9 @@ public enum DisplayUtilHelper {
                 JstConfigureDisplayOnConsole.class);
 
         if (configureDisplayOnConsole.isPresent()) {
-
-            return true;
+            return configureDisplayOnConsole.get().verbose();
         }
+
         return false;
     }
 

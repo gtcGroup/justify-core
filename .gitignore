@@ -1,26 +1,36 @@
+# Compiled class file
 *.class
 
-# Folders #
-/build
-/bin
+# Log file
+*.log
 
-# Dot Artifacts # 
-.settings
+# BlueJ files
+*.ctxt
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Package Files 
 *.jar
 *.war
 *.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# Folders 
+/build
+/bin
+/bin/
+
+# Dot Artifacts # 
+.settings
 
 #Gradle
 gradle*
 **/*.gradle
 !build.gradle
 !settings.gradle
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-/bin/

@@ -29,7 +29,6 @@
  */ 
  
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
@@ -55,11 +54,3 @@ dependencies {
         exclude group: 'junit', module: 'junit'
     }
 }
-
-//configure(allprojects) {
-//    apply plugin: 'eclipse'
-//    eclipse {
-//        project.natures 'org.eclipse.buildship.core.gradleprojectnature'
-//    }
-//}
-
