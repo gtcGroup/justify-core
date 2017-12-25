@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# SQL file
+*.jdbc
+
 # Log file
 *.log
 
@@ -33,4 +36,4 @@ hs_err_pid*
 gradle*
 **/*.gradle
 !build.gradle
-!settings.gradle
+!gradlew.*
