@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @SuppressWarnings("static-method")
-@ExtendWith(JstConfigureDisplayOnConsoleExtension.class)
+@ExtendWith(JstConfigureLogToConsoleExtension.class)
 public class GpirsTest2 {
 
     @Test

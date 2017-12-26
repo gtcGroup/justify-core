@@ -33,7 +33,7 @@ import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.base.JstBaseExtension;
-import com.gtcgroup.justify.core.helper.internal.DisplayUtilHelper;
+import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
 
 /**
  * This {@link Extension} class initializes a public user id for the duration of
@@ -52,7 +52,7 @@ public class JstConfigureUserIdExtension extends JstBaseExtension
 
     protected static void initializeUserId(final ExtensionContext context) {
 
-        final Optional<JstConfigureUserId> configureUserId = DisplayUtilHelper.retrieveAnnotation(context,
+        final Optional<JstConfigureUserId> configureUserId = LogToConsoleUtilHelper.retrieveAnnotation(context,
                 JstConfigureUserId.class);
 
         if (configureUserId.isPresent()) {

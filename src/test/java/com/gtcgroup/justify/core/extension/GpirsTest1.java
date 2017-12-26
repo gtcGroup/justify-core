@@ -7,7 +7,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 @TestInstance(Lifecycle.PER_CLASS)
-// @ExtendWith(JstConfigureDisplayOnConsoleExtension.class)
+// @ExtendWith(JstConfigureLogToConsoleExtension.class)
 public class GpirsTest1 {
 
     // @BeforeAll

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("static-method")
-@JstConfigureDisplayOnConsole(verbose = true)
+@JstConfigureLogToConsole(verbose = true)
 public class GpirsTest3 {
 
     @Test

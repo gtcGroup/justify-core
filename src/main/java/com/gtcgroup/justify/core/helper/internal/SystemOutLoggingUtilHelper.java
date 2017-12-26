@@ -110,7 +110,7 @@ public enum SystemOutLoggingUtilHelper {
         logStatement.append("() -");
         logStatement.append(message);
 
-        DisplayUtilHelper.display(logStatement.toString());
+        LogToConsoleUtilHelper.logToConsole(logStatement.toString());
     }
 
     public static void severeLevel(final String className, final String methodName, final String message) {

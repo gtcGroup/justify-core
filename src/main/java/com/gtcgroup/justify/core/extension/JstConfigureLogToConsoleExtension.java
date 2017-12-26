@@ -34,36 +34,36 @@ import org.opentest4j.AssertionFailedError;
 
 import com.gtcgroup.justify.core.base.JstBaseExtension;
 import com.gtcgroup.justify.core.helper.JstTimer;
-import com.gtcgroup.justify.core.helper.internal.DisplayUtilHelper;
+import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
 
-public class JstConfigureDisplayOnConsoleExtension extends JstBaseExtension
+public class JstConfigureLogToConsoleExtension extends JstBaseExtension
         implements BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback {
 
     @Override
     public void afterTestExecution(final ExtensionContext context) throws Exception {
 
-        DisplayUtilHelper.displayMethodDetails(context.getUniqueId());
+        LogToConsoleUtilHelper.logMethodDetailsToTestConsole(context.getUniqueId());
     }
 
     @Override
     public void beforeTestExecution(final ExtensionContext context) throws Exception {
 
-        if (DisplayUtilHelper.isFirstTestDisplayingHeader()) {
+        if (LogToConsoleUtilHelper.isFirstTimeLoggingTheTestHeader()) {
 
-            DisplayUtilHelper.displayTestingHeader();
+            LogToConsoleUtilHelper.logHeaderToTestConsole();
         }
 
-        final StringBuilder message = DisplayUtilHelper.buildMethodBeginMessage(context.getDisplayName(),
+        final StringBuilder message = LogToConsoleUtilHelper.buildMethodBeginMessage(context.getDisplayName(),
                 context.getRequiredTestClass().getSimpleName());
 
-        if (DisplayUtilHelper.isFirstTestDisplayingClasspath() && DisplayUtilHelper.isVerbose(context)) {
+        if (LogToConsoleUtilHelper.isFirstTimeLoggingTheTestClasspath() && LogToConsoleUtilHelper.isVerbose(context)) {
 
-            DisplayUtilHelper.buildClasspath(message);
+            LogToConsoleUtilHelper.buildClasspath(message);
         }
 
-        DisplayUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + DisplayUtilHelper.STATUS, "Success");
-        DisplayUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + DisplayUtilHelper.MESSAGE, message);
-        DisplayUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + DisplayUtilHelper.TIMER,
+        LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS, "Success");
+        LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.MESSAGE, message);
+        LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.TIMER,
                 new JstTimer());
 
     }
@@ -72,18 +72,18 @@ public class JstConfigureDisplayOnConsoleExtension extends JstBaseExtension
     public void handleTestExecutionException(final ExtensionContext context, final Throwable throwable)
             throws Throwable {
 
-        final StringBuilder message = (StringBuilder) DisplayUtilHelper.getStatusMapForTestMethod()
-                .get(context.getUniqueId() + DisplayUtilHelper.MESSAGE);
+        final StringBuilder message = (StringBuilder) LogToConsoleUtilHelper.getStatusMapForTestMethod()
+                .get(context.getUniqueId() + LogToConsoleUtilHelper.MESSAGE);
 
         if (throwable instanceof AssertionFailedError) {
-            DisplayUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + DisplayUtilHelper.STATUS,
+            LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS,
                     "Error");
-            DisplayUtilHelper.buildAssertionFailedMessage(throwable, message);
+            LogToConsoleUtilHelper.buildAssertionFailedMessage(throwable, message);
 
         } else {
-            DisplayUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + DisplayUtilHelper.STATUS,
+            LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS,
                     "Failure");
-            DisplayUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
+            LogToConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
         }
         throw throwable;
     }

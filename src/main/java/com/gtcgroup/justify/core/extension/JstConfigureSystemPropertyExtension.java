@@ -35,7 +35,7 @@ import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.base.JstBaseExtension;
-import com.gtcgroup.justify.core.helper.internal.DisplayUtilHelper;
+import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
 
 /**
  * This {@link Extension} class initializes a system property for the duration
@@ -57,9 +57,9 @@ public class JstConfigureSystemPropertyExtension extends JstBaseExtension
 
     protected String[] valueArray = new String[] {};
 
-    protected List<String> durableKeyList;
+    protected List<String> durableKeyList = new ArrayList<>();
 
-    protected List<String> durableValueList;
+    protected List<String> durableValueList = new ArrayList<>();
 
     @Override
     public void afterTestExecution(final ExtensionContext context) throws Exception {
@@ -75,9 +75,10 @@ public class JstConfigureSystemPropertyExtension extends JstBaseExtension
     @Override
     public void beforeTestExecution(final ExtensionContext context) throws Exception {
 
-        this.durableKeyList = new ArrayList<>();
-        this.durableValueList = new ArrayList<>();
-        determineProperties(context);
+        this.durableKeyList.clear();
+        this.durableValueList.clear();
+
+        initializePropertiesFromAnnotation(context);
 
         for (int i = 0; i < this.keyArray.length; i++) {
 
@@ -90,17 +91,15 @@ public class JstConfigureSystemPropertyExtension extends JstBaseExtension
         return;
     }
 
-    private void determineProperties(final ExtensionContext context) {
+    private void initializePropertiesFromAnnotation(final ExtensionContext context) {
 
-        if (context.getRequiredTestInstance().getClass().isAnnotationPresent(JstConfigureSystemProperty.class)) {
+        final Optional<JstConfigureSystemProperty> configureSystemProperty = LogToConsoleUtilHelper
+                .retrieveAnnotation(context, JstConfigureSystemProperty.class);
 
-            final Optional<JstConfigureSystemProperty> configureSystemProperty = DisplayUtilHelper
-                    .retrieveAnnotation(context, JstConfigureSystemProperty.class);
+        if (configureSystemProperty.isPresent()) {
 
-            if (configureSystemProperty.isPresent()) {
-                this.keyArray = configureSystemProperty.get().key();
-                this.valueArray = configureSystemProperty.get().value();
-            }
+            this.keyArray = configureSystemProperty.get().key();
+            this.valueArray = configureSystemProperty.get().value();
         }
     }
 }

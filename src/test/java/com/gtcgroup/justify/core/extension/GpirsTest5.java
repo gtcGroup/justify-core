@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("static-method")
-@JstConfigureDisplayOnConsole()
+@JstConfigureLogToConsole()
 @JstConfigureSystemProperty(key = { "1", "2", "3" }, value = { "A", "B", "C" })
 public class GpirsTest5 {
 

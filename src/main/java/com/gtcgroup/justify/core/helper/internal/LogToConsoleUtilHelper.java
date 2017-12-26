@@ -36,11 +36,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import com.gtcgroup.justify.core.extension.JstConfigureDisplayOnConsole;
+import com.gtcgroup.justify.core.extension.JstConfigureLogToConsole;
 import com.gtcgroup.justify.core.helper.JstTimer;
 
 /**
- * This Util Helper class provides support for console display.
+ * This Util Helper class provides support for console test logging.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -51,15 +51,15 @@ import com.gtcgroup.justify.core.helper.JstTimer;
  * @since v3.0
  */
 
-public enum DisplayUtilHelper {
+public enum LogToConsoleUtilHelper {
 
     INSTANCE;
 
     public static final String MESSAGE = "-message";
     public static final String TIMER = "-timer";
     public static final String STATUS = "-status";
-    private static boolean firstTestDisplayingHeader = true;
-    private static boolean firstTestDisplayingClasspath = true;
+    private static boolean firstTimeLoggingHeaderToTestConsole = true;
+    private static boolean firstTimeLoggingClasspathToTestConsole = true;
 
     private static final Map<String, Object> statusMapForTestMethod = new ConcurrentHashMap<>();
 
@@ -121,20 +121,53 @@ public enum DisplayUtilHelper {
         message.append(stringWriter.toString());
     }
 
-    public static void display(final String message) {
-        System.out.println(message);
+    public static Map<String, Object> getStatusMapForTestMethod() {
+        return LogToConsoleUtilHelper.statusMapForTestMethod;
     }
 
-    public static void displayMethodDetails(final String uniqueId) {
+    public static boolean isFirstTimeLoggingTheTestClasspath() {
+        final boolean firstTest = LogToConsoleUtilHelper.firstTimeLoggingClasspathToTestConsole;
+        LogToConsoleUtilHelper.firstTimeLoggingClasspathToTestConsole = false;
+        return firstTest;
+    }
 
-        final StringBuilder message = (StringBuilder) DisplayUtilHelper.statusMapForTestMethod
-                .get(uniqueId + DisplayUtilHelper.MESSAGE);
+    public static boolean isFirstTimeLoggingTheTestHeader() {
+        final boolean firstTest = LogToConsoleUtilHelper.firstTimeLoggingHeaderToTestConsole;
+        LogToConsoleUtilHelper.firstTimeLoggingHeaderToTestConsole = false;
+        return firstTest;
+    }
 
-        final String status = (String) DisplayUtilHelper.statusMapForTestMethod
-                .get(uniqueId + DisplayUtilHelper.STATUS);
+    public static boolean isVerbose(final ExtensionContext context) {
 
-        final JstTimer jstTimer = (JstTimer) DisplayUtilHelper.statusMapForTestMethod
-                .get(uniqueId + DisplayUtilHelper.TIMER);
+        final Optional<JstConfigureLogToConsole> configureLogToConsole = retrieveAnnotation(context,
+                JstConfigureLogToConsole.class);
+
+        if (configureLogToConsole.isPresent()) {
+            return configureLogToConsole.get().verbose();
+        }
+
+        return false;
+    }
+
+    public static void logHeaderToTestConsole() {
+
+        final String message = "\t* JUnit Strategy for Testing [JUST] / Justify v8.5 *";
+
+        final StringBuilder border = ConversionUtilHelper.convertMessageLengthToBorder(message);
+
+        logToConsole(border.toString() + message + border.toString());
+    }
+
+    public static void logMethodDetailsToTestConsole(final String uniqueId) {
+
+        final StringBuilder message = (StringBuilder) LogToConsoleUtilHelper.statusMapForTestMethod
+                .get(uniqueId + LogToConsoleUtilHelper.MESSAGE);
+
+        final String status = (String) LogToConsoleUtilHelper.statusMapForTestMethod
+                .get(uniqueId + LogToConsoleUtilHelper.STATUS);
+
+        final JstTimer jstTimer = (JstTimer) LogToConsoleUtilHelper.statusMapForTestMethod
+                .get(uniqueId + LogToConsoleUtilHelper.TIMER);
 
         message.append("\n\t***  End:  [");
         message.append(status);
@@ -142,47 +175,11 @@ public enum DisplayUtilHelper {
         message.append(
                 ConversionUtilHelper.convertNanosecondToMillisecondString(jstTimer.calculateElapsedNanoSeconds()));
         message.append(" ms ***");
-        display(message.toString());
+        logToConsole(message.toString());
     }
 
-    /**
-     * This method is for console display.
-     */
-    public static void displayTestingHeader() {
-
-        final String message = "\t* JUnit Strategy for Testing [JUST] / Justify v8.5 *";
-
-        final StringBuilder border = ConversionUtilHelper.convertMessageLengthToBorder(message);
-
-        display(border.toString() + message + border.toString());
-    }
-
-    public static Map<String, Object> getStatusMapForTestMethod() {
-        return DisplayUtilHelper.statusMapForTestMethod;
-    }
-
-    public static boolean isFirstTestDisplayingClasspath() {
-        final boolean firstTest = DisplayUtilHelper.firstTestDisplayingClasspath;
-        DisplayUtilHelper.firstTestDisplayingClasspath = false;
-        return firstTest;
-    }
-
-    public static boolean isFirstTestDisplayingHeader() {
-        final boolean firstTest = DisplayUtilHelper.firstTestDisplayingHeader;
-        DisplayUtilHelper.firstTestDisplayingHeader = false;
-        return firstTest;
-    }
-
-    public static boolean isVerbose(final ExtensionContext context) {
-
-        final Optional<JstConfigureDisplayOnConsole> configureDisplayOnConsole = retrieveAnnotation(context,
-                JstConfigureDisplayOnConsole.class);
-
-        if (configureDisplayOnConsole.isPresent()) {
-            return configureDisplayOnConsole.get().verbose();
-        }
-
-        return false;
+    public static void logToConsole(final String message) {
+        System.out.println(message);
     }
 
     public static <ANNOTATION extends Annotation> Optional<ANNOTATION> retrieveAnnotation(
