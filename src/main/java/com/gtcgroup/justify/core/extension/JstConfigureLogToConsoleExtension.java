@@ -39,6 +39,16 @@ import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
 public class JstConfigureLogToConsoleExtension extends JstBaseExtension
         implements BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback {
 
+    private static boolean jUnitTest = false;
+
+    static {
+        JstConfigureLogToConsoleExtension.jUnitTest = true;
+    }
+
+    public static boolean isJUnitTest() {
+        return JstConfigureLogToConsoleExtension.jUnitTest;
+    }
+
     @Override
     public void afterTestExecution(final ExtensionContext context) throws Exception {
 
@@ -61,8 +71,10 @@ public class JstConfigureLogToConsoleExtension extends JstBaseExtension
             LogToConsoleUtilHelper.buildClasspath(message);
         }
 
-        LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS, "Success");
-        LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.MESSAGE, message);
+        LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS,
+                "Success");
+        LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.MESSAGE,
+                message);
         LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.TIMER,
                 new JstTimer());
 
@@ -76,13 +88,13 @@ public class JstConfigureLogToConsoleExtension extends JstBaseExtension
                 .get(context.getUniqueId() + LogToConsoleUtilHelper.MESSAGE);
 
         if (throwable instanceof AssertionFailedError) {
-            LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS,
-                    "Error");
+            LogToConsoleUtilHelper.getStatusMapForTestMethod()
+                    .put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS, "Error");
             LogToConsoleUtilHelper.buildAssertionFailedMessage(throwable, message);
 
         } else {
-            LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS,
-                    "Failure");
+            LogToConsoleUtilHelper.getStatusMapForTestMethod()
+                    .put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS, "Failure");
             LogToConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
         }
         throw throwable;

@@ -30,7 +30,7 @@ import org.junit.jupiter.api.extension.Extension;
 import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
 
 /**
- * This {@link Extension} base class works in harmony with the lifecycle.
+ * This {@link Extension} base class works in harmony with the JUnit lifecycle.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -42,27 +42,23 @@ import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
  */
 public abstract class JstBaseExtension implements Extension {
 
-    /** Suffix For All Rules */
-    public static final String RULE_SUFFIX = "Extension";
+    private static final String EXTENSION_SUFFIX = "Extension";
 
-    protected static final String DEFAULT_USER_ID = "$userId";
+    public static final String DEFAULT_USER_ID = "$userId";
 
-    protected static String userId = JstBaseExtension.DEFAULT_USER_ID;
+    protected String userId = JstBaseExtension.DEFAULT_USER_ID;
 
-    public static String getUserId() {
-        return JstBaseExtension.userId;
-    }
-
-    protected static void setUserId(final String userId) {
-        JstBaseExtension.userId = userId;
-    }
-
-    /**
-     * Constructor
-     */
     public JstBaseExtension() {
         super();
 
-        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.RULE_SUFFIX);
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.EXTENSION_SUFFIX);
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    protected void setUserId(final String userId) {
+        this.userId = userId;
     }
 }

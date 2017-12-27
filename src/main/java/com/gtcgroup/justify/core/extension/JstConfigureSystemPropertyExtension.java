@@ -27,7 +27,6 @@ package com.gtcgroup.justify.core.extension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -35,6 +34,7 @@ import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.base.JstBaseExtension;
+import com.gtcgroup.justify.core.base.JstExtensionInterface;
 import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
 
 /**
@@ -51,7 +51,7 @@ import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
  * @since v3.0
  */
 public class JstConfigureSystemPropertyExtension extends JstBaseExtension
-        implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
+        implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
     protected String[] keyArray = new String[] {};
 
@@ -91,15 +91,13 @@ public class JstConfigureSystemPropertyExtension extends JstBaseExtension
         return;
     }
 
-    private void initializePropertiesFromAnnotation(final ExtensionContext context) {
+    @Override
+    public void initializePropertiesFromAnnotation(final ExtensionContext context) {
 
-        final Optional<JstConfigureSystemProperty> configureSystemProperty = LogToConsoleUtilHelper
-                .retrieveAnnotation(context, JstConfigureSystemProperty.class);
+        final JstConfigureSystemProperty configureSystemProperty = LogToConsoleUtilHelper
+                .retrieveAnnotationRequired(context, JstConfigureSystemProperty.class);
 
-        if (configureSystemProperty.isPresent()) {
-
-            this.keyArray = configureSystemProperty.get().key();
-            this.valueArray = configureSystemProperty.get().value();
-        }
+        this.keyArray = configureSystemProperty.key();
+        this.valueArray = configureSystemProperty.value();
     }
 }

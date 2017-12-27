@@ -31,11 +31,11 @@ import java.io.StringWriter;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 
+import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
 import com.gtcgroup.justify.core.extension.JstConfigureLogToConsole;
 import com.gtcgroup.justify.core.helper.JstTimer;
 
@@ -139,14 +139,9 @@ public enum LogToConsoleUtilHelper {
 
     public static boolean isVerbose(final ExtensionContext context) {
 
-        final Optional<JstConfigureLogToConsole> configureLogToConsole = retrieveAnnotation(context,
+        final JstConfigureLogToConsole configureLogToConsole = retrieveAnnotationRequired(context,
                 JstConfigureLogToConsole.class);
-
-        if (configureLogToConsole.isPresent()) {
-            return configureLogToConsole.get().verbose();
-        }
-
-        return false;
+        return configureLogToConsole.verbose();
     }
 
     public static void logHeaderToTestConsole() {
@@ -182,13 +177,13 @@ public enum LogToConsoleUtilHelper {
         System.out.println(message);
     }
 
-    public static <ANNOTATION extends Annotation> Optional<ANNOTATION> retrieveAnnotation(
-            final ExtensionContext context, final Class<ANNOTATION> annotationClass) {
+    public static <ANNOTATION extends Annotation> ANNOTATION retrieveAnnotationRequired(final ExtensionContext context,
+            final Class<ANNOTATION> annotationClass) {
 
         if (context.getRequiredTestInstance().getClass().isAnnotationPresent(annotationClass)) {
 
-            return Optional.of(context.getRequiredTestInstance().getClass().getAnnotation(annotationClass));
+            return context.getRequiredTestInstance().getClass().getAnnotation(annotationClass);
         }
-        return Optional.empty();
+        throw new JustifyRuntimeException("The annotation class [" + annotationClass.getName() + "] was not found.");
     }
 }

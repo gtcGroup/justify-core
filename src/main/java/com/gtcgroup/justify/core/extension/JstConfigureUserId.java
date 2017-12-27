@@ -33,10 +33,12 @@ import java.lang.annotation.Target;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import com.gtcgroup.justify.core.base.JstBaseExtension;
+
 @Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @ExtendWith(JstConfigureUserIdExtension.class)
 public @interface JstConfigureUserId {
 
-    public String userId() default "$userId";
+    public String userId() default JstBaseExtension.DEFAULT_USER_ID;
 }

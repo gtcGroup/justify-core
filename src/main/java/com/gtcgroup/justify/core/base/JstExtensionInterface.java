@@ -23,20 +23,13 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.extension;
+package com.gtcgroup.justify.core.base;
 
-import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
-import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import com.gtcgroup.justify.core.base.JstBaseExtension;
-import com.gtcgroup.justify.core.base.JstExtensionInterface;
-import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
-
 /**
- * This {@link Extension} class initializes a public user id for the duration of
- * the method and then reinstates the original user id value.
+ * This Interface seeks to support {@link Extension} consistency.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -46,28 +39,7 @@ import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureUserIdExtension extends JstBaseExtension
-        implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
+public interface JstExtensionInterface {
 
-    @Override
-    public void afterTestExecution(final ExtensionContext context) throws Exception {
-
-        setUserId(JstBaseExtension.DEFAULT_USER_ID);
-        return;
-    }
-
-    @Override
-    public void beforeTestExecution(final ExtensionContext context) throws Exception {
-
-        initializePropertiesFromAnnotation(context);
-    }
-
-    @Override
-    public void initializePropertiesFromAnnotation(final ExtensionContext context) {
-
-        final JstConfigureUserId configureUserId = LogToConsoleUtilHelper.retrieveAnnotationRequired(context,
-                JstConfigureUserId.class);
-
-        this.userId = configureUserId.userId();
-    }
+    public void initializePropertiesFromAnnotation(final ExtensionContext context);
 }
