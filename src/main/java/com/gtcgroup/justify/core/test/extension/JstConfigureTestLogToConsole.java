@@ -24,16 +24,18 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.base;
+package com.gtcgroup.justify.core.test.extension;
 
-import java.util.Date;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
- * This Domain Entity base class supports readability.
+ * This {@link Annotation} supports logging to the console.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -41,40 +43,12 @@ import java.util.logging.SimpleFormatter;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since v.8.5
  */
-public enum JstLogger {
+@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+@ExtendWith(JstConfigureTestLogToConsoleExtension.class)
+public @interface JstConfigureTestLogToConsole {
 
-    INSTANCE;
-
-    private static final long serialVersionUID = 1L;
-
-    static Logger mainLogger;
-
-    static {
-        JstLogger.mainLogger = Logger.getLogger("com.gtcgroup.justify");
-        JstLogger.mainLogger.setUseParentHandlers(false);
-
-        final ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setFormatter(new SimpleFormatter() {
-
-            private static final String FORMAT = "JstSystemPropertyConstant: [%1$tF %1$tT] [%2$-7s] %3$s %n";
-
-            @Override
-            public synchronized String format(final LogRecord lr) {
-                return String.format(FORMAT, new Date(lr.getMillis()), lr.getLevel().getLocalizedName(),
-                        lr.getMessage());
-            }
-        });
-        JstLogger.mainLogger.addHandler(consoleHandler);
-        JstLogger.mainLogger = Logger.getLogger(JstLogger.class.getName());
-    }
-
-    public static Logger log() {
-        return JstLogger.mainLogger;
-    }
-
-    public static void setMainLogger(final Logger logger) {
-        JstLogger.mainLogger = logger;
-    }
+    public boolean verbose() default false;
 }

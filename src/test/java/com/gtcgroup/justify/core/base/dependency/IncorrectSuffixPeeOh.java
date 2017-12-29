@@ -24,21 +24,11 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.extension;
+package com.gtcgroup.justify.core.base.dependency;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.gtcgroup.justify.core.base.JstBasePO;
 
-import org.junit.jupiter.api.extension.ExtendWith;
+public class IncorrectSuffixPeeOh extends JstBasePO {
 
-import com.gtcgroup.justify.core.base.JstBaseExtension;
-
-@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
-@Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(JstConfigureUserIdExtension.class)
-public @interface JstConfigureUserId {
-
-    public String userId() default JstBaseExtension.DEFAULT_USER_ID;
+    // Empty Block
 }

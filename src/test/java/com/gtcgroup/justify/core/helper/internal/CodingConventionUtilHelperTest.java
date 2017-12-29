@@ -24,16 +24,19 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.base;
+package com.gtcgroup.justify.core.helper.internal;
 
-import java.util.Date;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import com.gtcgroup.justify.core.base.JstBaseTest;
+import com.gtcgroup.justify.core.base.dependency.IncorrectSuffixPeeOh;
+import com.gtcgroup.justify.core.base.dependency.NoteDE;
+import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import com.gtcgroup.justify.core.test.exception.internal.JustifyTestingException;
 
 /**
- * This Domain Entity base class supports readability.
+ * Test Class
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -41,40 +44,27 @@ import java.util.logging.SimpleFormatter;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since v8.5
  */
-public enum JstLogger {
+@SuppressWarnings("static-method")
+public class CodingConventionUtilHelperTest extends JstBaseTest {
 
-    INSTANCE;
+    @Test
+    public void testCheckClassCharacterInName() {
 
-    private static final long serialVersionUID = 1L;
-
-    static Logger mainLogger;
-
-    static {
-        JstLogger.mainLogger = Logger.getLogger("com.gtcgroup.justify");
-        JstLogger.mainLogger.setUseParentHandlers(false);
-
-        final ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setFormatter(new SimpleFormatter() {
-
-            private static final String FORMAT = "JstSystemPropertyConstant: [%1$tF %1$tT] [%2$-7s] %3$s %n";
-
-            @Override
-            public synchronized String format(final LogRecord lr) {
-                return String.format(FORMAT, new Date(lr.getMillis()), lr.getLevel().getLocalizedName(),
-                        lr.getMessage());
-            }
+        Assertions.assertThrows(JustifyTestingException.class, () -> {
+            JstCodingConventionUtilHelper.checkSuffixInClassName(NoteDE.class, "@#");
         });
-        JstLogger.mainLogger.addHandler(consoleHandler);
-        JstLogger.mainLogger = Logger.getLogger(JstLogger.class.getName());
+
     }
 
-    public static Logger log() {
-        return JstLogger.mainLogger;
-    }
+    @SuppressWarnings("unused")
+    @Test
+    public void testClassNameSuffix() {
 
-    public static void setMainLogger(final Logger logger) {
-        JstLogger.mainLogger = logger;
+        Assertions.assertThrows(JustifyTestingException.class, () -> {
+            new IncorrectSuffixPeeOh();
+        });
+
     }
 }

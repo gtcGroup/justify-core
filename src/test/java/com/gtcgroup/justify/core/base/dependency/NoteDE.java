@@ -23,20 +23,12 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.base.dependency;
 
-package com.gtcgroup.justify.core.extension;
+import com.gtcgroup.justify.core.base.JstBaseDE;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+public class NoteDE extends JstBaseDE {
 
-import org.junit.jupiter.api.extension.ExtendWith;
+    private static final long serialVersionUID = 1L;
 
-@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
-@Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(JstConfigureLogToConsoleExtension.class)
-public @interface JstConfigureLogToConsole {
-
-    public boolean verbose() default false;
 }

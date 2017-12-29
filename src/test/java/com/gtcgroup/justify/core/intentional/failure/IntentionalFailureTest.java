@@ -1,13 +1,15 @@
-package com.gtcgroup.justify.core.extension;
+package com.gtcgroup.justify.core.intentional.failure;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
+
 @SuppressWarnings("static-method")
-@JstConfigureLogToConsole()
-public class GpirsTest6 {
+@JstConfigureTestLogToConsole()
+public class IntentionalFailureTest {
 
     @Test
     public void testFailuresWithMultiples() {

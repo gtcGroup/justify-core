@@ -23,22 +23,42 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.test.base;
 
-package com.gtcgroup.justify.core.extension;
+import org.junit.jupiter.api.extension.Extension;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
 
-import org.junit.jupiter.api.extension.ExtendWith;
+/**
+ * This {@link Extension} base class works in harmony with the JUnit lifecycle.
+ *
+ * <p style="font-family:Verdana; font-size:10px; font-style:italic">
+ * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
+ * <a href="http://gtcGroup.com">gtcGroup.com </a>.
+ * </p>
+ *
+ * @author Marvin Toll
+ * @since v3.0
+ */
+public abstract class JstBaseExtension implements Extension {
 
-@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
-@Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(JstConfigureSystemPropertyExtension.class)
-public @interface JstConfigureSystemProperty {
+    private static final String EXTENSION_SUFFIX = "Extension";
 
-    public String[] key() default "";
+    public static final String DEFAULT_USER_ID = "$userId";
 
-    public String[] value() default "";
+    protected String userId = JstBaseExtension.DEFAULT_USER_ID;
+
+    public JstBaseExtension() {
+        super();
+
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.EXTENSION_SUFFIX);
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    protected void setUserId(final String userId) {
+        this.userId = userId;
+    }
 }

@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
+
 @SuppressWarnings("static-method")
-@JstConfigureLogToConsole(verbose = true)
+@JstConfigureTestLogToConsole(verbose = true)
 public class GpirsTest4 {
 
     @Test

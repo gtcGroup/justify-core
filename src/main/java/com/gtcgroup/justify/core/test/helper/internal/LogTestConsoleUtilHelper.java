@@ -24,7 +24,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.helper.internal;
+package com.gtcgroup.justify.core.test.helper.internal;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -35,9 +35,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
-import com.gtcgroup.justify.core.extension.JstConfigureLogToConsole;
+import com.gtcgroup.justify.core.JstSystemPropertyConstant;
 import com.gtcgroup.justify.core.helper.JstTimer;
+import com.gtcgroup.justify.core.helper.internal.ConversionUtilHelper;
+import com.gtcgroup.justify.core.test.exception.internal.JustifyTestingException;
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
 /**
  * This Util Helper class provides support for console test logging.
@@ -51,7 +53,7 @@ import com.gtcgroup.justify.core.helper.JstTimer;
  * @since v3.0
  */
 
-public enum LogToConsoleUtilHelper {
+public enum LogTestConsoleUtilHelper {
 
     INSTANCE;
 
@@ -74,7 +76,16 @@ public enum LogToConsoleUtilHelper {
     /**
      * This is a Collecting Parameter method.
      */
-    public static void buildClasspath(final StringBuilder message) {
+    public static void buildClasspath(final StringBuilder message, final ExtensionContext context) {
+
+        if (LogTestConsoleUtilHelper.isFirstTimeLoggingTheTestClasspath()
+                && LogTestConsoleUtilHelper.isVerbose(context)) {
+
+            buildClassPath(message);
+        }
+    }
+
+    public static void buildClassPath(final StringBuilder message) {
 
         message.append("\n Verbose: true");
 
@@ -122,31 +133,31 @@ public enum LogToConsoleUtilHelper {
     }
 
     public static Map<String, Object> getStatusMapForTestMethod() {
-        return LogToConsoleUtilHelper.statusMapForTestMethod;
+        return LogTestConsoleUtilHelper.statusMapForTestMethod;
     }
 
     public static boolean isFirstTimeLoggingTheTestClasspath() {
-        final boolean firstTest = LogToConsoleUtilHelper.firstTimeLoggingClasspathToTestConsole;
-        LogToConsoleUtilHelper.firstTimeLoggingClasspathToTestConsole = false;
+        final boolean firstTest = LogTestConsoleUtilHelper.firstTimeLoggingClasspathToTestConsole;
+        LogTestConsoleUtilHelper.firstTimeLoggingClasspathToTestConsole = false;
         return firstTest;
     }
 
     public static boolean isFirstTimeLoggingTheTestHeader() {
-        final boolean firstTest = LogToConsoleUtilHelper.firstTimeLoggingHeaderToTestConsole;
-        LogToConsoleUtilHelper.firstTimeLoggingHeaderToTestConsole = false;
+        final boolean firstTest = LogTestConsoleUtilHelper.firstTimeLoggingHeaderToTestConsole;
+        LogTestConsoleUtilHelper.firstTimeLoggingHeaderToTestConsole = false;
         return firstTest;
     }
 
     public static boolean isVerbose(final ExtensionContext context) {
 
-        final JstConfigureLogToConsole configureLogToConsole = retrieveAnnotationRequired(context,
-                JstConfigureLogToConsole.class);
+        final JstConfigureTestLogToConsole configureLogToConsole = retrieveAnnotationRequired(context,
+                JstConfigureTestLogToConsole.class);
         return configureLogToConsole.verbose();
     }
 
     public static void logHeaderToTestConsole() {
 
-        final String message = "\t* JUnit Strategy for Testing [JUST] / Justify v8.5 *";
+        final String message = "\t* Justify v" + System.getProperty(JstSystemPropertyConstant.JUSTIFY_VERSION) + " *";
 
         final StringBuilder border = ConversionUtilHelper.convertMessageLengthToBorder(message);
 
@@ -155,14 +166,14 @@ public enum LogToConsoleUtilHelper {
 
     public static void logMethodDetailsToTestConsole(final String uniqueId) {
 
-        final StringBuilder message = (StringBuilder) LogToConsoleUtilHelper.statusMapForTestMethod
-                .get(uniqueId + LogToConsoleUtilHelper.MESSAGE);
+        final StringBuilder message = (StringBuilder) LogTestConsoleUtilHelper.statusMapForTestMethod
+                .get(uniqueId + LogTestConsoleUtilHelper.MESSAGE);
 
-        final String status = (String) LogToConsoleUtilHelper.statusMapForTestMethod
-                .get(uniqueId + LogToConsoleUtilHelper.STATUS);
+        final String status = (String) LogTestConsoleUtilHelper.statusMapForTestMethod
+                .get(uniqueId + LogTestConsoleUtilHelper.STATUS);
 
-        final JstTimer jstTimer = (JstTimer) LogToConsoleUtilHelper.statusMapForTestMethod
-                .get(uniqueId + LogToConsoleUtilHelper.TIMER);
+        final JstTimer jstTimer = (JstTimer) LogTestConsoleUtilHelper.statusMapForTestMethod
+                .get(uniqueId + LogTestConsoleUtilHelper.TIMER);
 
         message.append("\n\t***  End:  [");
         message.append(status);
@@ -184,6 +195,6 @@ public enum LogToConsoleUtilHelper {
 
             return context.getRequiredTestInstance().getClass().getAnnotation(annotationClass);
         }
-        throw new JustifyRuntimeException("The annotation class [" + annotationClass.getName() + "] was not found.");
+        throw new JustifyTestingException("The annotation class [" + annotationClass.getName() + "] was not found.");
     }
 }

@@ -24,7 +24,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.extension;
+package com.gtcgroup.justify.core.test.extension;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -32,50 +32,50 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.opentest4j.AssertionFailedError;
 
-import com.gtcgroup.justify.core.base.JstBaseExtension;
+import com.gtcgroup.justify.core.JstSystemPropertyConstant;
 import com.gtcgroup.justify.core.helper.JstTimer;
-import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
+import com.gtcgroup.justify.core.test.base.JstBaseExtension;
+import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
-public class JstConfigureLogToConsoleExtension extends JstBaseExtension
+class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
         implements BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback {
 
     private static boolean jUnitTest = false;
 
     static {
-        JstConfigureLogToConsoleExtension.jUnitTest = true;
+        JstConfigureTestLogToConsoleExtension.jUnitTest = true;
+        System.setProperty(JstSystemPropertyConstant.JUNIT_TEST_RUNTIME, "true");
+        System.setProperty(JstSystemPropertyConstant.JUSTIFY_VERSION, "8.5.0-a01");
     }
 
     public static boolean isJUnitTest() {
-        return JstConfigureLogToConsoleExtension.jUnitTest;
+        return JstConfigureTestLogToConsoleExtension.jUnitTest;
     }
 
     @Override
     public void afterTestExecution(final ExtensionContext context) throws Exception {
 
-        LogToConsoleUtilHelper.logMethodDetailsToTestConsole(context.getUniqueId());
+        LogTestConsoleUtilHelper.logMethodDetailsToTestConsole(context.getUniqueId());
     }
 
     @Override
     public void beforeTestExecution(final ExtensionContext context) throws Exception {
 
-        if (LogToConsoleUtilHelper.isFirstTimeLoggingTheTestHeader()) {
+        if (LogTestConsoleUtilHelper.isFirstTimeLoggingTheTestHeader()) {
 
-            LogToConsoleUtilHelper.logHeaderToTestConsole();
+            LogTestConsoleUtilHelper.logHeaderToTestConsole();
         }
 
-        final StringBuilder message = LogToConsoleUtilHelper.buildMethodBeginMessage(context.getDisplayName(),
+        final StringBuilder message = LogTestConsoleUtilHelper.buildMethodBeginMessage(context.getDisplayName(),
                 context.getRequiredTestClass().getSimpleName());
 
-        if (LogToConsoleUtilHelper.isFirstTimeLoggingTheTestClasspath() && LogToConsoleUtilHelper.isVerbose(context)) {
+        LogTestConsoleUtilHelper.buildClasspath(message, context);
 
-            LogToConsoleUtilHelper.buildClasspath(message);
-        }
-
-        LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS,
-                "Success");
-        LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.MESSAGE,
-                message);
-        LogToConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogToConsoleUtilHelper.TIMER,
+        LogTestConsoleUtilHelper.getStatusMapForTestMethod()
+                .put(context.getUniqueId() + LogTestConsoleUtilHelper.STATUS, "Success");
+        LogTestConsoleUtilHelper.getStatusMapForTestMethod()
+                .put(context.getUniqueId() + LogTestConsoleUtilHelper.MESSAGE, message);
+        LogTestConsoleUtilHelper.getStatusMapForTestMethod().put(context.getUniqueId() + LogTestConsoleUtilHelper.TIMER,
                 new JstTimer());
 
     }
@@ -84,18 +84,18 @@ public class JstConfigureLogToConsoleExtension extends JstBaseExtension
     public void handleTestExecutionException(final ExtensionContext context, final Throwable throwable)
             throws Throwable {
 
-        final StringBuilder message = (StringBuilder) LogToConsoleUtilHelper.getStatusMapForTestMethod()
-                .get(context.getUniqueId() + LogToConsoleUtilHelper.MESSAGE);
+        final StringBuilder message = (StringBuilder) LogTestConsoleUtilHelper.getStatusMapForTestMethod()
+                .get(context.getUniqueId() + LogTestConsoleUtilHelper.MESSAGE);
 
         if (throwable instanceof AssertionFailedError) {
-            LogToConsoleUtilHelper.getStatusMapForTestMethod()
-                    .put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS, "Error");
-            LogToConsoleUtilHelper.buildAssertionFailedMessage(throwable, message);
+            LogTestConsoleUtilHelper.getStatusMapForTestMethod()
+                    .put(context.getUniqueId() + LogTestConsoleUtilHelper.STATUS, "Error");
+            LogTestConsoleUtilHelper.buildAssertionFailedMessage(throwable, message);
 
         } else {
-            LogToConsoleUtilHelper.getStatusMapForTestMethod()
-                    .put(context.getUniqueId() + LogToConsoleUtilHelper.STATUS, "Failure");
-            LogToConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
+            LogTestConsoleUtilHelper.getStatusMapForTestMethod()
+                    .put(context.getUniqueId() + LogTestConsoleUtilHelper.STATUS, "Failure");
+            LogTestConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
         }
         throw throwable;
     }

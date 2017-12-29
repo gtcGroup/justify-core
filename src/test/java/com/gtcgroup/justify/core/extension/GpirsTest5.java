@@ -5,9 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestSystemProperty;
+
 @SuppressWarnings("static-method")
-@JstConfigureLogToConsole()
-@JstConfigureSystemProperty(key = { "1", "2", "3" }, value = { "A", "B", "C" })
+@JstConfigureTestLogToConsole()
+@JstConfigureTestSystemProperty(key = { "1", "2", "3" }, value = { "A", "B", "C" })
 public class GpirsTest5 {
 
     @Test

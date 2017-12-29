@@ -23,13 +23,11 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.base;
 
-import org.junit.jupiter.api.extension.Extension;
-import org.junit.jupiter.api.extension.ExtensionContext;
+package com.gtcgroup.justify.core.helper.dependency;
 
 /**
- * This Interface seeks to support {@link Extension} consistency.
+ * This class is for testing.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -39,7 +37,11 @@ import org.junit.jupiter.api.extension.ExtensionContext;
  * @author Marvin Toll
  * @since v3.0
  */
-public interface JstExtensionInterface {
+@SuppressWarnings("javadoc")
+public class ReflectionExceptionDE {
 
-    public void initializePropertiesFromAnnotation(final ExtensionContext context);
+	public ReflectionExceptionDE() {
+		super();
+		throw new RuntimeException();
+	}
 }

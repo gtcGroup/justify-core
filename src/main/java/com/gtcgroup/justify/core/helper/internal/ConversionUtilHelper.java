@@ -41,7 +41,7 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
+import com.gtcgroup.justify.core.test.exception.internal.JustifyTestingException;
 
 /**
  * This Util Helper class provides support for data type conversions.
@@ -84,7 +84,7 @@ public enum ConversionUtilHelper {
 
         } catch (final Exception e) {
 
-            throw new JustifyRuntimeException(e);
+            throw new JustifyTestingException(e);
         }
         return dateString;
     }
@@ -109,7 +109,7 @@ public enum ConversionUtilHelper {
 
         } catch (final Exception e) {
 
-            throw new JustifyRuntimeException(e);
+            throw new JustifyTestingException(e);
         }
 
         return xmlGregorianCalendar;
@@ -193,7 +193,7 @@ public enum ConversionUtilHelper {
 
         } catch (final Exception e) {
 
-            throw new JustifyRuntimeException(e);
+            throw new JustifyTestingException(e);
         }
 
         return calendar;
@@ -216,7 +216,7 @@ public enum ConversionUtilHelper {
 
         } catch (final Exception e) {
 
-            throw new JustifyRuntimeException(e);
+            throw new JustifyTestingException(e);
         }
 
         return timestamp;
@@ -265,7 +265,7 @@ public enum ConversionUtilHelper {
             calendar.set(Calendar.MINUTE, xmlDatetime.getMinute());
             calendar.set(Calendar.SECOND, xmlDatetime.getSecond());
         } catch (final Exception e) {
-            throw new JustifyRuntimeException(e);
+            throw new JustifyTestingException(e);
         }
 
         return calendar;
@@ -290,7 +290,7 @@ public enum ConversionUtilHelper {
             calendar.set(Calendar.DAY_OF_MONTH, xmlDate.getDay());
 
         } catch (final Exception e) {
-            throw new JustifyRuntimeException(e);
+            throw new JustifyTestingException(e);
         }
 
         return simpleDateFormat.format(calendar.getTime());
@@ -461,7 +461,7 @@ public enum ConversionUtilHelper {
 
         } catch (final Exception e) {
 
-            throw new JustifyRuntimeException(e);
+            throw new JustifyTestingException(e);
         }
 
         return xmlTime;
@@ -482,7 +482,7 @@ public enum ConversionUtilHelper {
             stringDate = simpleDateFormat.format(date);
 
         } catch (final Exception e) {
-            throw new JustifyRuntimeException(e);
+            throw new JustifyTestingException(e);
         }
 
         return stringDate;
@@ -509,7 +509,7 @@ public enum ConversionUtilHelper {
             calendar.setTime(simpleDateFormat.parse(dateString));
 
         } catch (final Exception e) {
-            throw new JustifyRuntimeException(e);
+            throw new JustifyTestingException(e);
         }
 
         return calendar;
@@ -532,7 +532,7 @@ public enum ConversionUtilHelper {
                     DatatypeConstants.FIELD_UNDEFINED);
         } catch (final Exception e) {
 
-            throw new JustifyRuntimeException(e);
+            throw new JustifyTestingException(e);
         }
 
         return xmlDate;

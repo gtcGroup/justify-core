@@ -38,8 +38,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.gtcgroup.justify.core.exception.internal.JustifyRuntimeException;
 import com.gtcgroup.justify.core.po.JstStreamPO;
+import com.gtcgroup.justify.core.test.exception.internal.JustifyTestingException;
 
 /**
  * This Util Helper class provides convenience methods for reflection
@@ -579,13 +579,13 @@ public enum JstReflectionUtilHelper {
     }
 
     /**
-     * @throws JustifyRuntimeException
+     * @throws JustifyTestingException
      */
     private static void throwRuntimeException(final String message, final boolean suppressException) {
 
         if (!suppressException) {
 
-            throw new JustifyRuntimeException(message);
+            throw new JustifyTestingException(message);
         }
     }
 

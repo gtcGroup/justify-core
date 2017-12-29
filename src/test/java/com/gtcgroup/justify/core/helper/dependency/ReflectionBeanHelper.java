@@ -23,42 +23,64 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.base;
+package com.gtcgroup.justify.core.helper.dependency;
 
-import org.junit.jupiter.api.extension.Extension;
-
-import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import java.io.Serializable;
 
 /**
- * This {@link Extension} base class works in harmony with the JUnit lifecycle.
+ * This class is for testing. It is not a correct implementation of the Bean
+ * Helper pattern.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author Marvin Toll
- * @since v3.0
+ * @author
+ * @since v.6.0
  */
-public abstract class JstBaseExtension implements Extension {
+public class ReflectionBeanHelper implements Serializable {
 
-    private static final String EXTENSION_SUFFIX = "Extension";
+    private static final long serialVersionUID = 1L;
 
-    public static final String DEFAULT_USER_ID = "$userId";
+    public static final String STRING = "string";
 
-    protected String userId = JstBaseExtension.DEFAULT_USER_ID;
+    private String string = ReflectionBeanHelper.STRING;
 
-    public JstBaseExtension() {
+    /**
+     * Constructor
+     */
+    public ReflectionBeanHelper() {
+
         super();
-
-        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.EXTENSION_SUFFIX);
+        return;
     }
 
-    public String getUserId() {
-        return this.userId;
+    /**
+     * Constructor
+     *
+     * @param string
+     */
+    public ReflectionBeanHelper(final String string) {
+
+        super();
+        this.setString(string);
     }
 
-    protected void setUserId(final String userId) {
-        this.userId = userId;
+    /**
+     * @return String
+     */
+    public String getString() {
+        return this.string;
     }
+
+    /**
+     * @param string
+     * @return {@link ReflectionBeanHelper}
+     */
+    public ReflectionBeanHelper setString(final String string) {
+        this.string = string;
+        return this;
+    }
+
 }

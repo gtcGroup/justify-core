@@ -23,20 +23,12 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.extension;
+package com.gtcgroup.justify.core.test.exception.internal;
 
-import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
-import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
-import org.junit.jupiter.api.extension.Extension;
-import org.junit.jupiter.api.extension.ExtensionContext;
-
-import com.gtcgroup.justify.core.base.JstBaseExtension;
-import com.gtcgroup.justify.core.base.JstExtensionInterface;
-import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
+import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
 
 /**
- * This {@link Extension} class initializes a public user id for the duration of
- * the method and then reinstates the original user id value.
+ * This Exception base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -44,30 +36,42 @@ import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since v.6.0
  */
-public class JstConfigureUserIdExtension extends JstBaseExtension
-        implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
+public abstract class BaseTestingException extends RuntimeException {
 
-    @Override
-    public void afterTestExecution(final ExtensionContext context) throws Exception {
+    private static final long serialVersionUID = 1L;
 
-        setUserId(JstBaseExtension.DEFAULT_USER_ID);
-        return;
+    private static final String SUFFIX = "Exception";
+
+    protected static String init(final String exceptionMessage) {
+
+        final StringBuilder logMessage = new StringBuilder();
+        logMessage.append("\n\n\tA [");
+        logMessage.append(BaseTestingException.class.getSimpleName());
+        logMessage.append("] is intended to indicate a problem with the test machinery...");
+        logMessage.append("\n\t\t\t\t\t... not the code under test.");
+        logMessage.append("\n\n\tException Message: ");
+        logMessage.append(exceptionMessage);
+        logMessage.append("\n");
+        return logMessage.toString();
     }
 
-    @Override
-    public void beforeTestExecution(final ExtensionContext context) throws Exception {
+    /**
+     * Constructor
+     */
+    public BaseTestingException(final String exceptionMessage) {
 
-        initializePropertiesFromAnnotation(context);
+        super(init(exceptionMessage));
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), BaseTestingException.SUFFIX);
     }
 
-    @Override
-    public void initializePropertiesFromAnnotation(final ExtensionContext context) {
+    /**
+     * Constructor
+     */
+    public BaseTestingException(final Throwable exception) {
 
-        final JstConfigureUserId configureUserId = LogToConsoleUtilHelper.retrieveAnnotationRequired(context,
-                JstConfigureUserId.class);
-
-        this.userId = configureUserId.userId();
+        super(init(exception.getMessage()), exception);
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), BaseTestingException.SUFFIX);
     }
 }

@@ -29,6 +29,8 @@ package com.gtcgroup.justify.core.helper.internal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
+
 /**
  * This Util Helper class provides a default implementation used for JUnit test
  * logging.
@@ -45,43 +47,12 @@ public enum SystemOutLoggingUtilHelper {
 
     INSTANCE;
 
-    public static final String CONFIG = "CONFIG";
-    public static final String FINE = "FINE";
-    public static final String FINER = "FINER";
-    public static final String FINEST = "FINEST";
-    public static final String INFO = "INFO";
     public static final String SEVERE = "SEVERE";
     public static final String USER_ID = "testId";
-    public static final String WARNING = "WARNING";
-
-    public static void configLevel(final String className, final String methodName, final String message) {
-
-        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.CONFIG);
-    }
-
-    public static void fineLevel(final String className, final String methodName, final String message) {
-
-        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINE);
-    }
-
-    public static void finerLevel(final String className, final String methodName, final String message) {
-
-        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINER);
-    }
-
-    public static void finestLevel(final String className, final String methodName, final String message) {
-
-        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.FINEST);
-    }
 
     private static String getUserId() {
 
         return SystemOutLoggingUtilHelper.USER_ID;
-    }
-
-    public static void infoLevel(final String className, final String methodName, final String message) {
-
-        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.INFO);
     }
 
     /**
@@ -110,16 +81,11 @@ public enum SystemOutLoggingUtilHelper {
         logStatement.append("() -");
         logStatement.append(message);
 
-        LogToConsoleUtilHelper.logToConsole(logStatement.toString());
+        LogTestConsoleUtilHelper.logToConsole(logStatement.toString());
     }
 
-    public static void severeLevel(final String className, final String methodName, final String message) {
+    public static void logException(final String className, final String methodName, final String message) {
 
         SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.SEVERE);
-    }
-
-    public static void warningLevel(final String className, final String methodName, final String message) {
-
-        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.WARNING);
     }
 }

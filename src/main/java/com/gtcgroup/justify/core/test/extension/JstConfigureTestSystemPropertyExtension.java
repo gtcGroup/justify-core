@@ -23,7 +23,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.extension;
+package com.gtcgroup.justify.core.test.extension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +33,9 @@ import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import com.gtcgroup.justify.core.base.JstBaseExtension;
-import com.gtcgroup.justify.core.base.JstExtensionInterface;
-import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
+import com.gtcgroup.justify.core.test.base.JstBaseExtension;
+import com.gtcgroup.justify.core.test.base.JstExtensionInterface;
+import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
 /**
  * This {@link Extension} class initializes a system property for the duration
@@ -50,7 +50,7 @@ import com.gtcgroup.justify.core.helper.internal.LogToConsoleUtilHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstConfigureSystemPropertyExtension extends JstBaseExtension
+class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
         implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
     protected String[] keyArray = new String[] {};
@@ -94,8 +94,8 @@ public class JstConfigureSystemPropertyExtension extends JstBaseExtension
     @Override
     public void initializePropertiesFromAnnotation(final ExtensionContext context) {
 
-        final JstConfigureSystemProperty configureSystemProperty = LogToConsoleUtilHelper
-                .retrieveAnnotationRequired(context, JstConfigureSystemProperty.class);
+        final JstConfigureTestSystemProperty configureSystemProperty = LogTestConsoleUtilHelper
+                .retrieveAnnotationRequired(context, JstConfigureTestSystemProperty.class);
 
         this.keyArray = configureSystemProperty.key();
         this.valueArray = configureSystemProperty.value();
