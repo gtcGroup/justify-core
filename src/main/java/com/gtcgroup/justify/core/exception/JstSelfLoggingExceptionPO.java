@@ -49,7 +49,6 @@ public class JstSelfLoggingExceptionPO extends JstBasePO implements Serializable
 
     private static final long serialVersionUID = 1L;
 
-    private static String className = JstSelfLoggingExceptionPO.class.getSimpleName();
     private static final String DATE_TIME_FORMAT = "MMM dd, yyyy hh:mm:ss a";
 
     /**
@@ -78,10 +77,10 @@ public class JstSelfLoggingExceptionPO extends JstBasePO implements Serializable
 
         super();
         if (null == message) {
-            throw new JstRequiredFieldIsNullException(JstSelfLoggingExceptionPO.withMessage("")
-                    .withClassName(JstSelfLoggingExceptionPO.className).withMethodName("Constructor"));
+            this.message = "The message is null.";
+        } else {
+            this.message = message;
         }
-        this.message = message;
 
         final SimpleDateFormat formatter = new SimpleDateFormat(JstSelfLoggingExceptionPO.DATE_TIME_FORMAT);
         final Date dateValue = new Date();
@@ -95,6 +94,14 @@ public class JstSelfLoggingExceptionPO extends JstBasePO implements Serializable
      */
     public Optional<String> getExceptionClassName() {
         return Optional.ofNullable(this.exceptionClassName);
+    }
+
+    /**
+     * @return {@link Optional}
+     */
+    public Optional<String> getExceptionMethodName() {
+
+        return Optional.ofNullable(this.exceptionMethodName);
     }
 
     /**
@@ -116,14 +123,6 @@ public class JstSelfLoggingExceptionPO extends JstBasePO implements Serializable
      */
     public String getMessage() {
         return this.message;
-    }
-
-    /**
-     * @return {@link Optional}
-     */
-    public Optional<String> getExceptionMethodName() {
-
-        return Optional.ofNullable(this.exceptionMethodName);
     }
 
     /**

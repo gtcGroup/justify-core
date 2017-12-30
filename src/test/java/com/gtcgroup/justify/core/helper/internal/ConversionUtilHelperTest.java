@@ -275,7 +275,7 @@ public class ConversionUtilHelperTest extends JstBaseTest {
     @Test
     public void testConvertDatetimeXmlToCalendar() {
 
-        final Calendar value = ConversionUtilHelper.convertDatetimeXmlToCalendar(
+        final Calendar value = ConversionUtilHelper.convertGregorianCalendarToCalendar(
                 ConversionUtilHelper.instantiateXmlGregorianCalendar(ConversionUtilHelperTest.BIRTHDAY,
                         ConversionUtilHelperTest.SIMPLE_DATE_FORMAT));
 

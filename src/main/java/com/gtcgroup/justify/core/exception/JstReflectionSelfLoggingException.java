@@ -23,25 +23,25 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.exception;
 
-package com.gtcgroup.justify.core.helper.dependency;
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
 /**
- * This class is for testing.
- *
- * <p style="font-family:Verdana; font-size:10px; font-style:italic">
- * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
- * <a href="http://gtcGroup.com">gtcGroup.com </a>.
- * </p>
+ * This {@link RuntimeException} class defaults to logging production code
+ * exceptions while suppressing logging to the console when running a JstSystemPropertyConstant
+ * JUnit test with the {@link JstConfigureTestLogToConsole} annotation. In addition,
+ * the exception is logged once and only once.
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since v8.5
  */
-@SuppressWarnings("javadoc")
-public class ReflectionExceptionDE {
+public class JstReflectionSelfLoggingException extends JstBaseSelfLoggingRuntimeException {
 
-	public ReflectionExceptionDE() {
-		super();
-		throw new RuntimeException();
-	}
+    private static final long serialVersionUID = 1L;
+
+    public JstReflectionSelfLoggingException(final JstSelfLoggingExceptionPO exceptionPO) {
+
+        super(exceptionPO);
+    }
 }

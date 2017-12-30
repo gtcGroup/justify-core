@@ -26,18 +26,27 @@
 
 package com.gtcgroup.justify.core.helper.internal;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.base.dependency.NoteDE;
+import com.gtcgroup.justify.core.exception.JstReflectionSelfLoggingException;
 import com.gtcgroup.justify.core.helper.JstReflectionUtilHelper;
-import com.gtcgroup.justify.core.helper.dependency.ReflectionBeanHelper;
-import com.gtcgroup.justify.core.helper.dependency.ReflectionExceptionDE;
+import com.gtcgroup.justify.core.helper.dependency.ReflectionBean;
+import com.gtcgroup.justify.core.helper.dependency.ReflectionExceptionBean;
 import com.gtcgroup.justify.core.po.JstStreamPO;
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
 /**
  * Test Class
@@ -50,42 +59,48 @@ import com.gtcgroup.justify.core.po.JstStreamPO;
  * @author Marvin Toll
  * @since v3.0
  */
-@SuppressWarnings("all")
+@SuppressWarnings("static-method")
+@JstConfigureTestLogToConsole
 public class ReflectionUtilHelperTest {
 
     private static final String TEST_FILE_NAME = "testfile.xml";
+
+    private static final String FAKE_FILE_NAME = "f@keFileName.xml";
+
+    private static final String FAKE_METHOD_NAME = "f@keMethodName";
+
+    private static final String TEST_METHOD_NAME = "getString";
 
     private final Object[] CONSTRUCTOR_PARAMETER_VALUES = new Object[] { "string value" };
 
     @Test
     public void testContainsPublicConstructorNoArgument_false2() {
 
-        Assertions.assertFalse(
-                JstReflectionUtilHelper.containsPublicConstructorNoArgument(JstReflectionUtilHelper.class));
+        assertFalse(JstReflectionUtilHelper.containsPublicConstructorNoArgument(JstReflectionUtilHelper.class));
     }
 
     @Test
     public void testContainsPublicConstructorNoArgument_valid1() {
 
-        Assertions.assertTrue(JstReflectionUtilHelper.containsPublicConstructorNoArgument(NoteDE.class));
+        assertTrue(JstReflectionUtilHelper.containsPublicConstructorNoArgument(NoteDE.class));
     }
 
     @Test
     public void testContainsPublicConstructorNoArgument_valid2() {
 
-        Assertions.assertTrue(JstReflectionUtilHelper.containsPublicConstructorNoArgument(NoteDE.class));
+        assertTrue(JstReflectionUtilHelper.containsPublicConstructorNoArgument(NoteDE.class));
     }
 
     @Test
     public void testExists_false() {
 
-        Assertions.assertFalse(JstReflectionUtilHelper.existsOnClasspath("FakeClassName"));
+        assertFalse(JstReflectionUtilHelper.existsOnClasspath(ReflectionUtilHelperTest.FAKE_FILE_NAME));
     }
 
     @Test
     public void testExists_true() {
 
-        Assertions.assertTrue(JstReflectionUtilHelper.existsOnClasspath(JstReflectionUtilHelper.class.getName()));
+        assertTrue(JstReflectionUtilHelper.existsOnClasspath(JstReflectionUtilHelper.class.getName()));
     }
 
     @Test
@@ -97,14 +112,19 @@ public class ReflectionUtilHelperTest {
     @Test()
     public void testFieldInstanceWithDirectAccess_exception() {
 
-        JstReflectionUtilHelper.retrieveFieldInstanceWithDirectAccess(new NoteDE(), "fakeFieldName", false);
+        JstReflectionUtilHelper.retrieveFieldInstanceWithDirectAccess(new NoteDE(),
+                ReflectionUtilHelperTest.FAKE_FILE_NAME, false);
     }
 
     @Test
     public void testGetResourceAsStream() {
-        final JstStreamPO jstStreamPO = JstReflectionUtilHelper.getResourceAsStream("log4j2.xml", false);
-        Assertions.assertThat(jstStreamPO.getInputStreamToBeClosed()).isNotNull();
-        Assertions.assertThat(jstStreamPO.getClassLoader()).isNotNull();
+        final JstStreamPO jstStreamPO = JstReflectionUtilHelper
+                .getResourceAsStream(ReflectionUtilHelperTest.TEST_FILE_NAME, false);
+
+        assertAll(() -> {
+            assertNotNull(jstStreamPO.getInputStreamToBeClosed());
+            assertNotNull(jstStreamPO.getClassLoader());
+        });
     }
 
     @Test()
@@ -114,13 +134,13 @@ public class ReflectionUtilHelperTest {
 
     @Test
     public void testGetResourceAsStream_exception_suppress() {
-        Assertions.assertThat(JstReflectionUtilHelper.getResourceAsStream("fakeResourceName", true)).isNull();
+        assertNull(JstReflectionUtilHelper.getResourceAsStream("fakeResourceName", true));
     }
 
     @Test
     public void testInstantiateNonPublicConstructorWithArgument_constructorListEmpty() {
 
-        Assertions.assertNull(JstReflectionUtilHelper.instantiate(this.CONSTRUCTOR_PARAMETER_VALUES,
+        assertNull(JstReflectionUtilHelper.instantiate(this.CONSTRUCTOR_PARAMETER_VALUES,
                 new ArrayList<Constructor<?>>()));
 
     }
@@ -132,34 +152,30 @@ public class ReflectionUtilHelperTest {
 
         constructorList.add(null);
 
-        Assertions.assertNull(
-                JstReflectionUtilHelper.instantiate(this.CONSTRUCTOR_PARAMETER_VALUES, constructorList, true));
+        assertNull(JstReflectionUtilHelper.instantiate(this.CONSTRUCTOR_PARAMETER_VALUES, constructorList, true));
 
     }
 
     @Test
     public void testInstantiatePublicConstructorNoArgument() {
 
-        final Constructor<?> constructor = JstReflectionUtilHelper
-                .retrievePublicConstructorNoArgument(ReflectionBeanHelper.class);
+        JstReflectionUtilHelper.retrievePublicConstructorNoArgument(ReflectionBean.class);
 
-        Assertions.assertNotNull(
-                JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(ReflectionBeanHelper.class));
+        assertNotNull(JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(ReflectionBean.class));
     }
 
     @Test
     public void testInstantiatePublicConstructorNoArgument__valid() {
 
-        Assertions.assertNotNull(
-                JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(ReflectionBeanHelper.class, true));
+        assertNotNull(
+                JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorNoArgument(ReflectionBean.class, true));
     }
 
     @Test()
     public void testInstantiatePublicConstructorNoArgument_exception() {
 
-        Assertions.assertThat(
-                JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(ReflectionExceptionDE.class, false))
-                .isNotNull();
+        assertNotNull(JstReflectionUtilHelper
+                .instantiateInstanceWithPublicConstructorNoArgument(ReflectionExceptionBean.class, false));
     }
 
     @Test()
@@ -171,164 +187,177 @@ public class ReflectionUtilHelperTest {
     @Test
     public void testInstantiatePublicConstructorNoArgument_false() {
 
-        Assertions.assertThat(
-                JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(ReflectionBeanHelper.class, false))
-                .isNotNull();
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorNoArgument(ReflectionBean.class,
+                false));
     }
 
     @Test
     public void testInstantiatePublicConstructorNoArgument_suppress() {
 
-        final Constructor<?> constructor = JstReflectionUtilHelper
-                .retrievePublicConstructorNoArgument(ReflectionBeanHelper.class);
-
-        Assertions.assertNotNull(
-                JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(ReflectionBeanHelper.class, false));
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorNoArgument(ReflectionBean.class,
+                false));
     }
 
     @Test
     public void testInstantiatePublicConstructorNoArgument_valid1() {
 
-        Assertions.assertNotNull(
-                JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(ReflectionBeanHelper.class));
+        assertNotNull(JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(ReflectionBean.class));
     }
 
     @Test
     public void testInstantiatePublicConstructorNoArgument_valid2() {
 
-        JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(ReflectionBeanHelper.class, true);
+        JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorNoArgument(ReflectionBean.class, true);
     }
 
     @Test
     public void testInstantiatePublicConstructorWithArgument_null() {
 
-        Assertions.assertNull(JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(
-                ReflectionBeanHelper.class.getName(), true, null, String.class));
+        assertNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(
+                ReflectionBean.class.getName(), true, null, String.class));
 
     }
 
     @Test
     public void testInstantiatePublicConstructorWithArgument_null1() {
 
-        Assertions.assertNull(JstReflectionUtilHelper.instantiatePublicConstructorWithArgument("com.gtcgroup.FakeName",
+        assertNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument("com.gtcgroup.FakeName",
                 this.CONSTRUCTOR_PARAMETER_VALUES, true));
     }
 
     @Test()
     public void testInstantiatePublicConstructorWithArgument_null2() {
 
-        Assertions.assertNull(JstReflectionUtilHelper.instantiatePublicConstructorWithArgument("com.gtcgroup.FakeName",
+        assertNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument("com.gtcgroup.FakeName",
                 this.CONSTRUCTOR_PARAMETER_VALUES, false));
     }
 
     @Test
     public void testInstantiatePublicConstructorWithArgument_valid() {
 
-        Assertions.assertNotNull(JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(
-                this.CONSTRUCTOR_PARAMETER_VALUES, ReflectionBeanHelper.class));
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(
+                this.CONSTRUCTOR_PARAMETER_VALUES, ReflectionBean.class));
     }
 
     @Test
     public void testInstantiatePublicConstructorWithArgument_valid1() {
 
-        Assertions.assertNotNull(JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(
-                ReflectionBeanHelper.class, false, this.CONSTRUCTOR_PARAMETER_VALUES, String.class));
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(ReflectionBean.class,
+                false, this.CONSTRUCTOR_PARAMETER_VALUES, String.class));
 
     }
 
     @Test
     public void testInstantiatePublicConstructorWithArgument_valid2() {
 
-        Assertions.assertNotNull(JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(
-                ReflectionBeanHelper.class.getName(), false, this.CONSTRUCTOR_PARAMETER_VALUES, String.class));
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(
+                ReflectionBean.class.getName(), false, this.CONSTRUCTOR_PARAMETER_VALUES, String.class));
 
     }
 
     @Test
     public void testInstantiatePublicConstructorWithArgument_valide() {
 
-        Assertions.assertNotNull(JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(
-                this.CONSTRUCTOR_PARAMETER_VALUES, ReflectionBeanHelper.class, true));
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(
+                this.CONSTRUCTOR_PARAMETER_VALUES, ReflectionBean.class, true));
     }
 
     @Test
     public void testInstantiatePublicConstructorWithArgument_validOne() {
 
-        Assertions.assertNotNull(JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(
-                ReflectionBeanHelper.class.getName(), this.CONSTRUCTOR_PARAMETER_VALUES));
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(
+                ReflectionBean.class.getName(), this.CONSTRUCTOR_PARAMETER_VALUES));
     }
 
     @Test
     public void testInstantiatePublicConstructorWithArgument_validTwo() {
 
-        Assertions.assertNotNull(JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(
-                ReflectionBeanHelper.class.getName(), this.CONSTRUCTOR_PARAMETER_VALUES, true));
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(
+                ReflectionBean.class.getName(), this.CONSTRUCTOR_PARAMETER_VALUES, true));
     }
 
     @Test
     public void testInvokePublicMethod() {
 
-        Assertions.assertThat(JstReflectionUtilHelper.invokePublicMethod("getString", new ReflectionBeanHelper()))
-                .isEqualTo(ReflectionBeanHelper.STRING);
+        assertEquals(JstReflectionUtilHelper.invokePublicMethod("getString", new ReflectionBean()),
+                ReflectionBean.STRING);
     }
 
     @Test()
     public void testInvokePublicMethod_badString() {
 
-        JstReflectionUtilHelper.invokePublicMethod("getFake", ReflectionBeanHelper.class);
+        JstReflectionUtilHelper.invokePublicMethod("getFake", ReflectionBean.class);
     }
 
     @Test()
     public void testInvokePublicMethod_exception() {
 
-        JstReflectionUtilHelper.invokePublicMethod("retrieveException", new ReflectionBeanHelper());
+        JstReflectionUtilHelper.invokePublicMethod("retrieveException", new ReflectionBean());
+    }
+
+    @Test()
+    public void testInvokePublicMethod_null() {
+
+        assertThrows(JstReflectionSelfLoggingException.class, () -> {
+            JstReflectionUtilHelper.invokePublicMethod(null, ReflectionBean.class);
+        });
+
+    }
+
+    public void testInvokePublicMethod_withArgument() {
+
+        JstReflectionUtilHelper.invokePublicMethod("getTextWithArgument", new ReflectionBean(), "argument");
+    }
+
+    @Test()
+    public void testInvokePublicMethod_withNoArgument() {
+
+        JstReflectionUtilHelper.invokePublicMethod("getTextWithArgument", new ReflectionBean());
     }
 
     @Test
-    public void testRetrieveClass_valid1() throws ClassNotFoundException {
+    public void testRetrieveClass_valid1() {
 
-        JstReflectionUtilHelper.retrieveClass(ReflectionBeanHelper.class.getName());
+        JstReflectionUtilHelper.retrieveClass(ReflectionBean.class.getName());
     }
 
     @Test
-    public void testRetrieveClass_valid2() throws ClassNotFoundException {
+    public void testRetrieveClass_valid2() {
 
-        JstReflectionUtilHelper.retrieveClass(ReflectionBeanHelper.class.getName());
+        JstReflectionUtilHelper.retrieveClass(ReflectionBean.class.getName());
     }
 
     @Test
     public void testRetrieveFieldValueByInvokingTheGetter_null() {
 
-        Assertions.assertThat(JstReflectionUtilHelper.retrieveFieldValueFromMethodName(new ReflectionBeanHelper(),
-                "fakeFieldName", true)).isNull();
+        assertNull(
+                JstReflectionUtilHelper.retrieveFieldValueFromMethodName(new ReflectionBean(), "fakeFieldName", true));
     }
 
     @Test
     public void testRetrieveFieldValueFromMethodName() {
 
-        Assertions.assertThat(
-                JstReflectionUtilHelper.retrieveFieldValueFromMethodName(new ReflectionBeanHelper(), "getString", true))
-                .isEqualTo("string");
+        assertEquals(JstReflectionUtilHelper.retrieveFieldValueFromMethodName(new ReflectionBean(), "getString", true),
+                ReflectionBean.STRING);
     }
 
     @Test()
     public void testRetrieveFieldValueFromMethodName_exception() {
 
-        JstReflectionUtilHelper.retrieveFieldValueFromMethodName(new ReflectionBeanHelper(), "retrieveException",
-                false);
+        JstReflectionUtilHelper.retrieveFieldValueFromMethodName(new ReflectionBean(), "retrieveException", false);
     }
 
     @Test
     public void testRetrieveFieldWithDirectAccess() {
 
-        Assertions.assertThat(JstReflectionUtilHelper
-                .retrieveFieldWithDirectAccess(new ReflectionBeanHelper(), "string").equals("string"));
+        assertEquals(JstReflectionUtilHelper.retrieveFieldWithDirectAccess(new ReflectionBean(), ReflectionBean.STRING),
+                ReflectionBean.STRING);
     }
 
     @Test()
     public void testRetrieveFieldWithDirectAccess_exception() {
 
-        JstReflectionUtilHelper.retrieveFieldWithDirectAccess(new ReflectionBeanHelper(), "fakeFieldName");
+        JstReflectionUtilHelper.retrieveFieldWithDirectAccess(new ReflectionBean(), "fakeFieldName");
     }
 
     @Test()
@@ -340,7 +369,7 @@ public class ReflectionUtilHelperTest {
     @Test
     public void testRetrieveFileAsDataInputStream_valid() {
 
-        Assertions.assertNotNull(JstReflectionUtilHelper
+        assertNotNull(JstReflectionUtilHelper
                 .retrieveFileAsDataInputStreamAndBeSureToClose(ReflectionUtilHelperTest.TEST_FILE_NAME));
     }
 
@@ -353,54 +382,26 @@ public class ReflectionUtilHelperTest {
     @Test
     public void testRetrieveFileAsReader_valid() {
 
-        Assertions.assertNotNull(JstReflectionUtilHelper.retrieveFileAsReader(ReflectionUtilHelperTest.TEST_FILE_NAME));
-    }
-
-    @Test()
-    public void testRetrieveFileAsScanner_exception() {
-
-        JstReflectionUtilHelper.retrieveFileAsScanner("fakeFileName");
+        assertNotNull(JstReflectionUtilHelper.retrieveFileAsReader(ReflectionUtilHelperTest.TEST_FILE_NAME));
     }
 
     @Test
-    public void testRetrieveFileAsScanner_valid() {
+    public void testRetrievePublicMethod_fake() {
 
-        Assertions
-                .assertNotNull(JstReflectionUtilHelper.retrieveFileAsScanner(ReflectionUtilHelperTest.TEST_FILE_NAME));
-    }
-
-    @Test()
-    public void testRetrieveMethodProcess_exception() {
-
-        JstReflectionUtilHelper.retrievePublicMethod(JstReflectionUtilHelper.class, "fakeFileName", false);
+        assertFalse(JstReflectionUtilHelper
+                .retrievePublicMethod(JstReflectionUtilHelper.class, ReflectionUtilHelperTest.FAKE_METHOD_NAME)
+                .isPresent());
     }
 
     @Test
-    public void testRetrieveMethodProcess_null() {
+    public void testRetrievePublicMethod_valid() {
 
-        JstReflectionUtilHelper.retrievePublicMethod(JstReflectionUtilHelper.class, "fakeFileName", true);
-    }
-
-    @Test()
-    public void testRetrievePublicMethodInstance_null() {
-
-        JstReflectionUtilHelper.invokePublicMethod(null, ReflectionBeanHelper.class);
-    }
-
-    public void testRetrievePublicMethodInstance_withArgument() {
-
-        JstReflectionUtilHelper.invokePublicMethod("getTextWithArgument", new ReflectionBeanHelper(), "argument");
-    }
-
-    @Test()
-    public void testRetrievePublicMethodInstance_withNoArgument() {
-
-        JstReflectionUtilHelper.invokePublicMethod("getTextWithArgument", new ReflectionBeanHelper());
+        assertTrue(JstReflectionUtilHelper
+                .retrievePublicMethod(ReflectionBean.class, ReflectionUtilHelperTest.TEST_METHOD_NAME).isPresent());
     }
 
     @Test
     public void testVerifyPublicNoArgumentConstructorOnly_false() {
-        Assertions.assertThat(JstReflectionUtilHelper.verifyPublicNoArgumentConstructorOnly(ReflectionBeanHelper.class))
-                .isFalse();
+        assertFalse(JstReflectionUtilHelper.verifyPublicNoArgumentConstructorOnly(ReflectionBean.class));
     }
 }

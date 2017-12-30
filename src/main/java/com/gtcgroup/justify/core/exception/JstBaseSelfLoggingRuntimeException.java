@@ -33,7 +33,7 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
  * exceptions while suppressing logging to the console when running a
  * JstSystemPropertyConstant JUnit test with the
  * {@link JstConfigureTestLogToConsole} annotation. In addition, the exception
- * is logged once and only once. *
+ * is logged once and only once.
  * <p>
  * There are two ways to suppress logging. First, by explicitly indicating
  * suppression with the {@link JstSelfLoggingExceptionPO}. Secondly, by using

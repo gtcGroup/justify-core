@@ -240,38 +240,6 @@ public enum ConversionUtilHelper {
     }
 
     /**
-     * This method converts an {@link XMLGregorianCalendar} into a {@link Calendar}
-     * with the format specified.
-     *
-     * @return {@link Calendar}
-     */
-    public static Calendar convertDatetimeXmlToCalendar(final XMLGregorianCalendar xmlDatetime) {
-
-        Calendar calendar;
-
-        try {
-            // The time zone is only available from the Gregorian calendar.
-            final GregorianCalendar gregorianCalendar = xmlDatetime.toGregorianCalendar();
-
-            final TimeZone timeZone = gregorianCalendar.getTimeZone();
-
-            calendar = Calendar.getInstance();
-            calendar.clear();
-            calendar.setTimeZone(timeZone);
-            calendar.set(Calendar.YEAR, xmlDatetime.getYear());
-            calendar.set(Calendar.MONTH, xmlDatetime.getMonth() - 1);
-            calendar.set(Calendar.DATE, xmlDatetime.getDay());
-            calendar.set(Calendar.HOUR_OF_DAY, xmlDatetime.getHour());
-            calendar.set(Calendar.MINUTE, xmlDatetime.getMinute());
-            calendar.set(Calendar.SECOND, xmlDatetime.getSecond());
-        } catch (final Exception e) {
-            throw new JustifyTestingException(e);
-        }
-
-        return calendar;
-    }
-
-    /**
      * This method converts an {@link XMLGregorianCalendar} into a {@link String}
      * with the format specified.
      *
@@ -345,6 +313,29 @@ public enum ConversionUtilHelper {
         final ByteBuffer byteBuffer = ByteBuffer.allocate(16);
         byteBuffer.putLong(uuid.getMostSignificantBits()).putLong(uuid.getLeastSignificantBits());
         return byteBuffer.array();
+    }
+
+    /**
+     * @return {@link Calendar}
+     */
+    public static Calendar convertGregorianCalendarToCalendar(final XMLGregorianCalendar xmlGregorianCalendar) {
+
+        // The time zone is available from the Gregorian calendar.
+        final GregorianCalendar gregorianCalendar = xmlGregorianCalendar.toGregorianCalendar();
+
+        final TimeZone timeZone = gregorianCalendar.getTimeZone();
+
+        final Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.setTimeZone(timeZone);
+        calendar.set(Calendar.YEAR, xmlGregorianCalendar.getYear());
+        calendar.set(Calendar.MONTH, xmlGregorianCalendar.getMonth() - 1);
+        calendar.set(Calendar.DATE, xmlGregorianCalendar.getDay());
+        calendar.set(Calendar.HOUR_OF_DAY, xmlGregorianCalendar.getHour());
+        calendar.set(Calendar.MINUTE, xmlGregorianCalendar.getMinute());
+        calendar.set(Calendar.SECOND, xmlGregorianCalendar.getSecond());
+
+        return calendar;
     }
 
     /**
@@ -473,7 +464,7 @@ public enum ConversionUtilHelper {
     public static String convertTimestampToDateString(final Timestamp timestamp,
             final SimpleDateFormat simpleDateFormat) {
 
-        String stringDate;
+        String stringDate = null;
 
         try {
             final long time = timestamp.getTime();
@@ -481,10 +472,9 @@ public enum ConversionUtilHelper {
             final Date date = new Date(time);
             stringDate = simpleDateFormat.format(date);
 
-        } catch (final Exception e) {
-            throw new JustifyTestingException(e);
+        } catch (@SuppressWarnings("unused") final Exception e) {
+            // Ignore, not likely.
         }
-
         return stringDate;
     }
 

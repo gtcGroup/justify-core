@@ -37,7 +37,10 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import com.gtcgroup.justify.core.exception.JstReflectionSelfLoggingException;
+import com.gtcgroup.justify.core.exception.JstSelfLoggingExceptionPO;
 import com.gtcgroup.justify.core.po.JstStreamPO;
 import com.gtcgroup.justify.core.test.exception.internal.JustifyTestingException;
 
@@ -57,13 +60,14 @@ public enum JstReflectionUtilHelper {
 
     INSTANCE;
 
+    private static final String CLASS_NAME = JstReflectionUtilHelper.class.getName();
+
     /**
      * @return boolean
      */
-    @SuppressWarnings("unchecked")
     public static boolean containsPublicConstructorNoArgument(final Class<?> clazz) {
 
-        return null != JstReflectionUtilHelper.retrievePublicConstructorNoArgument((Class<Object>) clazz);
+        return null != JstReflectionUtilHelper.retrievePublicConstructorNoArgument(clazz);
     }
 
     /**
@@ -154,41 +158,18 @@ public enum JstReflectionUtilHelper {
     }
 
     /**
-     * This method returns an instance of type <code>Object</code> by invoking a
-     * non-public no-argument constructor. A class may have many constructors.
-     *
      * @return instance or null
      */
-    public static Object instantiateNonPublicConstructorNoArgument(final Class<Object> clazz) {
+    public static Object instantiateInstanceWithNonPublicConstructorNoArgument(final Class<Object> clazz) {
 
         return instantiateNonPublicConstructorNoArgument(clazz, false);
     }
 
     /**
-     * This method returns an instance of type <code>Object</code> by invoking a
-     * non-public no-argument constructor. A class may have many constructors.
-     * Support is provided for suppressing an exception.
-     *
      * @return instance or null
      */
-    public static Object instantiateNonPublicConstructorNoArgument(final Class<Object> clazz,
+    public static Object instantiateInstanceWithPublicConstructorNoArgument(final Class<?> clazz,
             final boolean suppressException) {
-
-        return instantiatePublicConstructorNoArgument(retrieveNonPublicConstructorNoArgument(clazz), suppressException);
-    }
-
-    /**
-     * @return instance or null
-     */
-    public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz) {
-
-        return JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(clazz, false);
-    }
-
-    /**
-     * @return instance or null
-     */
-    public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz, final boolean suppressException) {
 
         try {
             return clazz.newInstance();
@@ -205,7 +186,7 @@ public enum JstReflectionUtilHelper {
     /**
      * @return instance or null
      */
-    public static Object instantiatePublicConstructorNoArgument(final Constructor<?> constructor,
+    public static Object instantiateInstanceWithPublicConstructorNoArgument(final Constructor<?> constructor,
             final boolean suppressException) {
 
         // Declare.
@@ -229,27 +210,28 @@ public enum JstReflectionUtilHelper {
     /**
      * @return instance or null
      */
-    public static Object instantiatePublicConstructorWithArgument(final Class<?> clazz, final boolean suppressException,
-            final Object[] constructorParameterValues, final Class<?>... parameterTypes) {
+    public static Object instantiateInstanceWithPublicConstructorWithArgument(final Class<?> clazz,
+            final boolean suppressException, final Object[] constructorParameterValues,
+            final Class<?>... parameterTypes) {
 
-        return JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(clazz.getName(), suppressException,
-                constructorParameterValues, parameterTypes);
+        return JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(clazz.getName(),
+                suppressException, constructorParameterValues, parameterTypes);
     }
 
     /**
      * @return instance or null
      */
-    public static Object instantiatePublicConstructorWithArgument(final Object[] constructorParameterValues,
+    public static Object instantiateInstanceWithPublicConstructorWithArgument(final Object[] constructorParameterValues,
             final Class<?> clazz) {
 
-        return JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(constructorParameterValues, clazz,
-                false);
+        return JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(constructorParameterValues,
+                clazz, false);
     }
 
     /**
      * @return instance or null
      */
-    public static Object instantiatePublicConstructorWithArgument(final Object[] constructorParameterValues,
+    public static Object instantiateInstanceWithPublicConstructorWithArgument(final Object[] constructorParameterValues,
             final Class<?> clazz, final boolean suppressException) {
 
         final Constructor<?>[] constructors = clazz.getConstructors();
@@ -260,7 +242,7 @@ public enum JstReflectionUtilHelper {
     /**
      * @return instance or null
      */
-    public static Object instantiatePublicConstructorWithArgument(final String className,
+    public static Object instantiateInstanceWithPublicConstructorWithArgument(final String className,
             final boolean suppressException, final Object[] constructorParameterValues,
             final Class<?>... parameterTypes) {
 
@@ -287,17 +269,17 @@ public enum JstReflectionUtilHelper {
     /**
      * @return instance or null
      */
-    public static Object instantiatePublicConstructorWithArgument(final String className,
+    public static Object instantiateInstanceWithPublicConstructorWithArgument(final String className,
             final Object[] constructorParameterValues) {
 
-        return JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(className, constructorParameterValues,
-                false);
+        return JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(className,
+                constructorParameterValues, false);
     }
 
     /**
      * @return instance or null
      */
-    public static Object instantiatePublicConstructorWithArgument(final String className,
+    public static Object instantiateInstanceWithPublicConstructorWithArgument(final String className,
             final Object[] constructorParameterValues, final boolean suppressException) {
 
         Class<Object> clazz;
@@ -309,26 +291,49 @@ public enum JstReflectionUtilHelper {
         }
 
         // Return instantiated instance or null.
-        return JstReflectionUtilHelper.instantiatePublicConstructorWithArgument(constructorParameterValues, clazz,
+        return JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(constructorParameterValues,
+                clazz, suppressException);
+    }
+
+    /**
+     * This method returns an instance of type <code>Object</code> by invoking a
+     * non-public no-argument constructor. A class may have many constructors.
+     * Support is provided for suppressing an exception.
+     *
+     * @return instance or null
+     */
+    public static Object instantiateNonPublicConstructorNoArgument(final Class<Object> clazz,
+            final boolean suppressException) {
+
+        return instantiateInstanceWithPublicConstructorNoArgument(retrieveNonPublicConstructorNoArgument(clazz),
                 suppressException);
     }
 
     /**
-     * @return {@link Object}
+     * @return instance or null
      */
-    public static Object invokePublicMethod(final String methodName, final Object instance, final Object... args) {
+    public static Object instantiatePublicConstructorNoArgument(final Class<?> clazz) {
 
-        final Method method = JstReflectionUtilHelper.retrievePublicMethod(instance.getClass(), methodName, false);
+        return JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorNoArgument(clazz, false);
+    }
+
+    /**
+     * @return {@link Optional}
+     */
+    public static Optional<Object> invokePublicMethod(final String methodName, final Object instance,
+            final Object... args) {
+
+        final Optional<Method> method = JstReflectionUtilHelper.retrievePublicMethod(instance.getClass(), methodName);
 
         try {
-
-            return method.invoke(instance, args);
-
+            if (method.isPresent()) {
+                return Optional.ofNullable(method.get().invoke(instance, args));
+            }
         } catch (final Exception e) {
 
             throwRuntimeException(e.getMessage(), false);
         }
-        return method;
+        return Optional.ofNullable(null);
     }
 
     /**
@@ -545,7 +550,7 @@ public enum JstReflectionUtilHelper {
      * @return {@link Constructor} or null
      */
     @SuppressWarnings("unchecked")
-    public static Constructor<Object> retrievePublicConstructorNoArgument(final Class<Object> clazz) {
+    public static Constructor<Object> retrievePublicConstructorNoArgument(final Class<?> clazz) {
 
         final Constructor<?>[] constructors = clazz.getConstructors();
 
@@ -553,29 +558,20 @@ public enum JstReflectionUtilHelper {
     }
 
     /**
-     * @return {@link Method}
+     * @return {@link Optional}
      */
-    public static Method retrievePublicMethod(final Class<?> clazz, final String methodName,
-            final boolean suppressException) {
+    public static Optional<Method> retrievePublicMethod(final Class<?> clazz, final String methodName) {
 
-        try {
-            final Method[] methods = clazz.getMethods();
+        final Method[] methods = clazz.getMethods();
 
-            for (final Method methodTemp : methods) {
+        for (final Method method : methods) {
 
-                if (methodName.equalsIgnoreCase(methodTemp.getName())) {
+            if (methodName.equalsIgnoreCase(method.getName())) {
 
-                    return methodTemp;
-                }
+                return Optional.of(method);
             }
-            throwRuntimeException("Method not found.", suppressException);
-
-        } catch (final Exception e) {
-
-            throwRuntimeException(e.getMessage(), suppressException);
-
         }
-        return null;
+        return Optional.ofNullable(null);
     }
 
     /**
@@ -584,30 +580,22 @@ public enum JstReflectionUtilHelper {
     private static void throwRuntimeException(final String message, final boolean suppressException) {
 
         if (!suppressException) {
-
-            throw new JustifyTestingException(message);
+            throw new JstReflectionSelfLoggingException(
+                    JstSelfLoggingExceptionPO.withMessage(message).withClassName(JstReflectionUtilHelper.CLASS_NAME));
         }
     }
 
-    /**
-     * This method provides a security verification.
-     */
     public static void verifyConstructorAccessible(final Constructor<?> constructor) {
 
-        if (constructor.isAccessible()) {
-            return;
-        }
-
-        // Enable use of a non-public constructor.
         constructor.setAccessible(true);
         return;
     }
 
     /**
-     * @return {@link Constructor} or null
+     * @return boolean
      */
     @SuppressWarnings("unchecked")
-    public static boolean verifyPublicNoArgumentConstructorOnly(final Class<Object> clazz) {
+    public static boolean verifyPublicNoArgumentConstructorOnly(final Class<?> clazz) {
 
         final Constructor<Object>[] constructors = (Constructor<Object>[]) clazz.getConstructors();
 

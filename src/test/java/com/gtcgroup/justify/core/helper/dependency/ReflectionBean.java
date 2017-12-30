@@ -39,18 +39,18 @@ import java.io.Serializable;
  * @author
  * @since v.6.0
  */
-public class ReflectionBeanHelper implements Serializable {
+public class ReflectionBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     public static final String STRING = "string";
 
-    private String string = ReflectionBeanHelper.STRING;
+    private String string = ReflectionBean.STRING;
 
     /**
      * Constructor
      */
-    public ReflectionBeanHelper() {
+    public ReflectionBean() {
 
         super();
         return;
@@ -61,7 +61,7 @@ public class ReflectionBeanHelper implements Serializable {
      *
      * @param string
      */
-    public ReflectionBeanHelper(final String string) {
+    public ReflectionBean(final String string) {
 
         super();
         this.setString(string);
@@ -76,11 +76,10 @@ public class ReflectionBeanHelper implements Serializable {
 
     /**
      * @param string
-     * @return {@link ReflectionBeanHelper}
+     * @return {@link ReflectionBean}
      */
-    public ReflectionBeanHelper setString(final String string) {
+    public ReflectionBean setString(final String string) {
         this.string = string;
         return this;
     }
-
 }
