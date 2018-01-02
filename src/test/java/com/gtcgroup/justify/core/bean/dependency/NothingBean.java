@@ -23,24 +23,12 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.bean.dependency;
 
-package com.gtcgroup.justify.core.helper.dependency;
+import com.gtcgroup.justify.core.base.JstBaseDE;
 
-/**
- * This class is for testing.
- *
- * <p style="font-family:Verdana; font-size:10px; font-style:italic">
- * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
- * <a href="http://gtcGroup.com">gtcGroup.com </a>.
- * </p>
- *
- * @author Marvin Toll
- * @since v3.0
- */
-public class ReflectionExceptionBean {
+public class NothingBean extends JstBaseDE {
 
-    public ReflectionExceptionBean() {
-        super();
-        throw new RuntimeException();
-    }
+    private static final long serialVersionUID = 1L;
+
 }

@@ -24,17 +24,10 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.base;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.junit.jupiter.api.Test;
-
-import com.gtcgroup.justify.core.bean.dependency.NothingBean;
-import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
+package com.gtcgroup.justify.core.bean.dependency;
 
 /**
- * Test Class
+ * This class is for testing.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -42,16 +35,12 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
  * </p>
  *
  * @author Marvin Toll
- * @since v8.5
+ * @since v3.0
  */
-@JstConfigureTestLogToConsole
-public class BaseDeTest extends JstBaseTest {
+public class ThrowExceptionBean {
 
-    private static final NothingBean note = new NothingBean();
-
-    @Test
-    public void testEquals() {
-
-        assertEquals(BaseDeTest.note, BaseDeTest.note);
+    public ThrowExceptionBean() {
+        super();
+        throw new RuntimeException();
     }
 }

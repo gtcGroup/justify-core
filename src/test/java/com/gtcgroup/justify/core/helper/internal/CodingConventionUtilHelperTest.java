@@ -30,8 +30,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.base.JstBaseTest;
-import com.gtcgroup.justify.core.base.dependency.IncorrectSuffixPeeOh;
-import com.gtcgroup.justify.core.base.dependency.NoteDE;
+import com.gtcgroup.justify.core.bean.dependency.IncorrectSuffixPeeOh;
+import com.gtcgroup.justify.core.bean.dependency.NothingBean;
 import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
 import com.gtcgroup.justify.core.test.exception.internal.JustifyTestingException;
 
@@ -53,7 +53,7 @@ public class CodingConventionUtilHelperTest extends JstBaseTest {
     public void testCheckClassCharacterInName() {
 
         Assertions.assertThrows(JustifyTestingException.class, () -> {
-            JstCodingConventionUtilHelper.checkSuffixInClassName(NoteDE.class, "@#");
+            JstCodingConventionUtilHelper.checkSuffixInClassName(NothingBean.class, "@#");
         });
 
     }

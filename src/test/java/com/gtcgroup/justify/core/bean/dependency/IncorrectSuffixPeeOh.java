@@ -24,7 +24,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.base.dependency;
+package com.gtcgroup.justify.core.bean.dependency;
 
 import com.gtcgroup.justify.core.base.JstBasePO;
 

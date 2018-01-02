@@ -23,7 +23,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.helper.dependency;
+package com.gtcgroup.justify.core.bean.dependency;
 
 import java.io.Serializable;
 
@@ -39,18 +39,18 @@ import java.io.Serializable;
  * @author
  * @since v.6.0
  */
-public class ReflectionBean implements Serializable {
+public class NonPublicConstructorBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     public static final String STRING = "string";
 
-    private String string = ReflectionBean.STRING;
+    private String string = NonPublicConstructorBean.STRING;
 
     /**
      * Constructor
      */
-    public ReflectionBean() {
+    protected NonPublicConstructorBean() {
 
         super();
         return;
@@ -61,7 +61,7 @@ public class ReflectionBean implements Serializable {
      *
      * @param string
      */
-    public ReflectionBean(final String string) {
+    protected NonPublicConstructorBean(final String string) {
 
         super();
         this.setString(string);
@@ -76,9 +76,9 @@ public class ReflectionBean implements Serializable {
 
     /**
      * @param string
-     * @return {@link ReflectionBean}
+     * @return {@link NonPublicConstructorBean}
      */
-    public ReflectionBean setString(final String string) {
+    public NonPublicConstructorBean setString(final String string) {
         this.string = string;
         return this;
     }

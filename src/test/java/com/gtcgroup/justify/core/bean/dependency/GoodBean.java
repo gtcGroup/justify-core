@@ -23,12 +23,63 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.base.dependency;
+package com.gtcgroup.justify.core.bean.dependency;
 
-import com.gtcgroup.justify.core.base.JstBaseDE;
+import java.io.Serializable;
 
-public class NoteDE extends JstBaseDE {
+/**
+ * This class is for testing. It is not a correct implementation of the Bean
+ * Helper pattern.
+ *
+ * <p style="font-family:Verdana; font-size:10px; font-style:italic">
+ * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
+ * <a href="http://gtcGroup.com">gtcGroup.com </a>.
+ * </p>
+ *
+ * @author
+ * @since v.6.0
+ */
+public class GoodBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String STRING = "string";
+
+    private String string = GoodBean.STRING;
+
+    /**
+     * Constructor
+     */
+    public GoodBean() {
+
+        super();
+        return;
+    }
+
+    /**
+     * Constructor
+     *
+     * @param string
+     */
+    public GoodBean(final String string) {
+
+        super();
+        this.setString(string);
+    }
+
+    /**
+     * @return String
+     */
+    public String getString() {
+        return this.string;
+    }
+
+    /**
+     * @param string
+     * @return {@link GoodBean}
+     */
+    public GoodBean setString(final String string) {
+        this.string = string;
+        return this;
+    }
 }
