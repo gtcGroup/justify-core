@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -106,53 +106,37 @@ public class ReflectionUtilHelperTest {
     @Test
     public void testFieldInstanceWithDirectAccess() {
 
-        JstReflectionUtilHelper.retrieveFieldInstanceWithDirectAccess(new NoteDE(), "text", false);
+        JstReflectionUtilHelper.retrieveFieldInstanceWithDirectAccess(new NoteDE(), "text");
     }
 
     @Test()
     public void testFieldInstanceWithDirectAccess_exception() {
 
         JstReflectionUtilHelper.retrieveFieldInstanceWithDirectAccess(new NoteDE(),
-                ReflectionUtilHelperTest.FAKE_FILE_NAME, false);
+                ReflectionUtilHelperTest.FAKE_FILE_NAME);
     }
 
     @Test
     public void testGetResourceAsStream() {
-        final JstStreamPO jstStreamPO = JstReflectionUtilHelper
-                .getResourceAsStream(ReflectionUtilHelperTest.TEST_FILE_NAME, false);
+        final Optional<JstStreamPO> jstStreamPO = JstReflectionUtilHelper
+                .getResourceAsStreamPoAndBeSureToClose(ReflectionUtilHelperTest.TEST_FILE_NAME);
 
         assertAll(() -> {
-            assertNotNull(jstStreamPO.getInputStreamToBeClosed());
-            assertNotNull(jstStreamPO.getClassLoader());
+            assertNotNull(jstStreamPO.get().getInputStreamToBeClosed());
+            assertNotNull(jstStreamPO.get().getClassLoader());
         });
-    }
-
-    @Test()
-    public void testGetResourceAsStream_exception() {
-        JstReflectionUtilHelper.getResourceAsStream("fakeResourceName", false);
     }
 
     @Test
     public void testGetResourceAsStream_exception_suppress() {
-        assertNull(JstReflectionUtilHelper.getResourceAsStream("fakeResourceName", true));
+        assertNull(JstReflectionUtilHelper.getResourceAsStreamAndBeSureToClose("fakeResourceName"));
     }
 
     @Test
-    public void testInstantiateNonPublicConstructorWithArgument_constructorListEmpty() {
+    public void testInstantiateInstanceWithNonPublicConstructorWithArgument_constructorListEmpty() {
 
-        assertNull(JstReflectionUtilHelper.instantiate(this.CONSTRUCTOR_PARAMETER_VALUES,
-                new ArrayList<Constructor<?>>()));
-
-    }
-
-    @Test
-    public void testInstantiateNonPublicConstructorWithArgument_constructorListNull() {
-
-        final List<Constructor<?>> constructorList = new ArrayList<>();
-
-        constructorList.add(null);
-
-        assertNull(JstReflectionUtilHelper.instantiate(this.CONSTRUCTOR_PARAMETER_VALUES, constructorList, true));
+        assertNull(JstReflectionUtilHelper.instantiateInstanceUsingNonPublicConstructorWithNoArgument(
+                this.CONSTRUCTOR_PARAMETER_VALUES, new ArrayList<Constructor<?>>()));
 
     }
 
@@ -161,7 +145,7 @@ public class ReflectionUtilHelperTest {
 
         JstReflectionUtilHelper.retrievePublicConstructorNoArgument(ReflectionBean.class);
 
-        assertNotNull(JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(ReflectionBean.class));
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceFromConstructorWithNoArgument(constructor)WithPublicConstructorNoArgument(ReflectionBean.class));
     }
 
     @Test
@@ -181,7 +165,7 @@ public class ReflectionUtilHelperTest {
     @Test()
     public void testInstantiatePublicConstructorNoArgument_exception_null() {
 
-        JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(JstReflectionUtilHelper.class);
+        JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorNoArgument(JstReflectionUtilHelper.class);
     }
 
     @Test
@@ -201,7 +185,7 @@ public class ReflectionUtilHelperTest {
     @Test
     public void testInstantiatePublicConstructorNoArgument_valid1() {
 
-        assertNotNull(JstReflectionUtilHelper.instantiatePublicConstructorNoArgument(ReflectionBean.class));
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorNoArgument(ReflectionBean.class));
     }
 
     @Test
@@ -221,15 +205,15 @@ public class ReflectionUtilHelperTest {
     @Test
     public void testInstantiatePublicConstructorWithArgument_null1() {
 
-        assertNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument("com.gtcgroup.FakeName",
-                this.CONSTRUCTOR_PARAMETER_VALUES, true));
+        assertNull(JstReflectionUtilHelper.instantiateInstanceUsingPublicConstructorWithParameters(
+                "com.gtcgroup.FakeName", this.CONSTRUCTOR_PARAMETER_VALUES, true));
     }
 
     @Test()
     public void testInstantiatePublicConstructorWithArgument_null2() {
 
-        assertNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument("com.gtcgroup.FakeName",
-                this.CONSTRUCTOR_PARAMETER_VALUES, false));
+        assertNull(JstReflectionUtilHelper.instantiateInstanceUsingPublicConstructorWithParameters(
+                "com.gtcgroup.FakeName", this.CONSTRUCTOR_PARAMETER_VALUES, false));
     }
 
     @Test
@@ -258,7 +242,7 @@ public class ReflectionUtilHelperTest {
     @Test
     public void testInstantiatePublicConstructorWithArgument_valide() {
 
-        assertNotNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceUsingPublicConstructorWithParameters(
                 this.CONSTRUCTOR_PARAMETER_VALUES, ReflectionBean.class, true));
     }
 
@@ -272,7 +256,7 @@ public class ReflectionUtilHelperTest {
     @Test
     public void testInstantiatePublicConstructorWithArgument_validTwo() {
 
-        assertNotNull(JstReflectionUtilHelper.instantiateInstanceWithPublicConstructorWithArgument(
+        assertNotNull(JstReflectionUtilHelper.instantiateInstanceUsingPublicConstructorWithParameters(
                 ReflectionBean.class.getName(), this.CONSTRUCTOR_PARAMETER_VALUES, true));
     }
 
@@ -330,21 +314,20 @@ public class ReflectionUtilHelperTest {
     @Test
     public void testRetrieveFieldValueByInvokingTheGetter_null() {
 
-        assertNull(
-                JstReflectionUtilHelper.retrieveFieldValueFromMethodName(new ReflectionBean(), "fakeFieldName", true));
+        assertNull(JstReflectionUtilHelper.retrieveValueFromMethodName(new ReflectionBean(), "fakeFieldName", true));
     }
 
     @Test
     public void testRetrieveFieldValueFromMethodName() {
 
-        assertEquals(JstReflectionUtilHelper.retrieveFieldValueFromMethodName(new ReflectionBean(), "getString", true),
+        assertEquals(JstReflectionUtilHelper.retrieveValueFromMethodName(new ReflectionBean(), "getString", true),
                 ReflectionBean.STRING);
     }
 
     @Test()
     public void testRetrieveFieldValueFromMethodName_exception() {
 
-        JstReflectionUtilHelper.retrieveFieldValueFromMethodName(new ReflectionBean(), "retrieveException", false);
+        JstReflectionUtilHelper.retrieveValueFromMethodName(new ReflectionBean(), "retrieveException", false);
     }
 
     @Test
