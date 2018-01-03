@@ -5,7 +5,7 @@
     project="justify-core" 
     file="/justify-core/src/main/java/com/gtcgroup/justify/core/helper/JstReflectionUtilHelper.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="585" width="580" x="-22" y="-124"/>    
+    <position height="549" width="536" x="90" y="-48"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

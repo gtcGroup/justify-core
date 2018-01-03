@@ -317,14 +317,16 @@ public enum JstReflectionUtilHelper {
         try {
             constructor = clazz.getConstructor(constructorParameterTypes);
 
-            if (null == constructor) {
-                constructor = clazz.getDeclaredConstructor(constructorParameterTypes);
-            }
+        } catch (@SuppressWarnings("unused") final Exception e1) {
 
-        } catch (@SuppressWarnings("unused") final Exception e) {
-            // Continue.
+            try {
+                constructor = clazz.getDeclaredConstructor(constructorParameterTypes);
+            } catch (@SuppressWarnings("unused") final Exception e2) {
+                // Continue.
+            }
         }
         return Optional.ofNullable(constructor);
+
     }
 
     /**

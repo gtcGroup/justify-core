@@ -25,10 +25,8 @@
  */
 package com.gtcgroup.justify.core.bean.dependency;
 
-import com.gtcgroup.justify.core.base.JstBaseDE;
+public class NothingBean {
 
-public class NothingBean extends JstBaseDE {
-
-    private static final long serialVersionUID = 1L;
+    // Empty.
 
 }

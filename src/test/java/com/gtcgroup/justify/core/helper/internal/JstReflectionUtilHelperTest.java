@@ -55,7 +55,7 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
  */
 @SuppressWarnings("static-method")
 @JstConfigureTestLogToConsole
-public class ReflectionUtilHelperTest {
+public class JstReflectionUtilHelperTest {
 
     private static final String FAKE_CLASS_NAME = "FakeClassName";
 
@@ -106,28 +106,28 @@ public class ReflectionUtilHelperTest {
     @Test
     public void testExistsOnClasspath_false() {
 
-        assertFalse(JstReflectionUtilHelper.existsOnClasspath(ReflectionUtilHelperTest.FAKE_FILE_NAME));
+        assertFalse(JstReflectionUtilHelper.existsOnClasspath(JstReflectionUtilHelperTest.FAKE_FILE_NAME));
     }
 
     @Test
     public void testGetResourceAsStreamAndBeSureToClose() {
 
-        assertTrue(JstReflectionUtilHelper.getResourceAsStreamAndBeSureToClose(ReflectionUtilHelperTest.TEST_FILE_NAME)
-                .isPresent());
+        assertTrue(JstReflectionUtilHelper
+                .getResourceAsStreamAndBeSureToClose(JstReflectionUtilHelperTest.TEST_FILE_NAME).isPresent());
     }
 
     @Test
     public void testGetResourceAsStreamAndBeSureToClose_false() {
 
-        assertFalse(JstReflectionUtilHelper.getResourceAsStreamAndBeSureToClose(ReflectionUtilHelperTest.FAKE_FILE_NAME)
-                .isPresent());
+        assertFalse(JstReflectionUtilHelper
+                .getResourceAsStreamAndBeSureToClose(JstReflectionUtilHelperTest.FAKE_FILE_NAME).isPresent());
     }
 
     @Test
     public void testGetResourceAsStreamPoAndBeSureToClose() {
 
         final Optional<JstStreamPO> jstStreamPO = JstReflectionUtilHelper
-                .getResourceAsStreamPoAndBeSureToClose(ReflectionUtilHelperTest.TEST_FILE_NAME);
+                .getResourceAsStreamPoAndBeSureToClose(JstReflectionUtilHelperTest.TEST_FILE_NAME);
 
         assertAll(() -> {
             assertTrue(jstStreamPO.isPresent());
@@ -193,7 +193,7 @@ public class ReflectionUtilHelperTest {
     }
 
     @Test
-    public void testInstantiatePublicConstructorWithArgument() {
+    public void testInstantiateInstanceUsingPublicConstructorWithParameters() {
 
         assertTrue(JstReflectionUtilHelper.instantiateInstanceUsingPublicConstructorWithParameters(
                 GoodBean.class.getName(), this.CONSTRUCTOR_PARAMETER_VALUES, String.class).isPresent());
@@ -201,10 +201,20 @@ public class ReflectionUtilHelperTest {
     }
 
     @Test
-    public void testInstantiatePublicConstructorWithArgument_false() {
+    public void testInstantiateUsingPublicConstructorWithParameters_false1() {
+
+        assertFalse(JstReflectionUtilHelper
+                .instantiateInstanceUsingPublicConstructorWithParameters(JstReflectionUtilHelperTest.FAKE_CLASS_NAME,
+                        this.CONSTRUCTOR_PARAMETER_VALUES, String.class)
+                .isPresent());
+
+    }
+
+    @Test
+    public void testInstantiateUsingPublicConstructorWithParameters_false2() {
 
         assertFalse(JstReflectionUtilHelper.instantiateInstanceUsingPublicConstructorWithParameters(
-                ReflectionUtilHelperTest.FAKE_CLASS_NAME, this.CONSTRUCTOR_PARAMETER_VALUES, String.class).isPresent());
+                JstReflectionUtilHelper.class, this.CONSTRUCTOR_PARAMETER_VALUES, String.class).isPresent());
 
     }
 
@@ -224,21 +234,22 @@ public class ReflectionUtilHelperTest {
     public void testInvokePublicMethod_false() {
 
         assertFalse(JstReflectionUtilHelper
-                .invokePublicMethod(ReflectionUtilHelperTest.TEST_METHOD_SET, new GoodBean(), new Long(0)).isPresent());
+                .invokePublicMethod(JstReflectionUtilHelperTest.TEST_METHOD_SET, new GoodBean(), new Long(0))
+                .isPresent());
     }
 
     @Test
     public void testInvokePublicMethod_get() {
 
-        assertTrue(JstReflectionUtilHelper.invokePublicMethod(ReflectionUtilHelperTest.TEST_METHOD_GET, new GoodBean())
-                .isPresent());
+        assertTrue(JstReflectionUtilHelper
+                .invokePublicMethod(JstReflectionUtilHelperTest.TEST_METHOD_GET, new GoodBean()).isPresent());
     }
 
     @Test
     public void testInvokePublicMethod_set() {
 
         assertTrue(JstReflectionUtilHelper
-                .invokePublicMethod(ReflectionUtilHelperTest.TEST_METHOD_SET, new GoodBean(), GoodBean.STRING)
+                .invokePublicMethod(JstReflectionUtilHelperTest.TEST_METHOD_SET, new GoodBean(), GoodBean.STRING)
                 .isPresent());
     }
 
@@ -261,16 +272,23 @@ public class ReflectionUtilHelperTest {
     }
 
     @Test
-    public void testRetrieveFieldInstanceWithDirectAccess() {
+    public void testRetrieveConstructorWithParameters() {
 
-        assertTrue(JstReflectionUtilHelper.retrieveFieldInstanceWithDirectAccess(new GoodBean(), "text").isPresent());
+        assertTrue(JstReflectionUtilHelper
+                .retrieveConstructorWithParameters(NonPublicConstructorBean.class, String.class).isPresent());
     }
 
-    @Test()
+    @Test
+    public void testRetrieveFieldInstanceWithDirectAccess() {
+
+        assertTrue(JstReflectionUtilHelper.retrieveFieldInstanceWithDirectAccess(new GoodBean(), "string").isPresent());
+    }
+
+    @Test
     public void testRetrieveFieldInstanceWithDirectAccess_false() {
 
         assertFalse(JstReflectionUtilHelper
-                .retrieveFieldInstanceWithDirectAccess(new NothingBean(), ReflectionUtilHelperTest.FAKE_FILE_NAME)
+                .retrieveFieldInstanceWithDirectAccess(new NothingBean(), JstReflectionUtilHelperTest.FAKE_FILE_NAME)
                 .isPresent());
     }
 
@@ -284,7 +302,7 @@ public class ReflectionUtilHelperTest {
     public void testRetrieveFileAsDataInputStream_valid() {
 
         assertNotNull(JstReflectionUtilHelper
-                .retrieveFileAsDataInputStreamAndBeSureToClose(ReflectionUtilHelperTest.TEST_FILE_NAME));
+                .retrieveFileAsDataInputStreamAndBeSureToClose(JstReflectionUtilHelperTest.TEST_FILE_NAME));
     }
 
     @Test()
@@ -296,14 +314,14 @@ public class ReflectionUtilHelperTest {
     @Test
     public void testRetrieveFileAsReader_valid() {
 
-        assertNotNull(JstReflectionUtilHelper.retrieveFileAsReader(ReflectionUtilHelperTest.TEST_FILE_NAME));
+        assertNotNull(JstReflectionUtilHelper.retrieveFileAsReader(JstReflectionUtilHelperTest.TEST_FILE_NAME));
     }
 
     @Test
     public void testRetrievePublicMethod_fake() {
 
         assertFalse(JstReflectionUtilHelper
-                .retrievePublicMethod(JstReflectionUtilHelper.class, ReflectionUtilHelperTest.FAKE_METHOD_NAME)
+                .retrievePublicMethod(JstReflectionUtilHelper.class, JstReflectionUtilHelperTest.FAKE_METHOD_NAME)
                 .isPresent());
     }
 
@@ -311,6 +329,6 @@ public class ReflectionUtilHelperTest {
     public void testRetrievePublicMethod_valid() {
 
         assertTrue(JstReflectionUtilHelper
-                .retrievePublicMethod(GoodBean.class, ReflectionUtilHelperTest.TEST_METHOD_GET).isPresent());
+                .retrievePublicMethod(GoodBean.class, JstReflectionUtilHelperTest.TEST_METHOD_GET).isPresent());
     }
 }

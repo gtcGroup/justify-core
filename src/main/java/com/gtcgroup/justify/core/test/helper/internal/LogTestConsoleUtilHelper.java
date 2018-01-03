@@ -31,13 +31,14 @@ import java.io.StringWriter;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.JstSystemPropertyConstant;
+import com.gtcgroup.justify.core.helper.JstTypeConversionUtilHelper;
 import com.gtcgroup.justify.core.helper.JstTimer;
-import com.gtcgroup.justify.core.helper.internal.ConversionUtilHelper;
 import com.gtcgroup.justify.core.test.exception.internal.JustifyTestingException;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
@@ -159,9 +160,12 @@ public enum LogTestConsoleUtilHelper {
 
         final String message = "\t* Justify v" + System.getProperty(JstSystemPropertyConstant.JUSTIFY_VERSION) + " *";
 
-        final StringBuilder border = ConversionUtilHelper.convertMessageLengthToBorder(message);
+        final Optional<StringBuilder> border = JstTypeConversionUtilHelper.convertMessageLengthToBorder(message);
 
-        logToConsole(border.toString() + message + border.toString());
+        if (border.isPresent()) {
+
+            logToConsole(border.toString() + message + border.toString());
+        }
     }
 
     public static void logMethodDetailsToTestConsole(final String uniqueId) {
@@ -178,8 +182,8 @@ public enum LogTestConsoleUtilHelper {
         message.append("\n\t***  End:  [");
         message.append(status);
         message.append("] ");
-        message.append(
-                ConversionUtilHelper.convertNanosecondToMillisecondString(jstTimer.calculateElapsedNanoSeconds()));
+        message.append(JstTypeConversionUtilHelper
+                .convertNanosecondToMillisecondString(jstTimer.calculateElapsedNanoSeconds()));
         message.append(" ms ***");
         logToConsole(message.toString());
     }
