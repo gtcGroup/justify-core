@@ -28,17 +28,12 @@ package com.gtcgroup.justify.core.helper.internal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
-
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -65,15 +60,14 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
 
     private static final long MILLISECONDS = new Long("-412542000000").longValue();
 
+    private static final String STRING_DATE_FORMAT = "MMM-dd-yyyy";
+    private static final String STRING_DATE_FORMAT_EXCEPTION = "MMMddyyyy";
+
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(
             JstTypeConversionUtilHelperTest.STRING_DATE_FORMAT);
 
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT_EXCEPTION = new SimpleDateFormat(
             JstTypeConversionUtilHelperTest.STRING_DATE_FORMAT_EXCEPTION);
-
-    private static final String STRING_DATE_FORMAT = "MMM-dd-yyyy";
-
-    private static final String STRING_DATE_FORMAT_EXCEPTION = "MMMddyyyy";
 
     @Test
     public void testConvertCalendarToMMMddyyyyWithLocale() {
@@ -88,92 +82,58 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
     @Test
     public void testConvertCalendarToMMMddyyyyWithLocale_false() {
 
-        assertFalse(JstTypeConversionUtilHelper
-                .convertCalendarToMMMddyyyyWithLocale(JstTypeConversionUtilHelper
-                        .instantiateCalendar(JstTypeConversionUtilHelperTest.BIRTHDAY_EXCEPTION,
-                                JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT)
-                        .get(), new Locale("IT"))
-                .isPresent());
-    }
-
-    @Test
-    public void testConvertCalendarToMMMddyyyyWithLocale_nulls() {
-
         assertFalse(JstTypeConversionUtilHelper.convertCalendarToMMMddyyyyWithLocale(null, null).isPresent());
     }
 
-    @Test()
-    public void testConvertCalendarToXmlDateTime_empty() throws DatatypeConfigurationException {
+    @Test
+    public void testConvertCalendarToXmlGregorian() {
 
-        JstTypeConversionUtilHelper.convertCalendarToXmlDateTime(JstTypeConversionUtilHelper.instantiateCalendar("",
-                JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT));
+        assertTrue(
+                JstTypeConversionUtilHelper
+                        .convertCalendarToXmlGregorian(JstTypeConversionUtilHelper
+                                .instantiateCalendar(JstTypeConversionUtilHelperTest.BIRTHDAY,
+                                        JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT_EXCEPTION)
+                                .get())
+                        .isPresent());
     }
 
     @Test
-    public void testConvertCalendarToXmlDateTime_failure() throws DatatypeConfigurationException {
+    public void testConvertCalendarToXmlGregorian_false() {
 
-        final XMLGregorianCalendar value = JstTypeConversionUtilHelper.convertCalendarToXmlDateTime(
-                JstTypeConversionUtilHelper.instantiateCalendar(JstTypeConversionUtilHelperTest.BIRTHDAY,
-                        JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT_EXCEPTION));
-
-        assertNotEquals(value.getMillisecond(), JstTypeConversionUtilHelperTest.MILLISECONDS);
-    }
-
-    @Test()
-    public void testConvertCalendarToXmlDateTime_null() throws DatatypeConfigurationException {
-
-        JstTypeConversionUtilHelper.convertCalendarToXmlDateTime(null);
+        assertFalse(JstTypeConversionUtilHelper.convertCalendarToXmlGregorian(null).isPresent());
     }
 
     @Test
     public final void testConvertDateMMMddyyyyToCalendar() {
 
-        final Calendar value = JstTypeConversionUtilHelper
-                .convertDateMMMddyyyyToCalendar(JstTypeConversionUtilHelperTest.BIRTHDAY);
-
-        assertEquals(new Date(JstTypeConversionUtilHelperTest.MILLISECONDS), value.getTime());
+        assertTrue(JstTypeConversionUtilHelper.convertDateMMMddyyyyToCalendar(JstTypeConversionUtilHelperTest.BIRTHDAY)
+                .isPresent());
     }
 
-    @Test()
-    public final void testConvertDateMMMddyyyyToCalendar_empty() {
+    @Test
+    public final void testConvertDateMMMddyyyyToCalendar_false() {
 
-        JstTypeConversionUtilHelper.convertDateMMMddyyyyToCalendar("");
-    }
-
-    @Test()
-    public final void testConvertDateMMMddyyyyToCalendar_exception() {
-
-        JstTypeConversionUtilHelper.convertDateMMMddyyyyToCalendar(JstTypeConversionUtilHelperTest.BIRTHDAY_EXCEPTION);
+        assertFalse(JstTypeConversionUtilHelper.convertDateMMMddyyyyToCalendar(null).isPresent());
     }
 
     @Test
     public void testConvertDateMMMddyyyyToTimestamp() {
 
-        final Timestamp value = JstTypeConversionUtilHelper
-                .convertDateMMMddyyyyToTimestamp(JstTypeConversionUtilHelperTest.BIRTHDAY);
-
-        assertEquals(JstTypeConversionUtilHelperTest.MILLISECONDS, value.getTime());
+        assertTrue(JstTypeConversionUtilHelper.convertDateMMMddyyyyToTimestamp(JstTypeConversionUtilHelperTest.BIRTHDAY)
+                .isPresent());
     }
 
     @Test()
     public void testConvertDateMMMddyyyyToTimestamp_empty() {
 
-        JstTypeConversionUtilHelper.convertDateMMMddyyyyToTimestamp("");
-    }
-
-    @Test()
-    public void testConvertDateMMMddyyyyToTimestamp_exception() {
-
-        JstTypeConversionUtilHelper.convertDateMMMddyyyyToTimestamp(JstTypeConversionUtilHelperTest.BIRTHDAY_EXCEPTION);
+        assertFalse(JstTypeConversionUtilHelper.convertDateMMMddyyyyToTimestamp("").isPresent());
     }
 
     @Test
     public void testConvertDateMMMddyyyyToXmlDate() {
 
-        final XMLGregorianCalendar value = JstTypeConversionUtilHelper
-                .convertDateMMMddyyyyToXmlDate(JstTypeConversionUtilHelperTest.BIRTHDAY);
-
-        assertEquals(5, value.getDay());
+        assertTrue(JstTypeConversionUtilHelper.convertDateMMMddyyyyToXmlDate(JstTypeConversionUtilHelperTest.BIRTHDAY)
+                .isPresent());
     }
 
     @Test()
@@ -193,32 +153,14 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
     @Test
     public void testConvertDateMMMddyyyyToyyyymmdd() {
 
-        final String value = JstTypeConversionUtilHelper
-                .convertDateMMMddyyyyToyyyymmdd(JstTypeConversionUtilHelperTest.BIRTHDAY);
-
-        assertEquals("1956-12-05", value);
+        assertTrue(JstTypeConversionUtilHelper.convertDateMMMddyyyyToyyyymmdd(JstTypeConversionUtilHelperTest.BIRTHDAY)
+                .isPresent());
     }
 
     @Test()
-    public void testConvertDateMMMddyyyyToyyyymmdd_exception() {
+    public void testConvertDateMMMddyyyyToyyyymmdd_false() {
 
-        JstTypeConversionUtilHelper.convertDateMMMddyyyyToyyyymmdd(JstTypeConversionUtilHelperTest.BIRTHDAY_EXCEPTION);
-    }
-
-    @Test()
-    public void testConvertDateMMMddyyyyToyyyymmdd_null() {
-
-        JstTypeConversionUtilHelper.convertDateMMMddyyyyToyyyymmdd(null);
-
-    }
-
-    @Test
-    public void testConvertDateStringToCalendar() {
-
-        final Calendar value = JstTypeConversionUtilHelper.convertDateStringToCalendar(
-                JstTypeConversionUtilHelperTest.BIRTHDAY, JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT);
-
-        assertEquals(new Date(JstTypeConversionUtilHelperTest.MILLISECONDS), value.getTime());
+        assertFalse(JstTypeConversionUtilHelper.convertDateMMMddyyyyToyyyymmdd(null).isPresent());
     }
 
     @Test()
@@ -235,15 +177,6 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
 
     }
 
-    @Test
-    public void testConvertDateStringToTimestamp() {
-
-        final Timestamp value = JstTypeConversionUtilHelper.convertDateStringToTimestamp(
-                JstTypeConversionUtilHelperTest.BIRTHDAY, JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT);
-
-        assertEquals(JstTypeConversionUtilHelperTest.MILLISECONDS, value.getTime());
-    }
-
     @Test()
     public void testConvertDateStringToTimestamp_exception() {
 
@@ -256,15 +189,6 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
 
         JstTypeConversionUtilHelper.convertDateStringToTimestamp(null,
                 JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT);
-    }
-
-    @Test
-    public void testConvertDateStringToXmlDate() {
-
-        final XMLGregorianCalendar value = JstTypeConversionUtilHelper.convertDateStringToXmlDate(
-                JstTypeConversionUtilHelperTest.BIRTHDAY, JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT);
-
-        assertEquals(5, value.getDay());
     }
 
     @Test()
@@ -282,69 +206,76 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
     }
 
     @Test
-    public void testConvertDatetimeXmlToCalendar() {
-
-        final Calendar value = JstTypeConversionUtilHelper.convertGregorianCalendarToCalendar(
-                JstTypeConversionUtilHelper.instantiateXmlGregorianCalendar(JstTypeConversionUtilHelperTest.BIRTHDAY,
-                        JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT));
-
-        assertNotEquals(value.getTimeInMillis(), JstTypeConversionUtilHelperTest.MILLISECONDS);
-    }
-
-    @Test
     public void testConvertDateXmlToDateString() {
 
-        final String value = JstTypeConversionUtilHelper.convertDateXmlToDateString(
+        assertTrue(JstTypeConversionUtilHelper.convertDateXmlToDateString(
                 JstTypeConversionUtilHelper.instantiateXmlGregorianCalendar(JstTypeConversionUtilHelperTest.BIRTHDAY,
-                        JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT),
-                JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT);
-
-        assertEquals(JstTypeConversionUtilHelperTest.BIRTHDAY, value.toUpperCase());
+                        JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT).get(),
+                JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT).isPresent());
     }
 
     @Test()
-    public void testConvertDateXmlToDateString_emptyString() {
+    public void testConvertDateXmlToDateString_false() {
 
-        JstTypeConversionUtilHelper.convertDateXmlToDateString(
-                JstTypeConversionUtilHelper.instantiateXmlGregorianCalendar("", new SimpleDateFormat("")),
-                JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT_EXCEPTION);
-    }
-
-    @Test
-    public void testConvertDateXmlToDateString_failure() {
-
-        final String value = JstTypeConversionUtilHelper.convertDateXmlToDateString(
-                JstTypeConversionUtilHelper.instantiateXmlGregorianCalendar(JstTypeConversionUtilHelperTest.BIRTHDAY,
-                        JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT),
-                JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT_EXCEPTION);
-
-        assertNotEquals(value.toUpperCase(), JstTypeConversionUtilHelperTest.BIRTHDAY);
-    }
-
-    @Test()
-    public void testConvertDateXmlToDateString_null() {
-
-        final String value = JstTypeConversionUtilHelper.convertDateXmlToDateString(null,
-                JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT_EXCEPTION);
-
-        assertNotEquals(JstTypeConversionUtilHelperTest.BIRTHDAY, value.toUpperCase());
+        assertFalse(JstTypeConversionUtilHelper
+                .convertDateXmlToDateString(null, JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT_EXCEPTION)
+                .isPresent());
     }
 
     @Test
     public void testConvertDateXmlToMMMddyyyy() {
 
-        final String value = JstTypeConversionUtilHelper.convertDateXmlToMMMddyyyy(
+        assertTrue(JstTypeConversionUtilHelper.convertDateXmlToMMMddyyyy(
                 JstTypeConversionUtilHelper.instantiateXmlGregorianCalendar(JstTypeConversionUtilHelperTest.BIRTHDAY,
-                        JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT));
-
-        assertEquals(JstTypeConversionUtilHelperTest.BIRTHDAY, value.toUpperCase());
+                        JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT).get())
+                .isPresent());
     }
 
-    @Test()
-    public void testConvertDateXmlToMMMddyyyy_exception() {
+    @Test
+    public void testConvertFromUuidToByteArray() {
 
-        JstTypeConversionUtilHelper.convertDateXmlToMMMddyyyy(JstTypeConversionUtilHelper
-                .instantiateXmlGregorianCalendar("!@#$%^&*()", JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT));
+        assertTrue(JstTypeConversionUtilHelper.convertFromUuidToByteArray(UUID.randomUUID()).isPresent());
+    }
+
+    @Test
+    public void testConvertFromUuidToByteArray_false() {
+
+        assertFalse(JstTypeConversionUtilHelper.convertFromUuidToByteArray(null).isPresent());
+    }
+
+    @Test
+    public void testConvertGregorianCalenderToCalendar() {
+
+        assertTrue(JstTypeConversionUtilHelper.convertGregorianCalendarToCalendar(
+                JstTypeConversionUtilHelper.instantiateXmlGregorianCalendar(JstTypeConversionUtilHelperTest.BIRTHDAY,
+                        JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT).get())
+                .isPresent());
+    }
+
+    @Test
+    public void testConvertGregorianCalenderToCalendar_false() {
+
+        assertFalse(JstTypeConversionUtilHelper.convertGregorianCalendarToCalendar(null).isPresent());
+    }
+
+    @Test
+    public void testConvertMessageLengthToBorder() {
+
+        assertTrue(JstTypeConversionUtilHelper.convertMessageLengthToBorder("null").isPresent());
+    }
+
+    @Test
+    public void testConvertMessageLengthToBorder_false() {
+
+        assertFalse(JstTypeConversionUtilHelper.convertMessageLengthToBorder(null).isPresent());
+    }
+
+    @Test
+    public void testConvertNanosecondToMicrosecondString_false() {
+
+        final long nanos = 999999999999999999L;
+
+        assertFalse(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains("."));
     }
 
     @Test
@@ -352,7 +283,7 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
 
         final long nanos = 99999L;
 
-        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).contains(".0"));
+        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".0"));
     }
 
     @Test
@@ -360,7 +291,7 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
 
         final long nanos = 9999L;
 
-        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).contains(".00"));
+        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".00"));
     }
 
     @Test
@@ -368,7 +299,7 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
 
         final long nanos = 9L;
 
-        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).contains(".00000"));
+        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".00000"));
     }
 
     @Test
@@ -376,7 +307,7 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
 
         final long nanos = 999999L;
 
-        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).contains("."));
+        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains("."));
     }
 
     @Test
@@ -384,7 +315,7 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
 
         final long nanos = 999L;
 
-        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).contains(".000"));
+        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".000"));
     }
 
     @Test
@@ -392,104 +323,59 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
 
         final long nanos = 99L;
 
-        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).contains(".0000"));
+        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".0000"));
     }
 
     @Test
-    public void testConvertSourceWithReplacementPattern() {
+    public void testConvertStringWithReplacementPattern() {
 
         assertEquals("123765489",
-                JstTypeConversionUtilHelper.convertStringWithReplacementPattern("123456789", "4567", "7654"));
+                JstTypeConversionUtilHelper.convertStringWithReplacementPattern("123456789", "4567", "7654").get());
     }
 
     @Test
-    public void testConvertSourceWithReplacementPattern_empty() {
+    public void testConvertStringWithReplacementPattern_false() {
 
-        assertEquals("", JstTypeConversionUtilHelper.convertStringWithReplacementPattern("", "ABCD", "7654"));
+        assertFalse(JstTypeConversionUtilHelper.convertStringWithReplacementPattern(null, null, null).isPresent());
     }
 
     @Test
-    public void testConvertSourceWithReplacementPattern_none() {
+    public void testConvertTime12HourToXmlTime() {
 
-        assertEquals("123456789",
-                JstTypeConversionUtilHelper.convertStringWithReplacementPattern("123456789", "ABCD", "7654"));
+        assertTrue(JstTypeConversionUtilHelper.convertTime12HourToXmlTime("7:30 PM").isPresent());
     }
 
     @Test
-    public void testConvertSourceWithReplacementPattern_null() {
+    public void testConvertTime12HourToXmlTime_false() {
 
-        assertEquals("", JstTypeConversionUtilHelper.convertStringWithReplacementPattern(null, "ABCD", "7654"));
-    }
-
-    @Test
-    public void testConvertTime12HourToXmlTime() throws DatatypeConfigurationException {
-
-        final XMLGregorianCalendar value = JstTypeConversionUtilHelper.convertTime12HourToXmlTime("7:30 PM");
-
-        assertEquals("19:30:00", value.toXMLFormat());
-    }
-
-    @Test()
-    public void testConvertTime12HourToXmlTime_emptyString() throws DatatypeConfigurationException {
-
-        JstTypeConversionUtilHelper.convertTime12HourToXmlTime("");
-    }
-
-    @Test()
-    public void testConvertTime12HourToXmlTime_exception() throws DatatypeConfigurationException {
-
-        final XMLGregorianCalendar value = JstTypeConversionUtilHelper.convertTime12HourToXmlTime("7:30 @#");
-
-        assertEquals("19:30:00", value.toXMLFormat());
+        assertFalse(JstTypeConversionUtilHelper.convertTime12HourToXmlTime("").isPresent());
     }
 
     @Test
     public void testConvertTimestampToDateString() {
 
-        final String value = JstTypeConversionUtilHelper.convertTimestampToDateString(
-                new Timestamp(JstTypeConversionUtilHelperTest.MILLISECONDS),
-                JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT);
-
-        assertEquals(value.toUpperCase(), JstTypeConversionUtilHelperTest.BIRTHDAY);
+        assertTrue(JstTypeConversionUtilHelper
+                .convertTimestampToDateString(new Timestamp(JstTypeConversionUtilHelperTest.MILLISECONDS),
+                        JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT)
+                .isPresent());
     }
 
     @Test
-    public void testConvertTimestampToDateString_failure() {
+    public void testConvertTimestampToDateString_false() {
 
-        final String value = JstTypeConversionUtilHelper.convertTimestampToDateString(
-                new Timestamp(new Long("0").longValue()), JstTypeConversionUtilHelperTest.SIMPLE_DATE_FORMAT);
-
-        assertNotEquals(value.toUpperCase(), JstTypeConversionUtilHelperTest.BIRTHDAY);
+        assertFalse(JstTypeConversionUtilHelper.convertTimestampToDateString(null, null).isPresent());
     }
 
     @Test
     public void testConvertTimestampToMMMddyyyy() {
 
-        final String value = JstTypeConversionUtilHelper
-                .convertTimestampToMMMddyyyy(new Timestamp(JstTypeConversionUtilHelperTest.MILLISECONDS));
-
-        assertEquals(JstTypeConversionUtilHelperTest.BIRTHDAY, value.toUpperCase());
+        assertTrue(JstTypeConversionUtilHelper
+                .convertTimestampToMMMddyyyy(new Timestamp(JstTypeConversionUtilHelperTest.MILLISECONDS)).isPresent());
     }
 
     @Test
     public void testConvertTimestampToMMMddyyyy_failure() {
 
-        final String value = JstTypeConversionUtilHelper
-                .convertTimestampToMMMddyyyy(new Timestamp(new Long("0").longValue()));
-
-        assertNotEquals(value.toUpperCase(), JstTypeConversionUtilHelperTest.BIRTHDAY);
-    }
-
-    @Test
-    public void testUuidRoundTripConversions() {
-
-        final byte[] uuidArray1 = JstTypeConversionUtilHelper.convertRandomUUID();
-
-        final String hexString = JstTypeConversionUtilHelper.convertFromUuidByteArrayToHexString(uuidArray1);
-
-        final byte[] uuidArray2 = JstTypeConversionUtilHelper.convertFromUuidHexStringToByteArray(hexString);
-
-        assertEquals(JstTypeConversionUtilHelper.convertFromUuidByteArrayToHexString(uuidArray2),
-                JstTypeConversionUtilHelper.convertFromUuidByteArrayToHexString(uuidArray1));
+        assertFalse(JstTypeConversionUtilHelper.instantiateCalendar(null, null).isPresent());
     }
 }

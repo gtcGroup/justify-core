@@ -74,8 +74,7 @@ public enum JstTypeConversionUtilHelper {
             final Locale inLocale) {
 
         try {
-            final SimpleDateFormat formatter = new SimpleDateFormat(JstTypeConversionUtilHelper.INSTANCE.monthDayYear,
-                    inLocale);
+            final SimpleDateFormat formatter = new SimpleDateFormat(INSTANCE.monthDayYear, inLocale);
             final Date today = new Date(calendar.getTimeInMillis());
             return Optional.of(formatter.format(today));
 
@@ -89,7 +88,7 @@ public enum JstTypeConversionUtilHelper {
     /**
      * @return {@link Optional}
      */
-    public static Optional<XMLGregorianCalendar> convertCalendarToXmlDateTime(final Calendar calendar) {
+    public static Optional<XMLGregorianCalendar> convertCalendarToXmlGregorian(final Calendar calendar) {
 
         try {
 
@@ -98,7 +97,7 @@ public enum JstTypeConversionUtilHelper {
             final GregorianCalendar gregorianCalendar = (GregorianCalendar) Calendar.getInstance();
             gregorianCalendar.setTime(date);
 
-            DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
+            return Optional.of(DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar));
 
         } catch (@SuppressWarnings("unused") final Exception e) {
 
@@ -115,12 +114,11 @@ public enum JstTypeConversionUtilHelper {
      */
     public static Optional<Calendar> convertDateMMMddyyyyToCalendar(final String MMMddyyyyString) {
 
-        try {
-            JstTypeConversionUtilHelper.convertDateStringToCalendar(MMMddyyyyString,
-                    JstTypeConversionUtilHelper.INSTANCE.simpleDateFormat);
-        } catch (@SuppressWarnings("unused") final Exception e) {
+        final Optional<Calendar> calendar = JstTypeConversionUtilHelper.convertDateStringToCalendar(MMMddyyyyString,
+                INSTANCE.simpleDateFormat);
 
-            // Continue.
+        if (calendar.isPresent()) {
+            return calendar;
         }
         return Optional.empty();
     }
@@ -134,17 +132,11 @@ public enum JstTypeConversionUtilHelper {
      */
     public static Optional<Timestamp> convertDateMMMddyyyyToTimestamp(final String MMMddyyyyString) {
 
-        try {
+        final Optional<Timestamp> timestamp = JstTypeConversionUtilHelper.convertDateStringToTimestamp(MMMddyyyyString,
+                INSTANCE.simpleDateFormat);
 
-            // SimpleDateFormat object for "MMM-dd-yyyy" (e.g. Jul-27-2015)
-            final SimpleDateFormat dateFormatMMMddyyyy = new SimpleDateFormat(
-                    JstTypeConversionUtilHelper.INSTANCE.monthDayYear);
-
-            return JstTypeConversionUtilHelper.convertDateStringToTimestamp(MMMddyyyyString, dateFormatMMMddyyyy);
-
-        } catch (@SuppressWarnings("unused") final Exception e) {
-
-            // Continue.
+        if (timestamp.isPresent()) {
+            return timestamp;
         }
         return Optional.empty();
     }
@@ -158,8 +150,7 @@ public enum JstTypeConversionUtilHelper {
      */
     public static Optional<XMLGregorianCalendar> convertDateMMMddyyyyToXmlDate(final String MMMddyyyyString) {
 
-        final SimpleDateFormat dateFormatMMMddyyyy = new SimpleDateFormat(
-                JstTypeConversionUtilHelper.INSTANCE.monthDayYear);
+        final SimpleDateFormat dateFormatMMMddyyyy = new SimpleDateFormat(INSTANCE.monthDayYear);
 
         return convertDateStringToXmlDate(MMMddyyyyString, dateFormatMMMddyyyy);
     }
@@ -173,21 +164,17 @@ public enum JstTypeConversionUtilHelper {
      */
     public static Optional<String> convertDateMMMddyyyyToyyyymmdd(final String MMMddyyyyString) {
 
-        try {
-            final Optional<Timestamp> timestamp = convertDateMMMddyyyyToTimestamp(MMMddyyyyString);
+        final Optional<Timestamp> timestamp = convertDateMMMddyyyyToTimestamp(MMMddyyyyString);
 
-            if (timestamp.isPresent()) {
+        if (timestamp.isPresent()) {
 
-                // Use java.sql.Date to do the conversion because it does this
-                // via the toString() method.
-                final java.sql.Date sqlDate = new java.sql.Date(timestamp.get().getTime());
+            // Use java.sql.Date to do the conversion because it does this
+            // via the toString() method.
+            final java.sql.Date sqlDate = new java.sql.Date(timestamp.get().getTime());
 
-                return Optional.of(sqlDate.toString());
-            }
-        } catch (@SuppressWarnings("unused") final Exception e) {
-
-            // Continue.
+            return Optional.of(sqlDate.toString());
         }
+
         return Optional.empty();
     }
 
@@ -205,6 +192,7 @@ public enum JstTypeConversionUtilHelper {
             final Calendar calendar = Calendar.getInstance();
             final Date date = simpleDateFormat.parse(dateString);
             calendar.setTime(date);
+            return Optional.of(calendar);
 
         } catch (@SuppressWarnings("unused") final Exception e) {
 
@@ -283,53 +271,11 @@ public enum JstTypeConversionUtilHelper {
     }
 
     /**
-     * Converts a {@link UUID} byte array to a hex string.
-     *
-     * @return {@link Optional}.
-     */
-    public static Optional<String> convertFromUuidByteArrayToHexString(final byte[] uuidByteArray) {
-
-        try {
-
-            final ByteBuffer bb = ByteBuffer.allocate(16);
-            bb.put(uuidByteArray);
-            bb.flip();
-            final UUID uuid = new UUID(bb.getLong(), bb.getLong());
-            return Optional.of(uuid.toString());
-
-        } catch (@SuppressWarnings("unused") final Exception e) {
-
-            // Continue.
-        }
-        return Optional.empty();
-    }
-
-    /**
-     * Converts a hex string back to a {@link UUID} byte array.
+     * This method returns the byte array equivalent of a {@link UUID}.
      *
      * @return {@link Optional}
      */
-    public static Optional<byte[]> convertFromUuidHexStringToByteArray(final String hexStringWithHyphens) {
-
-        try {
-            final UUID uuid = UUID.fromString(hexStringWithHyphens);
-            final ByteBuffer bb = ByteBuffer.allocate(16);
-            bb.putLong(uuid.getMostSignificantBits());
-            bb.putLong(uuid.getLeastSignificantBits());
-            return Optional.of(bb.array());
-        } catch (@SuppressWarnings("unused") final Exception e) {
-
-            // Continue.
-        }
-        return Optional.empty();
-    }
-
-    /**
-     * This method returns byte array equivalent of a {@link UUID}.
-     *
-     * @return {@link Optional}
-     */
-    private static Optional<byte[]> convertFromUuidInstanceToByteArray(final UUID uuid) {
+    public static Optional<byte[]> convertFromUuidToByteArray(final UUID uuid) {
 
         try {
             final ByteBuffer byteBuffer = ByteBuffer.allocate(16);
@@ -410,46 +356,28 @@ public enum JstTypeConversionUtilHelper {
      */
     public static Optional<String> convertNanosecondToMillisecondString(final long nanos) {
 
-        try {
-            final String longString = Long.toString(nanos);
+        final String longString = Long.toString(nanos);
 
-            final long ms = nanos / 1000000;
+        final long ms = nanos / 1000000;
 
-            if (0 == ms) {
+        if (0 == ms) {
 
-                if (longString.length() == 6) {
+            if (longString.length() == 6) {
 
-                    return Optional.of("." + longString.substring(0, 3));
-
-                } else if (longString.length() == 5) {
-                    return Optional.of(".0" + longString.substring(0, 2));
-                } else if (longString.length() == 4) {
-                    return Optional.of(".00" + longString.substring(0, 1));
-                } else if (longString.length() == 3) {
-                    return Optional.of(".000" + longString.substring(0, 1));
-                } else if (longString.length() == 2) {
-                    return Optional.of(".0000" + longString.substring(0, 1));
-                } else {
-                    return Optional.of(".00000" + longString);
-                }
+                return Optional.of("." + longString.substring(0, 3));
+            } else if (longString.length() == 5) {
+                return Optional.of(".0" + longString.substring(0, 2));
+            } else if (longString.length() == 4) {
+                return Optional.of(".00" + longString.substring(0, 1));
+            } else if (longString.length() == 3) {
+                return Optional.of(".000" + longString.substring(0, 1));
+            } else if (longString.length() == 2) {
+                return Optional.of(".0000" + longString.substring(0, 1));
+            } else {
+                return Optional.of(".00000" + longString);
             }
-            return Optional.of(Long.toString(ms));
-
-        } catch (@SuppressWarnings("unused") final Exception e) {
-
-            // Continue.
         }
-        return Optional.empty();
-    }
-
-    /**
-     * This method initializes a random {@link UUID}.
-     *
-     * @return {@link Optional}
-     */
-    public static Optional<byte[]> convertRandomUUID() {
-
-        return JstTypeConversionUtilHelper.convertFromUuidInstanceToByteArray(UUID.randomUUID());
+        return Optional.of(Long.toString(ms));
     }
 
     /**
@@ -459,24 +387,20 @@ public enum JstTypeConversionUtilHelper {
             final String pattern, final String replace) {
 
         try {
+            final int len = pattern.length();
+            final StringBuilder sb = new StringBuilder();
+            int found = -1;
+            int start = 0;
 
-            if (originalString != null) {
-                final int len = pattern.length();
-                final StringBuilder sb = new StringBuilder();
-                int found = -1;
-                int start = 0;
-
-                while ((found = originalString.indexOf(pattern, start)) != -1) {
-                    sb.append(originalString.substring(start, found));
-                    sb.append(replace);
-                    start = found + len;
-                }
-
-                sb.append(originalString.substring(start));
-
-                return Optional.of(sb.toString());
-
+            while ((found = originalString.indexOf(pattern, start)) != -1) {
+                sb.append(originalString.substring(start, found));
+                sb.append(replace);
+                start = found + len;
             }
+
+            sb.append(originalString.substring(start));
+            return Optional.of(sb.toString());
+
         } catch (@SuppressWarnings("unused") final Exception e) {
 
             // Continue.
@@ -504,7 +428,7 @@ public enum JstTypeConversionUtilHelper {
 
             final String lexicalTime = timeFormat24hour.format(timeAsDate);
 
-            DatatypeFactory.newInstance().newXMLGregorianCalendar(lexicalTime);
+            return Optional.of(DatatypeFactory.newInstance().newXMLGregorianCalendar(lexicalTime));
 
         } catch (@SuppressWarnings("unused") final Exception e) {
 
@@ -521,9 +445,9 @@ public enum JstTypeConversionUtilHelper {
 
         try {
             final long time = timestamp.getTime();
-
             final Date date = new Date(time);
-            simpleDateFormat.format(date);
+
+            return Optional.of(simpleDateFormat.format(date));
 
         } catch (@SuppressWarnings("unused") final Exception e) {
 
@@ -551,6 +475,7 @@ public enum JstTypeConversionUtilHelper {
         try {
 
             calendar.setTime(simpleDateFormat.parse(dateString));
+            return Optional.of(calendar);
 
         } catch (@SuppressWarnings("unused") final Exception e) {
 
@@ -569,9 +494,11 @@ public enum JstTypeConversionUtilHelper {
             final Calendar calendar = Calendar.getInstance();
             calendar.setTime(simpleDateFormat.parse(dateString));
 
-            JstTypeConversionUtilHelper.dataTypeFactory.newXMLGregorianCalendarDate(calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH),
-                    DatatypeConstants.FIELD_UNDEFINED);
+            final XMLGregorianCalendar calendarGregorian = JstTypeConversionUtilHelper.dataTypeFactory
+                    .newXMLGregorianCalendarDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
+                            calendar.get(Calendar.DAY_OF_MONTH), DatatypeConstants.FIELD_UNDEFINED);
+
+            return Optional.of(calendarGregorian);
 
         } catch (@SuppressWarnings("unused") final Exception e) {
 
@@ -580,8 +507,8 @@ public enum JstTypeConversionUtilHelper {
         return Optional.empty();
     }
 
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM-dd-yyyy");
-
     private final String monthDayYear = "MMM-dd-yyyy";
+
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(this.monthDayYear);
 
 }
