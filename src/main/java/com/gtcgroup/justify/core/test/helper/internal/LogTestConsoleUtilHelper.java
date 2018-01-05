@@ -37,9 +37,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.JstSystemPropertyConstant;
-import com.gtcgroup.justify.core.helper.JstTypeConversionUtilHelper;
 import com.gtcgroup.justify.core.helper.JstTimer;
-import com.gtcgroup.justify.core.test.exception.internal.JustifyTestingException;
+import com.gtcgroup.justify.core.helper.JstTypeConversionUtilHelper;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
 /**
@@ -151,9 +150,15 @@ public enum LogTestConsoleUtilHelper {
 
     public static boolean isVerbose(final ExtensionContext context) {
 
-        final JstConfigureTestLogToConsole configureLogToConsole = retrieveAnnotationRequired(context,
-                JstConfigureTestLogToConsole.class);
-        return configureLogToConsole.verbose();
+        @SuppressWarnings("unchecked")
+        final Optional<JstConfigureTestLogToConsole> annotation = (Optional<JstConfigureTestLogToConsole>) retrieveAnnotationRequired(
+                context, JstConfigureTestLogToConsole.class);
+
+        if (annotation.isPresent()) {
+
+            annotation.get().verbose();
+        }
+        return false;
     }
 
     public static void logHeaderToTestConsole() {
@@ -164,7 +169,7 @@ public enum LogTestConsoleUtilHelper {
 
         if (border.isPresent()) {
 
-            logToConsole(border.toString() + message + border.toString());
+            logToConsole(border.get().toString() + message + border.get().toString());
         }
     }
 
@@ -192,13 +197,13 @@ public enum LogTestConsoleUtilHelper {
         System.out.println(message);
     }
 
-    public static <ANNOTATION extends Annotation> ANNOTATION retrieveAnnotationRequired(final ExtensionContext context,
-            final Class<ANNOTATION> annotationClass) {
+    public static Optional<? extends Annotation> retrieveAnnotationRequired(final ExtensionContext context,
+            final Class<? extends Annotation> annotationClass) {
 
         if (context.getRequiredTestInstance().getClass().isAnnotationPresent(annotationClass)) {
 
-            return context.getRequiredTestInstance().getClass().getAnnotation(annotationClass);
+            return Optional.of(context.getRequiredTestInstance().getClass().getAnnotation(annotationClass));
         }
-        throw new JustifyTestingException("The annotation class [" + annotationClass.getName() + "] was not found.");
+        return Optional.empty();
     }
 }

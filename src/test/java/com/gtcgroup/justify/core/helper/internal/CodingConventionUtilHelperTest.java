@@ -33,7 +33,8 @@ import com.gtcgroup.justify.core.base.JstBaseTest;
 import com.gtcgroup.justify.core.bean.dependency.IncorrectSuffixPeeOh;
 import com.gtcgroup.justify.core.bean.dependency.NothingBean;
 import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
-import com.gtcgroup.justify.core.test.exception.internal.JustifyTestingException;
+import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
 /**
  * Test Class
@@ -46,13 +47,14 @@ import com.gtcgroup.justify.core.test.exception.internal.JustifyTestingException
  * @author Marvin Toll
  * @since v8.5
  */
+@JstConfigureTestLogToConsole
 @SuppressWarnings("static-method")
 public class CodingConventionUtilHelperTest extends JstBaseTest {
 
     @Test
     public void testCheckClassCharacterInName() {
 
-        Assertions.assertThrows(JustifyTestingException.class, () -> {
+        Assertions.assertThrows(JustifyException.class, () -> {
             JstCodingConventionUtilHelper.checkSuffixInClassName(NothingBean.class, "@#");
         });
 
@@ -62,7 +64,7 @@ public class CodingConventionUtilHelperTest extends JstBaseTest {
     @Test
     public void testClassNameSuffix() {
 
-        Assertions.assertThrows(JustifyTestingException.class, () -> {
+        Assertions.assertThrows(JustifyException.class, () -> {
             new IncorrectSuffixPeeOh();
         });
 

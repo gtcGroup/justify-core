@@ -27,6 +27,7 @@ package com.gtcgroup.justify.core.test.extension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -94,10 +95,13 @@ class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
     @Override
     public void initializePropertiesFromAnnotation(final ExtensionContext context) {
 
-        final JstConfigureTestSystemProperty configureSystemProperty = LogTestConsoleUtilHelper
+        @SuppressWarnings("unchecked")
+        final Optional<JstConfigureTestSystemProperty> configureSystemProperty = (Optional<JstConfigureTestSystemProperty>) LogTestConsoleUtilHelper
                 .retrieveAnnotationRequired(context, JstConfigureTestSystemProperty.class);
 
-        this.keyArray = configureSystemProperty.key();
-        this.valueArray = configureSystemProperty.value();
+        if (configureSystemProperty.isPresent()) {
+            this.keyArray = configureSystemProperty.get().key();
+            this.valueArray = configureSystemProperty.get().value();
+        }
     }
 }

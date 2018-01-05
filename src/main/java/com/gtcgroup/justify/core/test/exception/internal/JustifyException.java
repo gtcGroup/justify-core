@@ -23,11 +23,12 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package com.gtcgroup.justify.core.test.exception.internal;
 
+import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+
 /**
- * This {@link Exception} class is used for testing only.
+ * This Exception base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -35,13 +36,15 @@ package com.gtcgroup.justify.core.test.exception.internal;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since v.6.0
  */
-public class JustifyTestingException extends BaseTestingException {
+public class JustifyException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    private static String formulateExceptionMessage(final Throwable exception, final StringBuilder message) {
+    private static final String SUFFIX = "Exception";
+
+    protected static String formulateExceptionMessage(final Throwable exception, final StringBuilder message) {
 
         if (null == exception.getCause()) {
 
@@ -58,19 +61,37 @@ public class JustifyTestingException extends BaseTestingException {
 
     }
 
-    /**
-     * Constructor
-     */
-    public JustifyTestingException(final String message) {
+    protected static String init(final Throwable exception) {
 
-        super(message);
+        final StringBuilder logMessage = new StringBuilder();
+        logMessage.append("\n\n\tA [");
+        logMessage.append(JustifyException.class.getSimpleName());
+        logMessage.append("] is intended to indicate a problem with the test machinery...");
+        logMessage.append("\n\t\t\t\t\t... not the code under test.");
+        logMessage.append("\n\n\tException Message: ");
+        logMessage.append(exception.getMessage());
+        logMessage.append("\n");
+        logMessage.toString();
+
+        return formulateExceptionMessage(exception, logMessage);
     }
 
     /**
      * Constructor
      */
-    public JustifyTestingException(final Throwable exception) {
+    public JustifyException(final String exceptionMessage) {
 
-        super(formulateExceptionMessage(exception, new StringBuilder()));
+        super(exceptionMessage);
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JustifyException.SUFFIX);
     }
+
+    /**
+     * Constructor
+     */
+    public JustifyException(final Throwable exception) {
+
+        super(init(exception));
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JustifyException.SUFFIX);
+    }
+
 }

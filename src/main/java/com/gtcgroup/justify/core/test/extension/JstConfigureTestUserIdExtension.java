@@ -25,6 +25,8 @@
  */
 package com.gtcgroup.justify.core.test.extension;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.Extension;
@@ -65,9 +67,13 @@ class JstConfigureTestUserIdExtension extends JstBaseExtension
     @Override
     public void initializePropertiesFromAnnotation(final ExtensionContext context) {
 
-        final JstConfigureTestUserId configureUserId = LogTestConsoleUtilHelper.retrieveAnnotationRequired(context,
-                JstConfigureTestUserId.class);
+        @SuppressWarnings("unchecked")
+        final Optional<JstConfigureTestUserId> configureUserId = (Optional<JstConfigureTestUserId>) LogTestConsoleUtilHelper
+                .retrieveAnnotationRequired(context, JstConfigureTestUserId.class);
 
-        this.userId = configureUserId.userId();
+        if (configureUserId.isPresent()) {
+
+            this.userId = configureUserId.get().userId();
+        }
     }
 }

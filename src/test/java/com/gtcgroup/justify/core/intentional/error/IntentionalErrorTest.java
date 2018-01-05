@@ -1,10 +1,8 @@
 package com.gtcgroup.justify.core.intentional.error;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
-import com.gtcgroup.justify.core.test.exception.internal.JustifyTestingException;
+import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
 /**
@@ -23,25 +21,13 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 public class IntentionalErrorTest {
 
     @Test
-    public void testIntentionalAssertionError() {
-
-        assertTrue(false);
-    }
-
-    @Test
     public void testIntentionalNestedError() {
 
-        throw new JustifyTestingException(new NullPointerException("This is on purpose."));
+        throw new JustifyException(new NullPointerException("This is on purpose."));
     }
 
     @Test
-    public void testIntentionalUnexpectedException() {
-
-        throw new RuntimeException("Unexpected Runtime Exception");
-    }
-
-    @Test
-    public void testNestedExceptionUnexpected() {
+    public void testIntentionalNestedExceptionUnexpected() {
 
         try {
             throw new NullPointerException("Root cause exception.");
@@ -50,6 +36,12 @@ public class IntentionalErrorTest {
             throw new RuntimeException("Outer unexpected exception.", e);
         }
 
+    }
+
+    @Test
+    public void testIntentionalUnexpectedException() {
+
+        throw new RuntimeException("Unexpected Runtime Exception");
     }
 
 }
