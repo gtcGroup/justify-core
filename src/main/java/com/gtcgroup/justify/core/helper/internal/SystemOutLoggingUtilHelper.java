@@ -28,11 +28,13 @@ package com.gtcgroup.justify.core.helper.internal;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
+import com.gtcgroup.justify.core.po.JstExceptionPO;
 import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
 /**
- * This Util Helper class provides a default implementation used for JUnit test
+ * This Util Helper class provides a default implementation used for Justify
  * logging.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
@@ -55,37 +57,35 @@ public enum SystemOutLoggingUtilHelper {
         return SystemOutLoggingUtilHelper.USER_ID;
     }
 
-    /**
-     * This method supports all logging.
-     */
-    public static void log(final String className, final String methodName, final String message, final String level) {
+    public static void logException(final JstExceptionPO exceptionPO) {
 
-        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss,SSS");
-        final Date date = new Date();
-        final String dateResult = formatter.format(date);
+        if (!exceptionPO.getSuppressLogging()) {
+            final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss,SSS");
+            final Date date = new Date();
+            final String dateResult = formatter.format(date);
 
-        final StringBuilder logStatement = new StringBuilder();
+            final StringBuilder logStatement = new StringBuilder();
 
-        logStatement.append("[JST ");
-        logStatement.append(level);
-        logStatement.append("] ");
-        logStatement.append(dateResult);
-        logStatement.append(" [");
-        logStatement.append(Thread.currentThread().getName());
-        logStatement.append("] ");
-        logStatement.append(SystemOutLoggingUtilHelper.getUserId());
-        logStatement.append(": ");
-        logStatement.append(className);
-        logStatement.append(".");
-        logStatement.append(methodName);
-        logStatement.append("() -");
-        logStatement.append(message);
+            logStatement.append("[JST SEVERE] ");
+            logStatement.append(dateResult);
+            logStatement.append(" [");
+            logStatement.append(Thread.currentThread().getName());
+            logStatement.append("] ");
+            logStatement.append(SystemOutLoggingUtilHelper.getUserId());
+            logStatement.append(": ");
 
-        LogTestConsoleUtilHelper.logToConsole(logStatement.toString());
-    }
+            final Optional<String> exceptionClassName = exceptionPO.getExceptionClassName();
+            logStatement.append(exceptionClassName.orElse("UndisclosedClassName"));
 
-    public static void logException(final String className, final String methodName, final String message) {
+            logStatement.append(".");
 
-        SystemOutLoggingUtilHelper.log(className, methodName, message, SystemOutLoggingUtilHelper.SEVERE);
+            final Optional<String> exceptionMethodName = exceptionPO.getExceptionMethodName();
+            logStatement.append(exceptionMethodName.orElse("undisclosedMethodName"));
+
+            logStatement.append("()\n\t");
+            logStatement.append(exceptionPO.getMessage());
+
+            LogTestConsoleUtilHelper.logToConsole(logStatement.toString());
+        }
     }
 }

@@ -13,7 +13,7 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 public class IntentionalFailureTest {
 
     @Test
-    public void testIntentionalAssertionError() {
+    public void testIntentionalAssertionFailure() {
 
         assertTrue(false);
     }

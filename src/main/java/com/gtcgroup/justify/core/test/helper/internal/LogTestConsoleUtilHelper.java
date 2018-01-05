@@ -85,6 +85,9 @@ public enum LogTestConsoleUtilHelper {
         }
     }
 
+    /**
+     * This is a Collecting Parameter method.
+     */
     public static void buildClassPath(final StringBuilder message) {
 
         message.append("\n Verbose: true");

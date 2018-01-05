@@ -25,7 +25,10 @@
  */
 package com.gtcgroup.justify.core.test.exception.internal;
 
+import com.gtcgroup.justify.core.base.JstBaseRuntimeException;
 import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import com.gtcgroup.justify.core.helper.internal.SystemOutLoggingUtilHelper;
+import com.gtcgroup.justify.core.po.JstExceptionPO;
 
 /**
  * This Exception base class supports readability.
@@ -38,60 +41,34 @@ import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
  * @author Marvin Toll
  * @since v.6.0
  */
-public class JustifyException extends RuntimeException {
+public class JustifyException extends JstBaseRuntimeException {
 
     private static final long serialVersionUID = 1L;
 
     private static final String SUFFIX = "Exception";
 
-    protected static String formulateExceptionMessage(final Throwable exception, final StringBuilder message) {
-
-        if (null == exception.getCause()) {
-
-            message.append("\n\n\tCausal exception: " + exception.getClass().getName() + "\n\tA causal message: "
-                    + exception.getMessage() + "\n");
-
-            return message.toString();
-        }
-
-        message.append("\n\n\tCausal exception: " + exception.getClass().getName() + "\n\tA causal message: "
-                + exception.getMessage() + "\n");
-
-        return formulateExceptionMessage(exception.getCause(), message);
-
-    }
-
-    protected static String init(final Throwable exception) {
-
-        final StringBuilder logMessage = new StringBuilder();
-        logMessage.append("\n\n\tA [");
-        logMessage.append(JustifyException.class.getSimpleName());
-        logMessage.append("] is intended to indicate a problem with the test machinery...");
-        logMessage.append("\n\t\t\t\t\t... not the code under test.");
-        logMessage.append("\n\n\tException Message: ");
-        logMessage.append(exception.getMessage());
-        logMessage.append("\n");
-        logMessage.toString();
-
-        return formulateExceptionMessage(exception, logMessage);
-    }
-
     /**
      * Constructor
      */
-    public JustifyException(final String exceptionMessage) {
+    public JustifyException(final JstExceptionPO exceptionPO) {
 
-        super(exceptionMessage);
+        super(exceptionPO);
         JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JustifyException.SUFFIX);
     }
 
     /**
      * Constructor
      */
-    public JustifyException(final Throwable exception) {
+    public JustifyException(final JstExceptionPO exceptionPO, final Throwable exception) {
 
-        super(init(exception));
+        super(exceptionPO, exception);
         JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JustifyException.SUFFIX);
+
     }
 
+    @Override
+    protected void logExceptionTM(final JstExceptionPO exceptionPO) {
+        SystemOutLoggingUtilHelper.logException(exceptionPO);
+
+    }
 }

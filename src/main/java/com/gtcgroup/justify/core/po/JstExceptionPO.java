@@ -23,7 +23,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.exception;
+package com.gtcgroup.justify.core.po;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -45,7 +45,7 @@ import com.gtcgroup.justify.core.base.JstBasePO;
  * @author Marvin Toll
  * @since v8.5
  */
-public class JstSelfLoggingExceptionPO extends JstBasePO implements Serializable {
+public class JstExceptionPO extends JstBasePO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -54,11 +54,11 @@ public class JstSelfLoggingExceptionPO extends JstBasePO implements Serializable
     /**
      * This static method initializes an instance of the class.
      *
-     * @return {@link JstSelfLoggingExceptionPO}
+     * @return {@link JstExceptionPO}
      */
-    public static JstSelfLoggingExceptionPO withMessage(final String message) {
+    public static JstExceptionPO withMessage(final String message) {
 
-        return new JstSelfLoggingExceptionPO(message);
+        return new JstExceptionPO(message);
     }
 
     private final String message;
@@ -68,12 +68,12 @@ public class JstSelfLoggingExceptionPO extends JstBasePO implements Serializable
     private String exceptionClassName;
     private String exceptionMethodName;
     private String userId;
-    private boolean suppressLogging;
+    private boolean suppressLogging = false;
 
     /**
      * Constructor
      */
-    protected JstSelfLoggingExceptionPO(final String message) {
+    protected JstExceptionPO(final String message) {
 
         super();
         if (null == message) {
@@ -82,7 +82,7 @@ public class JstSelfLoggingExceptionPO extends JstBasePO implements Serializable
             this.message = message;
         }
 
-        final SimpleDateFormat formatter = new SimpleDateFormat(JstSelfLoggingExceptionPO.DATE_TIME_FORMAT);
+        final SimpleDateFormat formatter = new SimpleDateFormat(JstExceptionPO.DATE_TIME_FORMAT);
         final Date dateValue = new Date();
         this.logTimeStamp = formatter.format(dateValue);
 
@@ -126,6 +126,14 @@ public class JstSelfLoggingExceptionPO extends JstBasePO implements Serializable
     }
 
     /**
+     * @return boolean
+     */
+    public boolean getSuppressLogging() {
+
+        return this.suppressLogging;
+    }
+
+    /**
      * @return {@link Optional}
      */
     public Optional<String> getUserId() {
@@ -133,35 +141,36 @@ public class JstSelfLoggingExceptionPO extends JstBasePO implements Serializable
     }
 
     /**
-     * @return boolean
+     * @return {@link JstExceptionPO}
      */
-    public boolean isSuppressLogging() {
-
-        return this.suppressLogging;
-    }
-
-    /**
-     * @return {@link JstSelfLoggingExceptionPO}
-     */
-    public JstSelfLoggingExceptionPO withClassName(final String className) {
+    public JstExceptionPO withClassName(final String className) {
 
         this.exceptionClassName = className;
         return this;
     }
 
     /**
-     * @return {@link JstSelfLoggingExceptionPO}
+     * @return {@link JstExceptionPO}
      */
-    public JstSelfLoggingExceptionPO withMethodName(final String methodName) {
+    public JstExceptionPO withMethodName(final String methodName) {
 
         this.exceptionMethodName = methodName;
         return this;
     }
 
     /**
-     * @return {@link JstSelfLoggingExceptionPO}
+     * @return {@link JstExceptionPO}
      */
-    public JstSelfLoggingExceptionPO withUserId(final String userId) {
+    public JstExceptionPO withSuppressLogging(final boolean suppressLogging) {
+
+        this.suppressLogging = suppressLogging;
+        return this;
+    }
+
+    /**
+     * @return {@link JstExceptionPO}
+     */
+    public JstExceptionPO withUserId(final String userId) {
 
         this.userId = userId;
         return this;

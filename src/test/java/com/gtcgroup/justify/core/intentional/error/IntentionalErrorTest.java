@@ -2,6 +2,7 @@ package com.gtcgroup.justify.core.intentional.error;
 
 import org.junit.jupiter.api.Test;
 
+import com.gtcgroup.justify.core.po.JstExceptionPO;
 import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
@@ -23,7 +24,11 @@ public class IntentionalErrorTest {
     @Test
     public void testIntentionalNestedError() {
 
-        throw new JustifyException(new NullPointerException("This is on purpose."));
+        throw new JustifyException(
+                JstExceptionPO.withMessage("A Justify Exception.")
+                        .withClassName(IntentionalErrorTest.class.getSimpleName())
+                        .withMethodName("testIntentionalNestedError").withSuppressLogging(false).withUserId("mToll4"),
+                new NullPointerException("This is on purpose."));
     }
 
     @Test

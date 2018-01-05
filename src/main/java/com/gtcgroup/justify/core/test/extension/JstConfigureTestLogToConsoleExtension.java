@@ -40,16 +40,9 @@ import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
         implements BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback {
 
-    private static boolean jUnitTest = false;
-
     static {
-        JstConfigureTestLogToConsoleExtension.jUnitTest = true;
         System.setProperty(JstSystemPropertyConstant.JUNIT_TEST_RUNTIME, "true");
         System.setProperty(JstSystemPropertyConstant.JUSTIFY_VERSION, "8.5.0-a01");
-    }
-
-    public static boolean isJUnitTest() {
-        return JstConfigureTestLogToConsoleExtension.jUnitTest;
     }
 
     @Override

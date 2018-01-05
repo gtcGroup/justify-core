@@ -23,17 +23,14 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package com.gtcgroup.justify.core.base;
 
-import java.util.Date;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import com.gtcgroup.justify.core.po.JstExceptionPO;
 
 /**
- * This Domain Entity base class supports readability.
+ * This {@link RuntimeException} base class supports logging via a Template
+ * Method.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -41,40 +38,33 @@ import java.util.logging.SimpleFormatter;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since v.8.5
  */
-public enum JstLogger {
-
-    INSTANCE;
+public abstract class JstBaseRuntimeException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    static Logger mainLogger;
+    private static final String SUFFIX = "Exception";
 
-    static {
-        JstLogger.mainLogger = Logger.getLogger("com.gtcgroup.justify");
-        JstLogger.mainLogger.setUseParentHandlers(false);
+    /**
+     * Constructor
+     */
+    public JstBaseRuntimeException(final JstExceptionPO exceptionPO) {
 
-        final ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setFormatter(new SimpleFormatter() {
-
-            private static final String FORMAT = "JstSystemPropertyConstant: [%1$tF %1$tT] [%2$-7s] %3$s %n";
-
-            @Override
-            public synchronized String format(final LogRecord lr) {
-                return String.format(FORMAT, new Date(lr.getMillis()), lr.getLevel().getLocalizedName(),
-                        lr.getMessage());
-            }
-        });
-        JstLogger.mainLogger.addHandler(consoleHandler);
-        JstLogger.mainLogger = Logger.getLogger(JstLogger.class.getName());
+        super(exceptionPO.getMessage());
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseRuntimeException.SUFFIX);
+        logExceptionTM(exceptionPO);
     }
 
-    public static Logger log() {
-        return JstLogger.mainLogger;
+    /**
+     * Constructor
+     */
+    public JstBaseRuntimeException(final JstExceptionPO exceptionPO, final Throwable exception) {
+
+        super(exceptionPO.getMessage(), exception);
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseRuntimeException.SUFFIX);
+        logExceptionTM(exceptionPO);
     }
 
-    public static void setMainLogger(final Logger logger) {
-        JstLogger.mainLogger = logger;
-    }
+    protected abstract void logExceptionTM(final JstExceptionPO exceptionPO);
 }

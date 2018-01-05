@@ -26,6 +26,7 @@
 
 package com.gtcgroup.justify.core.helper;
 
+import com.gtcgroup.justify.core.po.JstExceptionPO;
 import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
 
 /**
@@ -74,6 +75,6 @@ public enum JstCodingConventionUtilHelper {
         }
         message.append(".");
 
-        return new JustifyException(message.toString());
+        return new JustifyException(JstExceptionPO.withMessage(message.toString()));
     }
 }
