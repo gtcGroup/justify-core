@@ -27,6 +27,7 @@ package com.gtcgroup.justify.core.test.base;
 
 import org.junit.jupiter.api.extension.Extension;
 
+import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
 
 /**
@@ -44,21 +45,19 @@ public abstract class JstBaseExtension implements Extension {
 
     private static final String EXTENSION_SUFFIX = "Extension";
 
-    public static final String DEFAULT_USER_ID = "$userId";
+    protected static String userId = JstConstant.DEFAULT_USER_ID;
 
-    protected String userId = JstBaseExtension.DEFAULT_USER_ID;
+    public static String getUserId() {
+        return JstBaseExtension.userId;
+    }
+
+    protected static void setUserId(final String userId) {
+        JstBaseExtension.userId = userId;
+    }
 
     public JstBaseExtension() {
         super();
 
         JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.EXTENSION_SUFFIX);
-    }
-
-    public String getUserId() {
-        return this.userId;
-    }
-
-    protected void setUserId(final String userId) {
-        this.userId = userId;
     }
 }

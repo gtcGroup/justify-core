@@ -344,7 +344,7 @@ public enum JstReflectionUtilHelper {
 
             } catch (@SuppressWarnings("unused") final Exception e) {
 
-                // Continue.
+                // Checked exception, not likely.
             }
         }
         return Optional.empty();

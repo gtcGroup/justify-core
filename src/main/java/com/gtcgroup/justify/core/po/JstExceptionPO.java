@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.base.JstBasePO;
 
 /**
@@ -46,6 +47,8 @@ import com.gtcgroup.justify.core.base.JstBasePO;
  * @since v8.5
  */
 public class JstExceptionPO extends JstBasePO implements Serializable {
+
+    public static final String THE_MESSAGE_IS_NULL = "The message is null.";
 
     private static final long serialVersionUID = 1L;
 
@@ -67,7 +70,7 @@ public class JstExceptionPO extends JstBasePO implements Serializable {
 
     private String exceptionClassName;
     private String exceptionMethodName;
-    private String userId;
+    private String userId = JstConstant.DEFAULT_USER_ID;
     private boolean suppressLogging = false;
 
     /**
@@ -77,7 +80,7 @@ public class JstExceptionPO extends JstBasePO implements Serializable {
 
         super();
         if (null == message) {
-            this.message = "The message is null.";
+            this.message = JstExceptionPO.THE_MESSAGE_IS_NULL;
         } else {
             this.message = message;
         }
@@ -136,8 +139,8 @@ public class JstExceptionPO extends JstBasePO implements Serializable {
     /**
      * @return {@link Optional}
      */
-    public Optional<String> getUserId() {
-        return Optional.ofNullable(this.userId);
+    public String getUserId() {
+        return this.userId;
     }
 
     /**

@@ -29,7 +29,7 @@ package com.gtcgroup.justify.core.base;
 import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
 
 /**
- * This Testing base class supports readability.
+ * This base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -41,22 +41,22 @@ import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
  */
 public abstract class JstBaseSuffix {
 
-	/**
-	 * Constructor
-	 */
-	public JstBaseSuffix() {
+    /**
+     * Constructor
+     */
+    public JstBaseSuffix() {
 
-		super();
+        super();
 
-		JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), assignPatternSuffixTM());
+        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), assignPatternSuffixTM());
 
-		return;
-	}
+        return;
+    }
 
-	/**
-	 * This method establishes the class name suffix.
-	 *
-	 * @return {@link String}
-	 */
-	protected abstract String assignPatternSuffixTM();
+    /**
+     * This method establishes the class name suffix.
+     *
+     * @return {@link String}
+     */
+    protected abstract String assignPatternSuffixTM();
 }

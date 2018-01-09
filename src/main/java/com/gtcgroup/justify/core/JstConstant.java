@@ -37,12 +37,14 @@ package com.gtcgroup.justify.core;
  * @author Marvin Toll
  * @since v.8.5
  */
-public enum JstSystemPropertyConstant {
+public enum JstConstant {
 
     INSTANCE;
 
     public static final String JUNIT_TEST_RUNTIME = "junit.test.runtime"; // true if JUnit testing
 
     public static final String JUSTIFY_VERSION = "justify.version";
+
+    public static final String DEFAULT_USER_ID = "$userId";
 
 }

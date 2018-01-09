@@ -24,7 +24,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.helper.internal;
+package com.gtcgroup.justify.core.helper;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -38,7 +38,6 @@ import org.junit.jupiter.api.Test;
 import com.gtcgroup.justify.core.bean.dependency.GoodBean;
 import com.gtcgroup.justify.core.bean.dependency.NonPublicConstructorBean;
 import com.gtcgroup.justify.core.bean.dependency.NothingBean;
-import com.gtcgroup.justify.core.helper.JstReflectionUtilHelper;
 import com.gtcgroup.justify.core.po.JstStreamPO;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 

@@ -23,22 +23,22 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package com.gtcgroup.justify.core.test.extension;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.JstConstant;
+import com.gtcgroup.justify.core.test.base.JstBaseExtension;
 
-@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
-@Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(JstConfigureTestUserIdExtension.class)
-public @interface JstConfigureTestUserId {
+@SuppressWarnings("static-method")
+@JstConfigureTestLogToConsole()
+public class JstConfigureTestUseridExtensionDefaultTest {
 
-    public String userId() default JstConstant.DEFAULT_USER_ID;
+    @Test
+    public void testJstConfigureTestUserId() {
+
+        assertEquals(JstConstant.DEFAULT_USER_ID, JstBaseExtension.getUserId());
+    }
 }

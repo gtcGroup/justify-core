@@ -63,7 +63,7 @@ class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
     protected List<String> durableValueList = new ArrayList<>();
 
     @Override
-    public void afterTestExecution(final ExtensionContext context) throws Exception {
+    public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {
 
         for (int i = 0; i < this.durableKeyList.size(); i++) {
 
@@ -74,12 +74,12 @@ class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
     }
 
     @Override
-    public void beforeTestExecution(final ExtensionContext context) throws Exception {
+    public void beforeTestExecution(final ExtensionContext extensionContext) throws Exception {
 
         this.durableKeyList.clear();
         this.durableValueList.clear();
 
-        initializePropertiesFromAnnotation(context);
+        initializePropertiesFromAnnotation(extensionContext);
 
         for (int i = 0; i < this.keyArray.length; i++) {
 
@@ -93,11 +93,11 @@ class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
     }
 
     @Override
-    public void initializePropertiesFromAnnotation(final ExtensionContext context) {
+    public void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
 
         @SuppressWarnings("unchecked")
         final Optional<JstConfigureTestSystemProperty> configureSystemProperty = (Optional<JstConfigureTestSystemProperty>) LogTestConsoleUtilHelper
-                .retrieveAnnotationRequired(context, JstConfigureTestSystemProperty.class);
+                .retrieveAnnotationRequired(extensionContext, JstConfigureTestSystemProperty.class);
 
         if (configureSystemProperty.isPresent()) {
             this.keyArray = configureSystemProperty.get().key();

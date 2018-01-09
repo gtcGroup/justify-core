@@ -23,58 +23,95 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.test.extension;
+package com.gtcgroup.justify.core.test.helper.internal.dependency;
 
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
-import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
-import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
-import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import com.gtcgroup.justify.core.JstConstant;
-import com.gtcgroup.justify.core.test.base.JstBaseExtension;
-import com.gtcgroup.justify.core.test.base.JstExtensionInterface;
-import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
+import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelperTest;
 
 /**
- * This {@link Extension} class initializes a public user id for the duration of
- * the method and then reinstates the original user id value.
+ * This class is for testing.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author Marvin Toll
- * @since v3.0
+ * @author
+ * @since v.8.5
  */
-class JstConfigureTestUserIdExtension extends JstBaseExtension
-        implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
+public class DependencyExtensionContext implements ExtensionContext {
 
     @Override
-    public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {
-
-        setUserId(JstConstant.DEFAULT_USER_ID);
-        return;
+    public String getDisplayName() {
+        return null;
     }
 
     @Override
-    public void beforeTestExecution(final ExtensionContext extensionContext) throws Exception {
-
-        initializePropertiesFromAnnotation(extensionContext);
+    public Optional<AnnotatedElement> getElement() {
+        return null;
     }
 
     @Override
-    public void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
-
-        @SuppressWarnings("unchecked")
-        final Optional<JstConfigureTestUserId> configureUserId = (Optional<JstConfigureTestUserId>) LogTestConsoleUtilHelper
-                .retrieveAnnotationRequired(extensionContext, JstConfigureTestUserId.class);
-
-        if (configureUserId.isPresent()) {
-
-            JstBaseExtension.userId = configureUserId.get().userId();
-        }
+    public Optional<Throwable> getExecutionException() {
+        return null;
     }
+
+    @Override
+    public Optional<ExtensionContext> getParent() {
+        return null;
+    }
+
+    @Override
+    public Object getRequiredTestInstance() {
+        return new LogTestConsoleUtilHelperTest();
+    }
+
+    @Override
+    public ExtensionContext getRoot() {
+        return null;
+    }
+
+    @Override
+    public Store getStore(final Namespace namespace) {
+        return null;
+    }
+
+    @Override
+    public Set<String> getTags() {
+        return null;
+    }
+
+    @Override
+    public Optional<Class<?>> getTestClass() {
+        return null;
+    }
+
+    @Override
+    public Optional<Object> getTestInstance() {
+        return null;
+    }
+
+    @Override
+    public Optional<Method> getTestMethod() {
+        return null;
+    }
+
+    @Override
+    public String getUniqueId() {
+        return null;
+    }
+
+    @Override
+    public void publishReportEntry(final Map<String, String> map) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

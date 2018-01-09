@@ -24,7 +24,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.helper.internal;
+package com.gtcgroup.justify.core.helper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -38,7 +38,6 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.base.JstBaseTest;
-import com.gtcgroup.justify.core.helper.JstTypeConversionUtilHelper;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
 /**

@@ -36,7 +36,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import com.gtcgroup.justify.core.JstSystemPropertyConstant;
+import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.helper.JstTimer;
 import com.gtcgroup.justify.core.helper.JstTypeConversionUtilHelper;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
@@ -76,18 +76,6 @@ public enum LogTestConsoleUtilHelper {
     /**
      * This is a Collecting Parameter method.
      */
-    public static void buildClasspath(final StringBuilder message, final ExtensionContext context) {
-
-        if (LogTestConsoleUtilHelper.isFirstTimeLoggingTheTestClasspath()
-                && LogTestConsoleUtilHelper.isVerbose(context)) {
-
-            buildClassPath(message);
-        }
-    }
-
-    /**
-     * This is a Collecting Parameter method.
-     */
     public static void buildClassPath(final StringBuilder message) {
 
         message.append("\n Verbose: true");
@@ -107,6 +95,18 @@ public enum LogTestConsoleUtilHelper {
         Arrays.sort(tokens);
         for (final String token : tokens) {
             message.append("\t\t" + token + "\n");
+        }
+    }
+
+    /**
+     * This is a Collecting Parameter method.
+     */
+    public static void buildClassPath(final StringBuilder message, final ExtensionContext extensionContext) {
+
+        if (LogTestConsoleUtilHelper.isFirstTimeLoggingTheTestClasspath()
+                && LogTestConsoleUtilHelper.isVerbose(extensionContext)) {
+
+            buildClassPath(message);
         }
     }
 
@@ -151,29 +151,22 @@ public enum LogTestConsoleUtilHelper {
         return firstTest;
     }
 
-    public static boolean isVerbose(final ExtensionContext context) {
+    public static boolean isVerbose(final ExtensionContext extensionContext) {
 
         @SuppressWarnings("unchecked")
         final Optional<JstConfigureTestLogToConsole> annotation = (Optional<JstConfigureTestLogToConsole>) retrieveAnnotationRequired(
-                context, JstConfigureTestLogToConsole.class);
+                extensionContext, JstConfigureTestLogToConsole.class);
 
-        if (annotation.isPresent()) {
-
-            annotation.get().verbose();
-        }
-        return false;
+        return annotation.get().verbose();
     }
 
     public static void logHeaderToTestConsole() {
 
-        final String message = "\t* Justify v" + System.getProperty(JstSystemPropertyConstant.JUSTIFY_VERSION) + " *";
+        final String message = "\t* Justify v" + System.getProperty(JstConstant.JUSTIFY_VERSION) + " *";
 
         final Optional<StringBuilder> border = JstTypeConversionUtilHelper.convertMessageLengthToBorder(message);
 
-        if (border.isPresent()) {
-
-            logToConsole(border.get().toString() + message + border.get().toString());
-        }
+        logToConsole(border.get().toString() + message + border.get().toString());
     }
 
     public static void logMethodDetailsToTestConsole(final String uniqueId) {
@@ -191,7 +184,7 @@ public enum LogTestConsoleUtilHelper {
         message.append(status);
         message.append("] ");
         message.append(JstTypeConversionUtilHelper
-                .convertNanosecondToMillisecondString(jstTimer.calculateElapsedNanoSeconds()));
+                .convertNanosecondToMillisecondString(jstTimer.calculateElapsedNanoSeconds()).get());
         message.append(" ms ***");
         logToConsole(message.toString());
     }
@@ -200,13 +193,14 @@ public enum LogTestConsoleUtilHelper {
         System.out.println(message);
     }
 
-    public static Optional<? extends Annotation> retrieveAnnotationRequired(final ExtensionContext context,
+    public static Optional<? extends Annotation> retrieveAnnotationRequired(final ExtensionContext extensionContext,
             final Class<? extends Annotation> annotationClass) {
 
-        if (context.getRequiredTestInstance().getClass().isAnnotationPresent(annotationClass)) {
+        return Optional
+                .ofNullable(extensionContext.getRequiredTestInstance().getClass().getAnnotation(annotationClass));
+    }
 
-            return Optional.of(context.getRequiredTestInstance().getClass().getAnnotation(annotationClass));
-        }
-        return Optional.empty();
+    public static void setFirstTimeLoggingClasspathToTestConsole(final boolean firstTimeLoggingClasspathToTestConsole) {
+        LogTestConsoleUtilHelper.firstTimeLoggingClasspathToTestConsole = firstTimeLoggingClasspathToTestConsole;
     }
 }

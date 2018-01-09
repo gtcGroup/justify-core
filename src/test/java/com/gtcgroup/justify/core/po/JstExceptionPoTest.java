@@ -23,50 +23,30 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.po;
 
-package com.gtcgroup.justify.core.helper.internal;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.gtcgroup.justify.core.base.JstBaseTest;
-import com.gtcgroup.justify.core.bean.dependency.IncorrectSuffixPeeOh;
-import com.gtcgroup.justify.core.bean.dependency.NothingBean;
-import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
-import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
+import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
-/**
- * Test Class
- *
- * <p style="font-family:Verdana; font-size:10px; font-style:italic">
- * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
- * <a href="http://gtcGroup.com">gtcGroup.com </a>.
- * </p>
- *
- * @author Marvin Toll
- * @since v8.5
- */
-@JstConfigureTestLogToConsole
 @SuppressWarnings("static-method")
-public class CodingConventionUtilHelperTest extends JstBaseTest {
+@JstConfigureTestLogToConsole()
+public class JstExceptionPoTest {
 
     @Test
-    public void testCheckClassCharacterInName() {
+    public void testJstExceptionPO_null() {
 
-        Assertions.assertThrows(JustifyException.class, () -> {
-            JstCodingConventionUtilHelper.checkSuffixInClassName(NothingBean.class, "@#");
-        });
+        final JstExceptionPO exceptionPO = JstExceptionPO.withMessage(null);
 
-    }
-
-    @SuppressWarnings("unused")
-    @Test
-    public void testClassNameSuffix() {
-
-        Assertions.assertThrows(JustifyException.class, () -> {
-            new IncorrectSuffixPeeOh();
-        });
+        assertAll(() -> assertEquals(JstExceptionPO.THE_MESSAGE_IS_NULL, exceptionPO.getMessage()),
+                () -> assertNotNull(exceptionPO.getLogReferenceCode()),
+                () -> assertNotNull(exceptionPO.getLogTimeStamp()),
+                () -> assertEquals(JstConstant.DEFAULT_USER_ID, exceptionPO.getUserId()));
 
     }
 }

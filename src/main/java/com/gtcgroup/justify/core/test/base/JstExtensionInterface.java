@@ -41,5 +41,5 @@ import org.junit.jupiter.api.extension.ExtensionContext;
  */
 public interface JstExtensionInterface {
 
-    public void initializePropertiesFromAnnotation(final ExtensionContext context);
+    public void initializePropertiesFromAnnotation(final ExtensionContext extensionContext);
 }

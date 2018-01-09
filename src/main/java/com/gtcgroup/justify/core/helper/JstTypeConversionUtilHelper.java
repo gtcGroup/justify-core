@@ -63,7 +63,7 @@ public enum JstTypeConversionUtilHelper {
             JstTypeConversionUtilHelper.dataTypeFactory = DatatypeFactory.newInstance();
 
         } catch (@SuppressWarnings("unused") final Exception e) {
-            // Ignore, not likely.
+            // Checked exception, not likely.
         }
     }
 

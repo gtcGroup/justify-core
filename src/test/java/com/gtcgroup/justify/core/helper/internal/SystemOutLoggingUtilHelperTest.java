@@ -23,13 +23,22 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.bean.dependency;
 
-import java.io.Serializable;
+package com.gtcgroup.justify.core.helper.internal;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import com.gtcgroup.justify.core.base.JstBaseTest;
+import com.gtcgroup.justify.core.bean.dependency.IncorrectSuffixPeeOh;
+import com.gtcgroup.justify.core.bean.dependency.NothingBean;
+import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import com.gtcgroup.justify.core.po.JstExceptionPO;
+import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
 /**
- * This class is for testing. It is not a correct implementation of the Bean
- * Helper pattern.
+ * Test Class
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
@@ -37,49 +46,34 @@ import java.io.Serializable;
  * </p>
  *
  * @author Marvin Toll
- * @since v.6.0
+ * @since v8.5
  */
-public class NonPublicConstructorBean implements Serializable {
+@JstConfigureTestLogToConsole
+@SuppressWarnings("static-method")
+public class SystemOutLoggingUtilHelperTest extends JstBaseTest {
 
-    private static final long serialVersionUID = 1L;
+    @Test
+    public void testCheckClassCharacterInName() {
 
-    public static final String STRING = "string";
+        Assertions.assertThrows(JustifyException.class, () -> {
+            JstCodingConventionUtilHelper.checkSuffixInClassName(NothingBean.class, "@#");
+        });
 
-    private String string = NonPublicConstructorBean.STRING;
-
-    /**
-     * Constructor
-     */
-    protected NonPublicConstructorBean() {
-
-        super();
-        return;
+    }
+    
+    @Test
+    public void testLogException_suppress() {
+        
+        SystemOutLoggingUtilHelper.logException(JstExceptionPO.withMessage("message").withSuppressLogging(true));
     }
 
-    /**
-     * Constructor
-     *
-     * @param string
-     */
-    protected NonPublicConstructorBean(final String string) {
+    @SuppressWarnings("unused")
+    @Test
+    public void testClassNameSuffix() {
 
-        super();
-        this.setString(string);
-    }
+        Assertions.assertThrows(JustifyException.class, () -> {
+            new IncorrectSuffixPeeOh();
+        });
 
-    /**
-     * @return String
-     */
-    public String getString() {
-        return this.string;
-    }
-
-    /**
-     * @param string
-     * @return {@link NonPublicConstructorBean}
-     */
-    public NonPublicConstructorBean setString(final String string) {
-        this.string = string;
-        return this;
     }
 }

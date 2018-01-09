@@ -23,28 +23,49 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.test.helper.internal;
 
+package com.gtcgroup.justify.core.helper;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.gtcgroup.justify.core.base.JstBaseTest;
+import com.gtcgroup.justify.core.bean.dependency.IncorrectSuffixPeeOh;
+import com.gtcgroup.justify.core.bean.dependency.NothingBean;
+import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
-import com.gtcgroup.justify.core.test.helper.internal.dependency.DependencyExtensionContext;
 
+/**
+ * Test Class
+ *
+ * <p style="font-family:Verdana; font-size:10px; font-style:italic">
+ * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
+ * <a href="http://gtcGroup.com">gtcGroup.com </a>.
+ * </p>
+ *
+ * @author Marvin Toll
+ * @since v8.5
+ */
+@JstConfigureTestLogToConsole
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole(verbose = true)
-public class LogTestConsoleUtilHelperTest {
+public class JstCodingConventionUtilHelperTest extends JstBaseTest {
 
     @Test
-    public void testBuildClassPath() {
+    public void testCheckClassCharacterInName() {
 
-        LogTestConsoleUtilHelper.setFirstTimeLoggingClasspathToTestConsole(true);
+        Assertions.assertThrows(JustifyException.class, () -> {
+            JstCodingConventionUtilHelper.checkSuffixInClassName(NothingBean.class, "@#");
+        });
 
-        LogTestConsoleUtilHelper.buildClassPath(new StringBuilder(), new DependencyExtensionContext());
     }
 
+    @SuppressWarnings("unused")
     @Test
-    public void testLogHeaderToTestConsole() {
+    public void testClassNameSuffix() {
 
-        LogTestConsoleUtilHelper.logHeaderToTestConsole();
+        Assertions.assertThrows(JustifyException.class, () -> {
+            new IncorrectSuffixPeeOh();
+        });
+
     }
 }
