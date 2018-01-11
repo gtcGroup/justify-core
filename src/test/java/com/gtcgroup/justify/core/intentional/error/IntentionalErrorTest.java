@@ -51,8 +51,8 @@ public class IntentionalErrorTest {
 
         throw new JustifyException(
                 JstExceptionPO.withMessage("A Justify Exception.")
-                        .withClassName(IntentionalErrorTest.class.getSimpleName())
-                        .withMethodName("testIntentionalNestedError").withSuppressLogging(false).withUserId("mToll4"),
+                        .withExceptionClassName(IntentionalErrorTest.class.getSimpleName())
+                        .withExceptionMethodName("testIntentionalNestedError").withSuppressLogging(false).withUserId("mToll4"),
                 new NullPointerException("This is on purpose."));
     }
 

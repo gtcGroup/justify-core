@@ -146,18 +146,18 @@ public class JstExceptionPO extends JstBasePO implements Serializable {
     /**
      * @return {@link JstExceptionPO}
      */
-    public JstExceptionPO withClassName(final String className) {
+    public JstExceptionPO withExceptionClassName(final String exceptionClassName) {
 
-        this.exceptionClassName = className;
+        this.exceptionClassName = exceptionClassName;
         return this;
     }
 
     /**
      * @return {@link JstExceptionPO}
      */
-    public JstExceptionPO withMethodName(final String methodName) {
+    public JstExceptionPO withExceptionMethodName(final String exceptionMethodName) {
 
-        this.exceptionMethodName = methodName;
+        this.exceptionMethodName = exceptionMethodName;
         return this;
     }
 
