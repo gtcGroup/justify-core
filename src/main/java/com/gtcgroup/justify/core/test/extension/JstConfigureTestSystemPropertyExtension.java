@@ -49,7 +49,7 @@ import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since v8.5
  */
 class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
         implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
