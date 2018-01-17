@@ -1,7 +1,7 @@
 /*
  * [Licensed per the Open Source "MIT License".]
  *
- * Copyright (c) 2006 - 2017 by
+ * Copyright (c) 2006 - 2018 by
  * Global Technology Consulting Group, Inc. at
  * http://gtcGroup.com
  *
@@ -28,7 +28,6 @@ package com.gtcgroup.justify.core.test.helper.internal;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
@@ -45,7 +44,7 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
  * This Util Helper class provides support for console test logging.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
- * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
+ * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
@@ -63,7 +62,7 @@ public enum LogTestConsoleUtilHelper {
     private static boolean firstTimeLoggingHeaderToTestConsole = true;
     private static boolean firstTimeLoggingClasspathToTestConsole = true;
 
-    private static final Map<String, Object> statusMapForTestMethod = new ConcurrentHashMap<>();
+    private static final Map<String, Object> executionStatusForTestMethod = new ConcurrentHashMap<>();
 
     /**
      * This is a Collecting Parameter method.
@@ -135,8 +134,8 @@ public enum LogTestConsoleUtilHelper {
         message.append(stringWriter.toString());
     }
 
-    public static Map<String, Object> getStatusMapForTestMethod() {
-        return LogTestConsoleUtilHelper.statusMapForTestMethod;
+    public static Map<String, Object> getExecutionStatusForTestMethod() {
+        return LogTestConsoleUtilHelper.executionStatusForTestMethod;
     }
 
     public static boolean isFirstTimeLoggingTheTestClasspath() {
@@ -154,8 +153,8 @@ public enum LogTestConsoleUtilHelper {
     public static boolean isVerbose(final ExtensionContext extensionContext) {
 
         @SuppressWarnings("unchecked")
-        final Optional<JstConfigureTestLogToConsole> annotation = (Optional<JstConfigureTestLogToConsole>) retrieveAnnotationRequired(
-                extensionContext, JstConfigureTestLogToConsole.class);
+        final Optional<JstConfigureTestLogToConsole> annotation = (Optional<JstConfigureTestLogToConsole>) AnnotationUtilHelper
+                .retrieveAnnotation(extensionContext, JstConfigureTestLogToConsole.class);
 
         return annotation.get().verbose();
     }
@@ -171,13 +170,13 @@ public enum LogTestConsoleUtilHelper {
 
     public static void logMethodDetailsToTestConsole(final String uniqueId) {
 
-        final StringBuilder message = (StringBuilder) LogTestConsoleUtilHelper.statusMapForTestMethod
+        final StringBuilder message = (StringBuilder) LogTestConsoleUtilHelper.executionStatusForTestMethod
                 .get(uniqueId + LogTestConsoleUtilHelper.MESSAGE);
 
-        final String status = (String) LogTestConsoleUtilHelper.statusMapForTestMethod
+        final String status = (String) LogTestConsoleUtilHelper.executionStatusForTestMethod
                 .get(uniqueId + LogTestConsoleUtilHelper.STATUS);
 
-        final JstTimer jstTimer = (JstTimer) LogTestConsoleUtilHelper.statusMapForTestMethod
+        final JstTimer jstTimer = (JstTimer) LogTestConsoleUtilHelper.executionStatusForTestMethod
                 .get(uniqueId + LogTestConsoleUtilHelper.TIMER);
 
         message.append("\n\t***  End:  [");
@@ -191,13 +190,6 @@ public enum LogTestConsoleUtilHelper {
 
     public static void logToConsole(final String message) {
         System.out.println(message);
-    }
-
-    public static Optional<? extends Annotation> retrieveAnnotationRequired(final ExtensionContext extensionContext,
-            final Class<? extends Annotation> annotationClass) {
-
-        return Optional
-                .ofNullable(extensionContext.getRequiredTestInstance().getClass().getAnnotation(annotationClass));
     }
 
     public static void setFirstTimeLoggingClasspathToTestConsole(final boolean firstTimeLoggingClasspathToTestConsole) {

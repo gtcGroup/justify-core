@@ -1,7 +1,7 @@
 /*
  * [Licensed per the Open Source "MIT License".]
  *
- * Copyright (c) 2006 - 2017 by
+ * Copyright (c) 2006 - 2018 by
  * Global Technology Consulting Group, Inc. at
  * http://gtcGroup.com
  *
@@ -36,7 +36,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.test.base.JstBaseExtension;
 import com.gtcgroup.justify.core.test.base.JstExtensionInterface;
-import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
+import com.gtcgroup.justify.core.test.helper.internal.AnnotationUtilHelper;
 
 /**
  * This {@link Extension} class initializes a system property for the duration
@@ -44,7 +44,7 @@ import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
  * none, then clears the property.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
- * Copyright (c) 2006 - 2017 by Global Technology Consulting Group, Inc. at
+ * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
@@ -69,7 +69,6 @@ class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
 
             System.setProperty(this.durableKeyList.get(i), this.durableValueList.get(i));
         }
-
         return;
     }
 
@@ -96,8 +95,8 @@ class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
     public void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
 
         @SuppressWarnings("unchecked")
-        final Optional<JstConfigureTestSystemProperty> configureSystemProperty = (Optional<JstConfigureTestSystemProperty>) LogTestConsoleUtilHelper
-                .retrieveAnnotationRequired(extensionContext, JstConfigureTestSystemProperty.class);
+        final Optional<JstConfigureTestSystemProperty> configureSystemProperty = (Optional<JstConfigureTestSystemProperty>) AnnotationUtilHelper
+                .retrieveAnnotation(extensionContext, JstConfigureTestSystemProperty.class);
 
         if (configureSystemProperty.isPresent()) {
             this.keyArray = configureSystemProperty.get().key();

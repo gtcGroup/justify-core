@@ -23,14 +23,16 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.base;
 
-import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
-import com.gtcgroup.justify.core.po.JstExceptionPO;
+package com.gtcgroup.justify.core.test.helper.internal;
+
+import java.lang.annotation.Annotation;
+import java.util.Optional;
+
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
- * This {@link RuntimeException} base class supports logging via a Template
- * Method.
+ * This Util Helper class provides support for {@link Annotation} processing.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -38,33 +40,18 @@ import com.gtcgroup.justify.core.po.JstExceptionPO;
  * </p>
  *
  * @author Marvin Toll
- * @since v.8.5
+ * @since v8.5
  */
-public abstract class JstBaseRuntimeException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+public enum AnnotationUtilHelper {
 
-    private static final String SUFFIX = "Exception";
+    INSTANCE;
 
-    /**
-     * Constructor
-     */
-    public JstBaseRuntimeException(final JstExceptionPO exceptionPO) {
+    public static Optional<? extends Annotation> retrieveAnnotation(final ExtensionContext extensionContext,
+            final Class<? extends Annotation> annotationClass) {
 
-        super(exceptionPO.getMessage());
-        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseRuntimeException.SUFFIX);
-        logExceptionTM(exceptionPO);
+        return Optional
+                .ofNullable(extensionContext.getRequiredTestInstance().getClass().getAnnotation(annotationClass));
     }
 
-    /**
-     * Constructor
-     */
-    public JstBaseRuntimeException(final JstExceptionPO exceptionPO, final Throwable exception) {
-
-        super(exceptionPO.getMessage(), exception);
-        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseRuntimeException.SUFFIX);
-        logExceptionTM(exceptionPO);
-    }
-
-    protected abstract void logExceptionTM(final JstExceptionPO exceptionPO);
 }
