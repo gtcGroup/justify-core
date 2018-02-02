@@ -28,6 +28,7 @@ package com.gtcgroup.justify.core.helper;
 
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -356,28 +357,27 @@ public enum JstTypeConversionUtilHelper {
      */
     public static Optional<String> convertNanosecondToMillisecondString(final long nanos) {
 
-        final String longString = Long.toString(nanos);
+        if (0 == nanos) {
+            return Optional.of(".000");
+        }
 
-        final long ms = nanos / 1000000;
+        final String nanoString = String.valueOf(nanos);
 
-        if (0 == ms) {
+        if (nanoString.length() < 7) {
 
-            if (longString.length() == 6) {
+            if (nanoString.length() > 2) {
+                return Optional.of("." + nanoString.substring(0, 3));
 
-                return Optional.of("." + longString.substring(0, 3));
-            } else if (longString.length() == 5) {
-                return Optional.of(".0" + longString.substring(0, 2));
-            } else if (longString.length() == 4) {
-                return Optional.of(".00" + longString.substring(0, 1));
-            } else if (longString.length() == 3) {
-                return Optional.of(".000" + longString.substring(0, 1));
-            } else if (longString.length() == 2) {
-                return Optional.of(".0000" + longString.substring(0, 1));
+            } else if (nanoString.length() > 1) {
+                return Optional.of("." + nanoString.substring(0, 2));
+
             } else {
-                return Optional.of(".00000" + longString);
+                return Optional.of("." + nanoString);
             }
         }
-        return Optional.of(Long.toString(ms));
+        // The elapsed time exceeds one millisecond.
+        final DecimalFormat decimalFormat = new DecimalFormat("###,###.###");
+        return Optional.of(decimalFormat.format(nanos / 1000000));
     }
 
     /**

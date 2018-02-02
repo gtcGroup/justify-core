@@ -24,7 +24,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.helper;
+package com.gtcgroup.justify.core;
 
 /**
  * This Timer class can be used to support performance logging.
@@ -37,25 +37,23 @@ package com.gtcgroup.justify.core.helper;
  * @author Marvin Toll
  * @since v3.0
  */
-public class JstTimer {
+public class JstDurationTimer {
 
-    private final long startNanos;
+    private final long start;
 
     /**
      * Constructor
      */
-    public JstTimer() {
+    public JstDurationTimer() {
         super();
-        this.startNanos = System.nanoTime();
+        this.start = System.nanoTime();
     }
 
     /**
-     * This method calculates elapsed time.
-     *
      * @return long
      */
-    public long calculateElapsedNanoSeconds() {
+    public long calculateDurationInNanoSeconds() {
 
-        return System.nanoTime() - this.startNanos;
+        return System.nanoTime() - this.start;
     }
 }

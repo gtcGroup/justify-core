@@ -272,7 +272,7 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
     }
 
     @Test
-    public void testConvertNanosecondToMicrosecondString_false() {
+    public void testConvertNanosecondToMillisecondString_false() {
 
         final long nanos = 999999999999999999L;
 
@@ -280,31 +280,31 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
     }
 
     @Test
-    public void testConvertNanosecondToMicrosecondString_five() {
+    public void testConvertNanosecondToMillisecondString_five() {
 
         final long nanos = 99999L;
 
-        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".0"));
+        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".999"));
     }
 
     @Test
-    public void testConvertNanosecondToMicrosecondString_four() {
+    public void testConvertNanosecondToMillisecondString_four() {
 
         final long nanos = 9999L;
 
-        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".00"));
+        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".999"));
     }
 
     @Test
-    public void testConvertNanosecondToMicrosecondString_one() {
+    public void testConvertNanosecondToMillisecondString_one() {
 
         final long nanos = 9L;
 
-        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".00000"));
+        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".9"));
     }
 
     @Test
-    public void testConvertNanosecondToMicrosecondString_six() {
+    public void testConvertNanosecondToMillisecondString_six() {
 
         final long nanos = 999999L;
 
@@ -312,19 +312,19 @@ public class JstTypeConversionUtilHelperTest extends JstBaseTest {
     }
 
     @Test
-    public void testConvertNanosecondToMicrosecondString_three() {
+    public void testConvertNanosecondToMillisecondString_three() {
 
         final long nanos = 999L;
 
-        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".000"));
+        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".999"));
     }
 
     @Test
-    public void testConvertNanosecondToMicrosecondString_two() {
+    public void testConvertNanosecondToMillisecondString_two() {
 
         final long nanos = 99L;
 
-        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".0000"));
+        assertTrue(JstTypeConversionUtilHelper.convertNanosecondToMillisecondString(nanos).get().contains(".99"));
     }
 
     @Test

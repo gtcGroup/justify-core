@@ -33,7 +33,7 @@ import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.opentest4j.AssertionFailedError;
 
 import com.gtcgroup.justify.core.JstConstant;
-import com.gtcgroup.justify.core.helper.JstTimer;
+import com.gtcgroup.justify.core.JstDurationTimer;
 import com.gtcgroup.justify.core.test.base.JstBaseExtension;
 import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
@@ -69,7 +69,7 @@ class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
         LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
                 .put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.MESSAGE, message);
         LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
-                .put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.TIMER, new JstTimer());
+                .put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.TIMER, new JstDurationTimer());
 
     }
 

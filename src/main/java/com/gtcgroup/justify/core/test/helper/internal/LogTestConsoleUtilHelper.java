@@ -36,7 +36,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.JstConstant;
-import com.gtcgroup.justify.core.helper.JstTimer;
+import com.gtcgroup.justify.core.JstDurationTimer;
 import com.gtcgroup.justify.core.helper.JstTypeConversionUtilHelper;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
@@ -176,14 +176,14 @@ public enum LogTestConsoleUtilHelper {
         final String status = (String) LogTestConsoleUtilHelper.executionStatusForTestMethod
                 .get(uniqueId + LogTestConsoleUtilHelper.STATUS);
 
-        final JstTimer jstTimer = (JstTimer) LogTestConsoleUtilHelper.executionStatusForTestMethod
+        final JstDurationTimer durationTimer = (JstDurationTimer) LogTestConsoleUtilHelper.executionStatusForTestMethod
                 .get(uniqueId + LogTestConsoleUtilHelper.TIMER);
 
         message.append("\n\t***  End:  [");
         message.append(status);
         message.append("] ");
         message.append(JstTypeConversionUtilHelper
-                .convertNanosecondToMillisecondString(jstTimer.calculateElapsedNanoSeconds()).get());
+                .convertNanosecondToMillisecondString(durationTimer.calculateDurationInNanoSeconds()).get());
         message.append(" ms ***");
         logToConsole(message.toString());
     }
