@@ -54,4 +54,10 @@ public enum AnnotationUtilHelper {
                 .ofNullable(extensionContext.getRequiredTestInstance().getClass().getAnnotation(annotationClass));
     }
 
+    public static Optional<? extends Annotation> retrieveAnnotation(final Object object,
+            final Class<? extends Annotation> annotationClass) {
+
+        return Optional.ofNullable(object.getClass().getAnnotation(annotationClass));
+    }
+
 }

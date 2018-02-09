@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelperTest;
@@ -47,6 +48,11 @@ import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelperTe
  * @since v.8.5
  */
 public class DependencyExtensionContext implements ExtensionContext {
+
+    @Override
+    public Optional<String> getConfigurationParameter(final String key) {
+        return null;
+    }
 
     @Override
     public String getDisplayName() {
@@ -99,6 +105,11 @@ public class DependencyExtensionContext implements ExtensionContext {
     }
 
     @Override
+    public Optional<Lifecycle> getTestInstanceLifecycle() {
+        return null;
+    }
+
+    @Override
     public Optional<Method> getTestMethod() {
         return null;
     }
@@ -110,8 +121,6 @@ public class DependencyExtensionContext implements ExtensionContext {
 
     @Override
     public void publishReportEntry(final Map<String, String> map) {
-        // TODO Auto-generated method stub
-
+        // Empty String
     }
-
 }
