@@ -38,58 +38,59 @@ import com.gtcgroup.justify.core.test.base.JstBaseExtension;
 import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
 class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
-        implements BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback {
+		implements BeforeTestExecutionCallback, TestExecutionExceptionHandler, AfterTestExecutionCallback {
 
-    static {
-        System.setProperty(JstConstant.JUNIT_TEST_RUNTIME, "true");
-        System.setProperty(JstConstant.JUSTIFY_VERSION, "8.5.0-a01");
-    }
+	static {
+		System.setProperty(JstConstant.JUNIT_TEST_RUNTIME, "true");
+		System.setProperty(JstConstant.JUSTIFY_VERSION_KEY, JstConstant.JUSTIFY_VERSION_VALUE);
+	}
 
-    @Override
-    public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {
+	@Override
+	public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {
 
-        LogTestConsoleUtilHelper.logMethodDetailsToTestConsole(extensionContext.getUniqueId());
-    }
+		LogTestConsoleUtilHelper.logMethodDetailsToTestConsole(extensionContext.getUniqueId());
+	}
 
-    @Override
-    public void beforeTestExecution(final ExtensionContext extensionContext) throws Exception {
+	@Override
+	public void beforeTestExecution(final ExtensionContext extensionContext) throws Exception {
 
-        if (LogTestConsoleUtilHelper.isFirstTimeLoggingTheTestHeader()) {
+		if (LogTestConsoleUtilHelper.isFirstTimeLoggingTheTestHeader()) {
 
-            LogTestConsoleUtilHelper.logHeaderToTestConsole();
-        }
+			LogTestConsoleUtilHelper.logJustifyHeaderToTestConsole();
+		}
 
-        final StringBuilder message = LogTestConsoleUtilHelper.buildMethodBeginMessage(
-                extensionContext.getDisplayName(), extensionContext.getRequiredTestClass().getSimpleName());
+		final StringBuilder message = LogTestConsoleUtilHelper.buildMethodBeginMessage(
+				extensionContext.getDisplayName(), extensionContext.getRequiredTestClass().getSimpleName());
 
-        LogTestConsoleUtilHelper.buildClassPath(message, extensionContext);
+		LogTestConsoleUtilHelper.buildClassPath(message, extensionContext);
 
-        LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
-                .put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.STATUS, "Success");
-        LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
-                .put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.MESSAGE, message);
-        LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
-                .put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.TIMER, new JstDurationTimer());
+		LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
+				.put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.STATUS, "Success");
+		LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
+				.put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.MESSAGE, message);
+		LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
+				.put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.TIMER, new JstDurationTimer());
 
-    }
+		LogTestConsoleUtilHelper.logMethodHeaderToTestConsole(extensionContext.getRequiredTestClass().getSimpleName());
+	}
 
-    @Override
-    public void handleTestExecutionException(final ExtensionContext extensionContext, final Throwable throwable)
-            throws Throwable {
+	@Override
+	public void handleTestExecutionException(final ExtensionContext extensionContext, final Throwable throwable)
+			throws Throwable {
 
-        final StringBuilder message = (StringBuilder) LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
-                .get(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.MESSAGE);
+		final StringBuilder message = (StringBuilder) LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
+				.get(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.MESSAGE);
 
-        if (throwable instanceof AssertionFailedError) {
-            LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
-                    .put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.STATUS, "Error");
-            LogTestConsoleUtilHelper.buildAssertionFailedMessage(throwable, message);
+		if (throwable instanceof AssertionFailedError) {
+			LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
+					.put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.STATUS, "Error");
+			LogTestConsoleUtilHelper.buildAssertionFailedMessage(throwable, message);
 
-        } else {
-            LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
-                    .put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.STATUS, "Failure");
-            LogTestConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
-        }
-        throw throwable;
-    }
+		} else {
+			LogTestConsoleUtilHelper.getExecutionStatusForTestMethod()
+					.put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.STATUS, "Failure");
+			LogTestConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
+		}
+		throw throwable;
+	}
 }

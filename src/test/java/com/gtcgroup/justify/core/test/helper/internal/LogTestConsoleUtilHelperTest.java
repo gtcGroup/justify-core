@@ -45,6 +45,6 @@ public class LogTestConsoleUtilHelperTest {
     @Test
     public void testLogHeaderToTestConsole() {
 
-        LogTestConsoleUtilHelper.logHeaderToTestConsole();
+        LogTestConsoleUtilHelper.logJustifyHeaderToTestConsole();
     }
 }

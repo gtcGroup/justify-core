@@ -43,7 +43,9 @@ public enum JstConstant {
 
     public static final String JUNIT_TEST_RUNTIME = "junit.test.runtime"; // true if JUnit testing
 
-    public static final String JUSTIFY_VERSION = "justify.version";
+    public static final String JUSTIFY_VERSION_KEY = "justify.version";
+    
+    public static final String JUSTIFY_VERSION_VALUE = "8.5.0-alpha";
 
     public static final String DEFAULT_USER_ID = "$userId";
 
