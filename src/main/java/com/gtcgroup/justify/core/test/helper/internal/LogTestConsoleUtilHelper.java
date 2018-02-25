@@ -56,13 +56,16 @@ public enum LogTestConsoleUtilHelper {
 
 	INSTANCE;
 
-	public static final String MESSAGE = "-message";
-	public static final String TIMER = "-timer";
-	public static final String STATUS = "-status";
+	public static final String MESSAGE_KEY = "-m";
+	public static final String TIMER_KEY = "-t";
+	public static final String STATUS_KEY = "-s";
+	public static final String STATUS_SUCCESS = "Success";
+	public static final String STATUS_ERROR = "Error";
+	public static final String STATUS_FAILURE = "Failure";
 	private static boolean firstTimeLoggingHeaderToTestConsole = true;
 	private static boolean firstTimeLoggingClasspathToTestConsole = true;
 
-	private static final Map<String, Object> executionStatusForTestMethod = new ConcurrentHashMap<>();
+	private static final Map<String, Object> testMethodMap = new ConcurrentHashMap<>();
 
 	/**
 	 * This is a Collecting Parameter method.
@@ -109,12 +112,28 @@ public enum LogTestConsoleUtilHelper {
 		}
 	}
 
-	public static StringBuilder buildMethodBeginMessage(final String testMethodName, final String testClassName) {
+	public static void buildDefaultTestValues(final ExtensionContext extensionContext) {
+
 		final StringBuilder message = new StringBuilder();
+
+		LogTestConsoleUtilHelper.buildClassPath(message, extensionContext);
+
+		LogTestConsoleUtilHelper.buildMethodBeginMessage(message, extensionContext);
+
+		setTestMethodStatus(extensionContext, LogTestConsoleUtilHelper.STATUS_SUCCESS);
+
+		testMethodMap.put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.MESSAGE_KEY, message);
+
+		testMethodMap.put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.TIMER_KEY, new JstDurationTimer());
+	}
+
+	public static StringBuilder buildMethodBeginMessage(final StringBuilder message,
+			final ExtensionContext extensionContext) {
+
 		message.append("\t*** Method Begin: ");
-		message.append(testMethodName);
+		message.append(extensionContext.getRequiredTestMethod());
 		message.append("/");
-		message.append(testClassName);
+		message.append(extensionContext.getRequiredTestClass().getSimpleName());
 		message.append(" ***");
 		return message;
 	}
@@ -134,8 +153,9 @@ public enum LogTestConsoleUtilHelper {
 		message.append(stringWriter.toString());
 	}
 
-	public static Map<String, Object> getExecutionStatusForTestMethod() {
-		return LogTestConsoleUtilHelper.executionStatusForTestMethod;
+	public static StringBuilder getTestMethodMessage(final ExtensionContext extensionContext) {
+
+		return (StringBuilder) testMethodMap.get(extensionContext.getUniqueId() + MESSAGE_KEY);
 	}
 
 	public static boolean isFirstTimeLoggingTheTestClasspath() {
@@ -159,6 +179,18 @@ public enum LogTestConsoleUtilHelper {
 		return annotation.get().verbose();
 	}
 
+	public static void logClassBeginToTestConsole(final ExtensionContext extensionContext) {
+
+		final StringBuilder message = new StringBuilder();
+		message.append("\n\t***  Class Begin: ");
+		message.append(extensionContext.getRequiredTestClass().getSimpleName());
+		message.append(" ***");
+
+		LogTestConsoleUtilHelper.buildDefaultTestValues(extensionContext);
+
+		logToConsole(message.toString());
+	}
+
 	public static void logJustifyHeaderToTestConsole() {
 
 		final String message = "\t* Justify v" + System.getProperty(JstConstant.JUSTIFY_VERSION_KEY) + " *";
@@ -170,14 +202,14 @@ public enum LogTestConsoleUtilHelper {
 
 	public static void logMethodDetailsToTestConsole(final String uniqueId) {
 
-		final StringBuilder message = (StringBuilder) LogTestConsoleUtilHelper.executionStatusForTestMethod
-				.get(uniqueId + LogTestConsoleUtilHelper.MESSAGE);
+		final StringBuilder message = (StringBuilder) LogTestConsoleUtilHelper.testMethodMap
+				.get(uniqueId + LogTestConsoleUtilHelper.MESSAGE_KEY);
 
-		final String status = (String) LogTestConsoleUtilHelper.executionStatusForTestMethod
-				.get(uniqueId + LogTestConsoleUtilHelper.STATUS);
+		final String status = (String) LogTestConsoleUtilHelper.testMethodMap
+				.get(uniqueId + LogTestConsoleUtilHelper.STATUS_KEY);
 
-		final JstDurationTimer durationTimer = (JstDurationTimer) LogTestConsoleUtilHelper.executionStatusForTestMethod
-				.get(uniqueId + LogTestConsoleUtilHelper.TIMER);
+		final JstDurationTimer durationTimer = (JstDurationTimer) LogTestConsoleUtilHelper.testMethodMap
+				.get(uniqueId + LogTestConsoleUtilHelper.TIMER_KEY);
 
 		message.append("\n\t***   Method End: [");
 		message.append(status);
@@ -188,21 +220,15 @@ public enum LogTestConsoleUtilHelper {
 		logToConsole(message.toString());
 	}
 
-	public static void logMethodHeaderToTestConsole(final String testClassName) {
-
-		final StringBuilder message = new StringBuilder();
-		message.append("\n\t***  Class Begin: ");
-		message.append(testClassName);
-		message.append(" ***");
-
-		logToConsole(message.toString());
-	}
-
 	public static void logToConsole(final String message) {
 		System.out.println(message);
 	}
 
 	public static void setFirstTimeLoggingClasspathToTestConsole(final boolean firstTimeLoggingClasspathToTestConsole) {
 		LogTestConsoleUtilHelper.firstTimeLoggingClasspathToTestConsole = firstTimeLoggingClasspathToTestConsole;
+	}
+
+	public static void setTestMethodStatus(final ExtensionContext extensionContext, final String statusValue) {
+		testMethodMap.put(extensionContext.getUniqueId() + STATUS_KEY, statusValue);
 	}
 }

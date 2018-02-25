@@ -26,9 +26,13 @@
 package com.gtcgroup.justify.core.test.base;
 
 import org.junit.jupiter.api.extension.Extension;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
+import org.opentest4j.AssertionFailedError;
 
 import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
 /**
  * This {@link Extension} base class works in harmony with the JUnit lifecycle.
@@ -41,23 +45,39 @@ import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseExtension implements Extension {
+public abstract class JstBaseExtension implements TestExecutionExceptionHandler {
 
-    private static final String EXTENSION_SUFFIX = "Extension";
+	private static final String EXTENSION_SUFFIX = "Extension";
 
-    protected static String userId = JstConstant.DEFAULT_USER_ID;
+	protected static String userId = JstConstant.DEFAULT_USER_ID;
 
-    public static String getUserId() {
-        return JstBaseExtension.userId;
-    }
+	public static String getUserId() {
+		return JstBaseExtension.userId;
+	}
 
-    protected static void setUserId(final String userId) {
-        JstBaseExtension.userId = userId;
-    }
+	protected static void setUserId(final String userId) {
+		JstBaseExtension.userId = userId;
+	}
 
-    public JstBaseExtension() {
-        super();
+	public JstBaseExtension() {
+		super();
 
-        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.EXTENSION_SUFFIX);
-    }
+		JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.EXTENSION_SUFFIX);
+	}
+
+	@Override
+	public void handleTestExecutionException(final ExtensionContext extensionContext, final Throwable throwable)
+			throws Throwable {
+
+		final StringBuilder message = LogTestConsoleUtilHelper.getTestMethodMessage(extensionContext);
+
+		if (throwable instanceof AssertionFailedError) {
+			LogTestConsoleUtilHelper.setTestMethodStatus(extensionContext, LogTestConsoleUtilHelper.STATUS_ERROR);
+
+		} else {
+			LogTestConsoleUtilHelper.setTestMethodStatus(extensionContext, LogTestConsoleUtilHelper.STATUS_FAILURE);
+		}
+		LogTestConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
+		throw throwable;
+	}
 }
