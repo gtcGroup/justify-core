@@ -50,31 +50,31 @@ import com.gtcgroup.justify.core.test.helper.internal.AnnotationUtilHelper;
  * @since v8.5
  */
 class JstConfigureTestUserIdExtension extends JstBaseExtension
-        implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
+		implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
-    @Override
-    public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {
+	@Override
+	public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {
 
-        setUserId(JstConstant.DEFAULT_USER_ID);
-        return;
-    }
+		setUserId(JstConstant.DEFAULT_USER_ID);
+		return;
+	}
 
-    @Override
-    public void beforeTestExecution(final ExtensionContext extensionContext) throws Exception {
+	@Override
+	public void beforeTestExecution(final ExtensionContext extensionContext) throws Exception {
 
-        initializePropertiesFromAnnotation(extensionContext);
-    }
+		initializePropertiesFromAnnotation(extensionContext);
+	}
 
-    @Override
-    public void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
+	@Override
+	public void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
 
-        @SuppressWarnings("unchecked")
-        final Optional<JstConfigureTestUserId> configureUserId = (Optional<JstConfigureTestUserId>) AnnotationUtilHelper
-                .retrieveAnnotation(extensionContext, JstConfigureTestUserId.class);
+		@SuppressWarnings("unchecked")
+		final Optional<JstConfigureTestUserId> configureUserId = (Optional<JstConfigureTestUserId>) AnnotationUtilHelper
+				.retrieveAnnotation(extensionContext.getTestClass(), JstConfigureTestUserId.class);
 
-        if (configureUserId.isPresent()) {
+		if (configureUserId.isPresent()) {
 
-            JstBaseExtension.userId = configureUserId.get().userId();
-        }
-    }
+			JstBaseExtension.userId = configureUserId.get().userId();
+		}
+	}
 }

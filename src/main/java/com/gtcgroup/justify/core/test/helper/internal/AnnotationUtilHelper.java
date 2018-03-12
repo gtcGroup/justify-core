@@ -29,7 +29,8 @@ package com.gtcgroup.justify.core.test.helper.internal;
 import java.lang.annotation.Annotation;
 import java.util.Optional;
 
-import org.junit.jupiter.api.extension.ExtensionContext;
+import com.gtcgroup.justify.core.po.JstExceptionPO;
+import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
 
 /**
  * This Util Helper class provides support for {@link Annotation} processing.
@@ -45,19 +46,38 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 public enum AnnotationUtilHelper {
 
-    INSTANCE;
+	INSTANCE;
 
-    public static Optional<? extends Annotation> retrieveAnnotation(final ExtensionContext extensionContext,
-            final Class<? extends Annotation> annotationClass) {
+	private static String CLASS_NAME = AnnotationUtilHelper.class.getSimpleName();
 
-        return Optional
-                .ofNullable(extensionContext.getRequiredTestInstance().getClass().getAnnotation(annotationClass));
-    }
+	private static String METHOD_NAME = "retrieveAnnotation";
 
-    public static Optional<? extends Annotation> retrieveAnnotation(final Object object,
-            final Class<? extends Annotation> annotationClass) {
+	public static Optional<? extends Annotation> retrieveAnnotation(final Class<?> clazz,
+			final Class<? extends Annotation> annotationClass) {
 
-        return Optional.ofNullable(object.getClass().getAnnotation(annotationClass));
-    }
+		try {
+			return Optional.of(clazz.getAnnotation(annotationClass));
+		} catch (final Exception e) {
 
+			throw new JustifyException(JstExceptionPO.withMessage(e.getMessage()).withExceptionClassName(CLASS_NAME)
+					.withExceptionMethodName(METHOD_NAME));
+		}
+	}
+
+	public static Optional<? extends Annotation> retrieveAnnotation(final Optional<Class<?>> classOptional,
+			final Class<? extends Annotation> annotationClass) {
+
+		try {
+			if (classOptional.isPresent()) {
+				return Optional.of(classOptional.get().getAnnotation(annotationClass));
+			}
+		} catch (@SuppressWarnings("unused") final Exception e) {
+
+			throw new JustifyException(JstExceptionPO
+					.withMessage("The Annotation class [" + annotationClass + "] is not retrievable from the class ["
+							+ classOptional.get() + "].")
+					.withExceptionClassName(CLASS_NAME).withExceptionMethodName(METHOD_NAME));
+		}
+		return Optional.empty();
+	}
 }

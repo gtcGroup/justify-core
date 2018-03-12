@@ -25,26 +25,49 @@
  */
 package com.gtcgroup.justify.core.test.helper.internal;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
-import com.gtcgroup.justify.core.test.helper.internal.dependency.DependencyExtensionContext;
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestSystemProperty;
 
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole(verbose = true)
-public class LogTestConsoleUtilHelperTest {
+@JstConfigureTestLogToConsole(verbose = false)
+public class AnnotationUtilHelperTest {
 
 	@Test
-	public void testBuildClassPath() {
+	public void testRetrieveAnnotation() {
 
-		LogTestConsoleUtilHelper.setFirstTimeLoggingClasspathToTestConsole(true);
-
-		LogTestConsoleUtilHelper.buildClassPath(new StringBuilder(), new DependencyExtensionContext());
+		Assertions.assertThrows(JustifyException.class, () -> {
+			AnnotationUtilHelper.retrieveAnnotation(AnnotationUtilHelperTest.class,
+					JstConfigureTestSystemProperty.class);
+		});
 	}
 
 	@Test
-	public void testLogHeaderToTestConsole() {
+	public void testRetrieveAnnotation_happyPath() {
 
-		LogTestConsoleUtilHelper.logJustifyHeaderToTestConsole();
+		AnnotationUtilHelper.retrieveAnnotation(AnnotationUtilHelperTest.class, JstConfigureTestLogToConsole.class);
+	}
+
+	@Test
+	public void testRetrieveAnnotation_optional() {
+
+		Assertions.assertThrows(JustifyException.class, () -> {
+			AnnotationUtilHelper.retrieveAnnotation(Optional.of(AnnotationUtilHelperTest.class),
+					JstConfigureTestSystemProperty.class);
+		});
+	}
+
+	@Test
+	public void testRetrieveAnnotation_optionalEmpty() {
+
+		assertFalse(AnnotationUtilHelper.retrieveAnnotation(Optional.empty(), JstConfigureTestSystemProperty.class)
+				.isPresent());
 	}
 }

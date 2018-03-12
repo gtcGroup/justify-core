@@ -35,7 +35,7 @@ hs_err_pid*
 .project
 
 #Gradle
-gradle*
+gradle.properties
 **/*.gradle
 !build.gradle
 !gradlew.*

@@ -49,78 +49,83 @@ import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelperTe
  */
 public class DependencyExtensionContext implements ExtensionContext {
 
-    @Override
-    public Optional<String> getConfigurationParameter(final String key) {
-        return null;
-    }
+	@Override
+	public Optional<String> getConfigurationParameter(final String key) {
+		return null;
+	}
 
-    @Override
-    public String getDisplayName() {
-        return null;
-    }
+	@Override
+	public String getDisplayName() {
+		return null;
+	}
 
-    @Override
-    public Optional<AnnotatedElement> getElement() {
-        return null;
-    }
+	@Override
+	public Optional<AnnotatedElement> getElement() {
+		return null;
+	}
 
-    @Override
-    public Optional<Throwable> getExecutionException() {
-        return null;
-    }
+	@Override
+	public Optional<Throwable> getExecutionException() {
+		return null;
+	}
 
-    @Override
-    public Optional<ExtensionContext> getParent() {
-        return null;
-    }
+	@Override
+	public Optional<ExtensionContext> getParent() {
+		return null;
+	}
 
-    @Override
-    public Object getRequiredTestInstance() {
-        return new LogTestConsoleUtilHelperTest();
-    }
+	@Override
+	public Object getRequiredTestInstance() {
+		return new LogTestConsoleUtilHelperTest();
+	}
 
-    @Override
-    public ExtensionContext getRoot() {
-        return null;
-    }
+	@Override
+	public ExtensionContext getRoot() {
+		return null;
+	}
 
-    @Override
-    public Store getStore(final Namespace namespace) {
-        return null;
-    }
+	@Override
+	public Store getStore(final Namespace namespace) {
+		return null;
+	}
 
-    @Override
-    public Set<String> getTags() {
-        return null;
-    }
+	@Override
+	public Set<String> getTags() {
+		return null;
+	}
 
-    @Override
-    public Optional<Class<?>> getTestClass() {
-        return null;
-    }
+	@Override
+	public Optional<Class<?>> getTestClass() {
+		return Optional.of(LogTestConsoleUtilHelperTest.class);
+	}
 
-    @Override
-    public Optional<Object> getTestInstance() {
-        return null;
-    }
+	@Override
+	public Optional<Object> getTestInstance() {
+		return Optional.of(new LogTestConsoleUtilHelperTest());
+	}
 
-    @Override
-    public Optional<Lifecycle> getTestInstanceLifecycle() {
-        return null;
-    }
+	@Override
+	public Optional<Lifecycle> getTestInstanceLifecycle() {
+		return null;
+	}
 
-    @Override
-    public Optional<Method> getTestMethod() {
-        return null;
-    }
+	@Override
+	public Optional<Method> getTestMethod() {
+		try {
+			return Optional.of(LogTestConsoleUtilHelperTest.class.getMethod("testLogHeaderToTestConsole"));
+		} catch (@SuppressWarnings("unused") final Exception e) {
+			// Empty Block
+		}
+		return null;
+	}
 
-    @Override
-    public String getUniqueId() {
-        return null;
-    }
+	@Override
+	public String getUniqueId() {
+		return null;
+	}
 
-    @Override
-    public void publishReportEntry(final Map<String, String> map) {
-        // Empty String
-    }
+	@Override
+	public void publishReportEntry(final Map<String, String> map) {
+		// Empty String
+	}
 }

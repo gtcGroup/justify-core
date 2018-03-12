@@ -28,6 +28,7 @@ package com.gtcgroup.justify.core.test.helper.internal;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
@@ -66,14 +67,6 @@ public enum LogTestConsoleUtilHelper {
 	private static boolean firstTimeLoggingClasspathToTestConsole = true;
 
 	private static final Map<String, Object> testMethodMap = new ConcurrentHashMap<>();
-
-	/**
-	 * This is a Collecting Parameter method.
-	 */
-	public static void buildAssertionFailedMessage(final Throwable throwable, final StringBuilder message) {
-		message.append("\n\t\t");
-		message.append(throwable.getMessage());
-	}
 
 	/**
 	 * This is a Collecting Parameter method.
@@ -131,9 +124,19 @@ public enum LogTestConsoleUtilHelper {
 			final ExtensionContext extensionContext) {
 
 		message.append("\t*** Method Begin: ");
-		message.append(extensionContext.getRequiredTestMethod());
-		message.append("/");
-		message.append(extensionContext.getRequiredTestClass().getSimpleName());
+
+		final Optional<Method> testMethodOptional = extensionContext.getTestMethod();
+
+		if (testMethodOptional.isPresent()) {
+			message.append(testMethodOptional.get());
+			message.append("/");
+		}
+
+		final Optional<Class<?>> testClassOptional = extensionContext.getTestClass();
+
+		if (testClassOptional.isPresent()) {
+			message.append(testClassOptional.get().getSimpleName());
+		}
 		message.append(" ***");
 		return message;
 	}
@@ -173,17 +176,21 @@ public enum LogTestConsoleUtilHelper {
 	public static boolean isVerbose(final ExtensionContext extensionContext) {
 
 		@SuppressWarnings("unchecked")
-		final Optional<JstConfigureTestLogToConsole> annotation = (Optional<JstConfigureTestLogToConsole>) AnnotationUtilHelper
-				.retrieveAnnotation(extensionContext, JstConfigureTestLogToConsole.class);
+		final Optional<JstConfigureTestLogToConsole> annotationOptional = (Optional<JstConfigureTestLogToConsole>) AnnotationUtilHelper
+				.retrieveAnnotation(extensionContext.getTestClass(), JstConfigureTestLogToConsole.class);
 
-		return annotation.get().verbose();
+		if (annotationOptional.isPresent()) {
+			return annotationOptional.get().verbose();
+		}
+
+		return false;
 	}
 
 	public static void logClassBeginToTestConsole(final ExtensionContext extensionContext) {
 
 		final StringBuilder message = new StringBuilder();
 		message.append("\n\t***  Class Begin: ");
-		message.append(extensionContext.getRequiredTestClass().getSimpleName());
+		message.append(extensionContext.getTestClass().get().getSimpleName());
 		message.append(" ***");
 
 		LogTestConsoleUtilHelper.buildDefaultTestValues(extensionContext);

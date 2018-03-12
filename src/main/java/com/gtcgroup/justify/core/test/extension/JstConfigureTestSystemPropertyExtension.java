@@ -52,55 +52,55 @@ import com.gtcgroup.justify.core.test.helper.internal.AnnotationUtilHelper;
  * @since v8.5
  */
 class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
-        implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
+		implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
-    protected String[] keyArray = new String[] {};
+	protected String[] keyArray = new String[] {};
 
-    protected String[] valueArray = new String[] {};
+	protected String[] valueArray = new String[] {};
 
-    protected List<String> durableKeyList = new ArrayList<>();
+	protected List<String> durableKeyList = new ArrayList<>();
 
-    protected List<String> durableValueList = new ArrayList<>();
+	protected List<String> durableValueList = new ArrayList<>();
 
-    @Override
-    public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {
+	@Override
+	public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {
 
-        for (int i = 0; i < this.durableKeyList.size(); i++) {
+		for (int i = 0; i < this.durableKeyList.size(); i++) {
 
-            System.setProperty(this.durableKeyList.get(i), this.durableValueList.get(i));
-        }
-        return;
-    }
+			System.setProperty(this.durableKeyList.get(i), this.durableValueList.get(i));
+		}
+		return;
+	}
 
-    @Override
-    public void beforeTestExecution(final ExtensionContext extensionContext) throws Exception {
+	@Override
+	public void beforeTestExecution(final ExtensionContext extensionContext) throws Exception {
 
-        this.durableKeyList.clear();
-        this.durableValueList.clear();
+		this.durableKeyList.clear();
+		this.durableValueList.clear();
 
-        initializePropertiesFromAnnotation(extensionContext);
+		initializePropertiesFromAnnotation(extensionContext);
 
-        for (int i = 0; i < this.keyArray.length; i++) {
+		for (int i = 0; i < this.keyArray.length; i++) {
 
-            this.durableKeyList.add(this.keyArray[i]);
-            System.getProperty(this.keyArray[i]);
-            this.durableValueList.add(this.keyArray[i]);
+			this.durableKeyList.add(this.keyArray[i]);
+			System.getProperty(this.keyArray[i]);
+			this.durableValueList.add(this.keyArray[i]);
 
-            System.setProperty(this.keyArray[i], this.valueArray[i]);
-        }
-        return;
-    }
+			System.setProperty(this.keyArray[i], this.valueArray[i]);
+		}
+		return;
+	}
 
-    @Override
-    public void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
+	@Override
+	public void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
 
-        @SuppressWarnings("unchecked")
-        final Optional<JstConfigureTestSystemProperty> configureSystemProperty = (Optional<JstConfigureTestSystemProperty>) AnnotationUtilHelper
-                .retrieveAnnotation(extensionContext, JstConfigureTestSystemProperty.class);
+		@SuppressWarnings("unchecked")
+		final Optional<JstConfigureTestSystemProperty> configureSystemProperty = (Optional<JstConfigureTestSystemProperty>) AnnotationUtilHelper
+				.retrieveAnnotation(extensionContext.getTestClass(), JstConfigureTestSystemProperty.class);
 
-        if (configureSystemProperty.isPresent()) {
-            this.keyArray = configureSystemProperty.get().key();
-            this.valueArray = configureSystemProperty.get().value();
-        }
-    }
+		if (configureSystemProperty.isPresent()) {
+			this.keyArray = configureSystemProperty.get().key();
+			this.valueArray = configureSystemProperty.get().value();
+		}
+	}
 }
