@@ -44,53 +44,59 @@ import com.gtcgroup.justify.core.base.JstBasePO;
 
 public class JstStreamPO extends JstBasePO {
 
-    private ClassLoader classLoader;
+	/**
+	 * @return {@link JstStreamPO}
+	 */
+	public static JstStreamPO withInputStream(final InputStream inputStream) {
 
-    private InputStream inputStream;
+		return new JstStreamPO(inputStream);
+	}
 
-    /**
-     * This convenience method will close the {@link InputStream}.
-     */
-    public void closeInputStream() {
+	private ClassLoader classLoader;
 
-        if (this.inputStream != null) {
-            try {
-                this.inputStream.close();
-            } catch (@SuppressWarnings("unused") final Exception e) {
-                // Should not occur.
-            }
-        }
-    }
+	private final InputStream inputStream;
 
-    /**
-     * @return {@link ClassLoader}
-     */
-    public ClassLoader getClassLoader() {
+	protected JstStreamPO(final InputStream inputStream) {
+		super();
 
-        return this.classLoader;
-    }
+		this.inputStream = inputStream;
+	}
 
-    /**
-     * @return {@link InputStream}
-     */
-    public InputStream getInputStreamToBeClosed() {
+	/**
+	 * This convenience method will close the {@link InputStream}.
+	 */
+	public void closeInputStream() {
 
-        return this.inputStream;
-    }
+		if (this.inputStream != null) {
+			try {
+				this.inputStream.close();
+			} catch (@SuppressWarnings("unused") final Exception e) {
+				// Should not occur.
+			}
+		}
+	}
 
-    /**
-     * @return {@link JstStreamPO}
-     */
-    public JstStreamPO setClassLoader(final ClassLoader classLoader) {
-        this.classLoader = classLoader;
-        return this;
-    }
+	/**
+	 * @return {@link ClassLoader}
+	 */
+	public ClassLoader getClassLoader() {
 
-    /**
-     * @return {@link JstStreamPO}
-     */
-    public JstStreamPO setInputStream(final InputStream inputStream) {
-        this.inputStream = inputStream;
-        return this;
-    }
+		return this.classLoader;
+	}
+
+	/**
+	 * @return {@link InputStream}
+	 */
+	public InputStream getInputStreamToBeClosed() {
+
+		return this.inputStream;
+	}
+
+	/**
+	 * @return {@link JstStreamPO}
+	 */
+	public JstStreamPO withClassLoader(final ClassLoader classLoader) {
+		this.classLoader = classLoader;
+		return this;
+	}
 }

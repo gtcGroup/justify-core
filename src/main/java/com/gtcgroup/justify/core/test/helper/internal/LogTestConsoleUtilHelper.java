@@ -99,7 +99,7 @@ public enum LogTestConsoleUtilHelper {
 	public static void buildClassPath(final StringBuilder message, final ExtensionContext extensionContext) {
 
 		if (LogTestConsoleUtilHelper.isFirstTimeLoggingTheTestClasspath()
-				&& LogTestConsoleUtilHelper.isVerbose(extensionContext)) {
+				&& LogTestConsoleUtilHelper.isVerbose(extensionContext.getTestClass())) {
 
 			buildClassPath(message);
 		}
@@ -173,11 +173,11 @@ public enum LogTestConsoleUtilHelper {
 		return firstTest;
 	}
 
-	public static boolean isVerbose(final ExtensionContext extensionContext) {
+	public static boolean isVerbose(final Optional<Class<?>> testClass) {
 
 		@SuppressWarnings("unchecked")
 		final Optional<JstConfigureTestLogToConsole> annotationOptional = (Optional<JstConfigureTestLogToConsole>) AnnotationUtilHelper
-				.retrieveAnnotation(extensionContext.getTestClass(), JstConfigureTestLogToConsole.class);
+				.retrieveAnnotation(testClass, JstConfigureTestLogToConsole.class);
 
 		if (annotationOptional.isPresent()) {
 			return annotationOptional.get().verbose();

@@ -26,13 +26,12 @@
 package com.gtcgroup.justify.core.test.helper.internal;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestSystemProperty;
 
@@ -41,31 +40,28 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestSystemProperty;
 public class AnnotationUtilHelperTest {
 
 	@Test
-	public void testRetrieveAnnotation() {
-
-		Assertions.assertThrows(JustifyException.class, () -> {
-			AnnotationUtilHelper.retrieveAnnotation(AnnotationUtilHelperTest.class,
-					JstConfigureTestSystemProperty.class);
-		});
-	}
-
-	@Test
 	public void testRetrieveAnnotation_happyPath() {
 
-		AnnotationUtilHelper.retrieveAnnotation(AnnotationUtilHelperTest.class, JstConfigureTestLogToConsole.class);
+		assertTrue(AnnotationUtilHelper
+				.retrieveAnnotation(AnnotationUtilHelperTest.class, JstConfigureTestLogToConsole.class).isPresent());
 	}
 
 	@Test
-	public void testRetrieveAnnotation_optional() {
+	public void testRetrieveAnnotation_missingAnnotation() {
 
-		Assertions.assertThrows(JustifyException.class, () -> {
-			AnnotationUtilHelper.retrieveAnnotation(Optional.of(AnnotationUtilHelperTest.class),
-					JstConfigureTestSystemProperty.class);
-		});
+		assertFalse(AnnotationUtilHelper
+				.retrieveAnnotation(Optional.of(AnnotationUtilHelperTest.class), JstConfigureTestSystemProperty.class)
+				.isPresent());
 	}
 
 	@Test
-	public void testRetrieveAnnotation_optionalEmpty() {
+	public void testRetrieveAnnotation_nullAnnotation() {
+
+		assertFalse(AnnotationUtilHelper.retrieveAnnotation(AnnotationUtilHelperTest.class, null).isPresent());
+	}
+
+	@Test
+	public void testRetrieveAnnotation_optionalIsEmpty() {
 
 		assertFalse(AnnotationUtilHelper.retrieveAnnotation(Optional.empty(), JstConfigureTestSystemProperty.class)
 				.isPresent());

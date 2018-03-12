@@ -52,413 +52,413 @@ import com.gtcgroup.justify.core.po.JstStreamPO;
  */
 public enum JstReflectionUtilHelper {
 
-    INSTANCE;
+	INSTANCE;
 
-    /**
-     * @return boolean
-     */
-    public static boolean containsPublicConstructorNoArgument(final Class<?> clazz) {
+	/**
+	 * @return boolean
+	 */
+	public static boolean containsPublicConstructorNoArgument(final Class<?> clazz) {
 
-        return JstReflectionUtilHelper.retrievePublicConstructorWithNoArgument(clazz).isPresent();
-    }
+		return JstReflectionUtilHelper.retrievePublicConstructorWithNoArgument(clazz).isPresent();
+	}
 
-    /**
-     * @return boolean
-     */
-    public static boolean containsPublicNoArgumentConstructorOnly(final Class<?> clazz) {
+	/**
+	 * @return boolean
+	 */
+	public static boolean containsPublicNoArgumentConstructorOnly(final Class<?> clazz) {
 
-        return retrievePublicConstructorWithNoArgument(clazz).isPresent();
-    }
+		return retrievePublicConstructorWithNoArgument(clazz).isPresent();
+	}
 
-    /**
-     * @return boolean
-     */
-    public static boolean existsOnClasspath(final String className) {
+	/**
+	 * @return boolean
+	 */
+	public static boolean existsOnClasspath(final String className) {
 
-        return JstReflectionUtilHelper.retrieveClass(className).isPresent();
-    }
+		return JstReflectionUtilHelper.retrieveClass(className).isPresent();
+	}
 
-    /**
-     * @return {@link Optional}
-     */
-    @SuppressWarnings("resource")
-    public static Optional<InputStream> getResourceAsStreamAndBeSureToClose(final String resourceName) {
+	/**
+	 * @return {@link Optional}
+	 */
+	@SuppressWarnings("resource")
+	public static Optional<InputStream> getResourceAsStreamAndBeSureToClose(final String resourceName) {
 
-        ClassLoader classLoader = JstReflectionUtilHelper.class.getClassLoader();
+		ClassLoader classLoader = JstReflectionUtilHelper.class.getClassLoader();
 
-        InputStream inputStream = classLoader.getResourceAsStream(resourceName);
+		InputStream inputStream = classLoader.getResourceAsStream(resourceName);
 
-        if (null == inputStream) {
+		if (null == inputStream) {
 
-            // Try using the thread.
-            classLoader = Thread.currentThread().getContextClassLoader();
+			// Try using the thread.
+			classLoader = Thread.currentThread().getContextClassLoader();
 
-            inputStream = classLoader.getResourceAsStream(resourceName);
-        }
-        return Optional.ofNullable(inputStream);
-    }
+			inputStream = classLoader.getResourceAsStream(resourceName);
+		}
+		return Optional.ofNullable(inputStream);
+	}
 
-    /**
-     * @return {@link Optional}
-     */
-    @SuppressWarnings("resource")
-    public static Optional<JstStreamPO> getResourceAsStreamPoAndBeSureToClose(final String resourceName) {
+	/**
+	 * @return {@link Optional}
+	 */
+	@SuppressWarnings("resource")
+	public static Optional<JstStreamPO> getResourceAsStreamPoAndBeSureToClose(final String resourceName) {
 
-        ClassLoader classLoader = JstReflectionUtilHelper.class.getClassLoader();
+		ClassLoader classLoader = JstReflectionUtilHelper.class.getClassLoader();
 
-        InputStream inputStream = classLoader.getResourceAsStream(resourceName);
+		InputStream inputStream = classLoader.getResourceAsStream(resourceName);
 
-        if (null == inputStream) {
+		if (null == inputStream) {
 
-            // Try using the thread.
-            classLoader = Thread.currentThread().getContextClassLoader();
+			// Try using the thread.
+			classLoader = Thread.currentThread().getContextClassLoader();
 
-            inputStream = classLoader.getResourceAsStream(resourceName);
+			inputStream = classLoader.getResourceAsStream(resourceName);
 
-            if (null == inputStream) {
+			if (null == inputStream) {
 
-                return Optional.empty();
-            }
-        }
-        return Optional.of(new JstStreamPO().setInputStream(inputStream).setClassLoader(classLoader));
-    }
+				return Optional.empty();
+			}
+		}
+		return Optional.of(JstStreamPO.withInputStream(inputStream).withClassLoader(classLoader));
+	}
 
-    /**
-     * @return {@link Optional}
-     */
-    private static Optional<Object> instantiateInstanceFromConstructor(final Constructor<?> constructor,
-            final Object... initargs) {
+	/**
+	 * @return {@link Optional}
+	 */
+	public static Optional<Object> instantiateInstanceUsingConstructorWithParameters(final Class<?> clazz,
+			final Object[] constructorParameterValues, final Class<?>... constructorParameterTypes) {
 
-        Object instantiated = null;
+		final Optional<Constructor<?>> constructor = retrieveConstructorWithParameters(clazz,
+				constructorParameterTypes);
 
-        try {
+		if (constructor.isPresent()) {
 
-            instantiated = constructor.newInstance(initargs);
+			return instantiateInstanceFromConstructor(constructor.get(), constructorParameterValues);
+		}
+		return Optional.empty();
+	}
 
-        } catch (@SuppressWarnings("unused") final Exception e) {
+	/**
+	 * @return {@link Optional}
+	 */
+	public static Optional<Object> instantiateInstanceUsingNonPublicConstructorWithNoArgument(final Class<?> clazz) {
 
-            // Continue
-        }
-        return Optional.ofNullable(instantiated);
-    }
+		final Optional<Constructor<?>> constructor = retrieveNonPublicConstructorWithNoArgument(clazz);
 
-    /**
-     * @return {@link Optional}
-     */
-    public static Optional<Object> instantiateInstanceUsingConstructorWithParameters(final Class<?> clazz,
-            final Object[] constructorParameterValues, final Class<?>... constructorParameterTypes) {
+		if (constructor.isPresent()) {
+			return instantiateInstanceFromConstructor(constructor.get());
+		}
+		return Optional.empty();
+	}
 
-        final Optional<Constructor<?>> constructor = retrieveConstructorWithParameters(clazz,
-                constructorParameterTypes);
+	/**
+	 * @return {@link Optional}
+	 */
+	public static Optional<?> instantiateInstanceUsingPublicConstructorWithNoArgument(final Class<?> clazz) {
 
-        if (constructor.isPresent()) {
+		final Optional<Constructor<?>> constructor = retrievePublicConstructorWithNoArgument(clazz);
 
-            return instantiateInstanceFromConstructor(constructor.get(), constructorParameterValues);
-        }
-        return Optional.empty();
-    }
+		if (constructor.isPresent()) {
 
-    /**
-     * @return {@link Optional}
-     */
-    public static Optional<Object> instantiateInstanceUsingNonPublicConstructorWithNoArgument(final Class<?> clazz) {
+			return instantiateInstanceFromConstructor(constructor.get());
+		}
+		return Optional.empty();
+	}
 
-        final Optional<Constructor<?>> constructor = retrieveNonPublicConstructorWithNoArgument(clazz);
+	/**
+	 * @return {@link Optional}
+	 */
+	public static Optional<Object> instantiateInstanceUsingPublicConstructorWithParameters(final Class<?> clazz,
+			final Object[] constructorParameterValues, final Class<?>... constructorParameterTypes) {
 
-        if (constructor.isPresent()) {
-            return instantiateInstanceFromConstructor(constructor.get());
-        }
-        return Optional.empty();
-    }
+		final Optional<Constructor<?>> constructor = retrieveConstructorWithParameters(clazz,
+				constructorParameterTypes);
 
-    /**
-     * @return {@link Optional}
-     */
-    public static Optional<?> instantiateInstanceUsingPublicConstructorWithNoArgument(final Class<?> clazz) {
+		if (constructor.isPresent()) {
+			return instantiateInstanceFromConstructor(constructor.get(), constructorParameterValues);
+		}
+		return Optional.empty();
+	}
 
-        final Optional<Constructor<?>> constructor = retrievePublicConstructorWithNoArgument(clazz);
+	/**
+	 * @return {@link Optional}
+	 */
+	public static Optional<Object> instantiateInstanceUsingPublicConstructorWithParameters(final String className,
+			final Object[] constructorParameterValues, final Class<?>... constructorParameterTypes) {
 
-        if (constructor.isPresent()) {
+		try {
 
-            return instantiateInstanceFromConstructor(constructor.get());
-        }
-        return Optional.empty();
-    }
+			final Class<?> clazz = Class.forName(className);
 
-    /**
-     * @return {@link Optional}
-     */
-    public static Optional<Object> instantiateInstanceUsingPublicConstructorWithParameters(final Class<?> clazz,
-            final Object[] constructorParameterValues, final Class<?>... constructorParameterTypes) {
+			return instantiateInstanceUsingPublicConstructorWithParameters(clazz, constructorParameterValues,
+					constructorParameterTypes);
 
-        final Optional<Constructor<?>> constructor = retrieveConstructorWithParameters(clazz,
-                constructorParameterTypes);
+		} catch (@SuppressWarnings("unused") final Exception e) {
 
-        if (constructor.isPresent()) {
-            return instantiateInstanceFromConstructor(constructor.get(), constructorParameterValues);
-        }
-        return Optional.empty();
-    }
+			// Continue.
+		}
+		return Optional.empty();
+	}
 
-    /**
-     * @return {@link Optional}
-     */
-    public static Optional<Object> instantiateInstanceUsingPublicConstructorWithParameters(final String className,
-            final Object[] constructorParameterValues, final Class<?>... constructorParameterTypes) {
+	/**
+	 * @return {@link Optional}
+	 */
 
-        try {
+	public static Optional<Object> invokePublicMethod(final String methodName, final Object instance,
+			final Object... args) {
 
-            final Class<?> clazz = Class.forName(className);
+		final Optional<Method> method = JstReflectionUtilHelper.retrievePublicMethod(instance.getClass(), methodName);
 
-            return instantiateInstanceUsingPublicConstructorWithParameters(clazz, constructorParameterValues,
-                    constructorParameterTypes);
+		try {
+			if (method.isPresent()) {
+				return Optional.ofNullable(method.get().invoke(instance, args));
+			}
+		} catch (@SuppressWarnings("unused") final Exception e) {
 
-        } catch (@SuppressWarnings("unused") final Exception e) {
+			// Continue
+		}
+		return Optional.empty();
+	}
 
-            // Continue.
-        }
-        return Optional.empty();
-    }
+	/**
+	 * @return {@link Optional}
+	 */
+	@SuppressWarnings("unchecked")
+	public static Optional<Class<?>> retrieveClass(final String className) {
 
-    /**
-     * @return {@link Optional}
-     */
+		Class<Object> targetClass = null;
 
-    public static Optional<Object> invokePublicMethod(final String methodName, final Object instance,
-            final Object... args) {
+		try {
 
-        final Optional<Method> method = JstReflectionUtilHelper.retrievePublicMethod(instance.getClass(), methodName);
+			targetClass = (Class<Object>) Class.forName(className, true,
+					JstReflectionUtilHelper.class.getClassLoader());
 
-        try {
-            if (method.isPresent()) {
-                return Optional.ofNullable(method.get().invoke(instance, args));
-            }
-        } catch (@SuppressWarnings("unused") final Exception e) {
+		} catch (@SuppressWarnings("unused") final Exception e) {
 
-            // Continue
-        }
-        return Optional.empty();
-    }
+			// Continue.
+		}
+		return Optional.ofNullable(targetClass);
+	}
 
-    /**
-     * @return {@link Optional}
-     */
-    private static Optional<Constructor<?>> iterateForNonPublicConstructorNoArgument(
-            final Constructor<?>[] constructors) {
+	/**
+	 * @return {@link Optional}
+	 */
+	public static Optional<Constructor<?>> retrieveConstructorWithParameters(final Class<?> clazz,
+			final Class<?>... constructorParameterTypes) {
 
-        Constructor<?> constructorTarget = null;
+		Constructor<?> constructor = null;
 
-        for (final Constructor<?> constructor : constructors) {
+		try {
+			constructor = clazz.getConstructor(constructorParameterTypes);
 
-            // Determine if there is a no argument constructor.
-            if (0 == constructor.getParameterTypes().length) {
+		} catch (@SuppressWarnings("unused") final Exception e1) {
 
-                verifyConstructorAccessible(constructor);
+			try {
+				constructor = clazz.getDeclaredConstructor(constructorParameterTypes);
+			} catch (@SuppressWarnings("unused") final Exception e2) {
+				// Continue.
+			}
+		}
+		return Optional.ofNullable(constructor);
 
-                // Determine if it is *not* public.
-                if (!Modifier.isPublic(constructor.getModifiers())) {
+	}
 
-                    constructorTarget = constructor;
-                    break;
-                }
-            }
-        }
-        return Optional.ofNullable(constructorTarget);
-    }
+	/**
+	 * @return {@link Optional}
+	 */
+	public static Optional<Object> retrieveFieldInstanceWithDirectAccess(final Object classInstance,
+			final String fieldName) {
 
-    /**
-     * @return {@link Optional}
-     */
-    private static Optional<Constructor<?>> iterateForPublicConstructorNoArgument(final Constructor<?>[] constructors) {
+		final Optional<Field> field = retrieveFieldWithDirectAccess(classInstance, fieldName);
 
-        Constructor<?> constructorNoArg = null;
+		if (field.isPresent()) {
 
-        for (final Constructor<?> constructor : constructors) {
+			try {
+				return Optional.ofNullable(field.get().get(classInstance));
 
-            // Determine if there is a no argument constructor.
-            if (0 == constructor.getParameterTypes().length) {
+			} catch (@SuppressWarnings("unused") final Exception e) {
 
-                JstReflectionUtilHelper.verifyConstructorAccessible(constructor);
-                constructorNoArg = constructor;
-                break;
-            }
-        }
-        return Optional.ofNullable(constructorNoArg);
-    }
+				// Checked exception, not likely.
+			}
+		}
+		return Optional.empty();
+	}
 
-    /**
-     * @return {@link Optional}
-     */
-    @SuppressWarnings("unchecked")
-    public static Optional<Class<?>> retrieveClass(final String className) {
+	/**
+	 * @return {@link Optional}
+	 */
+	public static Optional<Field> retrieveFieldWithDirectAccess(final Object instance, final String fieldName) {
 
-        Class<Object> targetClass = null;
+		try {
+			final Field field = instance.getClass().getDeclaredField(fieldName);
+			field.setAccessible(true);
+			return Optional.of(field);
 
-        try {
+		} catch (@SuppressWarnings("unused") final Exception e) {
 
-            targetClass = (Class<Object>) Class.forName(className, true,
-                    JstReflectionUtilHelper.class.getClassLoader());
+			return Optional.empty();
+		}
+	}
 
-        } catch (@SuppressWarnings("unused") final Exception e) {
+	/**
+	 * @return {@link Optional}
+	 */
+	public static Optional<DataInputStream> retrieveFileAsDataInputStreamAndBeSureToClose(final String fileName) {
 
-            // Continue.
-        }
-        return Optional.ofNullable(targetClass);
-    }
+		final Optional<InputStream> inputStream = JstReflectionUtilHelper
+				.retrieveFileAsInputStreamAndBeSureToClose(fileName);
 
-    /**
-     * @return {@link Optional}
-     */
-    public static Optional<Constructor<?>> retrieveConstructorWithParameters(final Class<?> clazz,
-            final Class<?>... constructorParameterTypes) {
+		if (inputStream.isPresent()) {
 
-        Constructor<?> constructor = null;
+			return Optional.of(new DataInputStream(inputStream.get()));
+		}
+		return Optional.empty();
+	}
 
-        try {
-            constructor = clazz.getConstructor(constructorParameterTypes);
+	/**
+	 * @return {@link Optional}
+	 */
+	@SuppressWarnings("resource")
+	public static Optional<InputStream> retrieveFileAsInputStreamAndBeSureToClose(final String resourceName) {
 
-        } catch (@SuppressWarnings("unused") final Exception e1) {
+		ClassLoader loader;
+		InputStream inputStream = null;
 
-            try {
-                constructor = clazz.getDeclaredConstructor(constructorParameterTypes);
-            } catch (@SuppressWarnings("unused") final Exception e2) {
-                // Continue.
-            }
-        }
-        return Optional.ofNullable(constructor);
+		loader = JstReflectionUtilHelper.class.getClassLoader();
 
-    }
+		inputStream = loader.getResourceAsStream(resourceName);
 
-    /**
-     * @return {@link Optional}
-     */
-    public static Optional<Object> retrieveFieldInstanceWithDirectAccess(final Object classInstance,
-            final String fieldName) {
+		if (null == inputStream) {
 
-        final Optional<Field> field = retrieveFieldWithDirectAccess(classInstance, fieldName);
+			loader = Thread.currentThread().getContextClassLoader();
 
-        if (field.isPresent()) {
+			inputStream = loader.getResourceAsStream(resourceName);
+		}
+		return Optional.ofNullable(inputStream);
+	}
 
-            try {
-                return Optional.ofNullable(field.get().get(classInstance));
+	/**
+	 * @return {@link Optional}
+	 */
+	public static Optional<BufferedReader> retrieveFileAsReader(final String resourceName) {
 
-            } catch (@SuppressWarnings("unused") final Exception e) {
+		final Optional<DataInputStream> dataInputStream = JstReflectionUtilHelper
+				.retrieveFileAsDataInputStreamAndBeSureToClose(resourceName);
 
-                // Checked exception, not likely.
-            }
-        }
-        return Optional.empty();
-    }
+		if (dataInputStream.isPresent()) {
 
-    /**
-     * @return {@link Optional}
-     */
-    public static Optional<Field> retrieveFieldWithDirectAccess(final Object instance, final String fieldName) {
+			return Optional.of(new BufferedReader(new InputStreamReader(dataInputStream.get())));
+		}
+		return Optional.empty();
+	}
 
-        try {
-            final Field field = instance.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            return Optional.of(field);
+	/**
+	 * @return {@link Optional}
+	 */
+	@SuppressWarnings("unchecked")
+	public static Optional<Constructor<?>> retrieveNonPublicConstructorWithNoArgument(final Class<?> clazz) {
 
-        } catch (@SuppressWarnings("unused") final Exception e) {
+		final Constructor<Object>[] constructors = (Constructor<Object>[]) clazz.getDeclaredConstructors();
 
-            return Optional.empty();
-        }
-    }
+		return iterateForNonPublicConstructorNoArgument(constructors);
+	}
 
-    /**
-     * @return {@link Optional}
-     */
-    public static Optional<DataInputStream> retrieveFileAsDataInputStreamAndBeSureToClose(final String fileName) {
+	/**
+	 * @return {@link Constructor} or null
+	 */
+	public static Optional<Constructor<?>> retrievePublicConstructorWithNoArgument(final Class<?> clazz) {
 
-        final Optional<InputStream> inputStream = JstReflectionUtilHelper
-                .retrieveFileAsInputStreamAndBeSureToClose(fileName);
+		final Constructor<?>[] constructors = clazz.getConstructors();
 
-        if (inputStream.isPresent()) {
+		return JstReflectionUtilHelper.iterateForPublicConstructorNoArgument(constructors);
+	}
 
-            return Optional.of(new DataInputStream(inputStream.get()));
-        }
-        return Optional.empty();
-    }
+	/**
+	 * @return {@link Optional}
+	 */
+	public static Optional<Method> retrievePublicMethod(final Class<?> clazz, final String methodName) {
 
-    /**
-     * @return {@link Optional}
-     */
-    @SuppressWarnings("resource")
-    public static Optional<InputStream> retrieveFileAsInputStreamAndBeSureToClose(final String resourceName) {
+		final Method[] methods = clazz.getMethods();
 
-        ClassLoader loader;
-        InputStream inputStream = null;
+		for (final Method method : methods) {
 
-        loader = JstReflectionUtilHelper.class.getClassLoader();
+			if (methodName.equalsIgnoreCase(method.getName())) {
 
-        inputStream = loader.getResourceAsStream(resourceName);
+				return Optional.of(method);
+			}
+		}
+		return Optional.empty();
+	}
 
-        if (null == inputStream) {
+	/**
+	 * @return {@link Optional}
+	 */
+	private static Optional<Object> instantiateInstanceFromConstructor(final Constructor<?> constructor,
+			final Object... initargs) {
 
-            loader = Thread.currentThread().getContextClassLoader();
+		Object instantiated = null;
 
-            inputStream = loader.getResourceAsStream(resourceName);
-        }
-        return Optional.ofNullable(inputStream);
-    }
+		try {
 
-    /**
-     * @return {@link Optional}
-     */
-    public static Optional<BufferedReader> retrieveFileAsReader(final String resourceName) {
+			instantiated = constructor.newInstance(initargs);
 
-        final Optional<DataInputStream> dataInputStream = JstReflectionUtilHelper
-                .retrieveFileAsDataInputStreamAndBeSureToClose(resourceName);
+		} catch (@SuppressWarnings("unused") final Exception e) {
 
-        if (dataInputStream.isPresent()) {
+			// Continue
+		}
+		return Optional.ofNullable(instantiated);
+	}
 
-            return Optional.of(new BufferedReader(new InputStreamReader(dataInputStream.get())));
-        }
-        return Optional.empty();
-    }
+	/**
+	 * @return {@link Optional}
+	 */
+	private static Optional<Constructor<?>> iterateForNonPublicConstructorNoArgument(
+			final Constructor<?>[] constructors) {
 
-    /**
-     * @return {@link Optional}
-     */
-    @SuppressWarnings("unchecked")
-    public static Optional<Constructor<?>> retrieveNonPublicConstructorWithNoArgument(final Class<?> clazz) {
+		Constructor<?> constructorTarget = null;
 
-        final Constructor<Object>[] constructors = (Constructor<Object>[]) clazz.getDeclaredConstructors();
+		for (final Constructor<?> constructor : constructors) {
 
-        return iterateForNonPublicConstructorNoArgument(constructors);
-    }
+			// Determine if there is a no argument constructor.
+			if (0 == constructor.getParameterTypes().length) {
 
-    /**
-     * @return {@link Constructor} or null
-     */
-    public static Optional<Constructor<?>> retrievePublicConstructorWithNoArgument(final Class<?> clazz) {
+				verifyConstructorAccessible(constructor);
 
-        final Constructor<?>[] constructors = clazz.getConstructors();
+				// Determine if it is *not* public.
+				if (!Modifier.isPublic(constructor.getModifiers())) {
 
-        return JstReflectionUtilHelper.iterateForPublicConstructorNoArgument(constructors);
-    }
+					constructorTarget = constructor;
+					break;
+				}
+			}
+		}
+		return Optional.ofNullable(constructorTarget);
+	}
 
-    /**
-     * @return {@link Optional}
-     */
-    public static Optional<Method> retrievePublicMethod(final Class<?> clazz, final String methodName) {
+	/**
+	 * @return {@link Optional}
+	 */
+	private static Optional<Constructor<?>> iterateForPublicConstructorNoArgument(final Constructor<?>[] constructors) {
 
-        final Method[] methods = clazz.getMethods();
+		Constructor<?> constructorNoArg = null;
 
-        for (final Method method : methods) {
+		for (final Constructor<?> constructor : constructors) {
 
-            if (methodName.equalsIgnoreCase(method.getName())) {
+			// Determine if there is a no argument constructor.
+			if (0 == constructor.getParameterTypes().length) {
 
-                return Optional.of(method);
-            }
-        }
-        return Optional.empty();
-    }
+				JstReflectionUtilHelper.verifyConstructorAccessible(constructor);
+				constructorNoArg = constructor;
+				break;
+			}
+		}
+		return Optional.ofNullable(constructorNoArg);
+	}
 
-    private static void verifyConstructorAccessible(final Constructor<?> constructor) {
+	private static void verifyConstructorAccessible(final Constructor<?> constructor) {
 
-        constructor.setAccessible(true);
-        return;
-    }
+		constructor.setAccessible(true);
+		return;
+	}
 }

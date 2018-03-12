@@ -23,38 +23,20 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.test.helper.internal;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
-import java.util.Optional;
+package com.gtcgroup.justify.core.po;
 
 import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
-import com.gtcgroup.justify.core.test.helper.internal.dependency.DependencyExtensionContext;
 
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole(verbose = true)
-public class LogTestConsoleUtilHelperTest {
+@JstConfigureTestLogToConsole()
+public class JstJetStreamPoTest {
 
 	@Test
-	public void testBuildClassPath() {
+	public void testJstStreamPO_null() {
 
-		LogTestConsoleUtilHelper.setFirstTimeLoggingClasspathToTestConsole(true);
-
-		LogTestConsoleUtilHelper.buildClassPath(new StringBuilder(), new DependencyExtensionContext());
-	}
-
-	@Test
-	public void testIsVerbose() {
-
-		assertFalse(LogTestConsoleUtilHelper.isVerbose(Optional.of(DependencyExtensionContext.class)));
-	}
-
-	@Test
-	public void testLogHeaderToTestConsole() {
-
-		LogTestConsoleUtilHelper.logJustifyHeaderToTestConsole();
+		final JstStreamPO streamPO = JstStreamPO.withInputStream(null);
+		streamPO.closeInputStream();
 	}
 }

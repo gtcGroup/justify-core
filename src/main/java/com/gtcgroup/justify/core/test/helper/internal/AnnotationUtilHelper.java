@@ -29,9 +29,6 @@ package com.gtcgroup.justify.core.test.helper.internal;
 import java.lang.annotation.Annotation;
 import java.util.Optional;
 
-import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
-
 /**
  * This Util Helper class provides support for {@link Annotation} processing.
  *
@@ -48,19 +45,14 @@ public enum AnnotationUtilHelper {
 
 	INSTANCE;
 
-	private static String CLASS_NAME = AnnotationUtilHelper.class.getSimpleName();
-
-	private static String METHOD_NAME = "retrieveAnnotation";
-
 	public static Optional<? extends Annotation> retrieveAnnotation(final Class<?> clazz,
 			final Class<? extends Annotation> annotationClass) {
 
 		try {
 			return Optional.of(clazz.getAnnotation(annotationClass));
-		} catch (final Exception e) {
+		} catch (@SuppressWarnings("unused") final Exception e) {
 
-			throw new JustifyException(JstExceptionPO.withMessage(e.getMessage()).withExceptionClassName(CLASS_NAME)
-					.withExceptionMethodName(METHOD_NAME));
+			return Optional.empty();
 		}
 	}
 
@@ -73,10 +65,7 @@ public enum AnnotationUtilHelper {
 			}
 		} catch (@SuppressWarnings("unused") final Exception e) {
 
-			throw new JustifyException(JstExceptionPO
-					.withMessage("The Annotation class [" + annotationClass + "] is not retrievable from the class ["
-							+ classOptional.get() + "].")
-					.withExceptionClassName(CLASS_NAME).withExceptionMethodName(METHOD_NAME));
+			return Optional.empty();
 		}
 		return Optional.empty();
 	}
