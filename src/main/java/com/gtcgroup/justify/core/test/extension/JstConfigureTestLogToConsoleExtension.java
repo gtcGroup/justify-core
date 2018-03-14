@@ -71,7 +71,7 @@ public class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
 		if (throwable instanceof AssertionFailedError) {
 
 			LogTestConsoleUtilHelper.setTestMethodStatus(extensionContext, LogTestConsoleUtilHelper.STATUS_FAILURE);
-			LogTestConsoleUtilHelper.logToConsole("\t\t" + throwable.getMessage());
+			LogTestConsoleUtilHelper.logFailureToConsole("\t\t" + throwable.getMessage());
 
 		} else if (throwable instanceof MultipleFailuresError) {
 
@@ -81,7 +81,7 @@ public class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
 			final List<Throwable> throwableList = multipleFailuresError.getFailures();
 			for (final Throwable throwableSingle : throwableList) {
 
-				LogTestConsoleUtilHelper.logToConsole("\t\t" + throwableSingle.getMessage());
+				LogTestConsoleUtilHelper.logFailureToConsole("\t\t" + throwableSingle.getMessage());
 			}
 		}
 

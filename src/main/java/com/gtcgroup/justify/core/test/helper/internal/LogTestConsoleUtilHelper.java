@@ -198,6 +198,10 @@ public enum LogTestConsoleUtilHelper {
 		logToConsole(message.toString());
 	}
 
+	public static void logFailureToConsole(final String message) {
+		System.err.println(message);
+	}
+
 	public static void logJustifyHeaderToTestConsole() {
 
 		final String message = "\t* Justify v" + System.getProperty(JstConstant.JUSTIFY_VERSION_KEY) + " *";
