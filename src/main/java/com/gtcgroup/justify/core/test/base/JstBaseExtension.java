@@ -27,8 +27,6 @@ package com.gtcgroup.justify.core.test.base;
 
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
-import org.opentest4j.AssertionFailedError;
 
 import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
@@ -45,7 +43,7 @@ import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseExtension implements TestExecutionExceptionHandler {
+public abstract class JstBaseExtension {
 
 	private static final String EXTENSION_SUFFIX = "Extension";
 
@@ -53,6 +51,17 @@ public abstract class JstBaseExtension implements TestExecutionExceptionHandler 
 
 	public static String getUserId() {
 		return JstBaseExtension.userId;
+	}
+
+	protected static void handleBeforeAllException(final ExtensionContext extensionContext,
+			final RuntimeException throwable) {
+
+		final StringBuilder message = new StringBuilder(
+				"\n\tThis following exception probably occured during annotation processing.");
+		LogTestConsoleUtilHelper.setTestMethodStatus(extensionContext, LogTestConsoleUtilHelper.STATUS_FAILURE);
+		LogTestConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
+		LogTestConsoleUtilHelper.logToConsole(message.toString());
+		throw throwable;
 	}
 
 	protected static void setUserId(final String userId) {
@@ -65,19 +74,4 @@ public abstract class JstBaseExtension implements TestExecutionExceptionHandler 
 		JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.EXTENSION_SUFFIX);
 	}
 
-	@Override
-	public void handleTestExecutionException(final ExtensionContext extensionContext, final Throwable throwable)
-			throws Throwable {
-
-		final StringBuilder message = LogTestConsoleUtilHelper.getTestMethodMessage(extensionContext);
-
-		if (throwable instanceof AssertionFailedError) {
-			LogTestConsoleUtilHelper.setTestMethodStatus(extensionContext, LogTestConsoleUtilHelper.STATUS_ERROR);
-
-		} else {
-			LogTestConsoleUtilHelper.setTestMethodStatus(extensionContext, LogTestConsoleUtilHelper.STATUS_FAILURE);
-		}
-		LogTestConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
-		throw throwable;
-	}
 }

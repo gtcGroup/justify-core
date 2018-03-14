@@ -26,16 +26,21 @@
 
 package com.gtcgroup.justify.core.test.extension;
 
+import java.util.List;
+
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
+import org.opentest4j.AssertionFailedError;
+import org.opentest4j.MultipleFailuresError;
 
 import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.test.base.JstBaseExtension;
 import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
-class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
-		implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
+public class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
+		implements BeforeTestExecutionCallback, AfterTestExecutionCallback, TestExecutionExceptionHandler {
 
 	static {
 		System.setProperty(JstConstant.JUNIT_TEST_RUNTIME, "true");
@@ -57,5 +62,35 @@ class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
 		}
 
 		LogTestConsoleUtilHelper.logClassBeginToTestConsole(extensionContext);
+	}
+
+	@Override
+	public void handleTestExecutionException(final ExtensionContext extensionContext, final Throwable throwable)
+			throws Throwable {
+
+		if (throwable instanceof AssertionFailedError) {
+
+			LogTestConsoleUtilHelper.setTestMethodStatus(extensionContext, LogTestConsoleUtilHelper.STATUS_FAILURE);
+			LogTestConsoleUtilHelper.logToConsole("\t\t" + throwable.getMessage());
+
+		} else if (throwable instanceof MultipleFailuresError) {
+
+			final MultipleFailuresError multipleFailuresError = (MultipleFailuresError) throwable;
+
+			LogTestConsoleUtilHelper.setTestMethodStatus(extensionContext, LogTestConsoleUtilHelper.STATUS_FAILURE);
+			final List<Throwable> throwableList = multipleFailuresError.getFailures();
+			for (final Throwable throwableSingle : throwableList) {
+
+				LogTestConsoleUtilHelper.logToConsole("\t\t" + throwableSingle.getMessage());
+			}
+		}
+
+		else {
+
+			final StringBuilder message = LogTestConsoleUtilHelper.getTestMethodMessage(extensionContext);
+			LogTestConsoleUtilHelper.setTestMethodStatus(extensionContext, LogTestConsoleUtilHelper.STATUS_ERROR);
+			LogTestConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
+		}
+		throw throwable;
 	}
 }

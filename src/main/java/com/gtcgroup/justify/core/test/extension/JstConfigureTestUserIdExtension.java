@@ -27,8 +27,8 @@ package com.gtcgroup.justify.core.test.extension;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
-import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
+import org.junit.jupiter.api.extension.AfterAllCallback;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
@@ -50,19 +50,25 @@ import com.gtcgroup.justify.core.test.helper.internal.AnnotationUtilHelper;
  * @since v8.5
  */
 class JstConfigureTestUserIdExtension extends JstBaseExtension
-		implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
+		implements JstExtensionInterface, BeforeAllCallback, AfterAllCallback {
 
 	@Override
-	public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {
+	public void afterAll(final ExtensionContext extensionContext) throws Exception {
 
 		setUserId(JstConstant.DEFAULT_USER_ID);
 		return;
 	}
 
 	@Override
-	public void beforeTestExecution(final ExtensionContext extensionContext) throws Exception {
+	public void beforeAll(final ExtensionContext extensionContext) throws Exception {
 
-		initializePropertiesFromAnnotation(extensionContext);
+		try {
+			initializePropertiesFromAnnotation(extensionContext);
+
+		} catch (final RuntimeException e) {
+			handleBeforeAllException(extensionContext, e);
+		}
+		return;
 	}
 
 	@Override

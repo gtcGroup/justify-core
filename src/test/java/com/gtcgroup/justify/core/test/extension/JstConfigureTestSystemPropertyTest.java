@@ -36,10 +36,25 @@ import org.junit.jupiter.api.Test;
 @JstConfigureTestSystemProperty(key = { "1", "2", "3" }, value = { "A", "B", "C" })
 public class JstConfigureTestSystemPropertyTest {
 
-    @Test
-    public void testSuccessWithMultiples() {
+	@Test
+	public void testSuccessWithMultiples1() {
 
-        assertAll("Multiple Asserts", () -> assertEquals(System.getProperty("1"), "A"),
-                () -> assertEquals(System.getProperty("2"), "B"), () -> assertEquals(System.getProperty("3"), "C"));
-    }
+		assertAll(() -> {
+			assertEquals(System.getProperty("1"), "A");
+			assertEquals(System.getProperty("2"), "B");
+			assertEquals(System.getProperty("3"), "C");
+		});
+		System.setProperty("1", "z");
+	}
+
+	@Test
+	public void testSuccessWithMultiples2() {
+
+		assertAll(() -> {
+			assertEquals(System.getProperty("1"), "z");
+			assertEquals(System.getProperty("2"), "B");
+			assertEquals(System.getProperty("3"), "C");
+		});
+		System.setProperty("1", "z");
+	}
 }

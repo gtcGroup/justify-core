@@ -25,6 +25,7 @@
  */
 package com.gtcgroup.justify.core.intentional.error;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.po.JstExceptionPO;
@@ -44,34 +45,34 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
  */
 @SuppressWarnings("static-method")
 @JstConfigureTestLogToConsole()
+@Tag(value = "intentional")
 public class IntentionalErrorTest {
 
-    @Test
-    public void testIntentionalNestedError() {
+	@Test
+	public void testIntentionalNestedError() {
 
-        throw new JustifyException(
-                JstExceptionPO.withMessage("A Justify Exception.")
-                        .withExceptionClassName(IntentionalErrorTest.class.getSimpleName())
-                        .withExceptionMethodName("testIntentionalNestedError").withSuppressLogging(false).withUserId("mToll4"),
-                new NullPointerException("This is on purpose."));
-    }
+		throw new JustifyException(JstExceptionPO.withMessage("A Justify Exception.")
+				.withExceptionClassName(IntentionalErrorTest.class.getSimpleName())
+				.withExceptionMethodName("testIntentionalNestedError").withSuppressLogging(false).withUserId("mToll4"),
+				new NullPointerException("This is on purpose."));
+	}
 
-    @Test
-    public void testIntentionalNestedExceptionUnexpected() {
+	@Test
+	public void testIntentionalNestedExceptionUnexpected() {
 
-        try {
-            throw new NullPointerException("Root cause exception.");
-        } catch (final Exception e) {
+		try {
+			throw new NullPointerException("Root cause exception.");
+		} catch (final Exception e) {
 
-            throw new RuntimeException("Outer unexpected exception.", e);
-        }
+			throw new RuntimeException("Outer unexpected exception.", e);
+		}
 
-    }
+	}
 
-    @Test
-    public void testIntentionalUnexpectedException() {
+	@Test
+	public void testIntentionalUnexpectedException() {
 
-        throw new RuntimeException("Unexpected Runtime Exception");
-    }
+		throw new RuntimeException("Unexpected Runtime Exception");
+	}
 
 }

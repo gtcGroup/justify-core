@@ -29,8 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
-import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
+import org.junit.jupiter.api.extension.AfterAllCallback;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
@@ -52,7 +52,7 @@ import com.gtcgroup.justify.core.test.helper.internal.AnnotationUtilHelper;
  * @since v8.5
  */
 class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
-		implements JstExtensionInterface, BeforeTestExecutionCallback, AfterTestExecutionCallback {
+		implements JstExtensionInterface, BeforeAllCallback, AfterAllCallback {
 
 	protected String[] keyArray = new String[] {};
 
@@ -63,30 +63,36 @@ class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
 	protected List<String> durableValueList = new ArrayList<>();
 
 	@Override
-	public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {
+	public void afterAll(final ExtensionContext extensionContext) throws Exception {
 
 		for (int i = 0; i < this.durableKeyList.size(); i++) {
 
 			System.setProperty(this.durableKeyList.get(i), this.durableValueList.get(i));
 		}
 		return;
+
 	}
 
 	@Override
-	public void beforeTestExecution(final ExtensionContext extensionContext) throws Exception {
+	public void beforeAll(final ExtensionContext extensionContext) throws Exception {
 
-		this.durableKeyList.clear();
-		this.durableValueList.clear();
+		try {
 
-		initializePropertiesFromAnnotation(extensionContext);
+			this.durableKeyList.clear();
+			this.durableValueList.clear();
 
-		for (int i = 0; i < this.keyArray.length; i++) {
+			initializePropertiesFromAnnotation(extensionContext);
 
-			this.durableKeyList.add(this.keyArray[i]);
-			System.getProperty(this.keyArray[i]);
-			this.durableValueList.add(this.keyArray[i]);
+			for (int i = 0; i < this.keyArray.length; i++) {
 
-			System.setProperty(this.keyArray[i], this.valueArray[i]);
+				this.durableKeyList.add(this.keyArray[i]);
+				System.getProperty(this.keyArray[i]);
+				this.durableValueList.add(this.keyArray[i]);
+
+				System.setProperty(this.keyArray[i], this.valueArray[i]);
+			}
+		} catch (final RuntimeException e) {
+			handleBeforeAllException(extensionContext, e);
 		}
 		return;
 	}

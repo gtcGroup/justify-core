@@ -54,14 +54,7 @@ repositories {
     mavenCentral()
 }
 
-// TODO: Verify.
 dependencies {
-
-	compileOnly("org.junit.jupiter:junit-jupiter-api:5.+")
-
-    compileOnly("org.junit.platform:junit-platform-launcher:1.+")
-
-    compileOnly("org.junit.jupiter:junit-jupiter-engine:5.+")
 
     testCompile("org.junit.jupiter:junit-jupiter-api:5.+") {
         exclude group: 'junit', module: 'junit'
@@ -75,7 +68,7 @@ dependencies {
     
 test {
     useJUnitPlatform {
-        excludeTags 'slow'
+        excludeTags 'intentional'
         includeEngines 'junit-jupiter'
     }
 
@@ -106,7 +99,14 @@ signing {
 
 group = "com.gtcgroup"
 archivesBaseName = "justify-core"
-version = "8.5.0"
+version = "8.5.0-alpha"
+
+task writeTestPOM << {
+    pom {
+        project {
+        }
+    }.writeTo("$buildDir/testPOM.xml")
+}
 
 artifacts {
     archives javadocJar, sourcesJar
@@ -119,11 +119,11 @@ uploadArchives {
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
       repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: ossrhUsername, password: ossrhPassword)
+      authentication(userName: ossrhUsername, password: ossrhPassword)
       }
 
       snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-        authentication(userName: ossrhUsername, password: ossrhPassword)
+      authentication(userName: ossrhUsername, password: ossrhPassword)
       }
 
       pom.project {

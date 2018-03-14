@@ -29,24 +29,26 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
 @SuppressWarnings("static-method")
 @JstConfigureTestLogToConsole()
+@Tag(value = "intentional")
 public class IntentionalFailureTest {
 
-    @Test
-    public void testIntentionalAssertionFailure() {
+	@Test
+	public void testIntentionalAssertionFailure() {
 
-        assertTrue(false);
-    }
+		assertTrue(false);
+	}
 
-    @Test
-    public void testIntentionalFailuresWithMultiples() {
+	@Test
+	public void testIntentionalFailuresWithMultiples() {
 
-        assertAll("Multiple Asserts", () -> assertEquals(System.getProperty("1"), "A"),
-                () -> assertEquals(System.getProperty("2"), "B"), () -> assertEquals(System.getProperty("3"), "C"));
-    }
+		assertAll("Multiple Asserts", () -> assertEquals(System.getProperty("1"), "A"),
+				() -> assertEquals(System.getProperty("2"), "B"), () -> assertEquals(System.getProperty("3"), "C"));
+	}
 }
