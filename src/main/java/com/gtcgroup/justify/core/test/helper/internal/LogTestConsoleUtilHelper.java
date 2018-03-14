@@ -198,7 +198,7 @@ public enum LogTestConsoleUtilHelper {
 		logToConsole(message.toString());
 	}
 
-	public static void logFailureToConsole(final String message) {
+	public static void logRedToConsole(final String message) {
 		System.err.println(message);
 	}
 

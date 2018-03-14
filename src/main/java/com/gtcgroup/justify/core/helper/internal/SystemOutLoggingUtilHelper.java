@@ -47,45 +47,45 @@ import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
  */
 public enum SystemOutLoggingUtilHelper {
 
-    INSTANCE;
+	INSTANCE;
 
-    public static final String SEVERE = "SEVERE";
-    public static final String USER_ID = "testId";
+	public static final String SEVERE = "SEVERE";
+	public static final String USER_ID = "testId";
 
-    private static String getUserId() {
+	public static void logException(final JstExceptionPO exceptionPO) {
 
-        return SystemOutLoggingUtilHelper.USER_ID;
-    }
+		if (!exceptionPO.getSuppressLogging()) {
+			final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss,SSS");
+			final Date date = new Date();
+			final String dateResult = formatter.format(date);
 
-    public static void logException(final JstExceptionPO exceptionPO) {
+			final StringBuilder logStatement = new StringBuilder();
 
-        if (!exceptionPO.getSuppressLogging()) {
-            final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss,SSS");
-            final Date date = new Date();
-            final String dateResult = formatter.format(date);
+			logStatement.append("[JST SEVERE] ");
+			logStatement.append(dateResult);
+			logStatement.append(" [");
+			logStatement.append(Thread.currentThread().getName());
+			logStatement.append("] ");
+			logStatement.append(SystemOutLoggingUtilHelper.getUserId());
+			logStatement.append(": ");
 
-            final StringBuilder logStatement = new StringBuilder();
+			final Optional<String> exceptionClassName = exceptionPO.getExceptionClassName();
+			logStatement.append(exceptionClassName.orElse("UndisclosedClassName"));
 
-            logStatement.append("[JST SEVERE] ");
-            logStatement.append(dateResult);
-            logStatement.append(" [");
-            logStatement.append(Thread.currentThread().getName());
-            logStatement.append("] ");
-            logStatement.append(SystemOutLoggingUtilHelper.getUserId());
-            logStatement.append(": ");
+			logStatement.append(".");
 
-            final Optional<String> exceptionClassName = exceptionPO.getExceptionClassName();
-            logStatement.append(exceptionClassName.orElse("UndisclosedClassName"));
+			final Optional<String> exceptionMethodName = exceptionPO.getExceptionMethodName();
+			logStatement.append(exceptionMethodName.orElse("undisclosedMethodName"));
 
-            logStatement.append(".");
+			logStatement.append("()\n\t");
+			logStatement.append(exceptionPO.getMessage());
 
-            final Optional<String> exceptionMethodName = exceptionPO.getExceptionMethodName();
-            logStatement.append(exceptionMethodName.orElse("undisclosedMethodName"));
+			LogTestConsoleUtilHelper.logRedToConsole(logStatement.toString());
+		}
+	}
 
-            logStatement.append("()\n\t");
-            logStatement.append(exceptionPO.getMessage());
+	private static String getUserId() {
 
-            LogTestConsoleUtilHelper.logToConsole(logStatement.toString());
-        }
-    }
+		return SystemOutLoggingUtilHelper.USER_ID;
+	}
 }
