@@ -48,7 +48,10 @@ public class IntentionalFailureTest {
 	@Test
 	public void testIntentionalFailuresWithMultiples() {
 
-		assertAll("Multiple Asserts", () -> assertEquals(System.getProperty("1"), "A"),
-				() -> assertEquals(System.getProperty("2"), "B"), () -> assertEquals(System.getProperty("3"), "C"));
+		assertAll(() -> {
+			assertEquals(System.getProperty("1"), "A");
+			assertEquals(System.getProperty("2"), "B");
+			assertEquals(System.getProperty("3"), "C");
+		});
 	}
 }

@@ -38,15 +38,16 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 @JstConfigureTestLogToConsole()
 public class JstExceptionPoTest {
 
-    @Test
-    public void testJstExceptionPO_null() {
+	@Test
+	public void testJstExceptionPO_null() {
 
-        final JstExceptionPO exceptionPO = JstExceptionPO.withMessage(null);
+		final JstExceptionPO exceptionPO = JstExceptionPO.withMessage(null);
 
-        assertAll(() -> assertEquals(JstExceptionPO.THE_MESSAGE_IS_NULL, exceptionPO.getMessage()),
-                () -> assertNotNull(exceptionPO.getLogReferenceCode()),
-                () -> assertNotNull(exceptionPO.getLogTimeStamp()),
-                () -> assertEquals(JstConstant.DEFAULT_USER_ID, exceptionPO.getUserId()));
-
-    }
+		assertAll(() -> {
+			assertEquals(JstExceptionPO.THE_MESSAGE_IS_NULL, exceptionPO.getMessage());
+			assertNotNull(exceptionPO.getLogReferenceCode());
+			assertNotNull(exceptionPO.getLogTimeStamp());
+			assertEquals(JstConstant.DEFAULT_USER_ID, exceptionPO.getUserId());
+		});
+	}
 }

@@ -34,6 +34,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.List;
 import java.util.Optional;
 
 import com.gtcgroup.justify.core.po.JstStreamPO;
@@ -202,6 +203,8 @@ public enum JstReflectionUtilHelper {
 	}
 
 	/**
+	 * This method returns a single instance or a {@link List}. Handle with care!
+	 *
 	 * @return {@link Optional}
 	 */
 
