@@ -29,8 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.gtcgroup.justify.core.test.base.JstBaseExtension;
-
 @SuppressWarnings("static-method")
 @JstConfigureTestLogToConsole()
 @JstConfigureTestUserId(userId = "w@ird")

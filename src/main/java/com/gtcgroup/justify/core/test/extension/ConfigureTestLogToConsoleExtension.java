@@ -29,6 +29,7 @@ package com.gtcgroup.justify.core.test.extension;
 import java.util.List;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
@@ -36,21 +37,28 @@ import org.opentest4j.AssertionFailedError;
 import org.opentest4j.MultipleFailuresError;
 
 import com.gtcgroup.justify.core.JstConstant;
-import com.gtcgroup.justify.core.test.base.JstBaseExtension;
 import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
-public class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
-		implements BeforeTestExecutionCallback, AfterTestExecutionCallback, TestExecutionExceptionHandler {
+class ConfigureTestLogToConsoleExtension extends JstBaseExtension implements BeforeAllCallback,
+		BeforeTestExecutionCallback, AfterTestExecutionCallback, TestExecutionExceptionHandler {
 
 	static {
 		System.setProperty(JstConstant.JUNIT_TEST_RUNTIME, "true");
 		System.setProperty(JstConstant.JUSTIFY_VERSION_KEY, JstConstant.JUSTIFY_VERSION_VALUE);
 	}
 
+	private boolean verbose;
+
 	@Override
 	public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {
 
 		LogTestConsoleUtilHelper.logMethodDetailsToTestConsole(extensionContext.getUniqueId());
+	}
+
+	@Override
+	public void beforeAll(final ExtensionContext extensionContext) throws Exception {
+
+		initializePropertiesFromAnnotation(extensionContext);
 	}
 
 	@Override
@@ -61,7 +69,7 @@ public class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
 			LogTestConsoleUtilHelper.logJustifyHeaderToTestConsole();
 		}
 
-		LogTestConsoleUtilHelper.logClassBeginToTestConsole(extensionContext);
+		LogTestConsoleUtilHelper.logClassBeginToTestConsole(extensionContext, this.verbose);
 	}
 
 	@Override
@@ -92,5 +100,14 @@ public class JstConfigureTestLogToConsoleExtension extends JstBaseExtension
 			LogTestConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
 		}
 		throw throwable;
+	}
+
+	@Override
+	protected void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
+
+		final JstConfigureTestLogToConsole configureTestLogToConsole = (JstConfigureTestLogToConsole) retrieveAnnotation(
+				extensionContext.getRequiredTestClass(), JstConfigureTestLogToConsole.class);
+
+		this.verbose = configureTestLogToConsole.verbose();
 	}
 }

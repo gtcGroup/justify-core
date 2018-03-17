@@ -25,17 +25,12 @@
  */
 package com.gtcgroup.justify.core.test.extension;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.JstConstant;
-import com.gtcgroup.justify.core.test.base.JstBaseExtension;
-import com.gtcgroup.justify.core.test.base.JstExtensionInterface;
-import com.gtcgroup.justify.core.test.helper.internal.AnnotationUtilHelper;
 
 /**
  * This {@link Extension} class initializes a public user id for the duration of
@@ -49,8 +44,7 @@ import com.gtcgroup.justify.core.test.helper.internal.AnnotationUtilHelper;
  * @author Marvin Toll
  * @since v8.5
  */
-class JstConfigureTestUserIdExtension extends JstBaseExtension
-		implements JstExtensionInterface, BeforeAllCallback, AfterAllCallback {
+class ConfigureTestUserIdExtension extends JstBaseExtension implements BeforeAllCallback, AfterAllCallback {
 
 	@Override
 	public void afterAll(final ExtensionContext extensionContext) throws Exception {
@@ -62,25 +56,16 @@ class JstConfigureTestUserIdExtension extends JstBaseExtension
 	@Override
 	public void beforeAll(final ExtensionContext extensionContext) throws Exception {
 
-		try {
-			initializePropertiesFromAnnotation(extensionContext);
+		initializePropertiesFromAnnotation(extensionContext);
 
-		} catch (final RuntimeException e) {
-			handleBeforeAllException(extensionContext, e);
-		}
-		return;
 	}
 
 	@Override
-	public void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
+	protected void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
 
-		@SuppressWarnings("unchecked")
-		final Optional<JstConfigureTestUserId> configureUserId = (Optional<JstConfigureTestUserId>) AnnotationUtilHelper
-				.retrieveAnnotation(extensionContext.getTestClass(), JstConfigureTestUserId.class);
+		final JstConfigureTestUserId configureTestUserId = (JstConfigureTestUserId) retrieveAnnotation(
+				extensionContext.getRequiredTestClass(), JstConfigureTestUserId.class);
 
-		if (configureUserId.isPresent()) {
-
-			JstBaseExtension.userId = configureUserId.get().userId();
-		}
+		setUserId(configureTestUserId.userId());
 	}
 }

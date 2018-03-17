@@ -27,16 +27,11 @@ package com.gtcgroup.justify.core.test.extension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
-
-import com.gtcgroup.justify.core.test.base.JstBaseExtension;
-import com.gtcgroup.justify.core.test.base.JstExtensionInterface;
-import com.gtcgroup.justify.core.test.helper.internal.AnnotationUtilHelper;
 
 /**
  * This {@link Extension} class initializes a system property for the duration
@@ -51,8 +46,7 @@ import com.gtcgroup.justify.core.test.helper.internal.AnnotationUtilHelper;
  * @author Marvin Toll
  * @since v8.5
  */
-class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
-		implements JstExtensionInterface, BeforeAllCallback, AfterAllCallback {
+class ConfigureTestSystemPropertyExtension extends JstBaseExtension implements BeforeAllCallback, AfterAllCallback {
 
 	protected String[] keyArray = new String[] {};
 
@@ -77,10 +71,6 @@ class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
 	public void beforeAll(final ExtensionContext extensionContext) throws Exception {
 
 		try {
-
-			this.durableKeyList.clear();
-			this.durableValueList.clear();
-
 			initializePropertiesFromAnnotation(extensionContext);
 
 			for (int i = 0; i < this.keyArray.length; i++) {
@@ -92,21 +82,19 @@ class JstConfigureTestSystemPropertyExtension extends JstBaseExtension
 				System.setProperty(this.keyArray[i], this.valueArray[i]);
 			}
 		} catch (final RuntimeException e) {
+
 			handleBeforeAllException(extensionContext, e);
 		}
 		return;
 	}
 
 	@Override
-	public void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
+	protected void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
 
-		@SuppressWarnings("unchecked")
-		final Optional<JstConfigureTestSystemProperty> configureSystemProperty = (Optional<JstConfigureTestSystemProperty>) AnnotationUtilHelper
-				.retrieveAnnotation(extensionContext.getTestClass(), JstConfigureTestSystemProperty.class);
+		final JstConfigureTestSystemProperty configureTestSystemProperty = (JstConfigureTestSystemProperty) retrieveAnnotation(
+				extensionContext.getRequiredTestClass(), JstConfigureTestSystemProperty.class);
 
-		if (configureSystemProperty.isPresent()) {
-			this.keyArray = configureSystemProperty.get().key();
-			this.valueArray = configureSystemProperty.get().value();
-		}
+		this.keyArray = configureTestSystemProperty.key();
+		this.valueArray = configureTestSystemProperty.value();
 	}
 }

@@ -47,8 +47,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
  */
 @Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(JstConfigureTestLogToConsoleExtension.class)
+@ExtendWith(ConfigureTestLogToConsoleExtension.class)
 public @interface JstConfigureTestLogToConsole {
 
-    public boolean verbose() default false;
+	boolean verbose() default false;
 }

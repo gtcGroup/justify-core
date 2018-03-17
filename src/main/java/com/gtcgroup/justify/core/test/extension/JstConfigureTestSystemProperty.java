@@ -35,10 +35,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(JstConfigureTestSystemPropertyExtension.class)
+@ExtendWith(ConfigureTestSystemPropertyExtension.class)
 public @interface JstConfigureTestSystemProperty {
 
-    public String[] key() default "";
+	String[] key() default "";
 
-    public String[] value() default "";
+	String[] value() default "";
 }

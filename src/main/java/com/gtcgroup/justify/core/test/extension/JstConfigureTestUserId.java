@@ -37,8 +37,8 @@ import com.gtcgroup.justify.core.JstConstant;
 
 @Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(JstConfigureTestUserIdExtension.class)
+@ExtendWith(ConfigureTestUserIdExtension.class)
 public @interface JstConfigureTestUserId {
 
-    public String userId() default JstConstant.DEFAULT_USER_ID;
+	String userId() default JstConstant.DEFAULT_USER_ID;
 }

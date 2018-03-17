@@ -39,7 +39,6 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.JstDurationTimer;
 import com.gtcgroup.justify.core.helper.JstTypeConversionUtilHelper;
-import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 
 /**
  * This Util Helper class provides support for console test logging.
@@ -96,20 +95,19 @@ public enum LogTestConsoleUtilHelper {
 	/**
 	 * This is a Collecting Parameter method.
 	 */
-	public static void buildClassPath(final StringBuilder message, final ExtensionContext extensionContext) {
+	public static void buildClassPath(final StringBuilder message, final boolean isVerbose) {
 
-		if (LogTestConsoleUtilHelper.isFirstTimeLoggingTheTestClasspath()
-				&& LogTestConsoleUtilHelper.isVerbose(extensionContext.getTestClass())) {
+		if (LogTestConsoleUtilHelper.isFirstTimeLoggingTheTestClasspath() && isVerbose) {
 
 			buildClassPath(message);
 		}
 	}
 
-	public static void buildDefaultTestValues(final ExtensionContext extensionContext) {
+	public static void buildDefaultTestValues(final ExtensionContext extensionContext, final boolean isVerbose) {
 
 		final StringBuilder message = new StringBuilder();
 
-		LogTestConsoleUtilHelper.buildClassPath(message, extensionContext);
+		LogTestConsoleUtilHelper.buildClassPath(message, isVerbose);
 
 		LogTestConsoleUtilHelper.buildMethodBeginMessage(message, extensionContext);
 
@@ -125,18 +123,14 @@ public enum LogTestConsoleUtilHelper {
 
 		message.append("\t*** Method Begin: ");
 
-		final Optional<Method> testMethodOptional = extensionContext.getTestMethod();
+		final Method method = extensionContext.getRequiredTestMethod();
 
-		if (testMethodOptional.isPresent()) {
-			message.append(testMethodOptional.get());
-			message.append("/");
-		}
+		message.append(method);
+		message.append("/");
 
-		final Optional<Class<?>> testClassOptional = extensionContext.getTestClass();
+		final Class<?> clazz = extensionContext.getRequiredTestClass();
 
-		if (testClassOptional.isPresent()) {
-			message.append(testClassOptional.get().getSimpleName());
-		}
+		message.append(clazz.getSimpleName());
 		message.append(" ***");
 		return message;
 	}
@@ -173,33 +167,16 @@ public enum LogTestConsoleUtilHelper {
 		return firstTest;
 	}
 
-	public static boolean isVerbose(final Optional<Class<?>> testClass) {
-
-		@SuppressWarnings("unchecked")
-		final Optional<JstConfigureTestLogToConsole> annotationOptional = (Optional<JstConfigureTestLogToConsole>) AnnotationUtilHelper
-				.retrieveAnnotation(testClass, JstConfigureTestLogToConsole.class);
-
-		if (annotationOptional.isPresent()) {
-			return annotationOptional.get().verbose();
-		}
-
-		return false;
-	}
-
-	public static void logClassBeginToTestConsole(final ExtensionContext extensionContext) {
+	public static void logClassBeginToTestConsole(final ExtensionContext extensionContext, final boolean isVerbose) {
 
 		final StringBuilder message = new StringBuilder();
 		message.append("\n\t***  Class Begin: ");
 		message.append(extensionContext.getTestClass().get().getSimpleName());
 		message.append(" ***");
 
-		LogTestConsoleUtilHelper.buildDefaultTestValues(extensionContext);
+		LogTestConsoleUtilHelper.buildDefaultTestValues(extensionContext, isVerbose);
 
 		logToConsole(message.toString());
-	}
-
-	public static void logRedToConsole(final String message) {
-		System.err.println(message);
 	}
 
 	public static void logJustifyHeaderToTestConsole() {
@@ -229,6 +206,10 @@ public enum LogTestConsoleUtilHelper {
 				.convertNanosecondToMillisecondString(durationTimer.calculateDurationInNanoSeconds()).get());
 		message.append(" ms ***");
 		logToConsole(message.toString());
+	}
+
+	public static void logRedToConsole(final String message) {
+		System.err.println(message);
 	}
 
 	public static void logToConsole(final String message) {

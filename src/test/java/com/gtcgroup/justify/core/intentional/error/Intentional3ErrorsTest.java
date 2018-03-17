@@ -46,15 +46,15 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 @SuppressWarnings("static-method")
 @JstConfigureTestLogToConsole()
 @Tag(value = "intentional")
-public class IntentionalErrorTest {
+public class Intentional3ErrorsTest {
 
 	@Test
 	public void testIntentionalNestedError() {
 
 		throw new JustifyException(JstExceptionPO.withMessage("A Justify Exception.")
-				.withExceptionClassName(IntentionalErrorTest.class.getSimpleName())
+				.withExceptionClassName(Intentional3ErrorsTest.class.getSimpleName())
 				.withExceptionMethodName("testIntentionalNestedError").withSuppressLogging(false).withUserId("mToll4"),
-				new NullPointerException("This is on purpose."));
+				new NullPointerException("This is an intentional causal exception."));
 	}
 
 	@Test

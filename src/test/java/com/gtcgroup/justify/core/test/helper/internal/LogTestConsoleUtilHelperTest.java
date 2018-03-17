@@ -25,14 +25,9 @@
  */
 package com.gtcgroup.justify.core.test.helper.internal;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
-import com.gtcgroup.justify.core.test.helper.internal.dependency.DependencyExtensionContext;
 
 @SuppressWarnings("static-method")
 @JstConfigureTestLogToConsole(verbose = true)
@@ -43,18 +38,6 @@ public class LogTestConsoleUtilHelperTest {
 
 		LogTestConsoleUtilHelper.setFirstTimeLoggingClasspathToTestConsole(true);
 
-		LogTestConsoleUtilHelper.buildClassPath(new StringBuilder(), new DependencyExtensionContext());
-	}
-
-	@Test
-	public void testIsVerbose() {
-
-		assertFalse(LogTestConsoleUtilHelper.isVerbose(Optional.of(DependencyExtensionContext.class)));
-	}
-
-	@Test
-	public void testLogHeaderToTestConsole() {
-
-		LogTestConsoleUtilHelper.logJustifyHeaderToTestConsole();
+		LogTestConsoleUtilHelper.buildClassPath(new StringBuilder(), true);
 	}
 }

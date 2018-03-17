@@ -23,13 +23,18 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.test.base;
+package com.gtcgroup.justify.core.intentional.error;
 
-import org.junit.jupiter.api.extension.Extension;
-import org.junit.jupiter.api.extension.ExtensionContext;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.test.extension.JstConfigureTestSystemProperty;
 
 /**
- * This Interface seeks to support {@link Extension} consistency.
+ * This class is for testing.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -37,9 +42,18 @@ import org.junit.jupiter.api.extension.ExtensionContext;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since v8.5
  */
-public interface JstExtensionInterface {
+@SuppressWarnings("static-method")
+@JstConfigureTestLogToConsole()
+@JstConfigureTestSystemProperty(key = { "1", "2", "3" }, value = { "A", "B" })
+@Tag(value = "intentional")
+public class Intentional1ErrorsTest {
 
-    public void initializePropertiesFromAnnotation(final ExtensionContext extensionContext);
+	@Test
+	public void testIntentionalNestedError() {
+
+		assertTrue(true);
+	}
+
 }

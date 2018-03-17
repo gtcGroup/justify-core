@@ -37,7 +37,7 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
 @SuppressWarnings("static-method")
 @JstConfigureTestLogToConsole()
 @Tag(value = "intentional")
-public class IntentionalFailureTest {
+public class Intentional2FailureTest {
 
 	@Test
 	public void testIntentionalAssertionFailure() {

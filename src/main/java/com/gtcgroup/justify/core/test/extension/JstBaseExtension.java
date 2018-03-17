@@ -23,7 +23,9 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.test.base;
+package com.gtcgroup.justify.core.test.extension;
+
+import java.lang.annotation.Annotation;
 
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -47,21 +49,27 @@ public abstract class JstBaseExtension {
 
 	private static final String EXTENSION_SUFFIX = "Extension";
 
-	protected static String userId = JstConstant.DEFAULT_USER_ID;
+	private static String userId = JstConstant.DEFAULT_USER_ID;
 
 	public static String getUserId() {
-		return JstBaseExtension.userId;
+		return userId;
 	}
 
 	protected static void handleBeforeAllException(final ExtensionContext extensionContext,
-			final RuntimeException throwable) {
+			final RuntimeException runtimeException) {
 
 		final StringBuilder message = new StringBuilder(
 				"\n\tThis following exception probably occured during annotation processing.");
 		LogTestConsoleUtilHelper.setTestMethodStatus(extensionContext, LogTestConsoleUtilHelper.STATUS_FAILURE);
-		LogTestConsoleUtilHelper.buildUnexpectedExceptionMessage(throwable, message);
+		LogTestConsoleUtilHelper.buildUnexpectedExceptionMessage(runtimeException, message);
 		LogTestConsoleUtilHelper.logToConsole(message.toString());
-		throw throwable;
+		throw runtimeException;
+	}
+
+	protected static Annotation retrieveAnnotation(final Class<?> clazz,
+			final Class<? extends Annotation> annotationClass) {
+
+		return clazz.getAnnotation(annotationClass);
 	}
 
 	protected static void setUserId(final String userId) {
@@ -73,5 +81,7 @@ public abstract class JstBaseExtension {
 
 		JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.EXTENSION_SUFFIX);
 	}
+
+	protected abstract void initializePropertiesFromAnnotation(final ExtensionContext extensionContext);
 
 }
