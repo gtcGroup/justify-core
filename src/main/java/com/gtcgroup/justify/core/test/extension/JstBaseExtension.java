@@ -49,7 +49,7 @@ public abstract class JstBaseExtension {
 
 	private static final String EXTENSION_SUFFIX = "Extension";
 
-	private static String userId = JstConstant.DEFAULT_USER_ID;
+	protected static String userId = JstConstant.DEFAULT_USER_ID;
 
 	public static String getUserId() {
 		return userId;

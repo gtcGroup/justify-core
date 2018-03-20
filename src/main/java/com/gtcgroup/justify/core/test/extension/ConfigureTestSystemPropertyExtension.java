@@ -34,9 +34,8 @@ import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
- * This {@link Extension} class initializes a system property for the duration
- * of the method and then reinstates the original property valueArray, or if
- * none, then clears the property.
+ * This {@link Extension} class initializes system properties for the duration
+ * of the test class and then reinstates the original values.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at

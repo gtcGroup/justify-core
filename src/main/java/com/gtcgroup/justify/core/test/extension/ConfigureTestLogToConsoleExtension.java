@@ -31,6 +31,7 @@ import java.util.List;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
+import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.opentest4j.AssertionFailedError;
@@ -39,6 +40,17 @@ import org.opentest4j.MultipleFailuresError;
 import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
+/**
+ * This {@link Extension} class supports logging to the console.
+ *
+ * <p style="font-family:Verdana; font-size:10px; font-style:italic">
+ * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
+ * <a href="http://gtcGroup.com">gtcGroup.com </a>.
+ * </p>
+ *
+ * @author Marvin Toll
+ * @since v.8.5
+ */
 class ConfigureTestLogToConsoleExtension extends JstBaseExtension implements BeforeAllCallback,
 		BeforeTestExecutionCallback, AfterTestExecutionCallback, TestExecutionExceptionHandler {
 
@@ -47,7 +59,7 @@ class ConfigureTestLogToConsoleExtension extends JstBaseExtension implements Bef
 		System.setProperty(JstConstant.JUSTIFY_VERSION_KEY, JstConstant.JUSTIFY_VERSION_VALUE);
 	}
 
-	private boolean verbose;
+	protected boolean verbose;
 
 	@Override
 	public void afterTestExecution(final ExtensionContext extensionContext) throws Exception {

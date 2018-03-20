@@ -26,6 +26,7 @@
 
 package com.gtcgroup.justify.core.test.extension;
 
+import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -35,7 +36,19 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gtcgroup.justify.core.JstConstant;
 
-@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
+/**
+ * This {@link Annotation} initializes a public user id for the duration of the
+ * test class and then reinstates the original user id value.
+ *
+ * <p style="font-family:Verdana; font-size:10px; font-style:italic">
+ * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
+ * <a href="http://gtcGroup.com">gtcGroup.com </a>.
+ * </p>
+ *
+ * @author Marvin Toll
+ * @since v8.5
+ */
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @ExtendWith(ConfigureTestUserIdExtension.class)
 public @interface JstConfigureTestUserId {
