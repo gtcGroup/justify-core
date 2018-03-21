@@ -115,11 +115,12 @@ class ConfigureTestLogToConsoleExtension extends JstBaseExtension implements Bef
 	}
 
 	@Override
-	protected void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
+	protected Boolean initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
 
 		final JstConfigureTestLogToConsole configureTestLogToConsole = (JstConfigureTestLogToConsole) retrieveAnnotation(
 				extensionContext.getRequiredTestClass(), JstConfigureTestLogToConsole.class);
 
 		this.verbose = configureTestLogToConsole.verbose();
+		return Boolean.TRUE;
 	}
 }

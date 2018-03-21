@@ -88,12 +88,13 @@ class ConfigureTestSystemPropertyExtension extends JstBaseExtension implements B
 	}
 
 	@Override
-	protected void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
+	protected Boolean initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
 
 		final JstConfigureTestSystemProperty configureTestSystemProperty = (JstConfigureTestSystemProperty) retrieveAnnotation(
 				extensionContext.getRequiredTestClass(), JstConfigureTestSystemProperty.class);
 
 		this.keyArray = configureTestSystemProperty.key();
 		this.valueArray = configureTestSystemProperty.value();
+		return Boolean.TRUE;
 	}
 }

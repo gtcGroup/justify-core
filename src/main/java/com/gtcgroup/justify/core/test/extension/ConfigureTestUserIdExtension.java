@@ -61,11 +61,12 @@ class ConfigureTestUserIdExtension extends JstBaseExtension implements BeforeAll
 	}
 
 	@Override
-	protected void initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
+	protected Boolean initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
 
 		final JstConfigureTestUserId configureTestUserId = (JstConfigureTestUserId) retrieveAnnotation(
 				extensionContext.getRequiredTestClass(), JstConfigureTestUserId.class);
 
 		setUserId(configureTestUserId.userId());
+		return Boolean.TRUE;
 	}
 }

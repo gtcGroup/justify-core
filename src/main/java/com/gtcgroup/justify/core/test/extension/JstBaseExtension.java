@@ -82,6 +82,6 @@ public abstract class JstBaseExtension {
 		JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.EXTENSION_SUFFIX);
 	}
 
-	protected abstract void initializePropertiesFromAnnotation(final ExtensionContext extensionContext);
+	protected abstract Object initializePropertiesFromAnnotation(final ExtensionContext extensionContext);
 
 }
