@@ -56,7 +56,7 @@ repositories {
 
 dependencies {
 
-    testCompile("org.junit.jupiter:junit-jupiter-api:5.+") {
+    compile("org.junit.jupiter:junit-jupiter-api:5.+") {
         exclude group: 'junit', module: 'junit'
     }
     testCompile("org.junit.platform:junit-platform-launcher:1.+") {
