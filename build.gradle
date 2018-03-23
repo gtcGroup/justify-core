@@ -34,7 +34,6 @@ apply plugin: 'signing'
 
 apply plugin: 'eclipse-wtp'
 
-
 def javaVersion = JavaVersion.VERSION_1_8;
 sourceCompatibility = javaVersion;
 targetCompatibility = javaVersion;
@@ -65,6 +64,7 @@ dependencies {
     testCompile("org.junit.jupiter:junit-jupiter-engine:5.+") {
         exclude group: 'junit', module: 'junit'
     }
+}
     
 test {
     useJUnitPlatform {
@@ -130,7 +130,7 @@ uploadArchives {
         name 'Justify Core'
         packaging 'jar'
 
-        description 'CORE MODULE: Justify supports JUnit testing with "real" (functionally equivalent) services, relegating mocks to the role of servicing reluctant collaborators.'
+        description 'CORE MODULE: PED Central is the home for the open-source “Justify” suite of software engineering modules. Justify seeks API alignment between Java 1.8+ application code and JUnit 5 test code.'
         url 'http://pedCentral.com/justify'
 
         scm {
@@ -158,5 +158,3 @@ uploadArchives {
   }
 }
 */
-    
-}
