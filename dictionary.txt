@@ -4,3 +4,5 @@ marvin
 timestamp
 populator
 populators
+enum
+javadoc

@@ -7,6 +7,10 @@ CORE MODULE: Justify supports SE8/EE7 modules that include an API for JUnit test
 
 ### <a name="changes"></a>Release Notes
 
+#### Version 8.5.0-? <span class="date">2018-mm-dd</span>
+
+*   19 [License and Javadoc Cleanup](https://github.com/gtcGroup/justify-core/issues/19)
+
 #### Version 8.5.0-alpha <span class="date">2018-03-22</span>
 
 *   18 [Convert to JUnit5 from JUnit4](https://github.com/gtcGroup/justify-core/issues/18)
