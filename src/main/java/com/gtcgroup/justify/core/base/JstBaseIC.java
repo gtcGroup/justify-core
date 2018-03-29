@@ -24,19 +24,12 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.test.extension;
+package com.gtcgroup.justify.core.base;
 
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import org.junit.jupiter.api.extension.ExtendWith;
+import com.gtcgroup.justify.core.base.JstBaseSuffix;
 
 /**
- * This {@link Annotation} class initializes system properties for the duration
- * of the test class and then reinstates the original values.
+ * This Inbound/Outbound Controller base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -44,14 +37,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
  * </p>
  *
  * @author Marvin Toll
- * @since v8.5
+ * @since v3.0
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(ConfigureTestSystemPropertyExtension.class)
-public @interface JstConfigureTestSystemProperty {
+public abstract class JstBaseIC extends JstBaseSuffix {
 
-	String[] key() default "";
+	@Override
+	protected String assignPatternSuffixTM() {
 
-	String[] value() default "";
+		return "IC";
+	}
 }
