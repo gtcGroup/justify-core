@@ -34,8 +34,8 @@ import com.gtcgroup.justify.core.po.JstExceptionPO;
 import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
 /**
- * This Util Helper class provides a default implementation used for Justify
- * logging.
+ * This Util Helper class provides a default implementation for internal
+ * {@link System}.out logging.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at

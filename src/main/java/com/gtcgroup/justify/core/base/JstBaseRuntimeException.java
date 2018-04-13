@@ -25,7 +25,7 @@
  */
 package com.gtcgroup.justify.core.base;
 
-import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import com.gtcgroup.justify.core.helper.JstPatternEnabledDevelopmentUtilHelper;
 import com.gtcgroup.justify.core.po.JstExceptionPO;
 
 /**
@@ -52,7 +52,7 @@ public abstract class JstBaseRuntimeException extends RuntimeException {
     public JstBaseRuntimeException(final JstExceptionPO exceptionPO) {
 
         super(exceptionPO.getMessage());
-        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseRuntimeException.SUFFIX);
+        JstPatternEnabledDevelopmentUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseRuntimeException.SUFFIX);
         logExceptionTM(exceptionPO);
     }
 
@@ -62,7 +62,7 @@ public abstract class JstBaseRuntimeException extends RuntimeException {
     public JstBaseRuntimeException(final JstExceptionPO exceptionPO, final Throwable exception) {
 
         super(exceptionPO.getMessage(), exception);
-        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseRuntimeException.SUFFIX);
+        JstPatternEnabledDevelopmentUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseRuntimeException.SUFFIX);
         logExceptionTM(exceptionPO);
     }
 

@@ -54,7 +54,7 @@ public class JstCodingConventionUtilHelperTest extends JstBaseTest {
     public void testCheckClassCharacterInName() {
 
         Assertions.assertThrows(JustifyException.class, () -> {
-            JstCodingConventionUtilHelper.checkSuffixInClassName(NothingBean.class, "@#");
+            JstPatternEnabledDevelopmentUtilHelper.checkSuffixInClassName(NothingBean.class, "@#");
         });
 
     }

@@ -28,6 +28,8 @@ package com.gtcgroup.justify.core.base;
 
 import java.io.Serializable;
 
+import com.gtcgroup.justify.core.JstPatternEnabledDevelopmentSuffix;
+
 /**
  * This Domain Entity base class supports readability.
  *
@@ -39,7 +41,7 @@ import java.io.Serializable;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseDE extends JstBaseSuffix implements Serializable {
+public abstract class JstBaseDE extends JstPatternEnabledDevelopmentSuffix implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

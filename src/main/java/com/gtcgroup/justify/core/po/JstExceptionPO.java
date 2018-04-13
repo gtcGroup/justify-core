@@ -35,8 +35,7 @@ import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.base.JstBasePO;
 
 /**
- * This Parameter Object class supports throwing of a
- * {@link JstBaseSelfLoggingRuntimeException} concrete class in production code.
+ * This Parameter Object class supports {@link Exception} processing.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -48,134 +47,134 @@ import com.gtcgroup.justify.core.base.JstBasePO;
  */
 public class JstExceptionPO extends JstBasePO implements Serializable {
 
-    public static final String THE_MESSAGE_IS_NULL = "The message is null.";
+	public static final String THE_MESSAGE_IS_NULL = "The message is null.";
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private static final String DATE_TIME_FORMAT = "MMM dd, yyyy hh:mm:ss a";
+	private static final String DATE_TIME_FORMAT = "MMM dd, yyyy hh:mm:ss a";
 
-    /**
-     * This static method initializes an instance of the class.
-     *
-     * @return {@link JstExceptionPO}
-     */
-    public static JstExceptionPO withMessage(final String message) {
+	/**
+	 * This static method initializes an instance of the class.
+	 *
+	 * @return {@link JstExceptionPO}
+	 */
+	public static JstExceptionPO withMessage(final String message) {
 
-        return new JstExceptionPO(message);
-    }
+		return new JstExceptionPO(message);
+	}
 
-    private final String message;
-    private final UUID logReferenceCode = UUID.randomUUID();
-    private final String logTimeStamp;
+	private final String message;
+	private final UUID logReferenceCode = UUID.randomUUID();
+	private final String logTimeStamp;
 
-    private String exceptionClassName;
-    private String exceptionMethodName;
-    private String userId = JstConstant.DEFAULT_USER_ID;
-    private boolean suppressLogging = false;
+	private String exceptionClassName;
+	private String exceptionMethodName;
+	private String userId = JstConstant.DEFAULT_USER_ID;
+	private boolean suppressLogging = false;
 
-    /**
-     * Constructor
-     */
-    protected JstExceptionPO(final String message) {
+	/**
+	 * Constructor
+	 */
+	protected JstExceptionPO(final String message) {
 
-        super();
-        if (null == message) {
-            this.message = JstExceptionPO.THE_MESSAGE_IS_NULL;
-        } else {
-            this.message = message;
-        }
+		super();
+		if (null == message) {
+			this.message = JstExceptionPO.THE_MESSAGE_IS_NULL;
+		} else {
+			this.message = message;
+		}
 
-        final SimpleDateFormat formatter = new SimpleDateFormat(JstExceptionPO.DATE_TIME_FORMAT);
-        final Date dateValue = new Date();
-        this.logTimeStamp = formatter.format(dateValue);
+		final SimpleDateFormat formatter = new SimpleDateFormat(JstExceptionPO.DATE_TIME_FORMAT);
+		final Date dateValue = new Date();
+		this.logTimeStamp = formatter.format(dateValue);
 
-        return;
-    }
+		return;
+	}
 
-    /**
-     * @return {@link Optional}
-     */
-    public Optional<String> getExceptionClassName() {
-        return Optional.ofNullable(this.exceptionClassName);
-    }
+	/**
+	 * @return {@link Optional}
+	 */
+	public Optional<String> getExceptionClassName() {
+		return Optional.ofNullable(this.exceptionClassName);
+	}
 
-    /**
-     * @return {@link Optional}
-     */
-    public Optional<String> getExceptionMethodName() {
+	/**
+	 * @return {@link Optional}
+	 */
+	public Optional<String> getExceptionMethodName() {
 
-        return Optional.ofNullable(this.exceptionMethodName);
-    }
+		return Optional.ofNullable(this.exceptionMethodName);
+	}
 
-    /**
-     * @return {@link UUID}
-     */
-    public UUID getLogReferenceCode() {
-        return this.logReferenceCode;
-    }
+	/**
+	 * @return {@link UUID}
+	 */
+	public UUID getLogReferenceCode() {
+		return this.logReferenceCode;
+	}
 
-    /**
-     * @return {@link String}
-     */
-    public String getLogTimeStamp() {
-        return this.logTimeStamp;
-    }
+	/**
+	 * @return {@link String}
+	 */
+	public String getLogTimeStamp() {
+		return this.logTimeStamp;
+	}
 
-    /**
-     * @return {@link String}
-     */
-    public String getMessage() {
-        return this.message;
-    }
+	/**
+	 * @return {@link String}
+	 */
+	public String getMessage() {
+		return this.message;
+	}
 
-    /**
-     * @return boolean
-     */
-    public boolean getSuppressLogging() {
+	/**
+	 * @return boolean
+	 */
+	public boolean getSuppressLogging() {
 
-        return this.suppressLogging;
-    }
+		return this.suppressLogging;
+	}
 
-    /**
-     * @return {@link Optional}
-     */
-    public String getUserId() {
-        return this.userId;
-    }
+	/**
+	 * @return {@link Optional}
+	 */
+	public String getUserId() {
+		return this.userId;
+	}
 
-    /**
-     * @return {@link JstExceptionPO}
-     */
-    public JstExceptionPO withExceptionClassName(final String exceptionClassName) {
+	/**
+	 * @return {@link JstExceptionPO}
+	 */
+	public JstExceptionPO withExceptionClassName(final String exceptionClassName) {
 
-        this.exceptionClassName = exceptionClassName;
-        return this;
-    }
+		this.exceptionClassName = exceptionClassName;
+		return this;
+	}
 
-    /**
-     * @return {@link JstExceptionPO}
-     */
-    public JstExceptionPO withExceptionMethodName(final String exceptionMethodName) {
+	/**
+	 * @return {@link JstExceptionPO}
+	 */
+	public JstExceptionPO withExceptionMethodName(final String exceptionMethodName) {
 
-        this.exceptionMethodName = exceptionMethodName;
-        return this;
-    }
+		this.exceptionMethodName = exceptionMethodName;
+		return this;
+	}
 
-    /**
-     * @return {@link JstExceptionPO}
-     */
-    public JstExceptionPO withSuppressLogging(final boolean suppressLogging) {
+	/**
+	 * @return {@link JstExceptionPO}
+	 */
+	public JstExceptionPO withSuppressLogging(final boolean suppressLogging) {
 
-        this.suppressLogging = suppressLogging;
-        return this;
-    }
+		this.suppressLogging = suppressLogging;
+		return this;
+	}
 
-    /**
-     * @return {@link JstExceptionPO}
-     */
-    public JstExceptionPO withUserId(final String userId) {
+	/**
+	 * @return {@link JstExceptionPO}
+	 */
+	public JstExceptionPO withUserId(final String userId) {
 
-        this.userId = userId;
-        return this;
-    }
+		this.userId = userId;
+		return this;
+	}
 }

@@ -24,9 +24,9 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.base;
+package com.gtcgroup.justify.core;
 
-import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import com.gtcgroup.justify.core.helper.JstPatternEnabledDevelopmentUtilHelper;
 
 /**
  * This base class supports readability.
@@ -39,16 +39,16 @@ import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
  * @author MarvinToll
  * @since v3.0
  */
-public abstract class JstBaseSuffix {
+public abstract class JstPatternEnabledDevelopmentSuffix {
 
     /**
      * Constructor
      */
-    public JstBaseSuffix() {
+    public JstPatternEnabledDevelopmentSuffix() {
 
         super();
 
-        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), assignPatternSuffixTM());
+        JstPatternEnabledDevelopmentUtilHelper.checkSuffixInClassName(this.getClass(), assignPatternSuffixTM());
 
         return;
     }

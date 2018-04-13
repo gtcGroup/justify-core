@@ -31,11 +31,11 @@ import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gtcgroup.justify.core.JstConstant;
-import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import com.gtcgroup.justify.core.helper.JstPatternEnabledDevelopmentUtilHelper;
 import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
 /**
- * This {@link Extension} base class works in harmony with the JUnit lifecycle.
+ * This {@link Extension} base class works in harmony with the JUnit life cycle.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -79,7 +79,8 @@ public abstract class JstBaseExtension {
 	public JstBaseExtension() {
 		super();
 
-		JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JstBaseExtension.EXTENSION_SUFFIX);
+		JstPatternEnabledDevelopmentUtilHelper.checkSuffixInClassName(this.getClass(),
+				JstBaseExtension.EXTENSION_SUFFIX);
 	}
 
 	protected abstract Object initializePropertiesFromAnnotation(final ExtensionContext extensionContext);

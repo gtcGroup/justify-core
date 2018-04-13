@@ -41,7 +41,8 @@ import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
 
 /**
- * This {@link Extension} class supports logging to the console.
+ * This {@link Extension} class supports logging test information to the
+ * console.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at

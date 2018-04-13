@@ -26,12 +26,12 @@
 package com.gtcgroup.justify.core.test.exception.internal;
 
 import com.gtcgroup.justify.core.base.JstBaseRuntimeException;
-import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import com.gtcgroup.justify.core.helper.JstPatternEnabledDevelopmentUtilHelper;
 import com.gtcgroup.justify.core.helper.internal.SystemOutLoggingUtilHelper;
 import com.gtcgroup.justify.core.po.JstExceptionPO;
 
 /**
- * This Exception base class supports readability.
+ * This {@link RuntimeException} internal class is typically thrown by Justify.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -43,32 +43,32 @@ import com.gtcgroup.justify.core.po.JstExceptionPO;
  */
 public class JustifyException extends JstBaseRuntimeException {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private static final String SUFFIX = "Exception";
+	private static final String SUFFIX = "Exception";
 
-    /**
-     * Constructor
-     */
-    public JustifyException(final JstExceptionPO exceptionPO) {
+	/**
+	 * Constructor
+	 */
+	public JustifyException(final JstExceptionPO exceptionPO) {
 
-        super(exceptionPO);
-        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JustifyException.SUFFIX);
-    }
+		super(exceptionPO);
+		JstPatternEnabledDevelopmentUtilHelper.checkSuffixInClassName(this.getClass(), JustifyException.SUFFIX);
+	}
 
-    /**
-     * Constructor
-     */
-    public JustifyException(final JstExceptionPO exceptionPO, final Throwable exception) {
+	/**
+	 * Constructor
+	 */
+	public JustifyException(final JstExceptionPO exceptionPO, final Throwable exception) {
 
-        super(exceptionPO, exception);
-        JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), JustifyException.SUFFIX);
+		super(exceptionPO, exception);
+		JstPatternEnabledDevelopmentUtilHelper.checkSuffixInClassName(this.getClass(), JustifyException.SUFFIX);
 
-    }
+	}
 
-    @Override
-    protected void logExceptionTM(final JstExceptionPO exceptionPO) {
-        SystemOutLoggingUtilHelper.logException(exceptionPO);
+	@Override
+	protected void logExceptionTM(final JstExceptionPO exceptionPO) {
+		SystemOutLoggingUtilHelper.logException(exceptionPO);
 
-    }
+	}
 }

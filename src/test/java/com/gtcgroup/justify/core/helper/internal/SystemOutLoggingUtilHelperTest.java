@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 import com.gtcgroup.justify.core.base.JstBaseTest;
 import com.gtcgroup.justify.core.bean.dependency.IncorrectSuffixPeeOh;
 import com.gtcgroup.justify.core.bean.dependency.NothingBean;
-import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import com.gtcgroup.justify.core.helper.JstPatternEnabledDevelopmentUtilHelper;
 import com.gtcgroup.justify.core.po.JstExceptionPO;
 import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
 import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
@@ -56,7 +56,7 @@ public class SystemOutLoggingUtilHelperTest extends JstBaseTest {
     public void testCheckClassCharacterInName() {
 
         Assertions.assertThrows(JustifyException.class, () -> {
-            JstCodingConventionUtilHelper.checkSuffixInClassName(NothingBean.class, "@#");
+            JstPatternEnabledDevelopmentUtilHelper.checkSuffixInClassName(NothingBean.class, "@#");
         });
 
     }

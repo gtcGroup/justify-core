@@ -26,7 +26,7 @@
 
 package com.gtcgroup.justify.core.base;
 
-import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
+import com.gtcgroup.justify.core.JstPatternEnabledDevelopmentSuffix;
 
 /**
  * This Test base class supports readability.
@@ -39,17 +39,11 @@ import com.gtcgroup.justify.core.helper.JstCodingConventionUtilHelper;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseTest {
+public abstract class JstBaseTest extends JstPatternEnabledDevelopmentSuffix {
 
-	/**
-	 * Constructor
-	 */
-	public JstBaseTest() {
+	@Override
+	protected String assignPatternSuffixTM() {
 
-		super();
-
-		JstCodingConventionUtilHelper.checkSuffixInClassName(this.getClass(), "Test");
-
-		return;
+		return "Test";
 	}
 }

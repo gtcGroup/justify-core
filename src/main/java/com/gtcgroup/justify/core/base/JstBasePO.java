@@ -26,6 +26,8 @@
 
 package com.gtcgroup.justify.core.base;
 
+import com.gtcgroup.justify.core.JstPatternEnabledDevelopmentSuffix;
+
 /**
  * This Parameter Object base class supports readability.
  *
@@ -37,10 +39,10 @@ package com.gtcgroup.justify.core.base;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBasePO extends JstBaseSuffix {
+public abstract class JstBasePO extends JstPatternEnabledDevelopmentSuffix {
 
 	/**
-	 * @see JstBaseSuffix#assignPatternSuffixTM()
+	 * @see JstPatternEnabledDevelopmentSuffix#assignPatternSuffixTM()
 	 */
 	@Override
 	protected String assignPatternSuffixTM() {
