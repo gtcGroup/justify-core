@@ -43,7 +43,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
  * </p>
  *
  * @author Marvin Toll
- * @since v8.5
+ * @since 8.5
  */
 class ConfigureTestSystemPropertyExtension extends JstBaseExtension implements BeforeAllCallback, AfterAllCallback {
 

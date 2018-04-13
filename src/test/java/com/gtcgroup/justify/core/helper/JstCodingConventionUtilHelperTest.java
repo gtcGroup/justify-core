@@ -44,7 +44,7 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
  * </p>
  *
  * @author Marvin Toll
- * @since v8.5
+ * @since 8.5
  */
 @JstConfigureTestLogToConsole
 @SuppressWarnings("static-method")

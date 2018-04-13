@@ -42,7 +42,7 @@ import com.gtcgroup.justify.core.JstConstant;
  * </p>
  *
  * @author Marvin Toll
- * @since v8.5
+ * @since 8.5
  */
 class ConfigureTestUserIdExtension extends JstBaseExtension implements BeforeAllCallback, AfterAllCallback {
 

@@ -24,21 +24,12 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.helper.internal;
+package com.gtcgroup.justify.core.base;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import com.gtcgroup.justify.core.base.JstBaseTest;
-import com.gtcgroup.justify.core.bean.dependency.IncorrectSuffixPeeOh;
-import com.gtcgroup.justify.core.bean.dependency.NothingBean;
-import com.gtcgroup.justify.core.helper.JstPatternEnabledDevelopmentUtilHelper;
-import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.test.exception.internal.JustifyException;
-import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.JstPatternEnabledDevelopmentSuffix;
 
 /**
- * Test Class
+ * This Transfer Object base class supports readability.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -46,34 +37,13 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestLogToConsole;
  * </p>
  *
  * @author Marvin Toll
- * @since 8.5
+ * @since v3.0
  */
-@JstConfigureTestLogToConsole
-@SuppressWarnings("static-method")
-public class SystemOutLoggingUtilHelperTest extends JstBaseTest {
+public abstract class JstBaseTO extends JstPatternEnabledDevelopmentSuffix {
 
-    @Test
-    public void testCheckClassCharacterInName() {
+	@Override
+	protected String assignPatternSuffixTM() {
 
-        Assertions.assertThrows(JustifyException.class, () -> {
-            JstPatternEnabledDevelopmentUtilHelper.checkSuffixInClassName(NothingBean.class, "@#");
-        });
-
-    }
-    
-    @Test
-    public void testLogException_suppress() {
-        
-        SystemOutLoggingUtilHelper.logException(JstExceptionPO.withMessage("message").withSuppressLogging(true));
-    }
-
-    @SuppressWarnings("unused")
-    @Test
-    public void testClassNameSuffix() {
-
-        Assertions.assertThrows(JustifyException.class, () -> {
-            new IncorrectSuffixPeeOh();
-        });
-
-    }
+		return "TO";
+	}
 }

@@ -46,7 +46,7 @@ import com.gtcgroup.justify.core.JstConstant;
  * </p>
  *
  * @author Marvin Toll
- * @since v8.5
+ * @since 8.5
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

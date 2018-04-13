@@ -42,7 +42,7 @@ import com.gtcgroup.justify.core.test.extension.JstConfigureTestSystemProperty;
  * </p>
  *
  * @author Marvin Toll
- * @since v8.5
+ * @since 8.5
  */
 @SuppressWarnings("static-method")
 @JstConfigureTestLogToConsole()

@@ -45,7 +45,7 @@ import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelperTe
  * </p>
  *
  * @author
- * @since v.8.5
+ * @since 8.5
  */
 public class DependencyExtensionContext implements ExtensionContext {
 

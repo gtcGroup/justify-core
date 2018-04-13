@@ -35,7 +35,7 @@ package com.gtcgroup.justify.core;
  * </p>
  *
  * @author Marvin Toll
- * @since v.8.5
+ * @since 8.5
  */
 public enum JstConstant {
 

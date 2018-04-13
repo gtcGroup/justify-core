@@ -38,7 +38,7 @@ import com.gtcgroup.justify.core.po.JstExceptionPO;
  * </p>
  *
  * @author Marvin Toll
- * @since v.8.5
+ * @since 8.5
  */
 public abstract class JstBaseRuntimeException extends RuntimeException {
 

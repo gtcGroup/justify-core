@@ -50,7 +50,7 @@ import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
  * </p>
  *
  * @author Marvin Toll
- * @since v.8.5
+ * @since 8.5
  */
 class ConfigureTestLogToConsoleExtension extends JstBaseExtension implements BeforeAllCallback,
 		BeforeTestExecutionCallback, AfterTestExecutionCallback, TestExecutionExceptionHandler {

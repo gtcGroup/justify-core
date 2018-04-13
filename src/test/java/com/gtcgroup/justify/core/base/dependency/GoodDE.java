@@ -36,7 +36,7 @@ import com.gtcgroup.justify.core.base.JstBaseDE;
  * </p>
  *
  * @author Marvin Toll
- * @since v.8.5
+ * @since 8.5
  */
 public class GoodDE extends JstBaseDE {
 
