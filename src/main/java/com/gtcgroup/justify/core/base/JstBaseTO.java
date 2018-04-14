@@ -26,10 +26,12 @@
 
 package com.gtcgroup.justify.core.base;
 
+import java.io.Serializable;
+
 import com.gtcgroup.justify.core.JstPatternEnabledDevelopmentSuffix;
 
 /**
- * This Transfer Object base class supports readability.
+ * This Transfer Object base class supports Pattern Enabled Development.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -39,7 +41,9 @@ import com.gtcgroup.justify.core.JstPatternEnabledDevelopmentSuffix;
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseTO extends JstPatternEnabledDevelopmentSuffix {
+public abstract class JstBaseTO extends JstPatternEnabledDevelopmentSuffix implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected String assignPatternSuffixTM() {

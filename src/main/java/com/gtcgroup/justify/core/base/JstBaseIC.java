@@ -29,7 +29,7 @@ package com.gtcgroup.justify.core.base;
 import com.gtcgroup.justify.core.JstPatternEnabledDevelopmentSuffix;
 
 /**
- * This Inbound/Outbound Controller base class supports readability.
+ * This Inbound/Outbound Controller base class supports Pattern Enabled Development.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
