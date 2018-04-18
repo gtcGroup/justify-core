@@ -23,14 +23,15 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.test.exception.internal;
 
-import com.gtcgroup.justify.core.base.JstBaseRuntimeException;
-import com.gtcgroup.justify.core.helper.internal.SystemOutLoggingUtilHelper;
-import com.gtcgroup.justify.core.po.JstExceptionPO;
+package com.gtcgroup.justify.core.base;
+
+import java.io.Serializable;
+
+import com.gtcgroup.justify.core.JstPatternEnabledDevelopmentSuffix;
 
 /**
- * This {@link RuntimeException} internal class is typically thrown by Justify.
+ * This Domain Entity base class supports Pattern Enabled Development.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -38,31 +39,15 @@ import com.gtcgroup.justify.core.po.JstExceptionPO;
  * </p>
  *
  * @author Marvin Toll
- * @since v.6.0
+ * @since v3.0
  */
-public class JustifyException extends JstBaseRuntimeException {
+public abstract class JstBaseBF extends JstPatternEnabledDevelopmentSuffix implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor
-	 */
-	public JustifyException(final JstExceptionPO exceptionPO) {
-
-		super(exceptionPO);
-	}
-
-	/**
-	 * Constructor
-	 */
-	public JustifyException(final JstExceptionPO exceptionPO, final Throwable exception) {
-
-		super(exceptionPO, exception);
-	}
-
 	@Override
-	protected void logExceptionTM(final JstExceptionPO exceptionPO) {
-		SystemOutLoggingUtilHelper.logException(exceptionPO);
+	protected String assignPatternSuffixTM() {
 
+		return "BF";
 	}
 }
