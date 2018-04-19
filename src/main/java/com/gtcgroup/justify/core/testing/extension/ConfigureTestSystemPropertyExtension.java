@@ -82,7 +82,7 @@ class ConfigureTestSystemPropertyExtension extends JstBaseExtension implements B
 			}
 		} catch (final RuntimeException e) {
 
-			handleBeforeAllException(extensionContext, e);
+			handleBeforeAllException(extensionContext, e); // Covered
 		}
 		return;
 	}

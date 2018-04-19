@@ -23,15 +23,12 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.test.core.base.dependency;
 
-package com.gtcgroup.justify.core.base;
-
-import java.io.Serializable;
-
-import com.gtcgroup.justify.core.JstPatternEnabledDevelopmentSuffix;
+import com.gtcgroup.justify.core.base.JstBaseIC;
 
 /**
- * This Domain Entity base class supports Pattern Enabled Development.
+ * Test Class
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -39,15 +36,10 @@ import com.gtcgroup.justify.core.JstPatternEnabledDevelopmentSuffix;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since 8.5
  */
-public abstract class JstBaseBF extends JstPatternEnabledDevelopmentSuffix implements Serializable {
+public class GoodIC extends JstBaseIC {
 
-	private static final long serialVersionUID = 1L;
+	// Empty Block
 
-	@Override
-	protected String assignPatternSuffixTM() {
-
-		return "BF";
-	}
 }

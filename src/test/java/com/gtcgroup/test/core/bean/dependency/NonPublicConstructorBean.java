@@ -43,10 +43,6 @@ public class NonPublicConstructorBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String STRING = "string";
-
-	private String string = NonPublicConstructorBean.STRING;
-
 	/**
 	 * Constructor
 	 */
@@ -64,22 +60,5 @@ public class NonPublicConstructorBean implements Serializable {
 	protected NonPublicConstructorBean(final String string) {
 
 		super();
-		setString(string);
-	}
-
-	/**
-	 * @return String
-	 */
-	public String getString() {
-		return this.string;
-	}
-
-	/**
-	 * @param string
-	 * @return {@link NonPublicConstructorBean}
-	 */
-	public NonPublicConstructorBean setString(final String string) {
-		this.string = string;
-		return this;
 	}
 }

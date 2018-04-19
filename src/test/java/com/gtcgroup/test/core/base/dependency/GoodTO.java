@@ -23,8 +23,9 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.test.core.base.dependency;
 
-package com.gtcgroup.test.core.bean.dependency;
+import com.gtcgroup.justify.core.base.JstBaseTO;
 
 /**
  * Test Class
@@ -35,12 +36,10 @@ package com.gtcgroup.test.core.bean.dependency;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since 8.5
  */
-public class ThrowExceptionBean {
+public class GoodTO extends JstBaseTO {
 
-	public ThrowExceptionBean() {
-		super();
-		throw new RuntimeException();
-	}
+	private static final long serialVersionUID = 1L;
+
 }

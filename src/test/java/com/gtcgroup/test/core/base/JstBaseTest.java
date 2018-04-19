@@ -31,6 +31,8 @@ import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
 import com.gtcgroup.test.core.base.dependency.GoodDE;
+import com.gtcgroup.test.core.base.dependency.GoodIC;
+import com.gtcgroup.test.core.base.dependency.GoodTO;
 
 /**
  * Test Class
@@ -45,7 +47,19 @@ import com.gtcgroup.test.core.base.dependency.GoodDE;
  */
 @SuppressWarnings("static-method")
 @JstConfigureTestLogToConsole(verbose = true)
-public class JstBaseDeTest {
+public class JstBaseTest {
+
+	@Test
+	public void testBaseIC() {
+
+		assertNotNull(new GoodIC());
+	}
+
+	@Test
+	public void testBaseTO() {
+
+		assertNotNull(new GoodTO());
+	}
 
 	@Test
 	public void testRuntimeExpected() {
