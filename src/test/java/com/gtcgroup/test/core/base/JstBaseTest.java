@@ -50,6 +50,12 @@ import com.gtcgroup.test.core.base.dependency.GoodTO;
 public class JstBaseTest {
 
 	@Test
+	public void testBaseDE() {
+
+		assertNotNull(new GoodDE());
+	}
+
+	@Test
 	public void testBaseIC() {
 
 		assertNotNull(new GoodIC());
@@ -59,11 +65,5 @@ public class JstBaseTest {
 	public void testBaseTO() {
 
 		assertNotNull(new GoodTO());
-	}
-
-	@Test
-	public void testRuntimeExpected() {
-
-		assertNotNull(new GoodDE());
 	}
 }

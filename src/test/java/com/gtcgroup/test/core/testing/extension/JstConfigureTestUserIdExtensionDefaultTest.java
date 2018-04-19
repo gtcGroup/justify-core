@@ -29,9 +29,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.testing.extension.JstBaseExtension;
 import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestUserId;
 
 /**
  * Test Class
@@ -46,13 +46,11 @@ import com.gtcgroup.justify.core.testing.extension.JstConfigureTestUserId;
  */
 @SuppressWarnings("static-method")
 @JstConfigureTestLogToConsole()
-@JstConfigureTestUserId(userId = "w@ird")
-public class JstConfigureTestUseridExtensionTest {
+public class JstConfigureTestUserIdExtensionDefaultTest {
 
 	@Test
 	public void testJstConfigureTestUserId() {
 
-		assertEquals("w@ird", JstBaseExtension.getUserId());
-
+		assertEquals(JstConstant.DEFAULT_USER_ID, JstBaseExtension.getUserId());
 	}
 }
