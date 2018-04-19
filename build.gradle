@@ -112,6 +112,7 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
+/*
 uploadArchives {
   repositories {
     mavenDeployer {
@@ -156,3 +157,4 @@ uploadArchives {
     }
   }
 }
+ */ 
