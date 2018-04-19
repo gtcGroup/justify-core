@@ -24,14 +24,18 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.helper;
+package com.gtcgroup.test.core.testing.extension;
 
-import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestSystemProperty;
 
 /**
- * This Util Helper class provides support for Pattern Enabled Development class
- * suffix conventions.
+ * Test Class
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -39,42 +43,32 @@ import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since 8.5
  */
-public enum JstPatternEnabledDevelopmentUtilHelper {
+@SuppressWarnings("static-method")
+@JstConfigureTestLogToConsole()
+@JstConfigureTestSystemProperty(key = { "1", "2", "3" }, value = { "A", "B", "C" })
+public class JstConfigureTestSystemPropertyTest {
 
-	INSTANCE;
+	@Test
+	public void testSuccessWithMultiples1() {
 
-	/**
-	 * This method throws an exception if a suffix violation occurs.
-	 */
-	public static void checkSuffixInClassName(final Class<?> clazz, final String containsCharacters) {
-
-		// Verify naming convention.
-		if (!clazz.getSimpleName().contains(containsCharacters)) {
-
-			throw JstPatternEnabledDevelopmentUtilHelper.instantiateException(clazz, containsCharacters);
-		}
+		assertAll(() -> {
+			assertEquals(System.getProperty("1"), "A");
+			assertEquals(System.getProperty("2"), "B");
+			assertEquals(System.getProperty("3"), "C");
+		});
+		System.setProperty("1", "z");
 	}
 
-	/**
-	 * @return {@link JustifyException}
-	 */
-	private static JustifyException instantiateException(final Class<?> clazz, final String... endsWith) {
+	@Test
+	public void testSuccessWithMultiples2() {
 
-		final StringBuilder message = new StringBuilder();
-		message.append("The class named [");
-		message.append(clazz.getName());
-		message.append("] MUST end with ");
-
-		for (final String endWith : endsWith) {
-
-			message.append("[");
-			message.append(endWith);
-			message.append("]");
-		}
-		message.append(".");
-
-		return new JustifyException(JstExceptionPO.withMessage(message.toString()));
+		assertAll(() -> {
+			assertEquals(System.getProperty("1"), "z");
+			assertEquals(System.getProperty("2"), "B");
+			assertEquals(System.getProperty("3"), "C");
+		});
+		System.setProperty("1", "z");
 	}
 }

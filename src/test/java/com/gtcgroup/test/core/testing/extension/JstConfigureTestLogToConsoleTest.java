@@ -23,15 +23,16 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.test.core.testing.extension;
 
-package com.gtcgroup.justify.core.helper;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
+import org.junit.jupiter.api.Test;
+
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
 
 /**
- * This Util Helper class provides support for Pattern Enabled Development class
- * suffix conventions.
+ * Test Class
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -39,42 +40,15 @@ import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since 8.5
  */
-public enum JstPatternEnabledDevelopmentUtilHelper {
+@SuppressWarnings("static-method")
+@JstConfigureTestLogToConsole(verbose = true)
+public class JstConfigureTestLogToConsoleTest {
 
-	INSTANCE;
+	@Test
+	public void testSuccessWithVerbose() {
 
-	/**
-	 * This method throws an exception if a suffix violation occurs.
-	 */
-	public static void checkSuffixInClassName(final Class<?> clazz, final String containsCharacters) {
-
-		// Verify naming convention.
-		if (!clazz.getSimpleName().contains(containsCharacters)) {
-
-			throw JstPatternEnabledDevelopmentUtilHelper.instantiateException(clazz, containsCharacters);
-		}
-	}
-
-	/**
-	 * @return {@link JustifyException}
-	 */
-	private static JustifyException instantiateException(final Class<?> clazz, final String... endsWith) {
-
-		final StringBuilder message = new StringBuilder();
-		message.append("The class named [");
-		message.append(clazz.getName());
-		message.append("] MUST end with ");
-
-		for (final String endWith : endsWith) {
-
-			message.append("[");
-			message.append(endWith);
-			message.append("]");
-		}
-		message.append(".");
-
-		return new JustifyException(JstExceptionPO.withMessage(message.toString()));
+		assertTrue(true);
 	}
 }

@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.test.helper.internal.LogTestConsoleUtilHelper;
+import com.gtcgroup.justify.core.testing.helper.internal.LogTestConsoleUtilHelper;
 
 /**
  * This Util Helper class provides a default implementation for internal

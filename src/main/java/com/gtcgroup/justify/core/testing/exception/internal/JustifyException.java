@@ -23,15 +23,14 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.testing.exception.internal;
 
-package com.gtcgroup.justify.core.helper;
-
+import com.gtcgroup.justify.core.base.JstBaseRuntimeException;
+import com.gtcgroup.justify.core.helper.internal.SystemOutLoggingUtilHelper;
 import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
 
 /**
- * This Util Helper class provides support for Pattern Enabled Development class
- * suffix conventions.
+ * This {@link RuntimeException} internal class is typically thrown by Justify.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -39,42 +38,31 @@ import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since v.6.0
  */
-public enum JstPatternEnabledDevelopmentUtilHelper {
+public class JustifyException extends JstBaseRuntimeException {
 
-	INSTANCE;
+	private static final long serialVersionUID = 1L;
 
 	/**
-	 * This method throws an exception if a suffix violation occurs.
+	 * Constructor
 	 */
-	public static void checkSuffixInClassName(final Class<?> clazz, final String containsCharacters) {
+	public JustifyException(final JstExceptionPO exceptionPO) {
 
-		// Verify naming convention.
-		if (!clazz.getSimpleName().contains(containsCharacters)) {
-
-			throw JstPatternEnabledDevelopmentUtilHelper.instantiateException(clazz, containsCharacters);
-		}
+		super(exceptionPO);
 	}
 
 	/**
-	 * @return {@link JustifyException}
+	 * Constructor
 	 */
-	private static JustifyException instantiateException(final Class<?> clazz, final String... endsWith) {
+	public JustifyException(final JstExceptionPO exceptionPO, final Throwable exception) {
 
-		final StringBuilder message = new StringBuilder();
-		message.append("The class named [");
-		message.append(clazz.getName());
-		message.append("] MUST end with ");
+		super(exceptionPO, exception);
+	}
 
-		for (final String endWith : endsWith) {
+	@Override
+	protected void logExceptionTM(final JstExceptionPO exceptionPO) {
+		SystemOutLoggingUtilHelper.logException(exceptionPO);
 
-			message.append("[");
-			message.append(endWith);
-			message.append("]");
-		}
-		message.append(".");
-
-		return new JustifyException(JstExceptionPO.withMessage(message.toString()));
 	}
 }

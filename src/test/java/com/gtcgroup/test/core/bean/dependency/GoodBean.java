@@ -23,58 +23,62 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.test.core.bean.dependency;
 
-package com.gtcgroup.justify.core.helper;
-
-import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
+import java.io.Serializable;
 
 /**
- * This Util Helper class provides support for Pattern Enabled Development class
- * suffix conventions.
+ * Test Class
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
  * <a href="http://gtcGroup.com">gtcGroup.com </a>.
  * </p>
  *
- * @author Marvin Toll
- * @since v3.0
+ * @author
+ * @since v.6.0
  */
-public enum JstPatternEnabledDevelopmentUtilHelper {
+public class GoodBean implements Serializable {
 
-	INSTANCE;
+	private static final long serialVersionUID = 1L;
+
+	public static final String STRING = "string";
+
+	private String string = GoodBean.STRING;
 
 	/**
-	 * This method throws an exception if a suffix violation occurs.
+	 * Constructor
 	 */
-	public static void checkSuffixInClassName(final Class<?> clazz, final String containsCharacters) {
+	public GoodBean() {
 
-		// Verify naming convention.
-		if (!clazz.getSimpleName().contains(containsCharacters)) {
-
-			throw JstPatternEnabledDevelopmentUtilHelper.instantiateException(clazz, containsCharacters);
-		}
+		super();
+		return;
 	}
 
 	/**
-	 * @return {@link JustifyException}
+	 * Constructor
+	 *
+	 * @param string
 	 */
-	private static JustifyException instantiateException(final Class<?> clazz, final String... endsWith) {
+	public GoodBean(final String string) {
 
-		final StringBuilder message = new StringBuilder();
-		message.append("The class named [");
-		message.append(clazz.getName());
-		message.append("] MUST end with ");
+		super();
+		setString(string);
+	}
 
-		for (final String endWith : endsWith) {
+	/**
+	 * @return String
+	 */
+	public String getString() {
+		return this.string;
+	}
 
-			message.append("[");
-			message.append(endWith);
-			message.append("]");
-		}
-		message.append(".");
-
-		return new JustifyException(JstExceptionPO.withMessage(message.toString()));
+	/**
+	 * @param string
+	 * @return {@link GoodBean}
+	 */
+	public GoodBean setString(final String string) {
+		this.string = string;
+		return this;
 	}
 }

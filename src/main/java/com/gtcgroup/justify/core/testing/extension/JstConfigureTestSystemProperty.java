@@ -24,14 +24,19 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.gtcgroup.justify.core.helper;
+package com.gtcgroup.justify.core.testing.extension;
 
-import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
- * This Util Helper class provides support for Pattern Enabled Development class
- * suffix conventions.
+ * This {@link Annotation} class initializes system properties for the duration
+ * of the test class and then reinstates the original values.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -39,42 +44,14 @@ import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
  * </p>
  *
  * @author Marvin Toll
- * @since v3.0
+ * @since 8.5
  */
-public enum JstPatternEnabledDevelopmentUtilHelper {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@ExtendWith(ConfigureTestSystemPropertyExtension.class)
+public @interface JstConfigureTestSystemProperty {
 
-	INSTANCE;
+	String[] key() default "";
 
-	/**
-	 * This method throws an exception if a suffix violation occurs.
-	 */
-	public static void checkSuffixInClassName(final Class<?> clazz, final String containsCharacters) {
-
-		// Verify naming convention.
-		if (!clazz.getSimpleName().contains(containsCharacters)) {
-
-			throw JstPatternEnabledDevelopmentUtilHelper.instantiateException(clazz, containsCharacters);
-		}
-	}
-
-	/**
-	 * @return {@link JustifyException}
-	 */
-	private static JustifyException instantiateException(final Class<?> clazz, final String... endsWith) {
-
-		final StringBuilder message = new StringBuilder();
-		message.append("The class named [");
-		message.append(clazz.getName());
-		message.append("] MUST end with ");
-
-		for (final String endWith : endsWith) {
-
-			message.append("[");
-			message.append(endWith);
-			message.append("]");
-		}
-		message.append(".");
-
-		return new JustifyException(JstExceptionPO.withMessage(message.toString()));
-	}
+	String[] value() default "";
 }
