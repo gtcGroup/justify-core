@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingLogToConsole;
 import com.gtcgroup.test.core.base.dependency.GoodDE;
 import com.gtcgroup.test.core.base.dependency.GoodIC;
 import com.gtcgroup.test.core.base.dependency.GoodTO;
@@ -46,7 +46,7 @@ import com.gtcgroup.test.core.base.dependency.GoodTO;
  * @since 8.5
  */
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole(verbose = true)
+@JstConfigureTestingLogToConsole(verbose = true)
 public class JstBaseTest {
 
 	@Test

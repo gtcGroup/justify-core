@@ -27,7 +27,7 @@ package com.gtcgroup.test.core.testing.helper.internal;
 
 import org.junit.jupiter.api.Test;
 
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingLogToConsole;
 import com.gtcgroup.justify.core.testing.helper.internal.LogTestConsoleUtilHelper;
 
 /**
@@ -42,7 +42,7 @@ import com.gtcgroup.justify.core.testing.helper.internal.LogTestConsoleUtilHelpe
  * @since 8.5
  */
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole(verbose = true)
+@JstConfigureTestingLogToConsole(verbose = true)
 public class LogTestConsoleUtilHelperTest {
 
 	@Test

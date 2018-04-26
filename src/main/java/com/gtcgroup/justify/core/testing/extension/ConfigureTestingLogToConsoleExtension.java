@@ -52,7 +52,7 @@ import com.gtcgroup.justify.core.testing.helper.internal.LogTestConsoleUtilHelpe
  * @author Marvin Toll
  * @since 8.5
  */
-class ConfigureTestLogToConsoleExtension extends JstBaseExtension implements BeforeAllCallback,
+class ConfigureTestingLogToConsoleExtension extends JstBaseTestingExtension implements BeforeAllCallback,
 		BeforeTestExecutionCallback, AfterTestExecutionCallback, TestExecutionExceptionHandler {
 
 	static {
@@ -118,8 +118,8 @@ class ConfigureTestLogToConsoleExtension extends JstBaseExtension implements Bef
 	@Override
 	protected Boolean initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
 
-		final JstConfigureTestLogToConsole configureTestLogToConsole = (JstConfigureTestLogToConsole) retrieveAnnotation(
-				extensionContext.getRequiredTestClass(), JstConfigureTestLogToConsole.class);
+		final JstConfigureTestingLogToConsole configureTestLogToConsole = (JstConfigureTestingLogToConsole) retrieveAnnotation(
+				extensionContext.getRequiredTestClass(), JstConfigureTestingLogToConsole.class);
 
 		this.verbose = configureTestLogToConsole.verbose();
 		return Boolean.TRUE;

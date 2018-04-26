@@ -45,7 +45,7 @@ import com.gtcgroup.justify.core.testing.helper.internal.LogTestConsoleUtilHelpe
  * @author Marvin Toll
  * @since v3.0
  */
-public abstract class JstBaseExtension {
+public abstract class JstBaseTestingExtension {
 
 	private static final String EXTENSION_SUFFIX = "Extension";
 
@@ -73,14 +73,14 @@ public abstract class JstBaseExtension {
 	}
 
 	protected static void setUserId(final String userId) {
-		JstBaseExtension.userId = userId;
+		JstBaseTestingExtension.userId = userId;
 	}
 
-	public JstBaseExtension() {
+	public JstBaseTestingExtension() {
 		super();
 
 		JstPatternEnabledDevelopmentUtilHelper.checkSuffixInClassName(this.getClass(),
-				JstBaseExtension.EXTENSION_SUFFIX);
+				JstBaseTestingExtension.EXTENSION_SUFFIX);
 	}
 
 	protected abstract Object initializePropertiesFromAnnotation(final ExtensionContext extensionContext);

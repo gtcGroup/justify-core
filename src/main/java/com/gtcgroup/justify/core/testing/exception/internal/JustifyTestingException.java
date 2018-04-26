@@ -23,22 +23,14 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.gtcgroup.justify.core.testing.exception.internal;
 
-package com.gtcgroup.justify.core.testing.extension;
-
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import org.junit.jupiter.api.extension.ExtendWith;
-
-import com.gtcgroup.justify.core.JstConstant;
+import com.gtcgroup.justify.core.base.JstBaseRuntimeException;
+import com.gtcgroup.justify.core.helper.internal.SystemOutLoggingUtilHelper;
+import com.gtcgroup.justify.core.po.JstExceptionPO;
 
 /**
- * This {@link Annotation} initializes a user id for the duration of the test
- * class and then reinstates the original user id value.
+ * This {@link RuntimeException} internal class is typically thrown by Justify.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -46,12 +38,31 @@ import com.gtcgroup.justify.core.JstConstant;
  * </p>
  *
  * @author Marvin Toll
- * @since 8.5
+ * @since v.6.0
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(ConfigureTestUserIdExtension.class)
-public @interface JstConfigureTestUserId {
+public class JustifyTestingException extends JstBaseRuntimeException {
 
-	String userId() default JstConstant.DEFAULT_USER_ID;
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Constructor
+	 */
+	public JustifyTestingException(final JstExceptionPO exceptionPO) {
+
+		super(exceptionPO);
+	}
+
+	/**
+	 * Constructor
+	 */
+	public JustifyTestingException(final JstExceptionPO exceptionPO, final Throwable exception) {
+
+		super(exceptionPO, exception);
+	}
+
+	@Override
+	protected void logExceptionTM(final JstExceptionPO exceptionPO) {
+		SystemOutLoggingUtilHelper.logException(exceptionPO);
+
+	}
 }

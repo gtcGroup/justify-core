@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingLogToConsole;
 
 /**
  * Test Class
@@ -46,7 +46,7 @@ import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
  * @since 8.5
  */
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole()
+@JstConfigureTestingLogToConsole()
 @Tag(value = "intentional")
 public class Intentional2FailureTest {
 

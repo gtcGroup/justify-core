@@ -23,18 +23,22 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package com.gtcgroup.justify.core.testing.extension;
 
-import org.junit.jupiter.api.extension.AfterAllCallback;
-import org.junit.jupiter.api.extension.BeforeAllCallback;
-import org.junit.jupiter.api.extension.Extension;
-import org.junit.jupiter.api.extension.ExtensionContext;
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gtcgroup.justify.core.JstConstant;
 
 /**
- * This {@link Extension} class initializes a user id for the duration of the
- * test class and then reinstates the original user id value.
+ * This {@link Annotation} initializes a user id for the duration of the test
+ * class and then reinstates the original user id value.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -44,29 +48,10 @@ import com.gtcgroup.justify.core.JstConstant;
  * @author Marvin Toll
  * @since 8.5
  */
-class ConfigureTestUserIdExtension extends JstBaseExtension implements BeforeAllCallback, AfterAllCallback {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@ExtendWith(ConfigureTestingUserIdExtension.class)
+public @interface JstConfigureTestingUserId {
 
-	@Override
-	public void afterAll(final ExtensionContext extensionContext) throws Exception {
-
-		setUserId(JstConstant.DEFAULT_USER_ID);
-		return;
-	}
-
-	@Override
-	public void beforeAll(final ExtensionContext extensionContext) throws Exception {
-
-		initializePropertiesFromAnnotation(extensionContext);
-
-	}
-
-	@Override
-	protected Boolean initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
-
-		final JstConfigureTestUserId configureTestUserId = (JstConfigureTestUserId) retrieveAnnotation(
-				extensionContext.getRequiredTestClass(), JstConfigureTestUserId.class);
-
-		setUserId(configureTestUserId.userId());
-		return Boolean.TRUE;
-	}
+	String userId() default JstConstant.DEFAULT_USER_ID;
 }

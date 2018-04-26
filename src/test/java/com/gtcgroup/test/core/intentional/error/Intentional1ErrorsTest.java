@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestSystemProperty;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingLogToConsole;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingSystemProperty;
 
 /**
  * Test Class
@@ -45,8 +45,8 @@ import com.gtcgroup.justify.core.testing.extension.JstConfigureTestSystemPropert
  * @since 8.5
  */
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole()
-@JstConfigureTestSystemProperty(key = { "1", "2", "3" }, value = { "A", "B" })
+@JstConfigureTestingLogToConsole()
+@JstConfigureTestingSystemProperty(key = { "1", "2", "3" }, value = { "A", "B" })
 @Tag(value = "intentional")
 public class Intentional1ErrorsTest {
 

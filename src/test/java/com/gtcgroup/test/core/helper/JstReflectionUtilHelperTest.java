@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.helper.JstReflectionUtilHelper;
 import com.gtcgroup.justify.core.po.JstStreamPO;
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingLogToConsole;
 import com.gtcgroup.test.core.bean.dependency.GoodBean;
 import com.gtcgroup.test.core.bean.dependency.NonPublicConstructorBean;
 import com.gtcgroup.test.core.bean.dependency.NothingBean;
@@ -54,7 +54,7 @@ import com.gtcgroup.test.core.bean.dependency.NothingBean;
  * @since v3.0
  */
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole
+@JstConfigureTestingLogToConsole
 public class JstReflectionUtilHelperTest {
 
 	private static final String FAKE_CLASS_NAME = "FakeClassName";

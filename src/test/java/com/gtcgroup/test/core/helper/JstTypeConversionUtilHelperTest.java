@@ -39,7 +39,7 @@ import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.base.JstBaseTest;
 import com.gtcgroup.justify.core.helper.JstTypeConversionUtilHelper;
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingLogToConsole;
 
 /**
  * Test Class
@@ -52,7 +52,7 @@ import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
  * @author Marvin Toll
  * @since 8.5
  */
-@JstConfigureTestLogToConsole
+@JstConfigureTestingLogToConsole
 @SuppressWarnings("static-method")
 public class JstTypeConversionUtilHelperTest extends JstBaseTest {
 

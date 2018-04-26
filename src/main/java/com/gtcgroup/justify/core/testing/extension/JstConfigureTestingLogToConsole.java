@@ -23,14 +23,19 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gtcgroup.justify.core.testing.exception.internal;
 
-import com.gtcgroup.justify.core.base.JstBaseRuntimeException;
-import com.gtcgroup.justify.core.helper.internal.SystemOutLoggingUtilHelper;
-import com.gtcgroup.justify.core.po.JstExceptionPO;
+package com.gtcgroup.justify.core.testing.extension;
+
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
- * This {@link RuntimeException} internal class is typically thrown by Justify.
+ * This {@link Annotation} supports logging test information to the console.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -38,31 +43,12 @@ import com.gtcgroup.justify.core.po.JstExceptionPO;
  * </p>
  *
  * @author Marvin Toll
- * @since v.6.0
+ * @since 8.5
  */
-public class JustifyException extends JstBaseRuntimeException {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@ExtendWith(ConfigureTestingLogToConsoleExtension.class)
+public @interface JstConfigureTestingLogToConsole {
 
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Constructor
-	 */
-	public JustifyException(final JstExceptionPO exceptionPO) {
-
-		super(exceptionPO);
-	}
-
-	/**
-	 * Constructor
-	 */
-	public JustifyException(final JstExceptionPO exceptionPO, final Throwable exception) {
-
-		super(exceptionPO, exception);
-	}
-
-	@Override
-	protected void logExceptionTM(final JstExceptionPO exceptionPO) {
-		SystemOutLoggingUtilHelper.logException(exceptionPO);
-
-	}
+	boolean verbose() default false;
 }

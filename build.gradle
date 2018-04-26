@@ -55,13 +55,13 @@ repositories {
 
 dependencies {
 
-    compile("org.junit.jupiter:junit-jupiter-api:5.1.1") {
+    compile("org.junit.jupiter:junit-jupiter-api:5.+") {
         exclude group: 'junit', module: 'junit'
     }
-    compile("org.junit.platform:junit-platform-launcher:1.1.1") {
+    compile("org.junit.platform:junit-platform-launcher:1.+") {
         exclude group: 'junit', module: 'junit'
     }
-    compile("org.junit.jupiter:junit-jupiter-engine:5.1.1") {
+    compile("org.junit.jupiter:junit-jupiter-engine:5.+") {
         exclude group: 'junit', module: 'junit'
     }
 }

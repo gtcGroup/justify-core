@@ -29,8 +29,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.testing.exception.internal.JustifyTestingException;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingLogToConsole;
 
 /**
  * Test Class
@@ -44,14 +44,14 @@ import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
  * @since 8.5
  */
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole()
+@JstConfigureTestingLogToConsole()
 @Tag(value = "intentional")
 public class Intentional3ErrorsTest {
 
 	@Test
 	public void testIntentionalNestedError() {
 
-		throw new JustifyException(JstExceptionPO.withMessage("A Justify Exception.")
+		throw new JustifyTestingException(JstExceptionPO.withMessage("A Justify Exception.")
 				.withExceptionClassName(Intentional3ErrorsTest.class.getSimpleName())
 				.withExceptionMethodName("testIntentionalNestedError").withSuppressLogging(false).withUserId("mToll4"),
 				new NullPointerException("This is an intentional causal exception."));

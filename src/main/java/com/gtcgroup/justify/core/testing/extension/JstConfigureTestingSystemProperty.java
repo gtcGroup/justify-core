@@ -35,7 +35,8 @@ import java.lang.annotation.Target;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
- * This {@link Annotation} supports logging test information to the console.
+ * This {@link Annotation} class initializes system properties for the duration
+ * of the test class and then reinstates the original values.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -47,8 +48,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(ConfigureTestLogToConsoleExtension.class)
-public @interface JstConfigureTestLogToConsole {
+@ExtendWith(ConfigureTestingSystemPropertyExtension.class)
+public @interface JstConfigureTestingSystemProperty {
 
-	boolean verbose() default false;
+	String[] key() default "";
+
+	String[] value() default "";
 }

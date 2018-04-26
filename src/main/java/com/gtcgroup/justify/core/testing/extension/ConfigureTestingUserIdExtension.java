@@ -23,20 +23,18 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package com.gtcgroup.justify.core.testing.extension;
 
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.junit.jupiter.api.extension.AfterAllCallback;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
+import org.junit.jupiter.api.extension.Extension;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
-import org.junit.jupiter.api.extension.ExtendWith;
+import com.gtcgroup.justify.core.JstConstant;
 
 /**
- * This {@link Annotation} class initializes system properties for the duration
- * of the test class and then reinstates the original values.
+ * This {@link Extension} class initializes a user id for the duration of the
+ * test class and then reinstates the original user id value.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at
@@ -46,12 +44,29 @@ import org.junit.jupiter.api.extension.ExtendWith;
  * @author Marvin Toll
  * @since 8.5
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(ConfigureTestSystemPropertyExtension.class)
-public @interface JstConfigureTestSystemProperty {
+class ConfigureTestingUserIdExtension extends JstBaseTestingExtension implements BeforeAllCallback, AfterAllCallback {
 
-	String[] key() default "";
+	@Override
+	public void afterAll(final ExtensionContext extensionContext) throws Exception {
 
-	String[] value() default "";
+		setUserId(JstConstant.DEFAULT_USER_ID);
+		return;
+	}
+
+	@Override
+	public void beforeAll(final ExtensionContext extensionContext) throws Exception {
+
+		initializePropertiesFromAnnotation(extensionContext);
+
+	}
+
+	@Override
+	protected Boolean initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
+
+		final JstConfigureTestingUserId configureTestUserId = (JstConfigureTestingUserId) retrieveAnnotation(
+				extensionContext.getRequiredTestClass(), JstConfigureTestingUserId.class);
+
+		setUserId(configureTestUserId.userId());
+		return Boolean.TRUE;
+	}
 }

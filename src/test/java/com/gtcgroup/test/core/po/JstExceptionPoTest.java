@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 import com.gtcgroup.justify.core.JstConstant;
 import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingLogToConsole;
 
 /**
  * Test Class
@@ -47,7 +47,7 @@ import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
  * @since 8.5
  */
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole()
+@JstConfigureTestingLogToConsole()
 public class JstExceptionPoTest {
 
 	@Test

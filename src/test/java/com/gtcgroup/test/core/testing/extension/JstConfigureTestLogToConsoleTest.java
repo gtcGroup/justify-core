@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingLogToConsole;
 
 /**
  * Test Class
@@ -43,7 +43,7 @@ import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
  * @since 8.5
  */
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole(verbose = true)
+@JstConfigureTestingLogToConsole(verbose = true)
 public class JstConfigureTestLogToConsoleTest {
 
 	@Test

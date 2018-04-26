@@ -31,8 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestSystemProperty;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingLogToConsole;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingSystemProperty;
 
 /**
  * Test Class
@@ -46,8 +46,8 @@ import com.gtcgroup.justify.core.testing.extension.JstConfigureTestSystemPropert
  * @since 8.5
  */
 @SuppressWarnings("static-method")
-@JstConfigureTestLogToConsole()
-@JstConfigureTestSystemProperty(key = { "1", "2", "3" }, value = { "A", "B", "C" })
+@JstConfigureTestingLogToConsole()
+@JstConfigureTestingSystemProperty(key = { "1", "2", "3" }, value = { "A", "B", "C" })
 public class JstConfigureTestSystemPropertyTest {
 
 	@Test

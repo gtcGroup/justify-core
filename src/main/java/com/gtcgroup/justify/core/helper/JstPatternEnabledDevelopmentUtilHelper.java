@@ -27,7 +27,7 @@
 package com.gtcgroup.justify.core.helper;
 
 import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
+import com.gtcgroup.justify.core.testing.exception.internal.JustifyTestingException;
 
 /**
  * This Util Helper class provides support for Pattern Enabled Development class
@@ -58,9 +58,9 @@ public enum JstPatternEnabledDevelopmentUtilHelper {
 	}
 
 	/**
-	 * @return {@link JustifyException}
+	 * @return {@link JustifyTestingException}
 	 */
-	private static JustifyException instantiateException(final Class<?> clazz, final String... endsWith) {
+	private static JustifyTestingException instantiateException(final Class<?> clazz, final String... endsWith) {
 
 		final StringBuilder message = new StringBuilder();
 		message.append("The class named [");
@@ -75,6 +75,6 @@ public enum JstPatternEnabledDevelopmentUtilHelper {
 		}
 		message.append(".");
 
-		return new JustifyException(JstExceptionPO.withMessage(message.toString()));
+		return new JustifyTestingException(JstExceptionPO.withMessage(message.toString()));
 	}
 }

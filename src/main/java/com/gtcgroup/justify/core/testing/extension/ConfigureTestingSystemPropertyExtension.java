@@ -45,7 +45,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
  * @author Marvin Toll
  * @since 8.5
  */
-class ConfigureTestSystemPropertyExtension extends JstBaseExtension implements BeforeAllCallback, AfterAllCallback {
+class ConfigureTestingSystemPropertyExtension extends JstBaseTestingExtension implements BeforeAllCallback, AfterAllCallback {
 
 	protected String[] keyArray = new String[] {};
 
@@ -90,8 +90,8 @@ class ConfigureTestSystemPropertyExtension extends JstBaseExtension implements B
 	@Override
 	protected Boolean initializePropertiesFromAnnotation(final ExtensionContext extensionContext) {
 
-		final JstConfigureTestSystemProperty configureTestSystemProperty = (JstConfigureTestSystemProperty) retrieveAnnotation(
-				extensionContext.getRequiredTestClass(), JstConfigureTestSystemProperty.class);
+		final JstConfigureTestingSystemProperty configureTestSystemProperty = (JstConfigureTestingSystemProperty) retrieveAnnotation(
+				extensionContext.getRequiredTestClass(), JstConfigureTestingSystemProperty.class);
 
 		this.keyArray = configureTestSystemProperty.key();
 		this.valueArray = configureTestSystemProperty.value();

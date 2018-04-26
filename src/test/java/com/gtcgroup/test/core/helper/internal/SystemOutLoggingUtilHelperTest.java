@@ -33,8 +33,8 @@ import com.gtcgroup.justify.core.base.JstBaseTest;
 import com.gtcgroup.justify.core.helper.JstPatternEnabledDevelopmentUtilHelper;
 import com.gtcgroup.justify.core.helper.internal.SystemOutLoggingUtilHelper;
 import com.gtcgroup.justify.core.po.JstExceptionPO;
-import com.gtcgroup.justify.core.testing.exception.internal.JustifyException;
-import com.gtcgroup.justify.core.testing.extension.JstConfigureTestLogToConsole;
+import com.gtcgroup.justify.core.testing.exception.internal.JustifyTestingException;
+import com.gtcgroup.justify.core.testing.extension.JstConfigureTestingLogToConsole;
 import com.gtcgroup.test.core.bean.dependency.IncorrectSuffixPeeOh;
 import com.gtcgroup.test.core.bean.dependency.NothingBean;
 
@@ -49,14 +49,14 @@ import com.gtcgroup.test.core.bean.dependency.NothingBean;
  * @author Marvin Toll
  * @since 8.5
  */
-@JstConfigureTestLogToConsole
+@JstConfigureTestingLogToConsole
 @SuppressWarnings("static-method")
 public class SystemOutLoggingUtilHelperTest extends JstBaseTest {
 
 	@Test
 	public void testCheckClassCharacterInName() {
 
-		Assertions.assertThrows(JustifyException.class, () -> {
+		Assertions.assertThrows(JustifyTestingException.class, () -> {
 			JstPatternEnabledDevelopmentUtilHelper.checkSuffixInClassName(NothingBean.class, "@#");
 		});
 
@@ -66,7 +66,7 @@ public class SystemOutLoggingUtilHelperTest extends JstBaseTest {
 	@Test
 	public void testClassNameSuffix() {
 
-		Assertions.assertThrows(JustifyException.class, () -> {
+		Assertions.assertThrows(JustifyTestingException.class, () -> {
 			new IncorrectSuffixPeeOh();
 		});
 
