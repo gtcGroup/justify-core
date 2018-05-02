@@ -30,7 +30,8 @@ import com.gtcgroup.justify.core.helper.internal.SystemOutLoggingUtilHelper;
 import com.gtcgroup.justify.core.po.JstExceptionPO;
 
 /**
- * This {@link RuntimeException} internal class is typically thrown by Justify.
+ * This {@link RuntimeException} internal class is typically thrown by a Justify
+ * module.
  *
  * <p style="font-family:Verdana; font-size:10px; font-style:italic">
  * Copyright (c) 2006 - 2018 by Global Technology Consulting Group, Inc. at

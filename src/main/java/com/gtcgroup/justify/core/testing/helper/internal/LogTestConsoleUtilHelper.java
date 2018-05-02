@@ -118,6 +118,9 @@ public enum LogTestConsoleUtilHelper {
 		testMethodMap.put(extensionContext.getUniqueId() + LogTestConsoleUtilHelper.TIMER_KEY, new JstDurationTimer());
 	}
 
+	/**
+	 * This is a Collecting Parameter method.
+	 */
 	public static StringBuilder buildMethodBeginMessage(final StringBuilder message,
 			final ExtensionContext extensionContext) {
 

@@ -45,7 +45,7 @@ public enum JstConstant {
 
 	public static final String JUSTIFY_VERSION_KEY = "justify.version";
 
-	public static final String JUSTIFY_VERSION_VALUE = "8.5.0-alpha4";
+	public static final String JUSTIFY_VERSION_VALUE = "8.5.0-alpha5";
 
 	public static final String DEFAULT_USER_ID = "$userId";
 

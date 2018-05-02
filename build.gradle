@@ -99,7 +99,7 @@ signing {
 
 group = "com.gtcgroup"
 archivesBaseName = "justify-core"
-version = "8.5.0-alpha4"
+version = "8.5.0-alpha5"
 
 task writeTestPOM << {
     pom {
